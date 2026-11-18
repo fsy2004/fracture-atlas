@@ -3,6 +3,9 @@ import { OrbitControls } from './vendor/OrbitControls.js';
 import { courses,levels } from './courses.js';
 import { section,atLevel } from './geometry.js';
 
+import {boneName,teachingBone,regionFor,buildIndex} from './bone-index.js';
+import {featuresFor,initialShape,shapeNames,motionNames,withShape,customPose} from './features.js';
+
 const $=id=>document.getElementById(id), host=$('viewport');
 const boneData=new Map(), animated=[], annotations=[], nearBones=[], pieces=[],wedges=[];
 const world=new T.Scene(), group=new T.Group();world.add(group);
@@ -12,9 +15,11 @@ const adjacent=new T.MeshStandardMaterial({color:0x658783,roughness:1,side:T.Dou
 const cap=new T.MeshStandardMaterial({color:0xcd8557,roughness:1,side:T.DoubleSide});
 const line=new T.LineBasicMaterial({color:0xffae61});
 const vec=a=>new T.Vector3(...a), zero=new T.Vector3();
-let renderer,camera,controls,course=courses[0],variant=0,level=1,progress=0,playing=false,speed=1;
+let renderer,camera,controls,course=null,variant=-1,level=1,progress=0,playing=false,speed=1;
 let fractureFocus=new T.Vector3();
 let focus=new T.Vector3(),span=.45,distance=.7,previous=0,ready=false;
+const keyByMesh=new Map(),meshByKey=new Map();
+let selected=null,shape='',motions=[],flight=null,hovered=null,lastLabelView='';
 const courseBones=c=>new Set(c.variants.flatMap(v=>v.cuts.map(k=>k.bone)));
 function buttons(host,choices,selected,action){
  host.replaceChildren();
@@ -30,6 +35,7 @@ function materialize(meta,bytes){
  g.computeVertexNormals();g.computeBoundingBox();return g;
 }
 function clearScene(){
+ hovered=null;$('tip').hidden=true;group.scale.x=1;
  group.traverse(o=>{if(o.userData.dispose)o.geometry?.dispose();if(o.isArrowHelper||o.type==='ArrowHelper')o.dispose?.();});
  group.clear();animated.length=annotations.length=nearBones.length=pieces.length=wedges.length=0;
 }
@@ -62,7 +68,7 @@ function addWedge(g,kind){
  const mesh=new T.Mesh(geo,bone);mesh.userData.dispose=true;group.add(mesh);wedges.push(mesh);
 }
 function addFracture(spec,anchor){
- const g=boneData.get(spec.bone), pair=section(g,spec.normal,anchor.toArray(),spec.fold);
+ const g=boneData.get(spec.bone), pair=section(g,spec.normal,anchor.toArray(),spec.fold,spec.spiralHeight);
  const pivot=spec.pivot?vec(spec.pivot):anchor;
  addPart(pair[0],pivot,spec.minus,bone);
  if(!spec.second){addPart(pair[1],pivot,spec.plus,bone);return;}
@@ -78,68 +84,157 @@ function addFracture(spec,anchor){
  halves.forEach((half,i)=>addPart(half,anchor,{shift:spec.plus.shift.map((v,k)=>v+(k===0?(i?1:-1):0)),turn:spec.plus.turn},bone));
  for(const g of [assembled,first.geo,first.face,first.outline])g.dispose();
 }
-function choose(c,i=0,l=1){
- course=c;variant=i;level=l;playing=false;progress=0;
- const hash=c?[c.id,i,l].join('/'):'skeleton';history.replaceState(null,'','#'+hash);
- renderLesson();
+function matches(key){
+ return key?courses.filter(c=>courseBones(c).has(teachingBone(key))):[];
+}
+function pickBone(key){
+ selected=key;course=matches(key)[0]||null;variant=-1;level=1;shape='';motions=[];playing=false;progress=0;
+ updateURL();renderLesson(true);$('panel').scrollTop=0;
+}
+function pickVariant(i){
+ variant=i;shape='';motions=[];progress=0;playing=true;
+ updateURL();renderLesson(true);
+}
+function updateURL(){
+ let hash=selected?'bone/'+meshByKey.get(selected):'skeleton';
+ if(course&&variant>=0){
+  const params=new URLSearchParams();
+  if(selected)params.set('bone',meshByKey.get(selected));
+  if(shape)params.set('shape',shape);
+  if(motions.length)params.set('move',motions.join(','));
+  hash=[course.id,variant,level].join('/')+(params.size?'?'+params:'');
+ }
+ history.replaceState(null,'','#'+hash);
 }
 function route(){
- const [id,v,l]=location.hash.slice(1).split('/');
- const c=courses.find(c=>c.id===id)||courses[0];
- course=!id||id==='skeleton'?null:c;variant=Math.max(0,Math.min(c.variants.length-1,parseInt(v)||0));
- level=Math.max(0,Math.min(2,l===undefined?1:(parseInt(l)||0)));
- if(ready)renderLesson();
-}
-function makeCatalog(){
- const nav=$('catalog');for(const region of ['下肢','上肢','躯干']){
-  const h=document.createElement('h3');h.textContent=region;nav.append(h);
-  for(const c of courses.filter(c=>c.region===region)){
-   const b=document.createElement('button');b.textContent=c.name;b.dataset.site=c.id;b.onclick=()=>choose(c);nav.append(b);
+ const [path,query]=location.hash.slice(1).split('?'),[id,v,l]=path.split('/');
+ const params=new URLSearchParams(query);
+ selected=null;course=null;variant=-1;level=1;progress=0;playing=false;shape='';motions=[];
+ if(id==='bone'){
+  selected=keyByMesh.get(v)||null;course=matches(selected)[0]||null;
+ }else{
+  course=courses.find(c=>c.id===id)||null;
+  if(course){
+   variant=Math.max(0,Math.min(course.variants.length-1,parseInt(v)||0));
+   level=Math.max(0,Math.min(2,l===undefined?1:parseInt(l)||0));
+   selected=keyByMesh.get(params.get('bone'));
+   if(!selected||!course.variants[variant].cuts.some(c=>c.bone===teachingBone(selected)))selected=course.variants[variant].cuts[0].bone;
+   const f=featuresFor(course,variant);
+   if(f.shapes.includes(params.get('shape')))shape=params.get('shape');
+   motions=f.motions.filter(k=>(params.get('move')||'').split(',').includes(k));
+   if(motions.includes('shorten'))motions=motions.filter(k=>k!=='separate');
   }
  }
- $('whole').onclick=()=>choose(null);
+ renderLesson(false);
 }
-function aim(view='home'){
+function showControls(){
+ const local=Boolean(selected),lesson=Boolean(course&&variant>=0);
+ $('indexPanel').hidden=local;$('bonePanel').hidden=!local;$('lessonPanel').hidden=!lesson;
+ $('layers').hidden=!lesson;document.querySelector('[data-view=detail]').hidden=!lesson;
+ $('labels').hidden=local;$('breadcrumb').textContent=local?'骨骼索引　/　'+regionFor(selected):'全身骨骼　/　索引';
+ if(!local)return;
+ $('boneTitle').textContent=boneName(selected);
+ const list=matches(selected),has=list.length>0;
+ $('boneNote').textContent=!has?'可旋转查看此骨的正常解剖，当前尚无对应骨折课程。':variant<0?'选择骨折分型后自动播放。':'';
+ $('boneNote').hidden=!$('boneNote').textContent;
+ for(const id of ['sites','siteLabel','variants','system'])$(id).hidden=!has;
+ $('levelbox').hidden=!course?.levels;
+ if(!has)return;
+ $('sites').replaceChildren(...list.map(c=>new Option(c.name,c.id,false,c===course)));
+ $('sites').disabled=list.length===1;
+ $('system').textContent=course.system;
+ const allowed=course.variants.map((v,i)=>v.cuts.some(c=>c.bone===teachingBone(selected))?i:-1).filter(i=>i>=0);
+ buttons($('variants'),allowed.map(i=>course.variants[i].name),allowed.indexOf(variant),i=>pickVariant(allowed[i]));
+ buttons($('levels'),levels.map(x=>x[0]),level,i=>{level=i;progress=0;playing=lesson;updateURL();renderLesson(true);});
+ if(!lesson)return;
+ const f=featuresFor(course,variant);
+ $('featureBox').hidden=!f.shapes.length&&!f.motions.length;
+ $('moveRow').querySelector('small').textContent=f.motions.length>1?'可组合':'可选';
+ $('shapeRow').hidden=!f.shapes.length;$('moveRow').hidden=!f.motions.length;
+ const shapeKeys=f.shapes,base=initialShape(course,variant);
+ buttons($('shapes'),shapeKeys.map(k=>shapeNames[k]),shapeKeys.indexOf(shape||base),i=>{
+  shape=shapeKeys[i]===base?'':shapeKeys[i];progress=0;playing=true;updateURL();renderLesson(false,true);
+ });
+ const keys=['',...f.motions];
+ buttons($('motions'),keys.map(k=>motionNames[k]||'典型移位'),-1,i=>{
+  const key=keys[i];
+  if(!key)motions=[];
+  else if(motions.includes(key))motions=motions.filter(k=>k!==key);
+  else{
+   if(key==='shorten')motions=motions.filter(k=>k!=='separate');
+   if(key==='separate')motions=motions.filter(k=>k!=='shorten');
+   motions.push(key);
+  }
+  progress=0;playing=true;updateURL();renderLesson(false,true);
+ });
+ [...$('motions').children].forEach((b,i)=>{
+  const active=i?motions.includes(keys[i]):!motions.length;
+  b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));
+ });
+}
+function overviewLabels(){
+ const labels=$('labels'); if(selected||!camera)return;
+ const direction=camera.position.clone().sub(controls.target).normalize();
+ const visible=direction.z>.94&&Math.abs(controls.target.y-.82)<.04&&camera.position.distanceTo(controls.target)>1.85;
+ labels.hidden=!visible;if(!visible)return;
+ const key=[host.clientWidth,host.clientHeight,...camera.matrixWorld.elements].map(x=>x.toFixed(4)).join('/');
+ if(key===lastLabelView)return;lastLabelView=key;labels.replaceChildren();
+ for(const [name,english,side] of [['Right humerus','Humerus',-1],['Left clavicle','Clavicle',1],['Left femur','Femur',1],['Right tibia','Tibia',-1]]){
+  const g=boneData.get(name);if(!g)continue;
+  const pt=g.boundingBox.getCenter(new T.Vector3()).project(camera),len=host.clientWidth*.082;
+  const el=document.createElement('span');el.className='callout'+(side<0?' left':'');
+  el.style.left=((pt.x+1)*host.clientWidth*.5+side*len)+'px';el.style.top=((1-pt.y)*host.clientHeight*.5)+'px';
+  el.style.setProperty('--leader',len+'px');el.textContent=boneName(name);const latin=document.createElement('i');latin.textContent=english;el.append(latin);labels.append(el);
+ }
+}
+function aim(view='home',smooth=false){
  if(!camera)return;
  if(view==='detail'&&!course)return;
  const target=view==='detail'?fractureFocus:focus;
- const dir={detail:[-.6,.17,1],front:[0,0,1],side:[-1,0,0],top:[0,1,.001],home:course?[-.36,.12,1]:[0,0,1]}[view];
+ const dir={detail:[-.6,.17,1],front:[0,0,1],side:[-1,0,0],top:[0,1,.001],home:selected?[-.36,.12,1]:[0,0,1]}[view];
  const box=host.getBoundingClientRect(),aspect=box.width/Math.max(1,box.height);
- distance=span*(view==='detail'?.57:1.16)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2))*Math.min(1,aspect));
- controls.target.copy(target);camera.position.copy(target).addScaledVector(vec(dir).normalize(),distance);
- controls.minDistance=span*.12;controls.maxDistance=span*5;controls.update();
-}
-function renderLesson(){
- if(!ready)return;clearScene();
- $('whole').classList.toggle('active',!course);
- document.querySelectorAll('[data-site]').forEach(b=>b.classList.toggle('active',b.dataset.site===course?.id));
- document.querySelector('[data-view=detail]').hidden=!course;
- document.querySelector('.playbar').hidden=!course;
- $('localControls').hidden=!course;$('atlasInfo').hidden=!!course;
- for(const id of ['play','speed','time'])$(id).disabled=!course;
- if(!course){
-  const linked=new Set(courses.flatMap(c=>[...courseBones(c)]));
-  for(const name of boneData.keys())addBone(name,linked.has(name)?accent:bone);
-  focus.set(0,.82,0);span=1.80;
-  $('heading').textContent='全身骨骼';$('crumb').textContent='解剖总览';$('caption').textContent='成年男性';
-  $('bonePick').textContent='';$('phase').textContent='点击青绿色骨骼进入局部';$('time').value=0;
-  aim();return;
+ let horizontal=span;
+ if(!selected)horizontal=.65;
+ else if(view!=='top'&&view!=='side'&&view!=='detail'){
+  const size=boneData.get(selected).boundingBox.getSize(new T.Vector3());
+  horizontal=Math.min(span,Math.max(span*.42,Math.hypot(size.x,size.z)));
  }
- const v=course.variants[variant], bounds=new T.Box3(), anchors=[];
- $('crumb').textContent=course.region+(course.id==='spine'?' / 第一腰椎':' / 右侧教学模型');
- $('heading').textContent=course.name.includes('脱位')?course.name:course.name+'骨折';$('caption').textContent=v.name;
- $('system').textContent=course.system;
- buttons($('variants'),course.variants.map(v=>v.name),variant,i=>choose(course,i,level));
- const currentBones=courseBones(course);
- const related=courses.filter(c=>c!==course&&[...courseBones(c)].some(b=>currentBones.has(b)));
- $('related').hidden=!related.length;$('related').open=false;
- buttons($('relatedList'),related.map(c=>c.name),-1,i=>choose(related[i]));
- $('levelbox').hidden=!course.levels;
- buttons($('levels'),levels.map(x=>x[0]),level,i=>choose(course,variant,i));
- $('cause').textContent=v.cause;$('observe').textContent=v.observe;
- $('citation').textContent='教材第六章 · '+course.source;
+ const viewSize=Math.max(span,horizontal/aspect);
+ distance=viewSize*(view==='detail'?.57:1.16)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)));
+ const end=target.clone().addScaledVector(vec(dir).normalize(),distance);
+ flight=null;
+ controls.minDistance=.0005;controls.maxDistance=20;
+ if(smooth&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  flight={from:camera.position.clone(),target:controls.target.clone(),end,focus:target.clone(),start:performance.now()};
+ }else{camera.position.copy(end);controls.target.copy(target);controls.update();}
+
+}
+function renderLesson(smooth=false,keepView=false){
+ if(!ready)return;
+ clearScene();showControls();
+ if(!selected||!course||variant<0){
+  if(!selected){
+   for(const name of boneData.keys())addBone(name,bone);
+   focus.set(0,.82,0);span=1.64;
+   $('heading').textContent='全身骨骼';$('crumb').textContent='成年男性 · 解剖总览';$('description').textContent='点击骨骼，进入局部观察';
+  }else{
+   const mesh=addBone(selected,bone),box=mesh.geometry.boundingBox;
+   box.getCenter(focus);span=1.17*Math.max(...box.getSize(new T.Vector3()).toArray());
+   $('heading').textContent=boneName(selected);$('crumb').textContent=regionFor(selected)+' · 正常解剖';$('description').textContent='';
+  }
+  aim('home',smooth);return;
+ }
+ const v=course.variants[variant],bounds=new T.Box3(),anchors=[];
+ const mirror=/\bleft\b/i.test(selected);
+ group.scale.x=mirror?-1:1;
+ $('crumb').textContent=boneName(selected)+' / '+course.name+(mirror?' · 左侧镜像示教':'');
+ $('heading').textContent=v.name;$('description').textContent=[shapeNames[shape],...motions.map(k=>motionNames[k])].filter(Boolean).join(' · ');
+ $('cause').textContent=shape?(course.name+' · '+v.name+'，本例采用'+shapeNames[shape]+'骨折线。'):v.cause;
+ $('observe').textContent=motions.length?'组合观察：'+motions.map(k=>motionNames[k]).join('、')+'。可用时间轴对照正常位置与骨折后状态。':shape?'旋转模型，观察所选断面与骨干长轴的关系。':v.observe;
  const ctx=v.context||course.context||[], shared=course.levels?atLevel(boneData.get('Right tibia'),1,levels[level][1])[1]:null;
- for(const s of v.cuts){
+ let referenceWidth=0,sharedPivot=null,followMotion=v.cuts[0].minus;
+ for(const original of v.cuts){
+  let s=withShape(original,shape);
   const g=boneData.get(s.bone);
   if(s.wedge){
    const a=g.boundingBox.getCenter(new T.Vector3());a.z=g.boundingBox.max.z-.012;anchors.push(a);
@@ -151,6 +246,25 @@ function renderLesson(){
    fraction=(y-g.boundingBox.min.y)/(g.boundingBox.max.y-g.boundingBox.min.y);
   }
   const a=vec(s.anchor||atLevel(g,s.axis,fraction));anchors.push(a);
+  if(shape==='spiral')s.spiralHeight=(g.boundingBox.max.y-g.boundingBox.min.y)*.15;
+  if(motions.length){
+   if(!referenceWidth){
+    const measure=g.attributes.position,extent=new T.Box3();
+    const radius=(g.boundingBox.max.getComponent(s.axis)-g.boundingBox.min.getComponent(s.axis))*.055;
+    for(let i=0;i<measure.count;i++){
+     const point=new T.Vector3().fromBufferAttribute(measure,i);
+     if(Math.abs(point.getComponent(s.axis)-a.getComponent(s.axis))<radius)extent.expandByPoint(point);
+    }
+    referenceWidth=Math.max(2,extent.isEmpty()?9:extent.getSize(new T.Vector3()).getComponent((s.axis+2)%3)*1000);
+    sharedPivot=a.toArray();
+   }
+   if(course.id==='radius'){
+    s={...s,minus:{...s.minus,shift:s.minus.shift.map((v,k)=>v+(k===1?4:0))}};
+    followMotion=s.minus;
+   }else{
+    s=customPose(s,motions,referenceWidth);s.pivot=sharedPivot;
+   }
+  }
   if(v.fissure){
    addBone(s.bone,bone);
    const halves=section(g,s.normal,a.toArray()),outline=halves[0].outline;
@@ -173,7 +287,7 @@ function renderLesson(){
    animated.push({pivot,anchor:a,shift:vec(extra.shift||[0,0,0]).multiplyScalar(.001),turn:vec(extra.turn||[0,0,0]).multiplyScalar(Math.PI/180)});
   }else if(v.follow?.includes(name)){
    const a=anchors[0],pivot=new T.Group();group.add(pivot);pivot.add(m);m.position.copy(a).negate();
-   animated.push({pivot,anchor:a,shift:vec(v.cuts[0].minus.shift).multiplyScalar(.001),turn:vec(v.cuts[0].minus.turn).multiplyScalar(Math.PI/180)});
+   animated.push({pivot,anchor:a,shift:vec(followMotion.shift).multiplyScalar(.001),turn:vec(followMotion.turn).multiplyScalar(Math.PI/180)});
   }
  }
  span=v.span||course.span||Math.max(...bounds.getSize(new T.Vector3()).toArray())*1.12;
@@ -203,7 +317,8 @@ function renderLesson(){
   const arrow=new T.ArrowHelper(direction,item.anchor.clone().add(offset),length,0x72e6c4,length*.30,length*.17);
   arrow.userData.displacement=true;arrow.userData.item=item;arrow.userData.offset=offset;group.add(arrow);annotations.push(arrow);
  }
- aim();setProgress(progress);
+ if(mirror){focus.x*=-1;fractureFocus.x*=-1;}
+ if(!keepView)aim('home',smooth);setProgress(progress);
 }
 function setProgress(value){
  progress=Math.max(0,Math.min(1,value));
@@ -226,46 +341,61 @@ function orientation(){
  const d=camera.position.clone().sub(controls.target).normalize();
  const names=[['患者左侧','患者右侧'],['上方','下方'],['前方','后方']];
  const xyz=d.toArray(),major=xyz.map((v,i)=>[Math.abs(v),names[i][v>=0?0:1]]).sort((a,b)=>b[0]-a[0]);
- $('orientation').textContent='视向 · '+major.filter(x=>x[0]>.36).map(x=>x[1]).join(' / ')+'　｜　拖动旋转 · 滚轮缩放';
+ $('orientation').textContent='视向 · '+major.filter(x=>x[0]>.36).map(x=>x[1]).join(' / ');
 }
 function frame(now){
  if(playing&&course){setProgress(progress+Math.min(.1,(now-previous)/1000)*speed/5);if(progress===1){playing=false;setProgress(1);}}
- previous=now;controls.update();renderer.render(world,camera);requestAnimationFrame(frame);
+ if(flight){
+  const fraction=Math.min(1,(now-flight.start)/520),t=fraction*fraction*(3-2*fraction);
+  camera.position.lerpVectors(flight.from,flight.end,t);controls.target.lerpVectors(flight.target,flight.focus,t);
+  if(fraction>=1)flight=null;
+ }
+ previous=now;controls.update();overviewLabels();renderer.render(world,camera);requestAnimationFrame(frame);
 }
 async function start(){
  renderer=new T.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
  host.append(renderer.domElement);
  camera=new T.PerspectiveCamera(38,1,.001,30);controls=new OrbitControls(camera,renderer.domElement);
- controls.enableDamping=false;controls.addEventListener('change',orientation);
- world.add(new T.HemisphereLight(0xfff5de,0x72938a,1.8));
+ controls.addEventListener('start',()=>flight=null);controls.enableDamping=false;controls.addEventListener('change',orientation);
+ bone.color.set(0xdadacc);accent.color.set(0x68c6ed);world.add(new T.HemisphereLight(0xfff8ef,0x586575,1.45));
  for(const [pos,intensity] of [[[2,3,4],2.1],[[-3,1,-3],1.4]]){const l=new T.DirectionalLight(0xfff3dc,intensity);l.position.set(...pos);world.add(l);}
- const resize=()=>{const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();};
+ const resize=()=>{
+  const w=host.clientWidth,h=host.clientHeight,previousAspect=camera.aspect;
+  renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
+  if(ready&&Math.abs(Math.log(camera.aspect/previousAspect))>.25)aim();
+ };
  new ResizeObserver(resize).observe(host);resize();
  const [index,bin]=await Promise.all(['models/index.json','models/bones.bin'].map(async u=>{
   const r=await fetch(u);if(!r.ok)throw Error('无法加载 '+u);return u.endsWith('json')?r.json():r.arrayBuffer();
  }));
- for(const m of index)boneData.set(boneData.has(m.name)?m.name+' '+m.mesh:m.name,materialize(m,bin));
- ready=true;makeCatalog();route();$('status').hidden=true;
- let press;renderer.domElement.onpointerdown=e=>press=[e.clientX,e.clientY];
- renderer.domElement.onpointerup=e=>{
-  if(course||!press||Math.hypot(e.clientX-press[0],e.clientY-press[1])>5)return;
-  const rect=host.getBoundingClientRect(),ray=new T.Raycaster();
-  ray.setFromCamera(new T.Vector2(2*(e.clientX-rect.left)/rect.width-1,1-2*(e.clientY-rect.top)/rect.height),camera);
-  const hit=ray.intersectObjects(group.children)[0];if(!hit)return;
-  const name=hit.object.userData.bone;
-  const matches=courses.filter(c=>courseBones(c).has(name));
-  if(matches.length){
-   const ids=matches.map(c=>c.id);let pick=matches[0];
-   if(ids.includes('plateau')&&hit.point.y>.411)pick=courses.find(c=>c.id==='plateau');
-   if(ids.includes('distalfemur')&&hit.point.y<.54)pick=courses.find(c=>c.id==='distalfemur');
-   if(ids.includes('elbow')&&hit.point.y<1.16)pick=courses.find(c=>c.id==='elbow');
-   if(ids.includes('neck')&&hit.point.y>.845)pick=courses.find(c=>c.id==='neck');
-   if(ids.includes('ankle')&&hit.point.y<.105)pick=courses.find(c=>c.id==='ankle');
-   if(ids.includes('forearm')&&hit.point.y>.93)pick=courses.find(c=>c.id==='forearm');
-   if(ids.includes('olecranon')&&hit.point.y>1.10)pick=courses.find(c=>c.id==='olecranon');
-   choose(pick);
-  }else $('bonePick').textContent=name+' · 解剖定位';
- };
+ for(const m of index){
+  const key=boneData.has(m.name)?m.name+' '+m.mesh:m.name;
+  boneData.set(key,materialize(m,bin));meshByKey.set(key,m.mesh);keyByMesh.set(m.mesh,key);
+ }
+ buildIndex(boneData.keys(),pickBone,key=>matches(key).length);ready=true;route();$('status').hidden=true;
+ let press=null;
+ const ray=new T.Raycaster(),canvas=renderer.domElement;
+ function hit(e){
+  const box=host.getBoundingClientRect();
+  ray.setFromCamera(new T.Vector2(2*(e.clientX-box.left)/box.width-1,1-2*(e.clientY-box.top)/box.height),camera);
+  return ray.intersectObjects(group.children,false)[0]?.object;
+ }
+ canvas.addEventListener('pointerdown',e=>{press=[e.clientX,e.clientY];});
+ canvas.addEventListener('pointerup',e=>{
+  if(!selected&&press&&Math.hypot(e.clientX-press[0],e.clientY-press[1])<6){
+   const key=hit(e)?.userData.bone;if(key)pickBone(key);
+  }press=null;
+ });
+ function clearHover(){if(hovered)hovered.material=bone;hovered=null;$('tip').hidden=true;canvas.style.cursor='grab';}
+ canvas.addEventListener('pointerleave',clearHover);
+ canvas.addEventListener('pointermove',e=>{
+  clearHover();if(selected||press||e.pointerType==='touch')return;
+  hovered=hit(e);if(!hovered)return;
+  hovered.material=accent;canvas.style.cursor='pointer';const tip=$('tip'),box=host.getBoundingClientRect();
+  tip.textContent=boneName(hovered.userData.bone);tip.hidden=false;
+  tip.style.left=Math.max(0,Math.min(box.width-tip.offsetWidth,e.clientX-box.left+14))+'px';
+  tip.style.top=Math.max(0,e.clientY-box.top-28)+'px';
+ });
  requestAnimationFrame(frame);
 }
 $('play').onclick=()=>{playing=!playing;setProgress(progress>=1?0:progress);};
@@ -273,7 +403,13 @@ $('time').oninput=e=>{playing=false;setProgress(+e.target.value/1000);};
 $('speed').onclick=e=>{speed=speed===1?.5:speed===.5?1.5:1;e.target.textContent=speed+'×';};
 for(const id of ['guides','neighbors'])$(id).onchange=()=>setProgress(progress);
 for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>aim(b.dataset.view);
-$('sourceBtn').onclick=()=>$('sources').showModal();$('close').onclick=()=>$('sources').close();
-$('expand').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.querySelector('.stage').requestFullscreen();
+$('whole').onclick=()=>pickBone(null);
+$('sites').onchange=e=>{
+ course=courses.find(c=>c.id===e.target.value);variant=-1;playing=false;progress=0;shape='';motions=[];
+ updateURL();renderLesson();
+};
+$('end').onclick=()=>{playing=false;setProgress(1);};
+$('expand').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('fullscreenchange',()=>{$('expand').textContent=document.fullscreenElement?'退出全屏':'全屏';});
 window.addEventListener('hashchange',route);
 start().catch(err=>{$('status').hidden=false;$('status').textContent='三维视图加载失败，请使用支持 WebGL 的浏览器刷新。'+err.message;console.error(err);});

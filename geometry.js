@@ -2,7 +2,7 @@ import * as T from './vendor/three.module.js';
 
 const vec = a => new T.Vector3(...a);
 const vertexKey = v => [v.x,v.y,v.z].map(n=>Math.round(n*1e7)).join(',');
-export function section(geometry, normal, anchor, fold=0) {
+export function section(geometry, normal, anchor, fold=0, spiralHeight=0) {
   const n=vec(normal).normalize(), origin=vec(anchor);
   const positions=geometry.attributes.position, norms=geometry.attributes.normal;
   const index=geometry.index.array, groups=[[],[]], normals=[[],[]], edges=[];
@@ -11,11 +11,16 @@ export function section(geometry, normal, anchor, fold=0) {
       groups[side].push(...v.p.toArray()); normals[side].push(...v.n.toArray());
     }
   }
-  for(let i=0;i<index.length;i+=3){
-    const tri=Array.from(index.slice(i,i+3),j=>{
-      const p=new T.Vector3().fromBufferAttribute(positions,j);
-      return {p,n:new T.Vector3().fromBufferAttribute(norms,j),d:n.dot(p.clone().sub(origin))+fold*Math.abs(p.x-origin.x)};
-    });
+  function signed(p){
+    const relative=p.clone().sub(origin);
+    if(!spiralHeight)return n.dot(relative)+fold*Math.abs(relative.x);
+    // One helical rise with a short longitudinal return across the cortex.
+    const angle=(Math.atan2(relative.z,relative.x)+Math.PI)/(2*Math.PI);
+    const ramp=angle<.84 ? angle/.84 : (1-angle)/.16;
+    return relative.y-spiralHeight*(ramp-.5);
+  }
+  function clip(tri){
+    for(const v of tri)v.d=signed(v.p);
     const sides=[[],[]], cross=[];
     tri.forEach((a,k)=>{
       const b=tri[(k+1)%3]; sides[Number(a.d>=0)].push(a);
@@ -27,6 +32,18 @@ export function section(geometry, normal, anchor, fold=0) {
     });
     sides.forEach((poly,s)=>emit(s,poly));
     if(cross.length===2 && cross[0].distanceToSquared(cross[1])>1e-16) edges.push(cross);
+  }
+  function refine(tri,depth){
+    const farAbove=tri.every(v=>v.p.y>origin.y+spiralHeight*.51);
+    const farBelow=tri.every(v=>v.p.y<origin.y-spiralHeight*.51);
+    if(!depth||farAbove||farBelow){clip(tri);return;}
+    const mids=tri.map((v,j)=>({p:v.p.clone().lerp(tri[(j+1)%3].p,.5),n:v.n.clone().lerp(tri[(j+1)%3].n,.5).normalize()}));
+    tri.forEach((v,j)=>refine([v,mids[j],mids[(j+2)%3]],depth-1));
+    refine(mids,depth-1);
+  }
+  for(let i=0;i<index.length;i+=3){
+    const tri=Array.from(index.slice(i,i+3),j=>({p:new T.Vector3().fromBufferAttribute(positions,j),n:new T.Vector3().fromBufferAttribute(norms,j)}));
+    if(spiralHeight)refine(tri,3);else clip(tri);
   }
   const graph=new Map(), points=new Map();
   for(const [a,b] of edges){
