@@ -333,7 +333,7 @@ function setProgress(value){
   if(obj.userData.displacement)obj.position.copy(obj.userData.item.pivot.position).add(obj.userData.offset);
  }
  for(const obj of nearBones)obj.visible=$('neighbors').checked;
- $('time').value=Math.round(progress*1000);
+ $('time').value=Math.floor(progress*1000);
  $('phase').textContent=progress<.05?'正常形态':progress<.30?'受力阶段':progress<.45?(wedges.length?'椎体开始压缩':'骨折线显现'):progress<1?(wedges.length?'楔形压缩':'骨块移位'):'最终形态';
  $('play').textContent=playing?'Ⅱ 暂停':progress>=1?'↻ 重播':'▶ 播放';
 }
