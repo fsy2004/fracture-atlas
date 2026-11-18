@@ -1,0 +1,21 @@
+{
+  "dataset": "BodyParts3D 4.0",
+  "sex": "adult male",
+  "attribution": "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International.",
+  "license": "CC BY 4.0",
+  "license_url": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html",
+  "dataset_url": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html",
+  "paper": "https://doi.org/10.1093/nar/gkn613",
+  "upstream": "https://github.com/JICio/tcm-3d",
+  "upstream_commit": "e8b9ad1c17e67a25e94406100e3fb5c296c24f7a",
+  "files": [
+    "public/models/atlas.json",
+    "public/models/body-11.bin.gz",
+    "public/models/body-12.bin.gz",
+    "public/models/body-13.bin.gz"
+  ],
+  "coordinate_frame": "metres; +X anatomical left, +Y superior, +Z anterior",
+  "changes": "Selected skeletal meshes; repacked positions and indices; derived vertex normals, schematic cut surfaces and animations.",
+  "mesh_count": 201,
+  "sha256": "db557f347b6ae3a1c22d6aa303b700bcef34ca810c167e0344eb9e57f352f7d8"
+}

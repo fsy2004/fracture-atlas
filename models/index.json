@@ -1,0 +1,1610 @@
+[
+ {
+  "name": "Right hip bone",
+  "id": "FMA16586",
+  "mesh": "FJ3152",
+  "vertices": 1036,
+  "indices": 5694,
+  "offset": 0
+ },
+ {
+  "name": "Xiphoid process",
+  "id": "FMA7488",
+  "mesh": "FJ3153",
+  "vertices": 464,
+  "indices": 2592,
+  "offset": 23820
+ },
+ {
+  "name": "Tenth thoracic vertebra",
+  "id": "FMA10037",
+  "mesh": "FJ3154",
+  "vertices": 1251,
+  "indices": 6480,
+  "offset": 34572
+ },
+ {
+  "name": "Eleventh thoracic vertebra",
+  "id": "FMA10059",
+  "mesh": "FJ3155",
+  "vertices": 1238,
+  "indices": 6018,
+  "offset": 62544
+ },
+ {
+  "name": "Twelfth thoracic vertebra",
+  "id": "FMA10081",
+  "mesh": "FJ3156",
+  "vertices": 1228,
+  "indices": 6186,
+  "offset": 89436
+ },
+ {
+  "name": "First lumbar vertebra",
+  "id": "FMA13072",
+  "mesh": "FJ3157",
+  "vertices": 1391,
+  "indices": 7212,
+  "offset": 116544
+ },
+ {
+  "name": "First thoracic vertebra",
+  "id": "FMA9165",
+  "mesh": "FJ3158",
+  "vertices": 915,
+  "indices": 4194,
+  "offset": 147660
+ },
+ {
+  "name": "Second lumbar vertebra",
+  "id": "FMA13073",
+  "mesh": "FJ3159",
+  "vertices": 1493,
+  "indices": 7476,
+  "offset": 167028
+ },
+ {
+  "name": "Second thoracic vertebra",
+  "id": "FMA9187",
+  "mesh": "FJ3160",
+  "vertices": 965,
+  "indices": 4710,
+  "offset": 199896
+ },
+ {
+  "name": "Third cervical vertebra",
+  "id": "FMA12521",
+  "mesh": "FJ3161",
+  "vertices": 1184,
+  "indices": 5298,
+  "offset": 220896
+ },
+ {
+  "name": "Third lumbar vertebra",
+  "id": "FMA13074",
+  "mesh": "FJ3162",
+  "vertices": 1420,
+  "indices": 7362,
+  "offset": 245700
+ },
+ {
+  "name": "Third thoracic vertebra",
+  "id": "FMA9209",
+  "mesh": "FJ3163",
+  "vertices": 997,
+  "indices": 5088,
+  "offset": 277464
+ },
+ {
+  "name": "Fourth cervical vertebra",
+  "id": "FMA12522",
+  "mesh": "FJ3164",
+  "vertices": 1288,
+  "indices": 6186,
+  "offset": 299604
+ },
+ {
+  "name": "Fourth lumbar vertebra",
+  "id": "FMA13075",
+  "mesh": "FJ3165",
+  "vertices": 1503,
+  "indices": 7890,
+  "offset": 327432
+ },
+ {
+  "name": "Fourth thoracic vertebra",
+  "id": "FMA9248",
+  "mesh": "FJ3166",
+  "vertices": 1004,
+  "indices": 5052,
+  "offset": 361248
+ },
+ {
+  "name": "Fifth cervical vertebra",
+  "id": "FMA12523",
+  "mesh": "FJ3167",
+  "vertices": 1396,
+  "indices": 5802,
+  "offset": 383400
+ },
+ {
+  "name": "Fifth lumbar vertebra",
+  "id": "FMA13076",
+  "mesh": "FJ3168",
+  "vertices": 1469,
+  "indices": 7920,
+  "offset": 411756
+ },
+ {
+  "name": "Fifth thoracic vertebra",
+  "id": "FMA9922",
+  "mesh": "FJ3169",
+  "vertices": 1089,
+  "indices": 5496,
+  "offset": 445224
+ },
+ {
+  "name": "Sixth cervical vertebra",
+  "id": "FMA12524",
+  "mesh": "FJ3170",
+  "vertices": 1257,
+  "indices": 5784,
+  "offset": 469284
+ },
+ {
+  "name": "Sixth thoracic vertebra",
+  "id": "FMA9945",
+  "mesh": "FJ3171",
+  "vertices": 1127,
+  "indices": 5490,
+  "offset": 495936
+ },
+ {
+  "name": "Seventh cervical vertebra",
+  "id": "FMA12525",
+  "mesh": "FJ3172",
+  "vertices": 1162,
+  "indices": 4560,
+  "offset": 520440
+ },
+ {
+  "name": "Seventh thoracic vertebra",
+  "id": "FMA9968",
+  "mesh": "FJ3173",
+  "vertices": 1223,
+  "indices": 6282,
+  "offset": 543504
+ },
+ {
+  "name": "Eighth thoracic vertebra",
+  "id": "FMA9991",
+  "mesh": "FJ3174",
+  "vertices": 1195,
+  "indices": 6144,
+  "offset": 570744
+ },
+ {
+  "name": "Ninth thoracic vertebra",
+  "id": "FMA10014",
+  "mesh": "FJ3175",
+  "vertices": 1153,
+  "indices": 6120,
+  "offset": 597372
+ },
+ {
+  "name": "Atlas",
+  "id": "FMA12519",
+  "mesh": "FJ3176",
+  "vertices": 1114,
+  "indices": 4542,
+  "offset": 623448
+ },
+ {
+  "name": "Axis",
+  "id": "FMA12520",
+  "mesh": "FJ3177",
+  "vertices": 1408,
+  "indices": 6084,
+  "offset": 645900
+ },
+ {
+  "name": "Body of sternum",
+  "id": "FMA7487",
+  "mesh": "FJ3178",
+  "vertices": 2511,
+  "indices": 8430,
+  "offset": 674964
+ },
+ {
+  "name": "Distal phalanx of left second toe",
+  "id": "FMA32653",
+  "mesh": "FJ3179",
+  "vertices": 168,
+  "indices": 714,
+  "offset": 721956
+ },
+ {
+  "name": "Distal phalanx of left third toe",
+  "id": "FMA32655",
+  "mesh": "FJ3180",
+  "vertices": 188,
+  "indices": 1008,
+  "offset": 725400
+ },
+ {
+  "name": "Distal phalanx of left fourth toe",
+  "id": "FMA32657",
+  "mesh": "FJ3181",
+  "vertices": 146,
+  "indices": 678,
+  "offset": 729672
+ },
+ {
+  "name": "Distal phalanx of left big toe",
+  "id": "FMA32651",
+  "mesh": "FJ3182",
+  "vertices": 249,
+  "indices": 1098,
+  "offset": 732780
+ },
+ {
+  "name": "Distal phalanx of left index finger",
+  "id": "FMA23953",
+  "mesh": "FJ3183",
+  "vertices": 198,
+  "indices": 954,
+  "offset": 737964
+ },
+ {
+  "name": "Distal phalanx of left little finger",
+  "id": "FMA23959",
+  "mesh": "FJ3184",
+  "vertices": 154,
+  "indices": 594,
+  "offset": 742248
+ },
+ {
+  "name": "Distal phalanx of left little toe",
+  "id": "FMA32659",
+  "mesh": "FJ3185",
+  "vertices": 160,
+  "indices": 660,
+  "offset": 745284
+ },
+ {
+  "name": "Distal phalanx of left middle finger",
+  "id": "FMA23955",
+  "mesh": "FJ3186",
+  "vertices": 170,
+  "indices": 780,
+  "offset": 748524
+ },
+ {
+  "name": "Distal phalanx of left ring finger",
+  "id": "FMA23957",
+  "mesh": "FJ3187",
+  "vertices": 138,
+  "indices": 576,
+  "offset": 752124
+ },
+ {
+  "name": "Distal phalanx of left thumb",
+  "id": "FMA23951",
+  "mesh": "FJ3188",
+  "vertices": 185,
+  "indices": 786,
+  "offset": 754932
+ },
+ {
+  "name": "Distal phalanx of right second toe",
+  "id": "FMA32652",
+  "mesh": "FJ3189",
+  "vertices": 168,
+  "indices": 588,
+  "offset": 758724
+ },
+ {
+  "name": "Distal phalanx of right third toe",
+  "id": "FMA32654",
+  "mesh": "FJ3190",
+  "vertices": 161,
+  "indices": 774,
+  "offset": 761916
+ },
+ {
+  "name": "Distal phalanx of right fourth toe",
+  "id": "FMA32656",
+  "mesh": "FJ3191",
+  "vertices": 142,
+  "indices": 720,
+  "offset": 765396
+ },
+ {
+  "name": "Distal phalanx of right big toe",
+  "id": "FMA32650",
+  "mesh": "FJ3192",
+  "vertices": 271,
+  "indices": 1212,
+  "offset": 768540
+ },
+ {
+  "name": "Distal phalanx of right index finger",
+  "id": "FMA24460",
+  "mesh": "FJ3193",
+  "vertices": 187,
+  "indices": 624,
+  "offset": 774216
+ },
+ {
+  "name": "Distal phalanx of right little finger",
+  "id": "FMA24463",
+  "mesh": "FJ3194",
+  "vertices": 138,
+  "indices": 552,
+  "offset": 777708
+ },
+ {
+  "name": "Distal phalanx of right little toe",
+  "id": "FMA32658",
+  "mesh": "FJ3195",
+  "vertices": 178,
+  "indices": 630,
+  "offset": 780468
+ },
+ {
+  "name": "Distal phalanx of right middle finger",
+  "id": "FMA24461",
+  "mesh": "FJ3196",
+  "vertices": 141,
+  "indices": 510,
+  "offset": 783864
+ },
+ {
+  "name": "Distal phalanx of right ring finger",
+  "id": "FMA24462",
+  "mesh": "FJ3197",
+  "vertices": 114,
+  "indices": 336,
+  "offset": 786576
+ },
+ {
+  "name": "Distal phalanx of right thumb",
+  "id": "FMA24459",
+  "mesh": "FJ3198",
+  "vertices": 181,
+  "indices": 684,
+  "offset": 788616
+ },
+ {
+  "name": "Ethmoid",
+  "id": "FMA52740",
+  "mesh": "FJ3199",
+  "vertices": 5334,
+  "indices": 25854,
+  "offset": 792156
+ },
+ {
+  "name": "Frontal bone",
+  "id": "FMA52734",
+  "mesh": "FJ3200",
+  "vertices": 3315,
+  "indices": 15336,
+  "offset": 907872
+ },
+ {
+  "name": "Hyoid bone",
+  "id": "FMA52749",
+  "mesh": "FJ3201",
+  "vertices": 604,
+  "indices": 3108,
+  "offset": 978324
+ },
+ {
+  "name": "Left tenth rib",
+  "id": "FMA8472",
+  "mesh": "FJ3225",
+  "vertices": 754,
+  "indices": 4500,
+  "offset": 991788
+ },
+ {
+  "name": "Left eleventh rib",
+  "id": "FMA8532",
+  "mesh": "FJ3226",
+  "vertices": 537,
+  "indices": 3210,
+  "offset": 1009836
+ },
+ {
+  "name": "Left twelfth rib",
+  "id": "FMA8534",
+  "mesh": "FJ3227",
+  "vertices": 367,
+  "indices": 2190,
+  "offset": 1022700
+ },
+ {
+  "name": "Left first rib",
+  "id": "FMA7987",
+  "mesh": "FJ3228",
+  "vertices": 507,
+  "indices": 3030,
+  "offset": 1031484
+ },
+ {
+  "name": "Left second rib",
+  "id": "FMA8012",
+  "mesh": "FJ3229",
+  "vertices": 656,
+  "indices": 3690,
+  "offset": 1043628
+ },
+ {
+  "name": "Left third rib",
+  "id": "FMA8039",
+  "mesh": "FJ3230",
+  "vertices": 802,
+  "indices": 4782,
+  "offset": 1058880
+ },
+ {
+  "name": "Left fourth rib",
+  "id": "FMA8148",
+  "mesh": "FJ3231",
+  "vertices": 981,
+  "indices": 5838,
+  "offset": 1078068
+ },
+ {
+  "name": "Left fifth rib",
+  "id": "FMA8093",
+  "mesh": "FJ3232",
+  "vertices": 1095,
+  "indices": 6408,
+  "offset": 1101516
+ },
+ {
+  "name": "Left sixth rib",
+  "id": "FMA8202",
+  "mesh": "FJ3233",
+  "vertices": 1147,
+  "indices": 6774,
+  "offset": 1127472
+ },
+ {
+  "name": "Left seventh rib",
+  "id": "FMA8256",
+  "mesh": "FJ3234",
+  "vertices": 1122,
+  "indices": 6618,
+  "offset": 1154784
+ },
+ {
+  "name": "Left eighth rib",
+  "id": "FMA8310",
+  "mesh": "FJ3235",
+  "vertices": 936,
+  "indices": 5496,
+  "offset": 1181484
+ },
+ {
+  "name": "Left ninth rib",
+  "id": "FMA8391",
+  "mesh": "FJ3236",
+  "vertices": 843,
+  "indices": 4998,
+  "offset": 1203708
+ },
+ {
+  "name": "Left clavicle",
+  "id": "FMA13323",
+  "mesh": "FJ3237",
+  "vertices": 426,
+  "indices": 2478,
+  "offset": 1223820
+ },
+ {
+  "name": "Left first metacarpal bone",
+  "id": "FMA24465",
+  "mesh": "FJ3240",
+  "vertices": 293,
+  "indices": 1668,
+  "offset": 1233888
+ },
+ {
+  "name": "Left first metatarsal bone",
+  "id": "FMA24508",
+  "mesh": "FJ3241",
+  "vertices": 497,
+  "indices": 2832,
+  "offset": 1240740
+ },
+ {
+  "name": "Left second metacarpal bone",
+  "id": "FMA24467",
+  "mesh": "FJ3243",
+  "vertices": 328,
+  "indices": 1776,
+  "offset": 1252368
+ },
+ {
+  "name": "Left second metatarsal bone",
+  "id": "FMA24510",
+  "mesh": "FJ3244",
+  "vertices": 401,
+  "indices": 1854,
+  "offset": 1259856
+ },
+ {
+  "name": "Left third metacarpal bone",
+  "id": "FMA24469",
+  "mesh": "FJ3246",
+  "vertices": 328,
+  "indices": 1758,
+  "offset": 1268376
+ },
+ {
+  "name": "Left third metatarsal bone",
+  "id": "FMA24512",
+  "mesh": "FJ3247",
+  "vertices": 367,
+  "indices": 1884,
+  "offset": 1275828
+ },
+ {
+  "name": "Left fourth metacarpal bone",
+  "id": "FMA24471",
+  "mesh": "FJ3249",
+  "vertices": 267,
+  "indices": 1296,
+  "offset": 1284000
+ },
+ {
+  "name": "Left fourth metatarsal bone",
+  "id": "FMA24514",
+  "mesh": "FJ3250",
+  "vertices": 353,
+  "indices": 1830,
+  "offset": 1289796
+ },
+ {
+  "name": "Left fifth metacarpal bone",
+  "id": "FMA24473",
+  "mesh": "FJ3252",
+  "vertices": 265,
+  "indices": 1404,
+  "offset": 1297692
+ },
+ {
+  "name": "Left fifth metatarsal bone",
+  "id": "FMA24516",
+  "mesh": "FJ3253",
+  "vertices": 366,
+  "indices": 2106,
+  "offset": 1303680
+ },
+ {
+  "name": "Left calcaneus",
+  "id": "FMA24498",
+  "mesh": "FJ3256",
+  "vertices": 632,
+  "indices": 3366,
+  "offset": 1312284
+ },
+ {
+  "name": "Left capitate",
+  "id": "FMA24447",
+  "mesh": "FJ3257",
+  "vertices": 230,
+  "indices": 1164,
+  "offset": 1326600
+ },
+ {
+  "name": "Left cuboid bone",
+  "id": "FMA24529",
+  "mesh": "FJ3258",
+  "vertices": 449,
+  "indices": 2418,
+  "offset": 1331688
+ },
+ {
+  "name": "Left femur",
+  "id": "FMA24475",
+  "mesh": "FJ3259",
+  "vertices": 459,
+  "indices": 2652,
+  "offset": 1341912
+ },
+ {
+  "name": "Left fibula",
+  "id": "FMA24481",
+  "mesh": "FJ3260",
+  "vertices": 149,
+  "indices": 834,
+  "offset": 1352724
+ },
+ {
+  "name": "Left hamate",
+  "id": "FMA24449",
+  "mesh": "FJ3261",
+  "vertices": 274,
+  "indices": 1320,
+  "offset": 1356180
+ },
+ {
+  "name": "Left humerus",
+  "id": "FMA23131",
+  "mesh": "FJ3262",
+  "vertices": 586,
+  "indices": 2886,
+  "offset": 1362108
+ },
+ {
+  "name": "Left intermediate cuneiform bone",
+  "id": "FMA24524",
+  "mesh": "FJ3264",
+  "vertices": 291,
+  "indices": 1320,
+  "offset": 1374912
+ },
+ {
+  "name": "Sesamoid bone of left foot",
+  "id": "FMA45098",
+  "mesh": "FJ3266",
+  "vertices": 78,
+  "indices": 300,
+  "offset": 1381044
+ },
+ {
+  "name": "Left lateral cuneiform bone",
+  "id": "FMA24526",
+  "mesh": "FJ3267",
+  "vertices": 389,
+  "indices": 1944,
+  "offset": 1382580
+ },
+ {
+  "name": "Left lunate",
+  "id": "FMA24438",
+  "mesh": "FJ3268",
+  "vertices": 184,
+  "indices": 924,
+  "offset": 1391136
+ },
+ {
+  "name": "Left maxilla",
+  "id": "FMA53650",
+  "mesh": "FJ3269",
+  "vertices": 2678,
+  "indices": 10794,
+  "offset": 1395192
+ },
+ {
+  "name": "Sesamoid bone of left foot",
+  "id": "FMA45098",
+  "mesh": "FJ3270",
+  "vertices": 95,
+  "indices": 426,
+  "offset": 1448916
+ },
+ {
+  "name": "Left medial cuneiform bone",
+  "id": "FMA24522",
+  "mesh": "FJ3271",
+  "vertices": 513,
+  "indices": 2616,
+  "offset": 1450908
+ },
+ {
+  "name": "Left nasal bone",
+  "id": "FMA53648",
+  "mesh": "FJ3272",
+  "vertices": 236,
+  "indices": 1164,
+  "offset": 1462296
+ },
+ {
+  "name": "Left palatine bone",
+  "id": "FMA53656",
+  "mesh": "FJ3273",
+  "vertices": 986,
+  "indices": 4818,
+  "offset": 1467456
+ },
+ {
+  "name": "Left parietal bone",
+  "id": "FMA52789",
+  "mesh": "FJ3274",
+  "vertices": 2927,
+  "indices": 11196,
+  "offset": 1488924
+ },
+ {
+  "name": "Left patella",
+  "id": "FMA24487",
+  "mesh": "FJ3275",
+  "vertices": 177,
+  "indices": 912,
+  "offset": 1546440
+ },
+ {
+  "name": "Left pisiform",
+  "id": "FMA24442",
+  "mesh": "FJ3276",
+  "vertices": 116,
+  "indices": 630,
+  "offset": 1550388
+ },
+ {
+  "name": "Left radius",
+  "id": "FMA23465",
+  "mesh": "FJ3277",
+  "vertices": 250,
+  "indices": 1218,
+  "offset": 1553040
+ },
+ {
+  "name": "Left scaphoid",
+  "id": "FMA24436",
+  "mesh": "FJ3278",
+  "vertices": 172,
+  "indices": 912,
+  "offset": 1558476
+ },
+ {
+  "name": "Left scapula",
+  "id": "FMA13396",
+  "mesh": "FJ3279",
+  "vertices": 3097,
+  "indices": 18540,
+  "offset": 1562364
+ },
+ {
+  "name": "Left talus",
+  "id": "FMA24483",
+  "mesh": "FJ3280",
+  "vertices": 666,
+  "indices": 3432,
+  "offset": 1636608
+ },
+ {
+  "name": "Left temporal bone",
+  "id": "FMA52739",
+  "mesh": "FJ3281",
+  "vertices": 1835,
+  "indices": 8484,
+  "offset": 1651464
+ },
+ {
+  "name": "Left tibia",
+  "id": "FMA24478",
+  "mesh": "FJ3282",
+  "vertices": 331,
+  "indices": 1860,
+  "offset": 1690452
+ },
+ {
+  "name": "Left trapezium",
+  "id": "FMA24444",
+  "mesh": "FJ3283",
+  "vertices": 222,
+  "indices": 1044,
+  "offset": 1698144
+ },
+ {
+  "name": "Left trapezoid",
+  "id": "FMA24445",
+  "mesh": "FJ3284",
+  "vertices": 278,
+  "indices": 1188,
+  "offset": 1702896
+ },
+ {
+  "name": "Left triquetral",
+  "id": "FMA24440",
+  "mesh": "FJ3285",
+  "vertices": 178,
+  "indices": 900,
+  "offset": 1708608
+ },
+ {
+  "name": "Left ulna",
+  "id": "FMA23468",
+  "mesh": "FJ3286",
+  "vertices": 283,
+  "indices": 1302,
+  "offset": 1712544
+ },
+ {
+  "name": "Left zygomatic bone",
+  "id": "FMA52893",
+  "mesh": "FJ3287",
+  "vertices": 721,
+  "indices": 3168,
+  "offset": 1718544
+ },
+ {
+  "name": "Left hip bone",
+  "id": "FMA16587",
+  "mesh": "FJ3288",
+  "vertices": 986,
+  "indices": 5424,
+  "offset": 1733532
+ },
+ {
+  "name": "Mandible",
+  "id": "FMA52748",
+  "mesh": "FJ3289",
+  "vertices": 1207,
+  "indices": 7044,
+  "offset": 1756212
+ },
+ {
+  "name": "Manubrium",
+  "id": "FMA7486",
+  "mesh": "FJ3290",
+  "vertices": 1094,
+  "indices": 5676,
+  "offset": 1784784
+ },
+ {
+  "name": "Middle phalanx of left ring finger",
+  "id": "FMA23942",
+  "mesh": "FJ3291",
+  "vertices": 208,
+  "indices": 978,
+  "offset": 1809264
+ },
+ {
+  "name": "Middle phalanx of right ring finger",
+  "id": "FMA24457",
+  "mesh": "FJ3292",
+  "vertices": 214,
+  "indices": 918,
+  "offset": 1813716
+ },
+ {
+  "name": "Middle phalanx of left second toe",
+  "id": "FMA32643",
+  "mesh": "FJ3293",
+  "vertices": 196,
+  "indices": 966,
+  "offset": 1818120
+ },
+ {
+  "name": "Middle phalanx of left third toe",
+  "id": "FMA32645",
+  "mesh": "FJ3294",
+  "vertices": 181,
+  "indices": 864,
+  "offset": 1822404
+ },
+ {
+  "name": "Middle phalanx of left fourth toe",
+  "id": "FMA32647",
+  "mesh": "FJ3295",
+  "vertices": 181,
+  "indices": 840,
+  "offset": 1826304
+ },
+ {
+  "name": "Middle phalanx of left index finger",
+  "id": "FMA23938",
+  "mesh": "FJ3296",
+  "vertices": 184,
+  "indices": 900,
+  "offset": 1830156
+ },
+ {
+  "name": "Middle phalanx of left little finger",
+  "id": "FMA23944",
+  "mesh": "FJ3297",
+  "vertices": 190,
+  "indices": 756,
+  "offset": 1834164
+ },
+ {
+  "name": "Middle phalanx of left little toe",
+  "id": "FMA230988",
+  "mesh": "FJ3298",
+  "vertices": 142,
+  "indices": 672,
+  "offset": 1837956
+ },
+ {
+  "name": "Middle phalanx of left middle finger",
+  "id": "FMA23940",
+  "mesh": "FJ3299",
+  "vertices": 220,
+  "indices": 1098,
+  "offset": 1841004
+ },
+ {
+  "name": "Middle phalanx of right second toe",
+  "id": "FMA32642",
+  "mesh": "FJ3300",
+  "vertices": 189,
+  "indices": 774,
+  "offset": 1845840
+ },
+ {
+  "name": "Middle phalanx of right third toe",
+  "id": "FMA32644",
+  "mesh": "FJ3301",
+  "vertices": 190,
+  "indices": 876,
+  "offset": 1849656
+ },
+ {
+  "name": "Middle phalanx of right fourth toe",
+  "id": "FMA32646",
+  "mesh": "FJ3302",
+  "vertices": 216,
+  "indices": 1026,
+  "offset": 1853688
+ },
+ {
+  "name": "Middle phalanx of right index finger",
+  "id": "FMA24455",
+  "mesh": "FJ3303",
+  "vertices": 186,
+  "indices": 768,
+  "offset": 1858332
+ },
+ {
+  "name": "Middle phalanx of right little finger",
+  "id": "FMA24458",
+  "mesh": "FJ3304",
+  "vertices": 168,
+  "indices": 618,
+  "offset": 1862100
+ },
+ {
+  "name": "Middle phalanx of right little toe",
+  "id": "FMA230986",
+  "mesh": "FJ3305",
+  "vertices": 102,
+  "indices": 408,
+  "offset": 1865352
+ },
+ {
+  "name": "Middle phalanx of right middle finger",
+  "id": "FMA24456",
+  "mesh": "FJ3306",
+  "vertices": 221,
+  "indices": 990,
+  "offset": 1867392
+ },
+ {
+  "name": "Navicular bone of left foot",
+  "id": "FMA24501",
+  "mesh": "FJ3307",
+  "vertices": 396,
+  "indices": 1872,
+  "offset": 1872024
+ },
+ {
+  "name": "Navicular bone of right foot",
+  "id": "FMA24500",
+  "mesh": "FJ3308",
+  "vertices": 404,
+  "indices": 1854,
+  "offset": 1880520
+ },
+ {
+  "name": "Occipital bone",
+  "id": "FMA52735",
+  "mesh": "FJ3309",
+  "vertices": 2938,
+  "indices": 14736,
+  "offset": 1889076
+ },
+ {
+  "name": "Proximal phalanx of right big toe",
+  "id": "FMA43253",
+  "mesh": "FJ3310",
+  "vertices": 272,
+  "indices": 1404,
+  "offset": 1953804
+ },
+ {
+  "name": "Proximal phalanx of left third toe",
+  "id": "FMA32637",
+  "mesh": "FJ3311",
+  "vertices": 237,
+  "indices": 1164,
+  "offset": 1959876
+ },
+ {
+  "name": "Proximal phalanx of left fourth toe",
+  "id": "FMA32639",
+  "mesh": "FJ3312",
+  "vertices": 245,
+  "indices": 1254,
+  "offset": 1965048
+ },
+ {
+  "name": "Proximal phalanx of left index finger",
+  "id": "FMA71915",
+  "mesh": "FJ3313",
+  "vertices": 218,
+  "indices": 1152,
+  "offset": 1970496
+ },
+ {
+  "name": "Proximal phalanx of left little finger",
+  "id": "FMA66791",
+  "mesh": "FJ3314",
+  "vertices": 162,
+  "indices": 810,
+  "offset": 1975416
+ },
+ {
+  "name": "Proximal phalanx of left little toe",
+  "id": "FMA32641",
+  "mesh": "FJ3315",
+  "vertices": 226,
+  "indices": 1158,
+  "offset": 1978980
+ },
+ {
+  "name": "Proximal phalanx of left middle finger",
+  "id": "FMA71908",
+  "mesh": "FJ3316",
+  "vertices": 253,
+  "indices": 1320,
+  "offset": 1984008
+ },
+ {
+  "name": "Proximal phalanx of left ring finger",
+  "id": "FMA71916",
+  "mesh": "FJ3317",
+  "vertices": 200,
+  "indices": 1098,
+  "offset": 1989684
+ },
+ {
+  "name": "Proximal phalanx of left thumb",
+  "id": "FMA65470",
+  "mesh": "FJ3318",
+  "vertices": 197,
+  "indices": 1008,
+  "offset": 1994280
+ },
+ {
+  "name": "Proximal phalanx of right second toe",
+  "id": "FMA32634",
+  "mesh": "FJ3319",
+  "vertices": 225,
+  "indices": 1176,
+  "offset": 1998660
+ },
+ {
+  "name": "Proximal phalanx of right third toe",
+  "id": "FMA32636",
+  "mesh": "FJ3320",
+  "vertices": 264,
+  "indices": 1194,
+  "offset": 2003712
+ },
+ {
+  "name": "Proximal phalanx of right fourth toe",
+  "id": "FMA32638",
+  "mesh": "FJ3321",
+  "vertices": 244,
+  "indices": 1254,
+  "offset": 2009268
+ },
+ {
+  "name": "Proximal phalanx of right index finger",
+  "id": "FMA24451",
+  "mesh": "FJ3322",
+  "vertices": 213,
+  "indices": 1080,
+  "offset": 2014704
+ },
+ {
+  "name": "Proximal phalanx of right little finger",
+  "id": "FMA24454",
+  "mesh": "FJ3323",
+  "vertices": 186,
+  "indices": 936,
+  "offset": 2019420
+ },
+ {
+  "name": "Proximal phalanx of right little toe",
+  "id": "FMA32640",
+  "mesh": "FJ3324",
+  "vertices": 228,
+  "indices": 1158,
+  "offset": 2023524
+ },
+ {
+  "name": "Proximal phalanx of right middle finger",
+  "id": "FMA24452",
+  "mesh": "FJ3325",
+  "vertices": 266,
+  "indices": 1344,
+  "offset": 2028576
+ },
+ {
+  "name": "Proximal phalanx of right ring finger",
+  "id": "FMA24453",
+  "mesh": "FJ3326",
+  "vertices": 202,
+  "indices": 1092,
+  "offset": 2034456
+ },
+ {
+  "name": "Proximal phalanx of right thumb",
+  "id": "FMA24450",
+  "mesh": "FJ3327",
+  "vertices": 196,
+  "indices": 948,
+  "offset": 2039064
+ },
+ {
+  "name": "Proximal phalanx of left second toe",
+  "id": "FMA32635",
+  "mesh": "FJ3328",
+  "vertices": 230,
+  "indices": 1122,
+  "offset": 2043312
+ },
+ {
+  "name": "Proximal phalanx of left big toe",
+  "id": "FMA43254",
+  "mesh": "FJ3329",
+  "vertices": 310,
+  "indices": 1506,
+  "offset": 2048316
+ },
+ {
+  "name": "Right tenth rib",
+  "id": "FMA8445",
+  "mesh": "FJ3330",
+  "vertices": 754,
+  "indices": 4500,
+  "offset": 2055048
+ },
+ {
+  "name": "Right eleventh rib",
+  "id": "FMA8531",
+  "mesh": "FJ3331",
+  "vertices": 538,
+  "indices": 3210,
+  "offset": 2073096
+ },
+ {
+  "name": "Right twelfth rib",
+  "id": "FMA8533",
+  "mesh": "FJ3332",
+  "vertices": 372,
+  "indices": 2220,
+  "offset": 2085972
+ },
+ {
+  "name": "Right first rib",
+  "id": "FMA7857",
+  "mesh": "FJ3334",
+  "vertices": 519,
+  "indices": 3096,
+  "offset": 2094876
+ },
+ {
+  "name": "Right second rib",
+  "id": "FMA7882",
+  "mesh": "FJ3336",
+  "vertices": 648,
+  "indices": 3690,
+  "offset": 2107296
+ },
+ {
+  "name": "Right third rib",
+  "id": "FMA7909",
+  "mesh": "FJ3338",
+  "vertices": 800,
+  "indices": 4782,
+  "offset": 2122452
+ },
+ {
+  "name": "Right fourth rib",
+  "id": "FMA7957",
+  "mesh": "FJ3340",
+  "vertices": 979,
+  "indices": 5826,
+  "offset": 2141616
+ },
+ {
+  "name": "Right fifth rib",
+  "id": "FMA8066",
+  "mesh": "FJ3342",
+  "vertices": 1093,
+  "indices": 6408,
+  "offset": 2165016
+ },
+ {
+  "name": "Right sixth rib",
+  "id": "FMA8175",
+  "mesh": "FJ3344",
+  "vertices": 1147,
+  "indices": 6762,
+  "offset": 2190948
+ },
+ {
+  "name": "Right seventh rib",
+  "id": "FMA8229",
+  "mesh": "FJ3346",
+  "vertices": 1122,
+  "indices": 6618,
+  "offset": 2218236
+ },
+ {
+  "name": "Right eighth rib",
+  "id": "FMA8283",
+  "mesh": "FJ3347",
+  "vertices": 928,
+  "indices": 5496,
+  "offset": 2244936
+ },
+ {
+  "name": "Right ninth rib",
+  "id": "FMA8364",
+  "mesh": "FJ3348",
+  "vertices": 842,
+  "indices": 4998,
+  "offset": 2267064
+ },
+ {
+  "name": "Right radius",
+  "id": "FMA23464",
+  "mesh": "FJ3349",
+  "vertices": 249,
+  "indices": 1224,
+  "offset": 2287164
+ },
+ {
+  "name": "Right first metacarpal bone",
+  "id": "FMA24464",
+  "mesh": "FJ3350",
+  "vertices": 287,
+  "indices": 1578,
+  "offset": 2292600
+ },
+ {
+  "name": "Right first metatarsal bone",
+  "id": "FMA24507",
+  "mesh": "FJ3351",
+  "vertices": 492,
+  "indices": 2724,
+  "offset": 2299200
+ },
+ {
+  "name": "Right second metacarpal bone",
+  "id": "FMA24466",
+  "mesh": "FJ3352",
+  "vertices": 347,
+  "indices": 1830,
+  "offset": 2310552
+ },
+ {
+  "name": "Right second metatarsal bone",
+  "id": "FMA24509",
+  "mesh": "FJ3353",
+  "vertices": 434,
+  "indices": 1836,
+  "offset": 2318376
+ },
+ {
+  "name": "Right third metacarpal bone",
+  "id": "FMA24468",
+  "mesh": "FJ3354",
+  "vertices": 345,
+  "indices": 1758,
+  "offset": 2327256
+ },
+ {
+  "name": "Right third metatarsal bone",
+  "id": "FMA24511",
+  "mesh": "FJ3355",
+  "vertices": 381,
+  "indices": 1860,
+  "offset": 2334912
+ },
+ {
+  "name": "Right fourth metacarpal bone",
+  "id": "FMA24470",
+  "mesh": "FJ3356",
+  "vertices": 280,
+  "indices": 1266,
+  "offset": 2343204
+ },
+ {
+  "name": "Right fourth metatarsal bone",
+  "id": "FMA24513",
+  "mesh": "FJ3357",
+  "vertices": 333,
+  "indices": 1662,
+  "offset": 2349096
+ },
+ {
+  "name": "Right fifth metacarpal bone",
+  "id": "FMA24472",
+  "mesh": "FJ3358",
+  "vertices": 236,
+  "indices": 1284,
+  "offset": 2356416
+ },
+ {
+  "name": "Right fifth metatarsal bone",
+  "id": "FMA24515",
+  "mesh": "FJ3359",
+  "vertices": 371,
+  "indices": 2010,
+  "offset": 2361816
+ },
+ {
+  "name": "Right calcaneus",
+  "id": "FMA24497",
+  "mesh": "FJ3360",
+  "vertices": 641,
+  "indices": 3228,
+  "offset": 2370288
+ },
+ {
+  "name": "Right capitate",
+  "id": "FMA24446",
+  "mesh": "FJ3361",
+  "vertices": 245,
+  "indices": 1218,
+  "offset": 2384436
+ },
+ {
+  "name": "Right clavicle",
+  "id": "FMA13322",
+  "mesh": "FJ3362",
+  "vertices": 420,
+  "indices": 2460,
+  "offset": 2389812
+ },
+ {
+  "name": "Right cuboid bone",
+  "id": "FMA24528",
+  "mesh": "FJ3364",
+  "vertices": 488,
+  "indices": 2466,
+  "offset": 2399772
+ },
+ {
+  "name": "Right femur",
+  "id": "FMA24474",
+  "mesh": "FJ3365",
+  "vertices": 480,
+  "indices": 2790,
+  "offset": 2410560
+ },
+ {
+  "name": "Right fibula",
+  "id": "FMA24480",
+  "mesh": "FJ3366",
+  "vertices": 162,
+  "indices": 894,
+  "offset": 2421900
+ },
+ {
+  "name": "Right hamate",
+  "id": "FMA24448",
+  "mesh": "FJ3367",
+  "vertices": 316,
+  "indices": 1470,
+  "offset": 2425632
+ },
+ {
+  "name": "Right humerus",
+  "id": "FMA23130",
+  "mesh": "FJ3368",
+  "vertices": 794,
+  "indices": 3210,
+  "offset": 2432364
+ },
+ {
+  "name": "Right intermediate cuneiform bone",
+  "id": "FMA24523",
+  "mesh": "FJ3370",
+  "vertices": 278,
+  "indices": 1290,
+  "offset": 2448312
+ },
+ {
+  "name": "Sesamoid bone of right foot",
+  "id": "FMA45097",
+  "mesh": "FJ3372",
+  "vertices": 73,
+  "indices": 240,
+  "offset": 2454228
+ },
+ {
+  "name": "Right lateral cuneiform bone",
+  "id": "FMA24525",
+  "mesh": "FJ3373",
+  "vertices": 380,
+  "indices": 1800,
+  "offset": 2455584
+ },
+ {
+  "name": "Right lunate",
+  "id": "FMA24437",
+  "mesh": "FJ3374",
+  "vertices": 191,
+  "indices": 972,
+  "offset": 2463744
+ },
+ {
+  "name": "Right maxilla",
+  "id": "FMA53649",
+  "mesh": "FJ3375",
+  "vertices": 2591,
+  "indices": 10980,
+  "offset": 2467980
+ },
+ {
+  "name": "Sesamoid bone of right foot",
+  "id": "FMA45097",
+  "mesh": "FJ3376",
+  "vertices": 103,
+  "indices": 468,
+  "offset": 2521032
+ },
+ {
+  "name": "Right medial cuneiform bone",
+  "id": "FMA24521",
+  "mesh": "FJ3377",
+  "vertices": 553,
+  "indices": 2514,
+  "offset": 2523204
+ },
+ {
+  "name": "Right nasal bone",
+  "id": "FMA53647",
+  "mesh": "FJ3378",
+  "vertices": 253,
+  "indices": 1176,
+  "offset": 2534868
+ },
+ {
+  "name": "Right palatine bone",
+  "id": "FMA53655",
+  "mesh": "FJ3379",
+  "vertices": 994,
+  "indices": 4458,
+  "offset": 2540256
+ },
+ {
+  "name": "Right parietal bone",
+  "id": "FMA52788",
+  "mesh": "FJ3380",
+  "vertices": 2734,
+  "indices": 11082,
+  "offset": 2561100
+ },
+ {
+  "name": "Right patella",
+  "id": "FMA24486",
+  "mesh": "FJ3381",
+  "vertices": 176,
+  "indices": 912,
+  "offset": 2616072
+ },
+ {
+  "name": "Right pisiform",
+  "id": "FMA24441",
+  "mesh": "FJ3382",
+  "vertices": 110,
+  "indices": 570,
+  "offset": 2620008
+ },
+ {
+  "name": "Right scaphoid",
+  "id": "FMA24435",
+  "mesh": "FJ3383",
+  "vertices": 185,
+  "indices": 906,
+  "offset": 2622468
+ },
+ {
+  "name": "Right scapula",
+  "id": "FMA13395",
+  "mesh": "FJ3384",
+  "vertices": 2896,
+  "indices": 17268,
+  "offset": 2626500
+ },
+ {
+  "name": "Right talus",
+  "id": "FMA24482",
+  "mesh": "FJ3385",
+  "vertices": 709,
+  "indices": 3552,
+  "offset": 2695788
+ },
+ {
+  "name": "Right temporal bone",
+  "id": "FMA52738",
+  "mesh": "FJ3386",
+  "vertices": 1976,
+  "indices": 8718,
+  "offset": 2711400
+ },
+ {
+  "name": "Right tibia",
+  "id": "FMA24477",
+  "mesh": "FJ3387",
+  "vertices": 334,
+  "indices": 1902,
+  "offset": 2752548
+ },
+ {
+  "name": "Right trapezium",
+  "id": "FMA24443",
+  "mesh": "FJ3388",
+  "vertices": 272,
+  "indices": 1272,
+  "offset": 2760360
+ },
+ {
+  "name": "Right trapezoid",
+  "id": "FMA23725",
+  "mesh": "FJ3389",
+  "vertices": 267,
+  "indices": 1062,
+  "offset": 2766168
+ },
+ {
+  "name": "Right triquetral",
+  "id": "FMA24439",
+  "mesh": "FJ3390",
+  "vertices": 139,
+  "indices": 510,
+  "offset": 2771496
+ },
+ {
+  "name": "Right ulna",
+  "id": "FMA23467",
+  "mesh": "FJ3391",
+  "vertices": 305,
+  "indices": 1446,
+  "offset": 2774184
+ },
+ {
+  "name": "Right zygomatic bone",
+  "id": "FMA52892",
+  "mesh": "FJ3392",
+  "vertices": 717,
+  "indices": 3438,
+  "offset": 2780736
+ },
+ {
+  "name": "Sacrum",
+  "id": "FMA16202",
+  "mesh": "FJ3393",
+  "vertices": 2771,
+  "indices": 15174,
+  "offset": 2796216
+ },
+ {
+  "name": "Sphenoid bone",
+  "id": "FMA52736",
+  "mesh": "FJ3394",
+  "vertices": 2791,
+  "indices": 12714,
+  "offset": 2859816
+ },
+ {
+  "name": "Vomer",
+  "id": "FMA9710",
+  "mesh": "FJ3395",
+  "vertices": 820,
+  "indices": 4758,
+  "offset": 2918736
+ }
+]
