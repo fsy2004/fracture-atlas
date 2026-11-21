@@ -89,7 +89,12 @@ let desk='plate',pair='side',tab='study';
 const panels=[...document.querySelectorAll('.pane')];
 function lessonOpen(){return Boolean(course&&variant>=0&&selected);}
 function storyView(){
- return ['radius','hip-dislocation','shoulder-dislocation','elbow-dislocation'].includes(course?.id)?'side':'home';
+ const id=course?.id,v=course?.variants[variant];
+ if(course?.kind!=='joint')return id==='radius'?'side':'home';
+ if(id==='lisfranc-dislocation')return 'top';
+ if(id==='patella-dislocation'||id==='knee-dislocation'&&variant>=2||id==='pip-dislocation'&&variant===1||id==='elbow-dislocation'&&variant===1)return 'front';
+ if(v?.nativePoint&&/\bleft\b/i.test(selected))return 'leftSide';
+ return 'side';
 }
 function sectionGuide(){
  const guide=inspection?.axisGuide(),pts=inspection?.referencePoints();
@@ -474,8 +479,9 @@ function aim(view='home',smooth=false){
  if(!camera)return;
  if(view==='detail'&&!course)return;
  const closeStory=desk==='story'&&lessonOpen()&&['radius','ankle','elbow','olecranon'].includes(course.id)&&['front','side'].includes(view);
- const target=view==='detail'||closeStory?fractureFocus:focus;
- const dir={inferior:[0,-1,.001],detail:[-.6,.17,1],front:[0,0,1],side:[-1,0,0],top:[0,1,.001],home:selected?[-.36,.12,1]:[0,0,1]}[view];
+ const localJoint=lessonOpen()&&course.kind==='joint'&&course.variants[variant].nativePoint&&['front','top','side','leftSide'].includes(view);
+ const target=view==='detail'||closeStory||localJoint?fractureFocus:focus;
+ const dir={inferior:[0,-1,.001],detail:[-.6,.17,1],front:[0,0,1],side:[-1,0,0],leftSide:[1,0,0],top:[0,1,.001],home:selected?[-.36,.12,1]:[0,0,1]}[view];
  const box=host.getBoundingClientRect(),aspect=box.width/Math.max(1,box.height);
  let horizontal=span;
  if(!selected)horizontal=.65;
@@ -484,7 +490,8 @@ function aim(view='home',smooth=false){
   horizontal=Math.min(span,Math.max(span*.42,Math.hypot(size.x,size.z)));
  }
  const viewSize=Math.max(span,horizontal/aspect);
- distance=viewSize*(view==='detail'?.57:closeStory?.72:1.16)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)));
+ const framing=view==='detail' ? .57 : (closeStory||localJoint) ? .72 : 1.16;
+ distance=viewSize*framing/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)));
  const end=target.clone().addScaledVector(vec(dir).normalize(),distance);
  flight=null;
  controls.minDistance=.0005;controls.maxDistance=20;
@@ -766,7 +773,7 @@ function renderLesson(smooth=false,keepView=false){
   const projected=d?d.clone().addScaledVector(homeDir,-d.dot(homeDir)).length():Infinity;
   const small=projected<span*.035;
   if(small&&desk==='plate'&&studyMode==='overview')motionCloseUp(smooth);
-  else aim(desk==='plate'?'detail':desk==='story'?storyView():'home',smooth);
+  else aim(desk==='story'||desk==='plate'&&course.kind==='joint'&&v.nativePoint?storyView():desk==='plate'?'detail':'home',smooth);
  }
  setProgress(progress);
 }

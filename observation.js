@@ -8,6 +8,11 @@ const fixedInk=new T.LineBasicMaterial({color:0x24796c,depthTest:false});
 const mobileInk=new T.LineBasicMaterial({color:0xaa452a,depthTest:false});
 const measureInk=new T.LineBasicMaterial({color:0x484c3b,depthTest:false});
 const facetMaterial=new T.MeshBasicMaterial({color:0x429c91,side:T.DoubleSide,polygonOffset:true,polygonOffsetFactor:-3,polygonOffsetUnits:-3});
+const jointLabels={
+ 'shoulder-dislocation':'肱骨头','elbow-dislocation':'尺桡骨近端','hip-dislocation':'股骨头','tmj-dislocation':'下颌骨',
+ 'lunate-dislocation':'月骨','mcp-dislocation':'拇指近节基底','pip-dislocation':'示指中节基底','knee-dislocation':'胫骨平台',
+ 'patella-dislocation':'髌骨','lisfranc-dislocation':'跖骨基底','mtp-dislocation':'拇趾近节基底','toe-ip-dislocation':'拇趾末节基底'
+};
 const faceRegions={
  radius:['Right radius',1,-1,.064,[0,-1,0],'桡腕关节面'],
  plateau:['Right tibia',1,1,.057,[0,1,0],'胫骨平台'],
@@ -173,7 +178,7 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
     else label('骨折线',posed(moving,cutPt));return;
    }
    if(mode==='overview'){
-    if(p>.42)label(joint?'移出的骨端':'骨折块',posed(moving,cutPt));
+    if(p>.42)label(joint?(jointLabels[course.id]||'活动骨端'):'骨折块',posed(moving,cutPt));
     return;
    }
    const from=posed(reference,anchor),to=posed(moving,anchor);
