@@ -165,9 +165,11 @@ body[data-desk=story] .pane:first-child b,body[data-desk=story] .pane:first-chil
 #motionStatus{font-size:12px;color:var(--muted);margin-bottom:5px}
 #fragmentBox{background:var(--leaf);color:#203c32;border:1px solid #b9cbbd;border-radius:7px;padding:8px 10px;margin:12px 0;scroll-margin-block:4px}#fragmentBox summary{font-weight:650;color:#244e42}#fragmentBox select{display:block;width:100%;font:inherit;padding:5px;background:#fff;color:#233b30}#fragmentBox label{font-size:13px}#restoreFragment{margin-top:8px}#fragmentBox .measure-row output,#fragmentBox .hint{color:#415f54}#fragmentBox .hint{margin:7px 0}body:is([data-desk=pair],[data-desk=story]):not([data-tab=measure]) #fragmentBox{display:none}
 
-#rulerOutput{position:absolute;z-index:2;bottom:88px;left:4%;max-width:90%;border-left:3px solid #77629f;background:#fffdf2ed;padding:5px 9px;color:#472f64;font-size:13px;pointer-events:none}.motion-actions{flex-wrap:wrap}.motion-actions button{font-size:12px}
+.motion-actions{flex-wrap:wrap}.motion-actions button{font-size:12px}
 
 #fragmentRows .amount{display:flex;align-items:center;gap:3px;font-size:12px}#fragmentRows .amount input{width:64px;padding:2px 3px;border:1px solid #abc3b4;border-radius:4px;background:#fff;color:#254a3b;font:inherit}
 
 .multi-entry{display:block;padding:7px 0 0;color:var(--jade);font-size:13px}#quickEdit{display:none}
 @media(max-width:630px){#quickEdit:not([hidden]){display:block;position:fixed;right:100px;bottom:12px;z-index:3;background:var(--porcelain)}body.panel-open #quickEdit{display:none}}
+
+#mechanicsBox label,#mechanicsBox small{display:block;font-size:12px;margin-top:8px}#mechanicsBox select{width:100%;padding:6px}#contactState{font-size:12px;color:var(--muted);line-height:1.4;margin:3px 0}#contactState.conflict{color:#a14428;font-weight:650}body[data-desk=pair] #contactState.conflict{color:#f6b289}

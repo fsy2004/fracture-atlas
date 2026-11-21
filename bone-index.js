@@ -30,7 +30,7 @@ export function boneName(key){
  return key;
 }
 export function teachingBone(key){
- return key.replace(/\bleft\b/i,match=>match==='Left'?'Right':'right');
+ return key.replace(/\bleft\b/i,match=>match==='Left'?'Right':'right').replace(/ FJ3270$/, ' FJ3376');
 }
 export function regionFor(name){
  const text=boneName(name);

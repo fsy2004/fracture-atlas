@@ -2,7 +2,7 @@ import * as T from './vendor/three.module.js';
 
 const vec = a => new T.Vector3(...a);
 const vertexKey = v => [v.x,v.y,v.z].map(n=>Math.round(n*1e7)).join(',');
-export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiralAxis=[0,1,0]) {
+export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiralAxis=[0,1,0], exteriorEnd=Infinity) {
   const n=vec(spiralHeight?spiralAxis:normal).normalize(), origin=vec(anchor);
   const axis=new T.Vector3(Math.abs(n.x)<.8?1:0,Math.abs(n.x)<.8?0:1,0).cross(n).normalize();
   const up=n.clone().cross(axis);
@@ -15,9 +15,11 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
   }
   const positions=geometry.attributes.position, norms=geometry.attributes.normal;
   const index=geometry.index.array, groups=[[],[]], normals=[[],[]], edges=[];
+  const inherited=[[],[]];let isExterior=true;
   function emit(side,poly) {
     for(let k=1;k+1<poly.length;k++) for(const v of [poly[0],poly[k],poly[k+1]]) {
-      groups[side].push(...v.p.toArray()); normals[side].push(...v.n.toArray());
+      if(isExterior){groups[side].push(...v.p.toArray());normals[side].push(...v.n.toArray());}
+      else inherited[side].push(...v.p.toArray());
     }
   }
   function signed(p){
@@ -26,7 +28,8 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     return n.dot(relative)-rise(relative.dot(axis),relative.dot(up));
   }
   function clip(tri){
-    for(const v of tri)v.d=signed(v.p);
+    // A previous cut is stored as float32. Classify a shared crease consistently on recut.
+    for(const v of tri){v.d=signed(v.p);if(Math.abs(v.d)<2e-8)v.d=0;}
     const sides=[[],[]], cross=[];
     tri.forEach((a,k)=>{
       const b=tri[(k+1)%3]; sides[Number(a.d>=0)].push(a);
@@ -73,6 +76,7 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     for(const poly of halves)for(let k=1;k+1<poly.length;k++)emitTriangle([poly[0],poly[k],poly[k+1]]);
   }
   for(let i=0;i<index.length;i+=3){
+    isExterior=i<exteriorEnd;
     const tri=Array.from(index.slice(i,i+3),j=>({p:new T.Vector3().fromBufferAttribute(positions,j),n:new T.Vector3().fromBufferAttribute(norms,j)}));
     if(spiralHeight)refine(tri,3);
     else if(fold&&tri.some(a=>a.p.x>origin.x)&&tri.some(a=>a.p.x<origin.x))splitCrease(tri,clip);
@@ -182,10 +186,37 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     if(side===1)for(let k=0;k<surface.length;k+=9)for(let j=0;j<3;j++){
       const temp=surface[k+3+j];surface[k+3+j]=surface[k+6+j];surface[k+6+j]=temp;
     }
-    face.setAttribute('position',new T.BufferAttribute(surface,3));face.computeVertexNormals();
+    const combined=new Float32Array(surface.length+inherited[side].length);
+    combined.set(surface);combined.set(inherited[side],surface.length);
+    face.setAttribute('position',new T.BufferAttribute(combined,3));face.computeVertexNormals();
     const outline=new T.BufferGeometry().setFromPoints(edges.flat());
     return {geo,face,outline};
   });
+}
+
+// Preserve both the internal face material and the outline of the first cut when recutting.
+export function branchSection(first,normal,anchor){
+ const merged=new T.BufferGeometry();
+ for(const key of ['position','normal']){
+  const a=first.geo.attributes[key].array,b=first.face.attributes[key].array;
+  const values=new Float32Array(a.length+b.length);values.set(a);values.set(b,a.length);
+  merged.setAttribute(key,new T.BufferAttribute(values,3));
+ }
+ merged.setIndex(Array.from({length:merged.attributes.position.count},(_,i)=>i));
+ const children=section(merged,normal,anchor,0,0,[0,1,0],first.geo.attributes.position.count);
+ const rim=first.outline.attributes.position,n=vec(normal).normalize(),plane=n.dot(vec(anchor)),extra=[[],[]];
+ for(let i=0;i<rim.count;i+=2){
+  const a=new T.Vector3().fromBufferAttribute(rim,i),b=new T.Vector3().fromBufferAttribute(rim,i+1);
+  const da=n.dot(a)-plane,db=n.dot(b)-plane;
+  if((da>=0)===(db>=0))extra[Number(da>=0)].push(a,b);
+  else {const mid=a.clone().lerp(b,da/(da-db));extra[Number(da>=0)].push(a,mid);extra[Number(db>=0)].push(mid,b);}
+ }
+ children.forEach((item,k)=>{
+  const pos=item.outline.attributes.position.array,coords=new Float32Array(pos.length+3*extra[k].length);coords.set(pos);
+  extra[k].forEach((p,i)=>p.toArray(coords,pos.length+3*i));
+  item.outline.setAttribute('position',new T.BufferAttribute(coords,3));
+ });
+ merged.dispose();return children;
 }
 
 const pairKey=(a,b)=>a<b?a+','+b:b+','+a;
@@ -235,4 +266,14 @@ export function atLevel(g,axis,fraction){
   origin.setComponent(axis,T.MathUtils.lerp(box.min.getComponent(axis),box.max.getComponent(axis),f));
   const n=new T.Vector3().setComponent(axis,1),u=new T.Vector3().setComponent((axis+1)%3,1);
   return (sliceMetrics(g,origin,n,u)?.centre||origin).toArray();
+}
+
+// Orient named transverse and oblique cuts to the axis of this specimen's short tubular bone.
+export function shortShaftCut(g,s,angle){
+ const low=vec(atLevel(g,s.axis,.26)),high=vec(atLevel(g,s.axis,.74)),axis=high.sub(low).normalize();
+ if(axis.dot(vec(s.normal))<0)axis.negate();
+ const side=new T.Vector3(Math.abs(axis.x)<.88?1:0,Math.abs(axis.x)<.88?0:1,0);
+ side.addScaledVector(axis,-axis.dot(side)).normalize();
+ const rad=T.MathUtils.degToRad(angle),normal=axis.multiplyScalar(Math.cos(rad)).addScaledVector(side,Math.sin(rad)).normalize();
+ return {...s,normal:normal.toArray(),second:s.second?side.toArray():undefined};
 }

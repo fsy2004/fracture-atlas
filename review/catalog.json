@@ -1,0 +1,3695 @@
+[
+  {
+    "route": "#tibia/0/1",
+    "scope": "教材分型示例",
+    "site": "胫腓骨干",
+    "pattern": "直接暴力",
+    "reference": "第三节 · 八｜图 6-85 · PDF 412–413 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "从正面观察，两根骨的骨折线位于同一高度；侧转模型可见断端成角。"
+  },
+  {
+    "route": "#tibia/1/1",
+    "scope": "教材分型示例",
+    "site": "胫腓骨干",
+    "pattern": "间接暴力",
+    "reference": "第三节 · 八｜图 6-85 · PDF 412–413 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "对照两条斜线，腓骨断面高于胫骨；沿骨长轴观察远段旋转。"
+  },
+  {
+    "route": "#femur/0/1",
+    "scope": "教材分型示例",
+    "site": "股骨干",
+    "pattern": "上 1/3",
+    "reference": "第三节 · 三｜图 6-73 · PDF 394–395 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "近段屈曲、外展和外旋，远段向内、向上并向后移位。"
+  },
+  {
+    "route": "#femur/1/1",
+    "scope": "教材分型示例",
+    "site": "股骨干",
+    "pattern": "中 1/3",
+    "reference": "第三节 · 三｜图 6-73 · PDF 394–395 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "比较两侧断端，远段向内上，近段有屈曲外展倾向。"
+  },
+  {
+    "route": "#femur/2/1",
+    "scope": "教材分型示例",
+    "site": "股骨干",
+    "pattern": "下 1/3",
+    "reference": "第三节 · 三｜图 6-73 · PDF 394–395 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "转至侧面，观察远段向后方移动。"
+  },
+  {
+    "route": "#neck/0/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈",
+    "pattern": "头下部骨折",
+    "reference": "第三节 · 一｜图 6-66 · PDF 383 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "股骨头留在髋臼内；观察骨干端短缩、外旋及两端成角。"
+  },
+  {
+    "route": "#neck/1/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈",
+    "pattern": "颈中部骨折",
+    "reference": "第三节 · 一｜图 6-66 · PDF 383 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "颈中断面两侧失去对线；旋转视角观察远段上移与外旋。"
+  },
+  {
+    "route": "#neck/2/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈",
+    "pattern": "基底部骨折",
+    "reference": "第三节 · 一｜图 6-66 · PDF 383 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "断面接近转子区。本例选择较小的短缩和外旋。"
+  },
+  {
+    "route": "#patella/0/1",
+    "scope": "教材分型示例",
+    "site": "髌骨",
+    "pattern": "横形骨折",
+    "reference": "第三节 · 六｜病因病机 · PDF 406–407 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [],
+    "observation": "上下两块分离，观察近端向上牵移。"
+  },
+  {
+    "route": "#patella/1/1",
+    "scope": "教材分型示例",
+    "site": "髌骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 六｜病因病机 · PDF 406–407 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [],
+    "observation": "从前面观察相交的骨折线。此例示意多块形态，保留较小的块间移位。"
+  },
+  {
+    "route": "#ankle/0/1",
+    "scope": "教材分型示例",
+    "site": "踝部",
+    "pattern": "内翻损伤",
+    "reference": "第三节 · 九｜图 6-89、6-90 · PDF 420–421 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "内踝斜断，外踝呈横形。"
+  },
+  {
+    "route": "#ankle/1/1",
+    "scope": "教材分型示例",
+    "site": "踝部",
+    "pattern": "外翻损伤",
+    "reference": "第三节 · 九｜图 6-89、6-90 · PDF 420–421 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "内踝横断，外踝呈斜形。"
+  },
+  {
+    "route": "#metatarsal/0/1",
+    "scope": "教材分型示例",
+    "site": "跖骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right second metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "以右侧第二跖骨为例，转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#metatarsal/1/1",
+    "scope": "教材分型示例",
+    "site": "跖骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right second metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "以右侧第二跖骨为例，转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#metatarsal/2/1",
+    "scope": "教材分型示例",
+    "site": "跖骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right second metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "以右侧第二跖骨为例，转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#clavicle/0/1",
+    "scope": "教材分型示例",
+    "site": "锁骨",
+    "pattern": "内 1/3",
+    "reference": "第二节 · 一｜图 6-15 · PDF 312–313 页",
+    "affected": [
+      "Right clavicle"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与锁骨两端的距离，此例只示意该位置的小幅分离。"
+  },
+  {
+    "route": "#clavicle/1/1",
+    "scope": "教材分型示例",
+    "site": "锁骨",
+    "pattern": "中 1/3",
+    "reference": "第二节 · 一｜图 6-15 · PDF 312–313 页",
+    "affected": [
+      "Right clavicle"
+    ],
+    "fixed": [],
+    "observation": "锁骨中段骨折时，内侧段向后上方，外侧段向前下方移位。"
+  },
+  {
+    "route": "#clavicle/2/1",
+    "scope": "教材分型示例",
+    "site": "锁骨",
+    "pattern": "外 1/3",
+    "reference": "第二节 · 一｜图 6-15 · PDF 312–313 页",
+    "affected": [
+      "Right clavicle"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与锁骨两端的距离，此例只示意该位置的小幅分离。"
+  },
+  {
+    "route": "#humerus/0/1",
+    "scope": "教材分型示例",
+    "site": "肱骨干",
+    "pattern": "上 1/3",
+    "reference": "第二节 · 三｜图 6-21 · PDF 321–322 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "近端向前内侧，远端向外上方。"
+  },
+  {
+    "route": "#humerus/1/1",
+    "scope": "教材分型示例",
+    "site": "肱骨干",
+    "pattern": "中 1/3",
+    "reference": "第二节 · 三｜图 6-21 · PDF 321–322 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "近端向前外侧，远端上移并发生重叠。"
+  },
+  {
+    "route": "#humerus/2/1",
+    "scope": "教材分型示例",
+    "site": "肱骨干",
+    "pattern": "下 1/3",
+    "reference": "第二节 · 三｜图 6-21 · PDF 321–322 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "观察远段内旋及成角。具体移位随肘与前臂姿势而变。"
+  },
+  {
+    "route": "#radius/0/1",
+    "scope": "教材分型示例",
+    "site": "桡骨远端",
+    "pattern": "伸直型",
+    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "远端骨块向背侧及桡侧移动，侧位可见背倾。"
+  },
+  {
+    "route": "#radius/1/1",
+    "scope": "教材分型示例",
+    "site": "桡骨远端",
+    "pattern": "屈曲型",
+    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "与伸直型对照，远端骨块向掌侧及桡侧移动。"
+  },
+  {
+    "route": "#radius/2/1",
+    "scope": "教材分型示例",
+    "site": "桡骨远端",
+    "pattern": "背侧缘型",
+    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "关节缘楔形骨块及腕骨向背侧移位。"
+  },
+  {
+    "route": "#radius/3/1",
+    "scope": "教材分型示例",
+    "site": "桡骨远端",
+    "pattern": "掌侧缘型",
+    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "掌侧缘受到劈裂，腕骨随骨块向掌侧移动。"
+  },
+  {
+    "route": "#forearm/0/1",
+    "scope": "教材分型示例",
+    "site": "尺桡骨干",
+    "pattern": "直接暴力",
+    "reference": "第二节 · 十｜图 6-38",
+    "affected": [
+      "Right radius",
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "在相近水平追踪两条横断线，再观察远侧骨段的侧移和成角。"
+  },
+  {
+    "route": "#forearm/1/1",
+    "scope": "教材分型示例",
+    "site": "尺桡骨干",
+    "pattern": "传达暴力",
+    "reference": "第二节 · 十｜图 6-38",
+    "affected": [
+      "Right radius",
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "比较两骨骨折线的高度与倾斜方向。"
+  },
+  {
+    "route": "#forearm/2/1",
+    "scope": "教材分型示例",
+    "site": "尺桡骨干",
+    "pattern": "扭转暴力",
+    "reference": "第二节 · 十｜图 6-38",
+    "affected": [
+      "Right radius",
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "此例呈斜形骨折，拖动观察两段相对旋转。"
+  },
+  {
+    "route": "#rib/0/1",
+    "scope": "教材分型示例",
+    "site": "肋骨",
+    "pattern": "直接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right sixth rib"
+    ],
+    "fixed": [],
+    "observation": "以右第六肋为例，骨折端向内侧移动。"
+  },
+  {
+    "route": "#rib/1/1",
+    "scope": "教材分型示例",
+    "site": "肋骨",
+    "pattern": "间接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right sixth rib"
+    ],
+    "fixed": [],
+    "observation": "观察断端向胸廓外方突出的方向。"
+  },
+  {
+    "route": "#rib/2/1",
+    "scope": "教材分型示例",
+    "site": "肋骨",
+    "pattern": "肌肉强烈收缩",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right sixth rib"
+    ],
+    "fixed": [],
+    "observation": "高亮线表示局部损伤位置，此例保持骨段对位。"
+  },
+  {
+    "route": "#plateau/0/1",
+    "scope": "教材分型示例",
+    "site": "胫骨髁",
+    "pattern": "内侧髁骨折",
+    "reference": "第三节 · 七｜图 6-84 · PDF 410 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "自上方观察受累半侧平台，再侧转查看骨折线如何延入干骺端。"
+  },
+  {
+    "route": "#plateau/1/1",
+    "scope": "教材分型示例",
+    "site": "胫骨髁",
+    "pattern": "外侧髁骨折",
+    "reference": "第三节 · 七｜图 6-84 · PDF 410 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "自上方观察受累半侧平台，再侧转查看骨折线如何延入干骺端。"
+  },
+  {
+    "route": "#plateau/2/1",
+    "scope": "教材分型示例",
+    "site": "胫骨髁",
+    "pattern": "双髁骨折",
+    "reference": "第三节 · 七｜图 6-84 · PDF 410 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "从上方看内、外两侧平台，从正面看两髁与干骺端的关系。"
+  },
+  {
+    "route": "#distalfemur/0/1",
+    "scope": "教材分型示例",
+    "site": "股骨髁上",
+    "pattern": "屈曲型",
+    "reference": "第三节 · 四｜病因病机",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "在侧位观察，骨折线从后上斜向前下，远端向后。"
+  },
+  {
+    "route": "#distalfemur/1/1",
+    "scope": "教材分型示例",
+    "site": "股骨髁上",
+    "pattern": "伸直型",
+    "reference": "第三节 · 四｜病因病机",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "在侧位观察，骨折线从前上斜向后下，远端向前。"
+  },
+  {
+    "route": "#calcaneus/0/1",
+    "scope": "教材分型示例",
+    "site": "跟骨",
+    "pattern": "不波及关节面",
+    "reference": "第三节 · 十一｜图 6-95",
+    "affected": [
+      "Right calcaneus"
+    ],
+    "fixed": [],
+    "observation": "观察后方结节骨块与上方距跟关节面的关系。"
+  },
+  {
+    "route": "#calcaneus/1/1",
+    "scope": "教材分型示例",
+    "site": "跟骨",
+    "pattern": "波及关节面",
+    "reference": "第三节 · 十一｜图 6-95",
+    "affected": [
+      "Right calcaneus"
+    ],
+    "fixed": [],
+    "observation": "从足外侧和上方追踪骨折线，确认其进入距跟接触面。"
+  },
+  {
+    "route": "#toes/0/1",
+    "scope": "教材分型示例",
+    "site": "趾骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right big toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。本例选取右拇趾近节。"
+  },
+  {
+    "route": "#toes/1/1",
+    "scope": "教材分型示例",
+    "site": "趾骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right big toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。本例选取右拇趾近节。"
+  },
+  {
+    "route": "#toes/2/1",
+    "scope": "教材分型示例",
+    "site": "趾骨",
+    "pattern": "纵裂骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right big toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。本例选取右拇趾近节。"
+  },
+  {
+    "route": "#toes/3/1",
+    "scope": "教材分型示例",
+    "site": "趾骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right big toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。本例选取右拇趾近节。"
+  },
+  {
+    "route": "#elbow/0/1",
+    "scope": "教材分型示例",
+    "site": "肱骨髁上",
+    "pattern": "伸直型",
+    "reference": "第二节 · 四｜图 6-26",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "从侧面看远段向后，断线由前下走向后上。"
+  },
+  {
+    "route": "#elbow/1/1",
+    "scope": "教材分型示例",
+    "site": "肱骨髁上",
+    "pattern": "屈曲型",
+    "reference": "第二节 · 四｜图 6-26",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "远端向前，断线由后下斜向前上。"
+  },
+  {
+    "route": "#elbow/2/1",
+    "scope": "教材分型示例",
+    "site": "肱骨髁上",
+    "pattern": "粉碎型",
+    "reference": "第二节 · 四｜图 6-26",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "观察横向髁上线及延伸至髁间的纵线，此例为 T 形示意。"
+  },
+  {
+    "route": "#scaphoid/0/1",
+    "scope": "教材分型示例",
+    "site": "手舟骨",
+    "pattern": "近端骨折",
+    "reference": "第二节 · 十四｜图 6-51",
+    "affected": [
+      "Right scaphoid"
+    ],
+    "fixed": [],
+    "observation": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
+  },
+  {
+    "route": "#scaphoid/1/1",
+    "scope": "教材分型示例",
+    "site": "手舟骨",
+    "pattern": "腰部骨折",
+    "reference": "第二节 · 十四｜图 6-51",
+    "affected": [
+      "Right scaphoid"
+    ],
+    "fixed": [],
+    "observation": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
+  },
+  {
+    "route": "#scaphoid/2/1",
+    "scope": "教材分型示例",
+    "site": "手舟骨",
+    "pattern": "结节部骨折",
+    "reference": "第二节 · 十四｜图 6-51",
+    "affected": [
+      "Right scaphoid"
+    ],
+    "fixed": [],
+    "observation": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
+  },
+  {
+    "route": "#olecranon/0/1",
+    "scope": "教材分型示例",
+    "site": "尺骨鹰嘴",
+    "pattern": "间接暴力",
+    "reference": "第二节 · 七｜图 6-33",
+    "affected": [
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "被牵拉的鹰嘴骨块向近端移动，断端间隙增大。"
+  },
+  {
+    "route": "#olecranon/1/1",
+    "scope": "教材分型示例",
+    "site": "尺骨鹰嘴",
+    "pattern": "直接暴力",
+    "reference": "第二节 · 七｜图 6-33",
+    "affected": [
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "观察近端多块骨折及较小移位。"
+  },
+  {
+    "route": "#finger/0/1",
+    "scope": "教材分型示例",
+    "site": "指骨",
+    "pattern": "横断骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "以右示指近节骨干为例，对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger/1/1",
+    "scope": "教材分型示例",
+    "site": "指骨",
+    "pattern": "斜形骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "以右示指近节骨干为例，对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger/2/1",
+    "scope": "教材分型示例",
+    "site": "指骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "以右示指近节骨干为例，对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#pelvis/0/1",
+    "scope": "教材分型示例",
+    "site": "骨盆环",
+    "pattern": "侧方压缩型",
+    "reference": "第四节 · 三｜图 6-116",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "从上方看，右侧半骨盆向中线内旋。此例以前环耻骨支骨折示意。"
+  },
+  {
+    "route": "#pelvis/1/1",
+    "scope": "教材分型示例",
+    "site": "骨盆环",
+    "pattern": "前后压缩型",
+    "reference": "第四节 · 三｜图 6-116",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "以骶髂区为轴，观察前环逐渐张开。此例取耻骨支骨折伴外旋的形态。"
+  },
+  {
+    "route": "#pelvis/2/1",
+    "scope": "教材分型示例",
+    "site": "骨盆环",
+    "pattern": "垂直压缩型",
+    "reference": "第四节 · 三｜图 6-116",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "两侧髂嵴高度产生差异，伤侧向头侧移位。"
+  },
+  {
+    "route": "#spine/0/1",
+    "scope": "教材分型示例",
+    "site": "胸腰椎",
+    "pattern": "屈曲型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+  },
+  {
+    "route": "#spine/1/1",
+    "scope": "教材分型示例",
+    "site": "胸腰椎",
+    "pattern": "侧屈型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "正面观察第一腰椎左右侧高度差，压缩侧形成楔形。"
+  },
+  {
+    "route": "#shoulder/0/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外科颈",
+    "pattern": "裂缝骨折",
+    "reference": "第二节 · 二｜图 6-18",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "此例保留骨段对位，以高亮线标出受累区。"
+  },
+  {
+    "route": "#shoulder/1/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外科颈",
+    "pattern": "嵌插骨折",
+    "reference": "第二节 · 二｜图 6-18",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "观察骨干端沿长轴嵌入近端。"
+  },
+  {
+    "route": "#shoulder/2/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外科颈",
+    "pattern": "外展型",
+    "reference": "第二节 · 二｜图 6-18",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "外侧嵌插、内侧张开，可见向内侧成角。"
+  },
+  {
+    "route": "#shoulder/3/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外科颈",
+    "pattern": "内收型",
+    "reference": "第二节 · 二｜图 6-18",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "内侧嵌插、外侧张开，可见向外侧成角。"
+  },
+  {
+    "route": "#shoulder/4/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外科颈",
+    "pattern": "合并肩关节脱位",
+    "reference": "第二节 · 二｜图 6-18",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "相对肩盂观察，肱骨头移向前下方。"
+  },
+  {
+    "route": "#lateral-elbow/0/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外髁",
+    "pattern": "无移位",
+    "reference": "第二节 · 五｜图 6-30",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
+  },
+  {
+    "route": "#lateral-elbow/1/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外髁",
+    "pattern": "轻度移位",
+    "reference": "第二节 · 五｜图 6-30",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
+  },
+  {
+    "route": "#lateral-elbow/2/1",
+    "scope": "教材分型示例",
+    "site": "肱骨外髁",
+    "pattern": "翻转移位",
+    "reference": "第二节 · 五｜图 6-30",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
+  },
+  {
+    "route": "#medial-elbow/0/1",
+    "scope": "教材分型示例",
+    "site": "肱骨内上髁",
+    "pattern": "Ⅰ 度",
+    "reference": "第二节 · 六｜图 6-32",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "示意轻微分离，骨块仍紧邻附着处。 采用成年男性骨性标志示意。"
+  },
+  {
+    "route": "#medial-elbow/1/1",
+    "scope": "教材分型示例",
+    "site": "肱骨内上髁",
+    "pattern": "Ⅱ 度",
+    "reference": "第二节 · 六｜图 6-32",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "骨块向前下方移位并旋转，仍在关节间隙上方。 采用成年男性骨性标志示意。"
+  },
+  {
+    "route": "#medial-elbow/2/1",
+    "scope": "教材分型示例",
+    "site": "肱骨内上髁",
+    "pattern": "Ⅲ 度",
+    "reference": "第二节 · 六｜图 6-32",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "骨块进入内侧肘关节间隙。 采用成年男性骨性标志示意。"
+  },
+  {
+    "route": "#medial-elbow/3/1",
+    "scope": "教材分型示例",
+    "site": "肱骨内上髁",
+    "pattern": "Ⅳ 度",
+    "reference": "第二节 · 六｜图 6-32",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "内上髁骨块嵌入关节，前臂随肘关节向桡侧脱位。 采用成年男性骨性标志示意。"
+  },
+  {
+    "route": "#radial-head/0/1",
+    "scope": "教材分型示例",
+    "site": "桡骨头",
+    "pattern": "无明显移位",
+    "reference": "第二节 · 八｜图 6-34",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "细线标示损伤部位，关节对位保留。"
+  },
+  {
+    "route": "#radial-head/1/1",
+    "scope": "教材分型示例",
+    "site": "桡骨头",
+    "pattern": "嵌插",
+    "reference": "第二节 · 八｜图 6-34",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "观察桡骨头与颈部的嵌插。"
+  },
+  {
+    "route": "#radial-head/2/1",
+    "scope": "教材分型示例",
+    "site": "桡骨头",
+    "pattern": "劈裂",
+    "reference": "第二节 · 八｜图 6-34",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线进入桡骨头的关节面。"
+  },
+  {
+    "route": "#radial-head/3/1",
+    "scope": "教材分型示例",
+    "site": "桡骨头",
+    "pattern": "粉碎",
+    "reference": "第二节 · 八｜图 6-34",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "多个骨块累及桡骨头，转至上方观察骨折线。"
+  },
+  {
+    "route": "#monteggia/0/1",
+    "scope": "教材分型示例",
+    "site": "尺骨上段合并桡骨头脱位",
+    "pattern": "伸直型",
+    "reference": "第二节 · 九｜图 6-35",
+    "affected": [
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "桡骨头向前外侧脱位，观察尺骨上段斜形断面。"
+  },
+  {
+    "route": "#monteggia/1/1",
+    "scope": "教材分型示例",
+    "site": "尺骨上段合并桡骨头脱位",
+    "pattern": "屈曲型",
+    "reference": "第二节 · 九｜图 6-35",
+    "affected": [
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "桡骨头向后外侧脱位，尺骨近段可呈横断或短斜形。"
+  },
+  {
+    "route": "#monteggia/2/1",
+    "scope": "教材分型示例",
+    "site": "尺骨上段合并桡骨头脱位",
+    "pattern": "内收型",
+    "reference": "第二节 · 九｜图 6-35",
+    "affected": [
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "桡骨头向外侧脱位。教材常见于幼儿，本例只展示骨段方向。"
+  },
+  {
+    "route": "#single-forearm/0/1",
+    "scope": "教材分型示例",
+    "site": "尺桡骨干单骨",
+    "pattern": "桡骨干上 1/3",
+    "reference": "第二节 · 十一｜图 6-42",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "近段趋向旋后，远段趋向旋前。"
+  },
+  {
+    "route": "#single-forearm/1/1",
+    "scope": "教材分型示例",
+    "site": "尺桡骨干单骨",
+    "pattern": "桡骨干中 1/3",
+    "reference": "第二节 · 十一｜图 6-42",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "近段接近中立位，远段发生旋前。"
+  },
+  {
+    "route": "#single-forearm/2/1",
+    "scope": "教材分型示例",
+    "site": "尺桡骨干单骨",
+    "pattern": "尺骨干单骨折",
+    "reference": "第二节 · 十一｜图 6-42",
+    "affected": [
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "观察尺骨骨干断面，保留桡骨连续性。"
+  },
+  {
+    "route": "#galeazzi/0/1",
+    "scope": "教材分型示例",
+    "site": "桡骨下段合并下尺桡关节脱位",
+    "pattern": "稳定型",
+    "reference": "第二节 · 十二｜图 6-44",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "桡骨下段横断、轻度成角，观察桡骨与尺骨头的相对位置。"
+  },
+  {
+    "route": "#galeazzi/1/1",
+    "scope": "教材分型示例",
+    "site": "桡骨下段合并下尺桡关节脱位",
+    "pattern": "不稳定型",
+    "reference": "第二节 · 十二｜图 6-44",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "桡骨下段斜形断裂，远段短缩并向掌侧移位。"
+  },
+  {
+    "route": "#galeazzi/2/1",
+    "scope": "教材分型示例",
+    "site": "桡骨下段合并下尺桡关节脱位",
+    "pattern": "特殊型",
+    "reference": "第二节 · 十二｜图 6-44",
+    "affected": [
+      "Right radius",
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "桡尺骨下段均骨折，同时伴下尺桡关节对位异常。"
+  },
+  {
+    "route": "#metacarpal/0/1",
+    "scope": "教材分型示例",
+    "site": "掌骨",
+    "pattern": "第一掌骨基底部",
+    "reference": "第二节 · 十五｜图 6-52、6-53",
+    "affected": [
+      "Right first metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "第一掌骨近端骨折，观察成角位置。"
+  },
+  {
+    "route": "#metacarpal/1/1",
+    "scope": "教材分型示例",
+    "site": "掌骨",
+    "pattern": "第一掌骨基底部骨折脱位",
+    "reference": "第二节 · 十五｜图 6-52、6-53",
+    "affected": [
+      "Right first metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "基底尺掌侧小骨块留在原处，掌骨干与大多角骨失去对位。"
+  },
+  {
+    "route": "#metacarpal/2/1",
+    "scope": "教材分型示例",
+    "site": "掌骨",
+    "pattern": "掌骨颈",
+    "reference": "第二节 · 十五｜图 6-52、6-53",
+    "affected": [
+      "Right fifth metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "以第五掌骨为例，掌骨头向掌侧屈转。"
+  },
+  {
+    "route": "#metacarpal/3/1",
+    "scope": "教材分型示例",
+    "site": "掌骨",
+    "pattern": "掌骨干",
+    "reference": "第二节 · 十五｜图 6-52、6-53",
+    "affected": [
+      "Right second metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "以第二掌骨为例，观察骨干斜线及侧移。"
+  },
+  {
+    "route": "#trochanter/0/1",
+    "scope": "教材分型示例",
+    "site": "股骨转子区",
+    "pattern": "顺转子间型",
+    "reference": "第三节 · 二｜图 6-72",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "从大转子沿断线观察其向内下走行。"
+  },
+  {
+    "route": "#trochanter/1/1",
+    "scope": "教材分型示例",
+    "site": "股骨转子区",
+    "pattern": "反转子间型",
+    "reference": "第三节 · 二｜图 6-72",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "对照顺型，断线从外下走向内上。"
+  },
+  {
+    "route": "#trochanter/2/1",
+    "scope": "教材分型示例",
+    "site": "股骨转子区",
+    "pattern": "转子下型",
+    "reference": "第三节 · 二｜图 6-72",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "断面位于大小转子以下。"
+  },
+  {
+    "route": "#intercondylar/0/1",
+    "scope": "教材分型示例",
+    "site": "股骨髁间",
+    "pattern": "T 形",
+    "reference": "第三节 · 五｜图 6-80",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "从正面追踪髁间纵行线，比较近侧两支的走向，再转到下方观察关节面。"
+  },
+  {
+    "route": "#intercondylar/1/1",
+    "scope": "教材分型示例",
+    "site": "股骨髁间",
+    "pattern": "Y 形",
+    "reference": "第三节 · 五｜图 6-80",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "从正面追踪髁间纵行线，比较近侧两支的走向，再转到下方观察关节面。"
+  },
+  {
+    "route": "#talus/0/1",
+    "scope": "教材分型示例",
+    "site": "距骨",
+    "pattern": "距骨颈骨折",
+    "reference": "第三节 · 十｜图 6-93",
+    "affected": [
+      "Right talus"
+    ],
+    "fixed": [],
+    "observation": "在侧位观察分开距骨体与头颈区的骨折线。"
+  },
+  {
+    "route": "#talus/1/1",
+    "scope": "教材分型示例",
+    "site": "距骨",
+    "pattern": "距骨后唇骨折",
+    "reference": "第三节 · 十｜图 6-93",
+    "affected": [
+      "Right talus"
+    ],
+    "fixed": [],
+    "observation": "转至后方观察距骨后缘的小骨块。"
+  },
+  {
+    "route": "#rib-fourth/0/1",
+    "scope": "同类部位实例",
+    "site": "第4肋骨",
+    "pattern": "直接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right fourth rib"
+    ],
+    "fixed": [],
+    "observation": "骨折端向内侧移动。"
+  },
+  {
+    "route": "#rib-fourth/1/1",
+    "scope": "同类部位实例",
+    "site": "第4肋骨",
+    "pattern": "间接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right fourth rib"
+    ],
+    "fixed": [],
+    "observation": "观察断端向胸廓外方突出的方向。"
+  },
+  {
+    "route": "#rib-fourth/2/1",
+    "scope": "同类部位实例",
+    "site": "第4肋骨",
+    "pattern": "肌肉强烈收缩",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right fourth rib"
+    ],
+    "fixed": [],
+    "observation": "高亮线表示局部损伤位置，此例保持骨段对位。"
+  },
+  {
+    "route": "#rib-fifth/0/1",
+    "scope": "同类部位实例",
+    "site": "第5肋骨",
+    "pattern": "直接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right fifth rib"
+    ],
+    "fixed": [],
+    "observation": "骨折端向内侧移动。"
+  },
+  {
+    "route": "#rib-fifth/1/1",
+    "scope": "同类部位实例",
+    "site": "第5肋骨",
+    "pattern": "间接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right fifth rib"
+    ],
+    "fixed": [],
+    "observation": "观察断端向胸廓外方突出的方向。"
+  },
+  {
+    "route": "#rib-fifth/2/1",
+    "scope": "同类部位实例",
+    "site": "第5肋骨",
+    "pattern": "肌肉强烈收缩",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right fifth rib"
+    ],
+    "fixed": [],
+    "observation": "高亮线表示局部损伤位置，此例保持骨段对位。"
+  },
+  {
+    "route": "#rib-seventh/0/1",
+    "scope": "同类部位实例",
+    "site": "第7肋骨",
+    "pattern": "直接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right seventh rib"
+    ],
+    "fixed": [],
+    "observation": "骨折端向内侧移动。"
+  },
+  {
+    "route": "#rib-seventh/1/1",
+    "scope": "同类部位实例",
+    "site": "第7肋骨",
+    "pattern": "间接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right seventh rib"
+    ],
+    "fixed": [],
+    "observation": "观察断端向胸廓外方突出的方向。"
+  },
+  {
+    "route": "#rib-seventh/2/1",
+    "scope": "同类部位实例",
+    "site": "第7肋骨",
+    "pattern": "肌肉强烈收缩",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right seventh rib"
+    ],
+    "fixed": [],
+    "observation": "高亮线表示局部损伤位置，此例保持骨段对位。"
+  },
+  {
+    "route": "#rib-eighth/0/1",
+    "scope": "同类部位实例",
+    "site": "第8肋骨",
+    "pattern": "直接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right eighth rib"
+    ],
+    "fixed": [],
+    "observation": "骨折端向内侧移动。"
+  },
+  {
+    "route": "#rib-eighth/1/1",
+    "scope": "同类部位实例",
+    "site": "第8肋骨",
+    "pattern": "间接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right eighth rib"
+    ],
+    "fixed": [],
+    "observation": "观察断端向胸廓外方突出的方向。"
+  },
+  {
+    "route": "#rib-eighth/2/1",
+    "scope": "同类部位实例",
+    "site": "第8肋骨",
+    "pattern": "肌肉强烈收缩",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right eighth rib"
+    ],
+    "fixed": [],
+    "observation": "高亮线表示局部损伤位置，此例保持骨段对位。"
+  },
+  {
+    "route": "#rib-ninth/0/1",
+    "scope": "同类部位实例",
+    "site": "第9肋骨",
+    "pattern": "直接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right ninth rib"
+    ],
+    "fixed": [],
+    "observation": "骨折端向内侧移动。"
+  },
+  {
+    "route": "#rib-ninth/1/1",
+    "scope": "同类部位实例",
+    "site": "第9肋骨",
+    "pattern": "间接暴力",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right ninth rib"
+    ],
+    "fixed": [],
+    "observation": "观察断端向胸廓外方突出的方向。"
+  },
+  {
+    "route": "#rib-ninth/2/1",
+    "scope": "同类部位实例",
+    "site": "第9肋骨",
+    "pattern": "肌肉强烈收缩",
+    "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
+    "affected": [
+      "Right ninth rib"
+    ],
+    "fixed": [],
+    "observation": "高亮线表示局部损伤位置，此例保持骨段对位。"
+  },
+  {
+    "route": "#metatarsal-third/0/1",
+    "scope": "同类部位实例",
+    "site": "第3跖骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right third metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#metatarsal-third/1/1",
+    "scope": "同类部位实例",
+    "site": "第3跖骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right third metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#metatarsal-third/2/1",
+    "scope": "同类部位实例",
+    "site": "第3跖骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right third metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#metatarsal-fourth/0/1",
+    "scope": "同类部位实例",
+    "site": "第4跖骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right fourth metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#metatarsal-fourth/1/1",
+    "scope": "同类部位实例",
+    "site": "第4跖骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right fourth metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#metatarsal-fourth/2/1",
+    "scope": "同类部位实例",
+    "site": "第4跖骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "affected": [
+      "Right fourth metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+  },
+  {
+    "route": "#finger-middle/0/1",
+    "scope": "同类部位实例",
+    "site": "中指近节指骨",
+    "pattern": "横断骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right middle finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-middle/1/1",
+    "scope": "同类部位实例",
+    "site": "中指近节指骨",
+    "pattern": "斜形骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right middle finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-middle/2/1",
+    "scope": "同类部位实例",
+    "site": "中指近节指骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right middle finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-ring/0/1",
+    "scope": "同类部位实例",
+    "site": "环指近节指骨",
+    "pattern": "横断骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right ring finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-ring/1/1",
+    "scope": "同类部位实例",
+    "site": "环指近节指骨",
+    "pattern": "斜形骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right ring finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-ring/2/1",
+    "scope": "同类部位实例",
+    "site": "环指近节指骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right ring finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-little/0/1",
+    "scope": "同类部位实例",
+    "site": "小指近节指骨",
+    "pattern": "横断骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right little finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-little/1/1",
+    "scope": "同类部位实例",
+    "site": "小指近节指骨",
+    "pattern": "斜形骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right little finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#finger-little/2/1",
+    "scope": "同类部位实例",
+    "site": "小指近节指骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第二节 · 十六｜病因病机",
+    "affected": [
+      "Proximal phalanx of right little finger"
+    ],
+    "fixed": [],
+    "observation": "对照骨折线走向与骨块数。"
+  },
+  {
+    "route": "#toes-second/0/1",
+    "scope": "同类部位实例",
+    "site": "第二趾近节趾骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-second/1/1",
+    "scope": "同类部位实例",
+    "site": "第二趾近节趾骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-second/2/1",
+    "scope": "同类部位实例",
+    "site": "第二趾近节趾骨",
+    "pattern": "纵裂骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-second/3/1",
+    "scope": "同类部位实例",
+    "site": "第二趾近节趾骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-third/0/1",
+    "scope": "同类部位实例",
+    "site": "第三趾近节趾骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-third/1/1",
+    "scope": "同类部位实例",
+    "site": "第三趾近节趾骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-third/2/1",
+    "scope": "同类部位实例",
+    "site": "第三趾近节趾骨",
+    "pattern": "纵裂骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-third/3/1",
+    "scope": "同类部位实例",
+    "site": "第三趾近节趾骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-fourth/0/1",
+    "scope": "同类部位实例",
+    "site": "第四趾近节趾骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-fourth/1/1",
+    "scope": "同类部位实例",
+    "site": "第四趾近节趾骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-fourth/2/1",
+    "scope": "同类部位实例",
+    "site": "第四趾近节趾骨",
+    "pattern": "纵裂骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-fourth/3/1",
+    "scope": "同类部位实例",
+    "site": "第四趾近节趾骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-little/0/1",
+    "scope": "同类部位实例",
+    "site": "第五趾近节趾骨",
+    "pattern": "横断骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-little/1/1",
+    "scope": "同类部位实例",
+    "site": "第五趾近节趾骨",
+    "pattern": "斜形骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-little/2/1",
+    "scope": "同类部位实例",
+    "site": "第五趾近节趾骨",
+    "pattern": "纵裂骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#toes-little/3/1",
+    "scope": "同类部位实例",
+    "site": "第五趾近节趾骨",
+    "pattern": "粉碎性骨折",
+    "reference": "第三节 · 十三｜病因病机",
+    "affected": [
+      "Proximal phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "观察骨折线与趾骨长轴的关系。"
+  },
+  {
+    "route": "#spine-t11/0/1",
+    "scope": "同类部位实例",
+    "site": "第十一胸椎",
+    "pattern": "屈曲型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "Eleventh thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+  },
+  {
+    "route": "#spine-t11/1/1",
+    "scope": "同类部位实例",
+    "site": "第十一胸椎",
+    "pattern": "侧屈型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "Eleventh thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "正面观察第十一胸椎左右侧高度差，压缩侧形成楔形。"
+  },
+  {
+    "route": "#spine-t12/0/1",
+    "scope": "同类部位实例",
+    "site": "第十二胸椎",
+    "pattern": "屈曲型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "Twelfth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+  },
+  {
+    "route": "#spine-t12/1/1",
+    "scope": "同类部位实例",
+    "site": "第十二胸椎",
+    "pattern": "侧屈型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "Twelfth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "正面观察第十二胸椎左右侧高度差，压缩侧形成楔形。"
+  },
+  {
+    "route": "#spine-l2/0/1",
+    "scope": "同类部位实例",
+    "site": "第二腰椎",
+    "pattern": "屈曲型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "Second lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+  },
+  {
+    "route": "#spine-l2/1/1",
+    "scope": "同类部位实例",
+    "site": "第二腰椎",
+    "pattern": "侧屈型损伤",
+    "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
+    "affected": [
+      "Second lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "正面观察第二腰椎左右侧高度差，压缩侧形成楔形。"
+  },
+  {
+    "route": "#region-rib-1/0/1",
+    "scope": "部位补充形态",
+    "site": "第1肋骨",
+    "pattern": "局部内移示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right first rib"
+    ],
+    "fixed": [],
+    "observation": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+  },
+  {
+    "route": "#region-rib-1/1/1",
+    "scope": "部位补充形态",
+    "site": "第1肋骨",
+    "pattern": "外弯示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right first rib"
+    ],
+    "fixed": [],
+    "observation": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+  },
+  {
+    "route": "#region-rib-2/0/1",
+    "scope": "部位补充形态",
+    "site": "第2肋骨",
+    "pattern": "局部内移示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right second rib"
+    ],
+    "fixed": [],
+    "observation": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+  },
+  {
+    "route": "#region-rib-2/1/1",
+    "scope": "部位补充形态",
+    "site": "第2肋骨",
+    "pattern": "外弯示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right second rib"
+    ],
+    "fixed": [],
+    "observation": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+  },
+  {
+    "route": "#region-rib-3/0/1",
+    "scope": "部位补充形态",
+    "site": "第3肋骨",
+    "pattern": "局部内移示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right third rib"
+    ],
+    "fixed": [],
+    "observation": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+  },
+  {
+    "route": "#region-rib-3/1/1",
+    "scope": "部位补充形态",
+    "site": "第3肋骨",
+    "pattern": "外弯示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right third rib"
+    ],
+    "fixed": [],
+    "observation": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+  },
+  {
+    "route": "#region-rib-10/0/1",
+    "scope": "部位补充形态",
+    "site": "第10肋骨",
+    "pattern": "局部内移示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right tenth rib"
+    ],
+    "fixed": [],
+    "observation": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+  },
+  {
+    "route": "#region-rib-10/1/1",
+    "scope": "部位补充形态",
+    "site": "第10肋骨",
+    "pattern": "外弯示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right tenth rib"
+    ],
+    "fixed": [],
+    "observation": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+  },
+  {
+    "route": "#region-rib-11/0/1",
+    "scope": "部位补充形态",
+    "site": "第11肋骨",
+    "pattern": "局部内移示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right eleventh rib"
+    ],
+    "fixed": [],
+    "observation": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+  },
+  {
+    "route": "#region-rib-11/1/1",
+    "scope": "部位补充形态",
+    "site": "第11肋骨",
+    "pattern": "外弯示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right eleventh rib"
+    ],
+    "fixed": [],
+    "observation": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+  },
+  {
+    "route": "#region-rib-12/0/1",
+    "scope": "部位补充形态",
+    "site": "第12肋骨",
+    "pattern": "局部内移示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right twelfth rib"
+    ],
+    "fixed": [],
+    "observation": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+  },
+  {
+    "route": "#region-rib-12/1/1",
+    "scope": "部位补充形态",
+    "site": "第12肋骨",
+    "pattern": "外弯示例",
+    "reference": "教材第六章第四节 · 肋骨",
+    "affected": [
+      "Right twelfth rib"
+    ],
+    "fixed": [],
+    "observation": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+  },
+  {
+    "route": "#region-body-c3/0/1",
+    "scope": "部位补充形态",
+    "site": "颈3椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Third cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-c3/1/1",
+    "scope": "部位补充形态",
+    "site": "颈3椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Third cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-c4/0/1",
+    "scope": "部位补充形态",
+    "site": "颈4椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Fourth cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-c4/1/1",
+    "scope": "部位补充形态",
+    "site": "颈4椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Fourth cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-c5/0/1",
+    "scope": "部位补充形态",
+    "site": "颈5椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Fifth cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-c5/1/1",
+    "scope": "部位补充形态",
+    "site": "颈5椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Fifth cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-c6/0/1",
+    "scope": "部位补充形态",
+    "site": "颈6椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Sixth cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-c6/1/1",
+    "scope": "部位补充形态",
+    "site": "颈6椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Sixth cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-c7/0/1",
+    "scope": "部位补充形态",
+    "site": "颈7椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Seventh cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-c7/1/1",
+    "scope": "部位补充形态",
+    "site": "颈7椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-SUBAXIAL",
+    "affected": [
+      "Seventh cervical vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t1/0/1",
+    "scope": "部位补充形态",
+    "site": "胸1椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "First thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t1/1/1",
+    "scope": "部位补充形态",
+    "site": "胸1椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "First thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t2/0/1",
+    "scope": "部位补充形态",
+    "site": "胸2椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Second thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t2/1/1",
+    "scope": "部位补充形态",
+    "site": "胸2椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Second thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t3/0/1",
+    "scope": "部位补充形态",
+    "site": "胸3椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Third thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t3/1/1",
+    "scope": "部位补充形态",
+    "site": "胸3椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Third thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t4/0/1",
+    "scope": "部位补充形态",
+    "site": "胸4椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fourth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t4/1/1",
+    "scope": "部位补充形态",
+    "site": "胸4椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fourth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t5/0/1",
+    "scope": "部位补充形态",
+    "site": "胸5椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fifth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t5/1/1",
+    "scope": "部位补充形态",
+    "site": "胸5椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fifth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t6/0/1",
+    "scope": "部位补充形态",
+    "site": "胸6椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Sixth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t6/1/1",
+    "scope": "部位补充形态",
+    "site": "胸6椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Sixth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t7/0/1",
+    "scope": "部位补充形态",
+    "site": "胸7椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Seventh thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t7/1/1",
+    "scope": "部位补充形态",
+    "site": "胸7椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Seventh thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t8/0/1",
+    "scope": "部位补充形态",
+    "site": "胸8椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Eighth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t8/1/1",
+    "scope": "部位补充形态",
+    "site": "胸8椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Eighth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t9/0/1",
+    "scope": "部位补充形态",
+    "site": "胸9椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Ninth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t9/1/1",
+    "scope": "部位补充形态",
+    "site": "胸9椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Ninth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-t10/0/1",
+    "scope": "部位补充形态",
+    "site": "胸10椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Tenth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-t10/1/1",
+    "scope": "部位补充形态",
+    "site": "胸10椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Tenth thoracic vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-l3/0/1",
+    "scope": "部位补充形态",
+    "site": "腰3椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Third lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-l3/1/1",
+    "scope": "部位补充形态",
+    "site": "腰3椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Third lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-l4/0/1",
+    "scope": "部位补充形态",
+    "site": "腰4椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fourth lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-l4/1/1",
+    "scope": "部位补充形态",
+    "site": "腰4椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fourth lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-body-l5/0/1",
+    "scope": "部位补充形态",
+    "site": "腰5椎体",
+    "pattern": "前缘楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fifth lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+  },
+  {
+    "route": "#region-body-l5/1/1",
+    "scope": "部位补充形态",
+    "site": "腰5椎体",
+    "pattern": "侧方楔形压缩",
+    "reference": "AO-THORACOLUMBAR",
+    "affected": [
+      "Fifth lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "从正面观察受累侧高度降低，再转至侧面。"
+  },
+  {
+    "route": "#region-atlas/0/1",
+    "scope": "部位补充形态",
+    "site": "寰椎",
+    "pattern": "前弓裂线",
+    "reference": "AO-C1",
+    "affected": [
+      "Atlas"
+    ],
+    "fixed": [],
+    "observation": "观察齿突前方的骨弓，本例保持侧块对位。"
+  },
+  {
+    "route": "#region-atlas/1/1",
+    "scope": "部位补充形态",
+    "site": "寰椎",
+    "pattern": "后弓裂线",
+    "reference": "AO-C1",
+    "affected": [
+      "Atlas"
+    ],
+    "fixed": [],
+    "observation": "从后方追踪后弓的单侧裂线。"
+  },
+  {
+    "route": "#region-axis/0/1",
+    "scope": "部位补充形态",
+    "site": "枢椎齿突",
+    "pattern": "齿突尖端骨折",
+    "reference": "AO-C2",
+    "affected": [
+      "Axis"
+    ],
+    "fixed": [],
+    "observation": "从前方确认小骨片与齿突主体的连续性。"
+  },
+  {
+    "route": "#region-axis/1/1",
+    "scope": "部位补充形态",
+    "site": "枢椎齿突",
+    "pattern": "齿突基底部骨折",
+    "reference": "AO-C2",
+    "affected": [
+      "Axis"
+    ],
+    "fixed": [],
+    "observation": "对照齿突基底断面和寰椎环的位置。"
+  },
+  {
+    "route": "#region-sternal-body/0/1",
+    "scope": "部位补充形态",
+    "site": "胸骨体",
+    "pattern": "胸骨体骨折",
+    "reference": "STERNUM",
+    "affected": [
+      "Body of sternum"
+    ],
+    "fixed": [],
+    "observation": "侧面可见前后皮质错阶。"
+  },
+  {
+    "route": "#region-xiphoid/0/1",
+    "scope": "部位补充形态",
+    "site": "剑突",
+    "pattern": "剑突骨折",
+    "reference": "STERNUM",
+    "affected": [
+      "Xiphoid process"
+    ],
+    "fixed": [],
+    "observation": "定位胸骨体下方较薄的剑突，观察近侧断面。"
+  },
+  {
+    "route": "#region-manubrium/0/1",
+    "scope": "部位补充形态",
+    "site": "胸骨柄",
+    "pattern": "横形",
+    "reference": "STERNUM",
+    "affected": [
+      "Manubrium"
+    ],
+    "fixed": [],
+    "observation": "侧面比较上下骨片前后关系。"
+  },
+  {
+    "route": "#region-manubrium/1/1",
+    "scope": "部位补充形态",
+    "site": "胸骨柄",
+    "pattern": "斜形",
+    "reference": "STERNUM",
+    "affected": [
+      "Manubrium"
+    ],
+    "fixed": [],
+    "observation": "追踪断线走向及柄部与胸锁关节的空间关系。"
+  },
+  {
+    "route": "#region-sacrum/0/1",
+    "scope": "部位补充形态",
+    "site": "骶骨翼",
+    "pattern": "骶骨翼骨折",
+    "reference": "AO-SACRUM",
+    "affected": [
+      "Sacrum"
+    ],
+    "fixed": [],
+    "observation": "以骶孔为参照，观察孔外骶翼的纵向断面。"
+  },
+  {
+    "route": "#region-scapula/0/1",
+    "scope": "部位补充形态",
+    "site": "肩胛骨体",
+    "pattern": "肩胛骨体骨折",
+    "reference": "AO-SCAPULA",
+    "affected": [
+      "Right scapula"
+    ],
+    "fixed": [],
+    "observation": "旋转查看肩胛骨体的薄板状断面，关节盂位于上外侧。"
+  },
+  {
+    "route": "#region-tip-index-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "示指末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-index-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "示指末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-index-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "示指中节",
+    "pattern": "横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-index-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "示指中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-middle-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "中指末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right middle finger"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-middle-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "中指末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right middle finger"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-middle-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "中指中节",
+    "pattern": "横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right middle finger"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-middle-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "中指中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right middle finger"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-ring-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "环指末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right ring finger"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-ring-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "环指末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right ring finger"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-ring-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "环指中节",
+    "pattern": "横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right ring finger"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-ring-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "环指中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right ring finger"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-little-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "小指末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right little finger"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-little-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "小指末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right little finger"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-little-finger/0/1",
+    "scope": "部位补充形态",
+    "site": "小指中节",
+    "pattern": "横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right little finger"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-little-finger/1/1",
+    "scope": "部位补充形态",
+    "site": "小指中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Middle phalanx of right little finger"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-thumb/0/1",
+    "scope": "部位补充形态",
+    "site": "拇指末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right thumb"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-thumb/1/1",
+    "scope": "部位补充形态",
+    "site": "拇指末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Distal phalanx of right thumb"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-thumb/0/1",
+    "scope": "部位补充形态",
+    "site": "拇指近节",
+    "pattern": "横断",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Proximal phalanx of right thumb"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-thumb/1/1",
+    "scope": "部位补充形态",
+    "site": "拇指近节",
+    "pattern": "斜形",
+    "reference": "教材第六章第二节 · 指骨",
+    "affected": [
+      "Proximal phalanx of right thumb"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-big-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "拇趾末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right big toe"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-big-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "拇趾末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right big toe"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-tip-second-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第二趾末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-second-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第二趾末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-second-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第二趾中节",
+    "pattern": "横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-second-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第二趾中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right second toe"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-third-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第三趾末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-third-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第三趾末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-third-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第三趾中节",
+    "pattern": "横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-third-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第三趾中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right third toe"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-fourth-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第四趾末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-fourth-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第四趾末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-fourth-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第四趾中节",
+    "pattern": "横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-fourth-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第四趾中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right fourth toe"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-tip-little-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第五趾末节",
+    "pattern": "末节横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "比较末端骨片与近侧断面的分离和侧移。"
+  },
+  {
+    "route": "#region-tip-little-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第五趾末节",
+    "pattern": "末端粉碎",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Distal phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "从末端看多个小骨片，保留近侧基底。"
+  },
+  {
+    "route": "#region-shaft-little-toe/0/1",
+    "scope": "部位补充形态",
+    "site": "第五趾中节",
+    "pattern": "横断",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "顺着骨干比较两侧皮质是否连续。"
+  },
+  {
+    "route": "#region-shaft-little-toe/1/1",
+    "scope": "部位补充形态",
+    "site": "第五趾中节",
+    "pattern": "斜形",
+    "reference": "教材第六章第三节 · 趾骨",
+    "affected": [
+      "Middle phalanx of right little toe"
+    ],
+    "fixed": [],
+    "observation": "从两个方向看斜线与骨片的相对位置。"
+  },
+  {
+    "route": "#region-palm-third/0/1",
+    "scope": "部位补充形态",
+    "site": "第三掌骨干",
+    "pattern": "横断型",
+    "reference": "教材第六章第二节 · 掌骨",
+    "affected": [
+      "Right third metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "从掌背面追踪皮质，从侧面观察成角。"
+  },
+  {
+    "route": "#region-palm-third/1/1",
+    "scope": "部位补充形态",
+    "site": "第三掌骨干",
+    "pattern": "斜形",
+    "reference": "教材第六章第二节 · 掌骨",
+    "affected": [
+      "Right third metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "比较相邻掌骨与伤骨的长轴。"
+  },
+  {
+    "route": "#region-palm-fourth/0/1",
+    "scope": "部位补充形态",
+    "site": "第四掌骨干",
+    "pattern": "横断型",
+    "reference": "教材第六章第二节 · 掌骨",
+    "affected": [
+      "Right fourth metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "从掌背面追踪皮质，从侧面观察成角。"
+  },
+  {
+    "route": "#region-palm-fourth/1/1",
+    "scope": "部位补充形态",
+    "site": "第四掌骨干",
+    "pattern": "斜形",
+    "reference": "教材第六章第二节 · 掌骨",
+    "affected": [
+      "Right fourth metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "比较相邻掌骨与伤骨的长轴。"
+  },
+  {
+    "route": "#region-foot-first/0/1",
+    "scope": "部位补充形态",
+    "site": "第一跖骨",
+    "pattern": "骨干骨折",
+    "reference": "教材第六章第三节 · 跖骨",
+    "affected": [
+      "Right first metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "在足背方向看断线和跖骨排列。"
+  },
+  {
+    "route": "#region-foot-first/1/1",
+    "scope": "部位补充形态",
+    "site": "第一跖骨",
+    "pattern": "基底部骨折",
+    "reference": "教材第六章第三节 · 跖骨",
+    "affected": [
+      "Right first metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "沿跖骨追到近端，观察骨片与跗骨的位置。"
+  },
+  {
+    "route": "#region-foot-fifth/0/1",
+    "scope": "部位补充形态",
+    "site": "第五跖骨",
+    "pattern": "骨干骨折",
+    "reference": "教材第六章第三节 · 跖骨",
+    "affected": [
+      "Right fifth metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "在足背方向看断线和跖骨排列。"
+  },
+  {
+    "route": "#region-foot-fifth/1/1",
+    "scope": "部位补充形态",
+    "site": "第五跖骨",
+    "pattern": "基底部撕脱",
+    "reference": "教材第六章第三节 · 跖骨",
+    "affected": [
+      "Right fifth metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "沿跖骨追到近端，观察骨片与跗骨的位置。"
+  },
+  {
+    "route": "#region-triquetrum/0/1",
+    "scope": "部位补充形态",
+    "site": "三角骨背侧缘",
+    "pattern": "三角骨背侧缘骨折",
+    "reference": "AO-CARPAL",
+    "affected": [
+      "Right triquetral"
+    ],
+    "fixed": [],
+    "observation": "取掌背方向辨认小的背侧边缘骨片。"
+  },
+  {
+    "route": "#region-lunate/0/1",
+    "scope": "部位补充形态",
+    "site": "月骨体",
+    "pattern": "月骨体骨折",
+    "reference": "AO-CARPAL",
+    "affected": [
+      "Right lunate"
+    ],
+    "fixed": [],
+    "observation": "比较骨块与桡骨、头状骨之间的关节面。"
+  },
+  {
+    "route": "#region-pisiform/0/1",
+    "scope": "部位补充形态",
+    "site": "豌豆骨",
+    "pattern": "豌豆骨骨折",
+    "reference": "AO-CARPAL",
+    "affected": [
+      "Right pisiform"
+    ],
+    "fixed": [],
+    "observation": "腕掌尺侧查看豌豆骨与三角骨的关系。"
+  },
+  {
+    "route": "#region-hamate/0/1",
+    "scope": "部位补充形态",
+    "site": "钩骨体",
+    "pattern": "钩骨体骨折",
+    "reference": "AO-CARPAL",
+    "affected": [
+      "Right hamate"
+    ],
+    "fixed": [],
+    "observation": "从腕背观察体部断面与远侧掌骨基底的关系。"
+  },
+  {
+    "route": "#region-capitate/0/1",
+    "scope": "部位补充形态",
+    "site": "头状骨颈",
+    "pattern": "头状骨颈骨折",
+    "reference": "AO-CARPAL",
+    "affected": [
+      "Right capitate"
+    ],
+    "fixed": [],
+    "observation": "从近侧头部向远侧体部追踪断裂的位置。"
+  },
+  {
+    "route": "#region-trapezium/0/1",
+    "scope": "部位补充形态",
+    "site": "大多角骨体",
+    "pattern": "大多角骨体骨折",
+    "reference": "AO-CARPAL",
+    "affected": [
+      "Right trapezium"
+    ],
+    "fixed": [],
+    "observation": "转至拇指掌腕关节端，观察纵向劈裂。"
+  },
+  {
+    "route": "#region-trapezoid/0/1",
+    "scope": "部位补充形态",
+    "site": "小多角骨体",
+    "pattern": "小多角骨体骨折",
+    "reference": "AO-CARPAL",
+    "affected": [
+      "Right trapezoid"
+    ],
+    "fixed": [],
+    "observation": "以第二掌骨基底为参照观察骨体斜断。"
+  },
+  {
+    "route": "#region-navicular/0/1",
+    "scope": "部位补充形态",
+    "site": "足舟骨体",
+    "pattern": "足舟骨体骨折",
+    "reference": "AO-MIDFOOT",
+    "affected": [
+      "Navicular bone of right foot"
+    ],
+    "fixed": [],
+    "observation": "观察近侧距舟与远侧舟楔关节面的关系。"
+  },
+  {
+    "route": "#region-cuboid/0/1",
+    "scope": "部位补充形态",
+    "site": "骰骨体",
+    "pattern": "骰骨体骨折",
+    "reference": "AO-MIDFOOT",
+    "affected": [
+      "Right cuboid bone"
+    ],
+    "fixed": [],
+    "observation": "比较外侧柱长度和跟骰、跖骰两端的方向。"
+  },
+  {
+    "route": "#region-cuneiform-medial/0/1",
+    "scope": "部位补充形态",
+    "site": "内侧楔骨",
+    "pattern": "内侧楔骨骨折",
+    "reference": "AO-MIDFOOT",
+    "affected": [
+      "Right medial cuneiform bone"
+    ],
+    "fixed": [],
+    "observation": "沿内侧柱看骨片与相邻跖骨、足舟骨的相对位置。"
+  },
+  {
+    "route": "#region-cuneiform-intermediate/0/1",
+    "scope": "部位补充形态",
+    "site": "中间楔骨",
+    "pattern": "中间楔骨骨折",
+    "reference": "AO-MIDFOOT",
+    "affected": [
+      "Right intermediate cuneiform bone"
+    ],
+    "fixed": [],
+    "observation": "沿内侧柱看骨片与相邻跖骨、足舟骨的相对位置。"
+  },
+  {
+    "route": "#region-cuneiform-lateral/0/1",
+    "scope": "部位补充形态",
+    "site": "外侧楔骨",
+    "pattern": "外侧楔骨骨折",
+    "reference": "AO-MIDFOOT",
+    "affected": [
+      "Right lateral cuneiform bone"
+    ],
+    "fixed": [],
+    "observation": "沿内侧柱看骨片与相邻跖骨、足舟骨的相对位置。"
+  },
+  {
+    "route": "#region-sesamoid-0/0/1",
+    "scope": "部位补充形态",
+    "site": "第一跖骨头内侧籽骨",
+    "pattern": "第一跖骨头内侧籽骨骨折",
+    "reference": "SESAMOID",
+    "affected": [
+      "Sesamoid bone of right foot"
+    ],
+    "fixed": [],
+    "observation": "从足底面查看该枚籽骨。正常分叶需另结合边缘形态判断。"
+  },
+  {
+    "route": "#region-sesamoid-1/0/1",
+    "scope": "部位补充形态",
+    "site": "第一跖骨头外侧籽骨",
+    "pattern": "第一跖骨头外侧籽骨骨折",
+    "reference": "SESAMOID",
+    "affected": [
+      "Sesamoid bone of right foot FJ3376"
+    ],
+    "fixed": [],
+    "observation": "从足底面查看该枚籽骨。正常分叶需另结合边缘形态判断。"
+  },
+  {
+    "route": "#region-frontal/0/1",
+    "scope": "部位补充形态",
+    "site": "额骨鳞部",
+    "pattern": "局部线形骨折",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Frontal bone"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-frontal/1/1",
+    "scope": "部位补充形态",
+    "site": "额骨鳞部",
+    "pattern": "局限性凹陷形态",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Frontal bone"
+    ],
+    "fixed": [],
+    "observation": "斜视外板轮廓，比较局部凹陷和周围正常曲面；骨膜和脑组织未建模。"
+  },
+  {
+    "route": "#region-parietal/0/1",
+    "scope": "部位补充形态",
+    "site": "顶骨",
+    "pattern": "局部线形骨折",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Right parietal bone"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-parietal/1/1",
+    "scope": "部位补充形态",
+    "site": "顶骨",
+    "pattern": "局限性凹陷形态",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Right parietal bone"
+    ],
+    "fixed": [],
+    "observation": "斜视外板轮廓，比较局部凹陷和周围正常曲面；骨膜和脑组织未建模。"
+  },
+  {
+    "route": "#region-occipital/0/1",
+    "scope": "部位补充形态",
+    "site": "枕骨鳞部",
+    "pattern": "局部线形骨折",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Occipital bone"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-occipital/1/1",
+    "scope": "部位补充形态",
+    "site": "枕骨鳞部",
+    "pattern": "局限性凹陷形态",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Occipital bone"
+    ],
+    "fixed": [],
+    "observation": "斜视外板轮廓，比较局部凹陷和周围正常曲面；骨膜和脑组织未建模。"
+  },
+  {
+    "route": "#region-temporal/0/1",
+    "scope": "部位补充形态",
+    "site": "颞骨鳞部",
+    "pattern": "局部线形骨折",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Right temporal bone"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-ethmoid/0/1",
+    "scope": "部位补充形态",
+    "site": "筛骨眶内侧壁",
+    "pattern": "局部线形骨折",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Ethmoid"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-sphenoid/0/1",
+    "scope": "部位补充形态",
+    "site": "蝶骨大翼区",
+    "pattern": "局部线形骨折",
+    "reference": "AO-SKULL",
+    "affected": [
+      "Sphenoid bone"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-maxilla/0/1",
+    "scope": "部位补充形态",
+    "site": "上颌骨前壁",
+    "pattern": "局部线形骨折",
+    "reference": "AO-CMF",
+    "affected": [
+      "Right maxilla"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-palatine/0/1",
+    "scope": "部位补充形态",
+    "site": "腭骨水平板",
+    "pattern": "局部线形骨折",
+    "reference": "AO-CMF",
+    "affected": [
+      "Right palatine bone"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-vomer/0/1",
+    "scope": "部位补充形态",
+    "site": "犁骨骨性鼻中隔",
+    "pattern": "局部线形骨折",
+    "reference": "AO-CMF",
+    "affected": [
+      "Vomer"
+    ],
+    "fixed": [],
+    "observation": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+  },
+  {
+    "route": "#region-nasal/0/1",
+    "scope": "部位补充形态",
+    "site": "鼻骨",
+    "pattern": "无明显移位",
+    "reference": "AO-CMF",
+    "affected": [
+      "Right nasal bone"
+    ],
+    "fixed": [],
+    "observation": "比较双侧鼻骨轮廓与鼻背中线。"
+  },
+  {
+    "route": "#region-nasal/1/1",
+    "scope": "部位补充形态",
+    "site": "鼻骨",
+    "pattern": "移位示例",
+    "reference": "AO-CMF",
+    "affected": [
+      "Right nasal bone"
+    ],
+    "fixed": [],
+    "observation": "从前方观察轮廓不对称，再侧转查看骨片的前后位置。"
+  },
+  {
+    "route": "#region-zygoma/0/1",
+    "scope": "部位补充形态",
+    "site": "颧骨",
+    "pattern": "颧弓区局部骨折",
+    "reference": "AO-CMF",
+    "affected": [
+      "Right zygomatic bone"
+    ],
+    "fixed": [],
+    "observation": "从头端观察颧弓局部内移，本例仅显示颧骨侧骨片。"
+  },
+  {
+    "route": "#region-mandible/0/1",
+    "scope": "部位补充形态",
+    "site": "下颌骨",
+    "pattern": "体部骨折",
+    "reference": "AO-MANDIBLE",
+    "affected": [
+      "Mandible"
+    ],
+    "fixed": [],
+    "observation": "沿下缘观察连续性，比较断端的高度与侧移。"
+  },
+  {
+    "route": "#region-mandible/1/1",
+    "scope": "部位补充形态",
+    "site": "下颌骨",
+    "pattern": "右髁突颈骨折",
+    "reference": "AO-MANDIBLE",
+    "affected": [
+      "Mandible"
+    ],
+    "fixed": [],
+    "observation": "髁头保留在下颌窝内，观察颈部断面与远段的轻度移位。"
+  },
+  {
+    "route": "#region-hyoid/0/1",
+    "scope": "部位补充形态",
+    "site": "舌骨",
+    "pattern": "大角骨折",
+    "reference": "HYOID",
+    "affected": [
+      "Hyoid bone"
+    ],
+    "fixed": [],
+    "observation": "从上方辨认 U 形骨体和两侧大角；本例为右侧。"
+  },
+  {
+    "route": "#shoulder-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "肩关节脱位",
+    "pattern": "前脱位",
+    "reference": "教材第七章 · 肩关节脱位",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [
+      "Right scapula",
+      "Right clavicle"
+    ],
+    "observation": "固定肩胛骨，侧转观察肱骨头与盂面的前后关系。"
+  },
+  {
+    "route": "#shoulder-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "肩关节脱位",
+    "pattern": "后脱位",
+    "reference": "教材第七章 · 肩关节脱位",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [
+      "Right scapula",
+      "Right clavicle"
+    ],
+    "observation": "在侧位比较伤前轮廓与肱骨头终点。"
+  },
+  {
+    "route": "#elbow-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "肘关节脱位",
+    "pattern": "后脱位",
+    "reference": "教材第七章 · 肘关节脱位",
+    "affected": [
+      "Right ulna",
+      "Right radius"
+    ],
+    "fixed": [
+      "Right humerus"
+    ],
+    "observation": "以肱骨远端为参照，从侧位看鹰嘴和桡骨头的方向。"
+  },
+  {
+    "route": "#elbow-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "肘关节脱位",
+    "pattern": "侧方脱位（外侧例）",
+    "reference": "教材第七章 · 肘关节脱位",
+    "affected": [
+      "Right ulna",
+      "Right radius"
+    ],
+    "fixed": [
+      "Right humerus"
+    ],
+    "observation": "从正面观察尺桡骨与肱骨两髁的横向错位。"
+  },
+  {
+    "route": "#elbow-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "肘关节脱位",
+    "pattern": "前脱位",
+    "reference": "教材第七章 · 肘关节脱位",
+    "affected": [
+      "Right ulna",
+      "Right radius"
+    ],
+    "fixed": [
+      "Right humerus"
+    ],
+    "observation": "侧位对照鹰嘴与肱骨远端，注意运动的是前臂骨。"
+  },
+  {
+    "route": "#hip-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "髋关节脱位",
+    "pattern": "后脱位",
+    "reference": "教材第七章 · 髋关节脱位",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [
+      "Right hip bone",
+      "Sacrum"
+    ],
+    "observation": "切换右侧视角，观察股骨头与髋臼后缘的关系。"
+  },
+  {
+    "route": "#hip-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "髋关节脱位",
+    "pattern": "前脱位",
+    "reference": "教材第七章 · 髋关节脱位",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [
+      "Right hip bone",
+      "Sacrum"
+    ],
+    "observation": "保留骨盆作为参照，在侧面比较股骨头伤前和伤后的位置。"
+  },
+  {
+    "route": "#tmj-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "颞下颌关节脱位",
+    "pattern": "双侧前脱位",
+    "reference": "教材第七章 · 颞下颌关节脱位",
+    "affected": [
+      "Mandible"
+    ],
+    "fixed": [
+      "Right temporal bone",
+      "Left temporal bone"
+    ],
+    "observation": "两侧下颌髁突向前越过关节结节。侧面看髁突与下颌窝，正面观察下颌是否保持对称。"
+  },
+  {
+    "route": "#lunate-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "月骨脱位",
+    "pattern": "掌侧转位伴掌移",
+    "reference": "教材第七章 · 月骨脱位",
+    "affected": [
+      "Right lunate"
+    ],
+    "fixed": [
+      "Right radius"
+    ],
+    "observation": "从桡侧看月骨远侧凹面向掌侧转约 90°，头状骨随后向近端靠近桡骨远端。"
+  },
+  {
+    "route": "#mcp-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "掌指关节脱位",
+    "pattern": "拇指背侧脱位",
+    "reference": "教材第七章 · 掌指关节脱位",
+    "affected": [
+      "Proximal phalanx of right thumb"
+    ],
+    "fixed": [
+      "Right first metacarpal bone"
+    ],
+    "observation": "固定第一掌骨，观察拇指近节基底向手背侧越过掌骨头。"
+  },
+  {
+    "route": "#pip-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "指间关节脱位",
+    "pattern": "示指近指间背侧脱位",
+    "reference": "教材第七章 · 指间关节脱位",
+    "affected": [
+      "Middle phalanx of right index finger"
+    ],
+    "fixed": [
+      "Proximal phalanx of right index finger"
+    ],
+    "observation": "以近节指骨滑车为参照，观察中节基底向手背侧移出。"
+  },
+  {
+    "route": "#pip-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "指间关节脱位",
+    "pattern": "示指近指间侧方脱位",
+    "reference": "教材第七章 · 指间关节脱位",
+    "affected": [
+      "Middle phalanx of right index finger"
+    ],
+    "fixed": [
+      "Proximal phalanx of right index finger"
+    ],
+    "observation": "从掌面观察中节基底向桡侧错开，转至侧面与背移对照。"
+  },
+  {
+    "route": "#knee-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "胫股关节脱位",
+    "pattern": "前脱位",
+    "reference": "教材第七章 · 胫股关节脱位",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "固定股骨髁，在侧面观察胫骨平台向前移出。"
+  },
+  {
+    "route": "#knee-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "胫股关节脱位",
+    "pattern": "后脱位",
+    "reference": "教材第七章 · 胫股关节脱位",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "固定股骨髁，在侧面观察胫骨平台向后移出。"
+  },
+  {
+    "route": "#knee-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "胫股关节脱位",
+    "pattern": "外侧脱位",
+    "reference": "教材第七章 · 胫股关节脱位",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "从正面看胫骨平台与股骨髁的内外侧边缘。"
+  },
+  {
+    "route": "#knee-dislocation/3/1",
+    "scope": "成人关节脱位",
+    "site": "胫股关节脱位",
+    "pattern": "内侧脱位",
+    "reference": "教材第七章 · 胫股关节脱位",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "从正面看胫骨平台内移；腓骨和足与胫骨一起运动。"
+  },
+  {
+    "route": "#patella-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "髌骨脱位",
+    "pattern": "外侧脱位",
+    "reference": "教材第七章 · 髌骨脱位",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [
+      "Right femur",
+      "Right tibia"
+    ],
+    "observation": "以股骨滑车沟为参照，从前方及轴向观察髌骨越过外髁。"
+  },
+  {
+    "route": "#lisfranc-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "跗跖关节脱位",
+    "pattern": "同向背外侧脱位",
+    "reference": "教材第七章 · 跗跖关节脱位",
+    "affected": [
+      "Right first metatarsal bone",
+      "Right second metatarsal bone",
+      "Right third metatarsal bone",
+      "Right fourth metatarsal bone",
+      "Right fifth metatarsal bone"
+    ],
+    "fixed": [
+      "Navicular bone of right foot",
+      "Right cuboid bone",
+      "Right medial cuneiform bone",
+      "Right intermediate cuneiform bone",
+      "Right lateral cuneiform bone"
+    ],
+    "observation": "五个跖骨基底向背外侧移动。对照第二跖骨与中间楔骨的内侧缘，再转侧面看背侧阶差。"
+  },
+  {
+    "route": "#mtp-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "跖趾关节脱位",
+    "pattern": "第一跖趾背侧脱位",
+    "reference": "教材第七章 · 跖趾关节脱位",
+    "affected": [
+      "Proximal phalanx of right big toe"
+    ],
+    "fixed": [
+      "Right first metatarsal bone"
+    ],
+    "observation": "侧面观察拇趾近节基底移向第一跖骨头的足背侧。"
+  },
+  {
+    "route": "#toe-ip-dislocation/0/1",
+    "scope": "成人关节脱位",
+    "site": "趾间关节脱位",
+    "pattern": "拇趾趾间背侧脱位",
+    "reference": "教材第七章 · 趾间关节脱位",
+    "affected": [
+      "Distal phalanx of right big toe"
+    ],
+    "fixed": [
+      "Proximal phalanx of right big toe"
+    ],
+    "observation": "固定近节趾骨，从侧面看末节基底与滑车失去对合。"
+  }
+]

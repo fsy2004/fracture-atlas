@@ -1,6 +1,7 @@
 import * as T from './vendor/three.module.js';
 import {landmark} from './detail.js';
 import {atLevel} from './geometry.js';
+import {surfaceTree} from './surface-lessons.js';
 
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
 const fixedInk=new T.LineBasicMaterial({color:0x24796c,depthTest:false});
@@ -15,6 +16,38 @@ const faceRegions={
  ankle:['Right tibia',1,-1,.07,[0,-1,0],'胫骨下关节面'],
  'radial-head':['Right radius',1,1,.06,[0,1,0],'桡骨头上关节面']
 };
+
+// In a healthy pose, proximity and-facing tests identify a local opposed bony surface.
+
+const opposingFaces={
+ calcaneus:['Right calcaneus','Right talus','距跟相对骨面',.0045],
+ patella:['Right patella','Right femur','髌股相对骨面',.005],
+ olecranon:['Right ulna','Right humerus','肱尺相对骨面',.004],
+ scaphoid:['Right scaphoid','Right radius','桡舟相对骨面',.0035],
+ talus:['Right talus','Right calcaneus','距跟相对骨面',.0045],
+ 'lateral-elbow':['Right humerus','Right radius','肱桡相对骨面',.004],
+ 'region-trapezium':['Right trapezium','Right first metacarpal bone','第一腕掌相对骨面',.003],
+ 'region-trapezoid':['Right trapezoid','Right second metacarpal bone','第二腕掌相对骨面',.003],
+ 'region-capitate':['Right capitate','Right lunate','头月相对骨面',.003],
+ 'region-lunate':['Right lunate','Right capitate','月头相对骨面',.003],
+ 'region-pisiform':['Right pisiform','Right triquetral','豆三角相对骨面',.003],
+ 'region-navicular':['Navicular bone of right foot','Right talus','距舟相对骨面',.004],
+ 'region-cuboid':['Right cuboid bone','Right calcaneus','跟骰相对骨面',.004]
+};
+function opposedRule(id,lookup){
+ const def=opposingFaces[id];if(!def||!lookup)return null;
+ const [target,other,label,distance]=def,g=lookup(other);if(!g)return null;
+ const tree=surfaceTree(g);
+ const bounds=g.boundingBox.clone().expandByScalar(distance),query={point:V()},delta=V();
+ function inside(pt,normal){
+  if(!bounds.containsPoint(pt))return false;
+  const hit=tree.closestPointToPoint(pt,query,0,distance);
+  if(!hit||hit.distance>distance)return false;
+  delta.subVectors(hit.point,pt);
+  return delta.dot(normal)>=-.0003;
+ }
+ return [target,0,0,0,[0,1,0],label,inside];
+}
 
 // Surface masks are study regions defined on the registered mesh, not cartilage segmentations.
 function patchFor(item,rule,extent){
@@ -31,7 +64,8 @@ function patchFor(item,rule,extent){
   centre.set(0,0,0);normal.set(0,0,0);
   for(let j=0;j<3;j++){centre.add(V().fromBufferAttribute(p,k+j));normal.add(V().fromBufferAttribute(n,k+j));}
   centre.divideScalar(3);
-  if(Math.abs(centre.getComponent(axis)-from)>limit||normal.normalize().dot(dir)<.55)continue;
+  normal.normalize();
+  if(rule[6]?!rule[6](centre,normal):(Math.abs(centre.getComponent(axis)-from)>limit||normal.dot(dir)<.55))continue;
   for(let j=0;j<3;j++){
    const pt=V().fromBufferAttribute(p,k+j);mask.push(pt.x,pt.y,pt.z);
    const id=key(pt.x,pt.y,pt.z);
@@ -71,7 +105,7 @@ export function wristLandmarks(g){
  return {dorsal,volar,axis,palmar};
 }
 
-export function makeObservation({course,variant,source,geometry,anchor,parts,group,context,joint,frame,tracked}){
+export function makeObservation({course,variant,source,geometry,anchor,parts,group,context,joint,frame,tracked,lookupGeometry}){
  const items=parts.filter(i=>i.shell&&i.name===source.bone);
  const moving=tracked||(joint?parts[0]:items.find(i=>i.moving)||items[0]);
  if(!moving)return null;
@@ -86,7 +120,7 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const boneSpan=geometry.boundingBox.getSize(V()).length(),length=Math.max(.006,Math.min(.065,boneSpan*.25));
  const along=frame?.axis.clone()||(source.axis!==undefined?V(...atLevel(geometry,source.axis,.62)).sub(V(...atLevel(geometry,source.axis,.38))).normalize():V(0,1,0));
  const spoke=V(1,0,0);if(Math.abs(along.x)>.85)spoke.set(0,0,1);spoke.addScaledVector(along,-spoke.dot(along)).normalize();
- const rule=faceRegions[course.id];
+ const rule=faceRegions[course.id]||opposedRule(course.id,lookupGeometry);
  const patches=rule?items.map(i=>patchFor(i,rule,geometry.boundingBox)).filter(Boolean):[];
  const pair=sharedFacetPoint(patches,moving);
  const stepLine=line(mobileInk,2,facetLines),slipLine=line(fixedInk,2,facetLines);

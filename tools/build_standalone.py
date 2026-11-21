@@ -45,7 +45,7 @@ def build(output):
         path = "art/" + icon + ".webp"
         html = html.replace('src="' + path + '"', 'src="' + data_uri("image/webp", (ROOT / path).read_bytes()) + '"')
     credits = ("Detailed surfaces: BodyParts3D, Copyright © 2008 Life Science Integrated Database Center. CC BY-SA 2.1 Japan. https://creativecommons.org/licenses/by-sa/2.1/jp/ Source: Kevin-Mattheus-Moerman/BodyParts3D, 2c83c698788cff57f6317bddcf712e7acfbea7d8. Native float32 mesh packing, shared rigid coordinate transform, and mapping of lesson landmarks.\n" + (ROOT / "models/provenance.json").read_text(encoding="utf8") + "\n" +
-               (ROOT / "vendor/LICENSE-three.txt").read_text(encoding="utf8"))
+               (ROOT / "vendor/LICENSE-three.txt").read_text(encoding="utf8") + "\n" + (ROOT / "vendor/LICENSE-mesh-bvh.txt").read_text(encoding="utf8"))
     output.write_text(html.replace("</body>", "<!--\n"+credits.replace("--","—")+"\n-->\n</body>"), encoding="utf8")
 
 if __name__ == "__main__":
