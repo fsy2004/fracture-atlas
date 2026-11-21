@@ -17,5 +17,6 @@
   "coordinate_frame": "metres; +X anatomical left, +Y superior, +Z anterior",
   "changes": "Selected skeletal meshes; repacked positions and indices; derived vertex normals, schematic cut surfaces and animations.",
   "mesh_count": 201,
-  "sha256": "db557f347b6ae3a1c22d6aa303b700bcef34ca810c167e0344eb9e57f352f7d8"
+  "sha256": "db557f347b6ae3a1c22d6aa303b700bcef34ca810c167e0344eb9e57f352f7d8",
+  "scope": "Lightweight overview; high-detail derivatives have their own attribution, licence and transforms in detail.json."
 }

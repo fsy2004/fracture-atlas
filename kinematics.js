@@ -22,7 +22,7 @@ export function shaftFrame(low,high,distalPositive){
  return {axis,side,bend:new T.Vector3().crossVectors(side,axis).normalize()};
 }
 
-export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEdit){
+export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEdit,clinical={}){
  const controls=[],host=document.getElementById('quantRows');
  host.replaceChildren();
  const tagged=items.filter(i=>i.tuned);
@@ -44,19 +44,30 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   input.oninput=()=>{c.value=+input.value;values[key]=c.value;paint();onEdit();};
   row.append(title,read,input);host.append(row);controls.push(c);
  }
+ const wrist=Number.isFinite(clinical.palmar);
+ if(wrist){
+  const baseline=clinical.palmar;
+  field('tilt','终点背倾（模型侧面）','°',limit(values.spin===undefined?15-baseline:values.spin-baseline,0,35),35,1);
+ }
  if(tagged.length){
   const defaults={shorten:width*.57,separate:width*.48,side:width*.42,angle:16,rotate:24};
   if(tagged[0].tuned==='wrist')defaults.shorten=4;
   for(const key of flags){
    const angular=key==='angle'||key==='rotate';
-   field(key,tagged[0].tuned==='wrist'?'附加缩短':names[key],angular?'°':'mm',Math.round(defaults[key]*10)/10,angular?60:Math.min(60,Math.max(8,width*1.6)),angular?1:.5);
+   const angleLimit=key==='angle'&&clinical.id==='humerus'?60:35;
+   field(key,tagged[0].tuned==='wrist'?'附加缩短':names[key],angular?'°':'mm',Math.round(defaults[key]*10)/10,angular?angleLimit:Math.min(60,Math.max(8,width*1.6)),angular?1:.5);
   }
  }else{
   if(maxTravel>.02)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',maxTravel,maxTravel*1.75,.5);
-  if(maxSpin>.02)field('spin','最大骨块转角','°',maxSpin,Math.min(180,maxSpin*1.75),1);
+  if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',maxSpin,Math.min(180,maxSpin*1.75),1);
  }
  if(wedges.length)field('wedge','预设压缩形变倍率','%',100,130,1);
  document.getElementById('quantBox').hidden=!controls.length;
+ if(wrist||clinical.id==='humerus'&&flags.includes('angle')){
+  const note=document.createElement('p');note.className='clinical-note';
+  note.textContent=wrist?'伸直型背倾探索 0°～35°。在侧面按掌背缘参考点与桡骨干轴计算；伤前角度取自当前模型。':'肱骨干成角 0°～60°。试比较 10°、25° 和 40° 时两段骨轴的夹角。';
+  host.append(note);
+ }
  const map=Object.fromEntries(controls.map(c=>[c.key,c]));
  const val=(k,f=0)=>map[k]?.value??f;
  const translation=new T.Vector3(),qa=new T.Quaternion(),qb=new T.Quaternion();
@@ -77,7 +88,9 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     const scale=maxTravel>0?val('travel',maxTravel)/maxTravel:1;
     translation.copy(shift).multiplyScalar(scale*shiftT);
     if(i.tuned==='wrist')translation.addScaledVector(frame.axis,val('shorten',4)*mm*lengthT);
-    pivot.quaternion.setFromAxisAngle(r.axis,r.angle*rad*angleT*(maxSpin>0?val('spin',maxSpin)/maxSpin:1));
+    const degrees=wrist&&r.angle>0?(val('tilt')+clinical.palmar)*r.angle/15:
+     r.angle*(maxSpin>0?val('spin',maxSpin)/maxSpin:1);
+    pivot.quaternion.setFromAxisAngle(r.axis,degrees*rad*angleT);
    }
    pivot.position.copy(anchor).add(translation);
    if(i.ghost)i.ghost.visible=document.getElementById('ghost').checked&&p>.29&&
@@ -85,6 +98,10 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   }
   for(const mesh of wedges)mesh.morphTargetInfluences[0]=val('wedge',100)/100*lengthT;
   const readouts=controls.map(c=>{
+   if(c.key==='tilt'){
+    const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
+    return {label:dorsal>=0?'背倾':'掌倾',num:format(Math.abs(dorsal)),unit:'°'};
+   }
    const t=['spin','angle','rotate'].includes(c.key)?angleT:['shorten','separate','wedge'].includes(c.key)?lengthT:shiftT;
    return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',spin:'转角',wedge:'预设形变倍率'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
   });
