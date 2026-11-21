@@ -31,12 +31,12 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   i.baseRotation=rotation(i.turn);
   if(!i.tuned){maxTravel=Math.max(maxTravel,i.shift.length()/mm);maxSpin=Math.max(maxSpin,i.baseRotation.angle);}
  }
- function field(key,label,unit,base,max,step=1){
+ function field(key,label,unit,base,max,step=1,min=0){
   const row=document.createElement('label');row.className='measure-row';
   const title=document.createElement('span'),read=document.createElement('output'),input=document.createElement('input');
   title.textContent=label;input.type='range';input.dataset.param=key;input.setAttribute('aria-label',label);
-  input.min=0;input.max=Math.max(step,Math.ceil(max));input.step=step;
-  const initial=limit(Number.isFinite(values[key])?values[key]:base,0,+input.max);
+  input.min=min;input.max=Math.max(step,Math.ceil(max));input.step=step;
+  const initial=limit(Number.isFinite(values[key])?values[key]:base,min,+input.max);
   input.value=initial;
   const c={key,unit,value:values[key]===undefined?base:initial,read,base};
   const paint=()=>{read.textContent=format(c.value)+' '+unit;};
@@ -47,6 +47,10 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  const ball=joint&&items.some(i=>i.jointAxis);
  const internal=clinical.id==='hip-dislocation'?clinical.variant===0:clinical.variant===1;
  if(ball)field('jointTwist',internal?'伴随内旋':'伴随外旋','°',0,30,1);
+ if(joint){
+  field('bearing','移出方向 · 水平偏角','°',0,20,1,-20);
+  field('elevation','移出方向 · 仰俯偏角','°',0,15,1,-15);
+ }
  const wrist=Number.isFinite(clinical.palmar);
  if(wrist){
   const baseline=clinical.palmar;
@@ -64,7 +68,21 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   if(maxTravel>.02)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',maxTravel,maxTravel*1.75,.5);
   if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',maxSpin,Math.min(180,maxSpin*1.75),1);
  }
- if(wedges.length)field('wedge','预设压缩形变倍率','%',100,130,1);
+ let maxDepth=0;
+ function blendedDepth(blend){
+  let maximum=0;
+  for(const mesh of wedges){
+   const [narrow,wide]=mesh.geometry.morphAttributes.position;
+   for(let j=0;j<narrow.count;j++)maximum=Math.max(maximum,-1000*(narrow.getY(j)*(1-blend)+wide.getY(j)*blend));
+  }
+  return maximum;
+ }
+ if(wedges.length){
+  maxDepth=blendedDepth(0);
+  field('crush','最大局部压低','mm',maxDepth*(limit(values.wedge??100,0,130)/100),maxDepth*1.3,.5);
+  field('breadth','压缩分布拓宽','%',0,100,1);
+ }
+ if(clinical.ankleSign)field('footRoll',clinical.ankleSign>0?'足内翻姿态':'足外翻姿态','°',12,25,1);
  document.getElementById('quantBox').hidden=!controls.length;
  if(wrist||clinical.id==='humerus'&&flags.includes('angle')){
   const note=document.createElement('p');note.className='clinical-note';
@@ -86,8 +104,10 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  const val=(k,f=0)=>map[k]?.value??f;
  const translation=new T.Vector3(),qa=new T.Quaternion(),qb=new T.Quaternion();
  function format(n){return Number(n.toFixed(1)).toString();}
+ let lastBlend=-1;
  function apply(p,report=true){
-  const shiftT=eased(p,.25,.78),lengthT=eased(p,.56,.91),angleT=eased(p,.54,1),clearT=eased(p,.23,.56),jointT=eased(p,.10,.77);
+  const linearMotion=tagged.length?flags.some(k=>['side','shorten','separate'].includes(k)&&val(k)>0):val('travel',maxTravel)>.02;
+  const shiftT=eased(p,.18,.78),lengthT=eased(p,.56,.91),angleT=eased(p,linearMotion ? .54 : .18,1),compressT=eased(p,.18,.91),clearT=eased(p,.23,.56),jointT=eased(p,.10,.77);
   for(const i of items){
    const {pivot,anchor,shift,baseRotation:r}=i;
    if(i.tuned==='shaft'&&frame){
@@ -104,6 +124,11 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    }else{
     const scale=maxTravel>0?val('travel',maxTravel)/maxTravel:1;
     translation.copy(shift).multiplyScalar(scale*shiftT);
+    if(joint&&shift.lengthSq()>0&&(val('bearing')||val('elevation'))){
+     const yaw=Math.atan2(shift.x,shift.z)+(clinical.mirror?-1:1)*val('bearing')*rad;
+     const pitch=Math.asin(limit(shift.y/shift.length(),-1,1))+val('elevation')*rad;
+     translation.set(Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)).multiplyScalar(shift.length()*scale*shiftT);
+    }
     if(i.tuned==='wrist')translation.addScaledVector(frame.axis,val('shorten',4)*mm*lengthT);
     const degrees=wrist&&r.angle>0?(val('tilt')+clinical.palmar)*r.angle/15:
      r.angle*(maxSpin>0?val('spin',maxSpin)/maxSpin:1);
@@ -114,15 +139,20 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    if(i.ghost)i.ghost.visible=document.getElementById('ghost').checked&&p>.29&&
     (translation.lengthSq()>1e-9||pivot.quaternion.angleTo(identity)>.01);
   }
-  for(const mesh of wedges)mesh.morphTargetInfluences[0]=val('wedge',100)/100*lengthT;
+  if(wedges.length){
+   const blend=val('breadth')/100;
+   if(lastBlend!==blend){maxDepth=blendedDepth(blend);lastBlend=blend;}
+   const amplitude=maxDepth?val('crush')/maxDepth*compressT:0;
+   for(const mesh of wedges){mesh.morphTargetInfluences[0]=amplitude*(1-blend);mesh.morphTargetInfluences[1]=amplitude*blend;}
+  }
   if(!report)return;
-  const readouts=controls.map(c=>{
+  const readouts=controls.filter(c=>!['bearing','elevation'].includes(c.key)||c.value!==0).map(c=>{
    if(c.key==='tilt'){
     const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
     return {label:dorsal>=0?'背倾':'掌倾',num:format(Math.abs(dorsal)),unit:'°'};
    }
-   const t=c.key==='jointTwist'?jointT:['spin','angle','rotate'].includes(c.key)?angleT:['shorten','separate','wedge'].includes(c.key)?lengthT:shiftT;
-   return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',spin:'转角',jointTwist:internal?'内旋':'外旋',wedge:'预设形变倍率'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
+   const t=['bearing','elevation'].includes(c.key)?1:c.key==='footRoll'?eased(p,0,.33):c.key==='breadth'?1:c.key==='crush'?compressT:c.key==='jointTwist'?jointT:['spin','angle','rotate'].includes(c.key)?angleT:['shorten','separate'].includes(c.key)?lengthT:shiftT;
+   return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',bearing:'水平偏角',elevation:'仰俯偏角',spin:'转角',jointTwist:internal?'内旋':'外旋',crush:'局部压低',breadth:'分布拓宽',footRoll:clinical.ankleSign>0?'内翻':'外翻'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
   });
   const tray=document.getElementById('liveValues');
   if(tagged[0]?.tuned==='shaft'&&val('shorten')>0){
@@ -135,5 +165,6 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   if(tray.textContent!==text)tray.textContent=text;
  }
  const identity=new T.Quaternion();
+ apply.footRoll=()=>val('footRoll',12);
  return apply;
 }

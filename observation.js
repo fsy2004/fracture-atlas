@@ -26,7 +26,7 @@ function patchFor(item,rule,extent){
  const boundary=new Set(),edge=item.edge?.geometry.attributes.position;
  const key=(x,y,z)=>[x,y,z].map(v=>Math.round(v*1e6)).join(',');
  for(let k=0;edge&&k<edge.count;k++)boundary.add(key(edge.getX(k),edge.getY(k),edge.getZ(k)));
- const hits=[],mask=[],centre=V(),normal=V(),dir=V(...direction);
+ const matches=new Map(),hits=[],mask=[],centre=V(),normal=V(),dir=V(...direction);
  for(let k=0;k<p.count;k+=3){
   centre.set(0,0,0);normal.set(0,0,0);
   for(let j=0;j<3;j++){centre.add(V().fromBufferAttribute(p,k+j));normal.add(V().fromBufferAttribute(n,k+j));}
@@ -34,7 +34,8 @@ function patchFor(item,rule,extent){
   if(Math.abs(centre.getComponent(axis)-from)>limit||normal.normalize().dot(dir)<.55)continue;
   for(let j=0;j<3;j++){
    const pt=V().fromBufferAttribute(p,k+j);mask.push(pt.x,pt.y,pt.z);
-   if(boundary.has(key(pt.x,pt.y,pt.z)))hits.push(pt);
+   const id=key(pt.x,pt.y,pt.z);
+   if(boundary.has(id)){hits.push(pt);matches.set(id,{point:pt,normal:V().fromBufferAttribute(n,k+j).normalize()});}
   }
  }
  if(!mask.length)return null;
@@ -42,9 +43,21 @@ function patchFor(item,rule,extent){
  const mesh=new T.Mesh(geo,facetMaterial);mesh.position.copy(item.shell.position);mesh.userData.dispose=true;
  item.pivot.add(mesh);mesh.visible=false;
  const intersects=hits.length>1&&hits.some(pt=>pt.distanceTo(hits[0])>.001);
- return {mesh,item,point:V(...mask.slice(0,3)),hit:intersects?hits[Math.floor(hits.length/2)]:null};
+ return {mesh,item,matches,point:V(...mask.slice(0,3)),hit:intersects?hits[Math.floor(hits.length/2)]:null};
 }
 
+function sharedFacetPoint(patches,tracked){
+ const candidates=patches.filter(p=>p.hit).sort((a,b)=>Number(b.item===tracked)-Number(a.item===tracked));
+ for(const target of candidates)for(const ref of candidates){
+  if(ref===target)continue;
+  const points=[...ref.matches].filter(([key])=>target.matches.has(key)).map(([,p])=>p);
+  if(points.length<2||!points.some(p=>p.point.distanceTo(points[0].point)>.001))continue;
+  const mid=points.reduce((sum,p)=>sum.add(p.point),V()).divideScalar(points.length);
+  points.sort((a,b)=>a.point.distanceToSquared(mid)-b.point.distanceToSquared(mid));
+  return {target:target.item,ref:ref.item,...points[0]};
+ }
+ return null;
+}
 function nearest(g,xyz){
  const p=g.attributes.position,mark=landmark(g,xyz),out=V();let best=Infinity;
  for(let i=0;i<p.count;i++){const a=V().fromBufferAttribute(p,i),d=a.distanceToSquared(mark);if(d<best){out.copy(a);best=d;}}
@@ -58,15 +71,15 @@ export function wristLandmarks(g){
  return {dorsal,volar,axis,palmar};
 }
 
-export function makeObservation({course,variant,source,geometry,anchor,parts,group,context,joint,frame}){
+export function makeObservation({course,variant,source,geometry,anchor,parts,group,context,joint,frame,tracked}){
  const items=parts.filter(i=>i.shell&&i.name===source.bone);
- const moving=joint?parts[0]:items.find(i=>i.moving)||items[0];
+ const moving=tracked||(joint?parts[0]:items.find(i=>i.moving)||items[0]);
  if(!moving)return null;
- const reference=items.find(i=>i!==moving);
- const modeGroup=new T.Group();group.add(modeGroup);
- function line(material,count){
+ const reference=items.find(i=>i!==moving&&!i.moving)||items.find(i=>i!==moving);
+ const modeGroup=new T.Group(),facetLines=new T.Group();group.add(modeGroup,facetLines);
+ function line(material,count,parent=modeGroup){
   const geo=new T.BufferGeometry();geo.setAttribute('position',new T.BufferAttribute(new Float32Array(count*3),3));
-  const object=new T.Line(geo,material);object.renderOrder=6;object.frustumCulled=false;object.userData.dispose=true;modeGroup.add(object);
+  const object=new T.Line(geo,material);object.renderOrder=6;object.frustumCulled=false;object.userData.dispose=true;parent.add(object);
   return points=>{const attr=geo.attributes.position;points.forEach((v,i)=>attr.setXYZ(i,v.x,v.y,v.z));attr.needsUpdate=true;object.visible=points.length>0;};
  }
  const baseline=line(fixedInk,2),motionAxis=line(mobileInk,2),delta=line(measureInk,2),parallel=line(fixedInk,2),arc=line(mobileInk,17);
@@ -75,7 +88,16 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const spoke=V(1,0,0);if(Math.abs(along.x)>.85)spoke.set(0,0,1);spoke.addScaledVector(along,-spoke.dot(along)).normalize();
  const rule=faceRegions[course.id];
  const patches=rule?items.map(i=>patchFor(i,rule,geometry.boundingBox)).filter(Boolean):[];
- const guide=Boolean(joint&&frame)||source.axis!==undefined&&['tibia','humerus','femur','forearm','single-forearm','finger','toes','metacarpal','metatarsal','radius','distalfemur','elbow'].includes(course.id);
+ const pair=sharedFacetPoint(patches,moving);
+ const stepLine=line(mobileInk,2,facetLines),slipLine=line(fixedInk,2,facetLines);
+ const measurements=()=>{
+  if(!pair)return null;
+  const a=posed(pair.ref,pair.point),b=posed(pair.target,pair.point),delta=b.clone().sub(a);
+  const n=pair.normal.clone().applyQuaternion(pair.ref.pivot.quaternion);
+  const joint=a.clone().addScaledVector(n,n.dot(delta));
+  return {a,b,joint,height:a.distanceTo(joint)*1000,slip:b.distanceTo(joint)*1000};
+ };
+ const guide=Boolean(joint&&frame)||source.axis!==undefined&&['tibia','humerus','femur','forearm','single-forearm','finger','toes','metacarpal','metatarsal','radius','distalfemur','elbow'].includes(course.family||course.id);
  function posed(item,p){return item?p.clone().sub(item.anchor).applyQuaternion(item.pivot.quaternion).add(item.pivot.position):p.clone();}
  function endpoint(item,rest,length){return posed(item,anchor.clone().addScaledVector(rest,length));}
  const tags=[];
@@ -85,7 +107,10 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const rim=course.id==='radius'&&variant<2?wristLandmarks(geometry):null;
  const fixedRim=line(fixedInk,2),movedRim=line(mobileInk,2);
  let fragmentIndex=Math.max(0,items.indexOf(moving));
- return {axisGuide:()=>guide?{
+ return {measurements,dispose(){
+   for(const root of [modeGroup,facetLines]){group.remove(root);root.traverse(o=>{if(o.userData.dispose)o.geometry.dispose();});}
+   for(const p of patches){p.mesh.removeFromParent();p.mesh.geometry.dispose();}
+  },axisGuide:()=>guide?{
    axis:along.clone(),rest:spoke.clone().applyQuaternion(reference?.pivot.quaternion||new T.Quaternion()),
    moved:spoke.clone().applyQuaternion(moving.pivot.quaternion),origin:posed(moving,anchor)
   }:null,referencePoints:()=>[posed(reference,anchor),posed(moving,anchor)],fragment:()=>String(fragmentIndex+1)+' / '+items.length,advance:()=>{fragmentIndex=(fragmentIndex+1)%items.length;},
@@ -97,7 +122,7 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
     if(item.shell)item.pivot.visible=mode!=='cut'||item===items[fragmentIndex];
    }
    for(const patch of patches)patch.mesh.visible=mode==='facet';
-   modeGroup.visible=mode==='motion';
+   modeGroup.visible=mode==='motion';facetLines.visible=mode==='facet'&&Boolean(pair);
    if(mode==='cut'){
     const part=items[fragmentIndex],edges=part.edge.geometry.attributes.position;
     if(edges.count)label('断面边缘',posed(part,V().fromBufferAttribute(edges,Math.floor(edges.count*.45))));
@@ -106,7 +131,11 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
    if(mode==='facet'){
     if(patches.length){const patch=patches[0];label(rule[5],posed(patch.item,patch.point));}
     const intersection=patches.find(p=>p.hit);
-    if(intersection)label('断线进入标示区',posed(intersection.item,intersection.hit));
+    const m=measurements();
+    if(m){
+     stepLine([m.a,m.joint]);slipLine([m.joint,m.b]);
+     label('局部高差 '+m.height.toFixed(1)+' mm · 面内错位 '+m.slip.toFixed(1)+' mm',m.b);
+    }else if(intersection)label('断线进入标示区',posed(intersection.item,intersection.hit));
     else label('骨折线',posed(moving,cutPt));return;
    }
    if(mode==='overview'){

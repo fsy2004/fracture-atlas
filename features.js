@@ -21,13 +21,14 @@ export function initialShape(course,i){
  return 'transverse';
 }
 export function featuresFor(course,index){
- const shapes=shafts[course.id]?.[index];
+ const id=course.family||course.id;
+ const shapes=shafts[id]?.[index];
  if(shapes)return {shapes,motions:Object.keys(motionNames)};
- if(course.id==='metacarpal'&&index===3)return {shapes:allShaft,motions:Object.keys(motionNames)};
- if(course.id==='radius'&&index<2)return {shapes:[],motions:['shorten']};
- if(course.id==='toes'&&index===2)return {shapes:[],motions:[]};
- if(course.id==='clavicle')return {shapes:['shortOblique','transverse','comminuted'],motions:[]};
- if(['finger','metatarsal','toes'].includes(course.id))return {shapes:[],motions:['side','angle','rotate','shorten','separate']};
+ if(id==='metacarpal'&&index===3)return {shapes:allShaft,motions:Object.keys(motionNames)};
+ if(id==='radius'&&index<2)return {shapes:[],motions:['shorten']};
+ if(id==='toes'&&index===2)return {shapes:[],motions:[]};
+ if(id==='clavicle')return {shapes:['shortOblique','transverse','comminuted'],motions:[]};
+ if(['finger','metatarsal','toes'].includes(id))return {shapes:[],motions:['side','angle','rotate','shorten','separate']};
  return {shapes:[],motions:[]};
 }
 export function withShape(spec,shape){
