@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as T from '../vendor/three.module.js';
-import {panesFor,recallItem,drawDesk} from '../study-layouts.js';
+import {panesFor,drawDesk} from '../study-layouts.js';
 
 test('wide and narrow orthographic panes have equal scale, fit the host and do not overlap',()=>{
  for(const [w,h] of [[900,600],[360,460]]){
@@ -33,13 +33,4 @@ test('reference frames reset previous overlays and restore the live model last',
   assert.ok(p.querySelectorAll().every(e=>e.style.display==='none'));
  }
  assert.deepEqual(renderer.clippingPlanes,[]);
-});
-
-test('direction feedback follows the configured displacement, including zero',()=>{
- for(const id of ['radius','hip-dislocation','elbow-dislocation']){
-  const c={id},v={observe:'示例'};
-  assert.equal(recallItem(c,0,v,null,new T.Vector3()).correct,2);
-  assert.equal(recallItem(c,0,v,null,new T.Vector3(0,0,-.02)).correct,0);
- }
- assert.equal(recallItem({id:'radius'},1,{},null,new T.Vector3(0,0,.01)).correct,1);
 });

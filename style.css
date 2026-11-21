@@ -35,14 +35,13 @@ aside h2{font:650 27px/1.4 var(--serif);margin-bottom:5px}aside section{margin-t
 #readingRef{padding:9px 11px;margin:10px 0;background:#edf2e9;border-left:2px solid #89a596}#readingRef h3{margin-top:0}
 .measure-row{display:grid;grid-template-columns:1fr auto;gap:1px 5px;align-items:center;border-bottom:1px solid #dce3d8;font-size:13px;padding:6px 0}.measure-row output{font-weight:650;color:#286149;font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:var(--jade);cursor:pointer}.measure-row input{grid-column:1/-1}
 .player{display:none;padding:12px clamp(16px,1.8vw,30px) 16px;background:#eff3e9;border-top:1px solid #b9cbbd}.in-lesson .player{display:block}.player-head{font-size:13px}.pair button{flex:1;white-space:nowrap}.pair .primary:hover{background:#194b3e}#steps{display:flex;gap:3px;margin:0 0 8px}#steps button{border:0;padding:2px 5px;background:transparent;color:#64776c;font-size:11px}#time{margin:7px 0 2px}
-details{border-top:1px solid var(--edge);padding:9px 0 0;margin-top:11px}summary{font-size:13px;color:#3f6855}.views,#layers,#notes p{margin-top:8px}#layers label{font-size:12px;margin-right:7px}input[type=checkbox]{accent-color:var(--jade)}.scope{font-size:11px;display:block;margin-top:12px}.recall #markLayer,.recall #description,.recall #liveValues,.recall #inspectHelp,.recall #notes,.recall #readingRef{visibility:hidden}.empty{padding:12px;color:var(--muted)}#mobilePanel,#foldPanel{display:none}
+details{border-top:1px solid var(--edge);padding:9px 0 0;margin-top:11px}summary{font-size:13px;color:#3f6855}.views,#layers,#notes p{margin-top:8px}#layers label{font-size:12px;margin-right:7px}input[type=checkbox]{accent-color:var(--jade)}.scope{font-size:11px;display:block;margin-top:12px}.empty{padding:12px;color:var(--muted)}#mobilePanel,#foldPanel{display:none}
 @media(max-width:850px){main{grid-template-columns:minmax(0,1fr) 300px}.callout{display:none}.stage-title{max-width:85%}.stage-foot span:last-child{display:none}}
 @media(max-width:630px){header{height:53px;padding:0 12px;gap:8px}h1{font-size:18px}.brand{width:28px;height:30px;font-size:18px}.discipline{font-size:11px;padding-left:8px}main{height:calc(100dvh - 53px);display:block}.stage{height:100%}.stage-title{top:18px}.stage-title h2{font-size:26px}.stage-title p{font-size:11px}.stage:after{inset:6px}aside{position:fixed;top:53px;right:0;bottom:0;width:min(82vw,340px);z-index:4;box-shadow:-10px 0 30px #17372d24;visibility:hidden;transform:translateX(105%)}body.panel-open aside{visibility:visible;transform:none}#mobilePanel{margin-left:auto;display:block}#foldPanel{display:block}.player{padding-bottom:8px}#liveValues{font-size:12px}}
 [hidden]{display:none!important}
 
 
 .clinical-note{font-size:12px;line-height:1.65;color:var(--muted);margin:7px 0}
-.recall #variants,.recall #system,.recall #featureBox,.recall #quantBox,.recall #levelbox,.recall .study-grid{visibility:hidden}
 
 /* The three reading surfaces share controls and meshes; their compositions follow the viewing task. */
 header{height:64px;border-bottom:1px solid #a8bdaf;background:#183c33;color:#fbf8e9}
@@ -68,9 +67,6 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 #desks button[data-desk=story] i{background:linear-gradient(0deg,transparent 38%,currentColor 38% 48%,transparent 48%),linear-gradient(90deg,transparent 47%,currentColor 47% 53%,transparent 53%) left bottom/100% 40% no-repeat}
 #desks button[aria-pressed=true],#pairPick button[aria-pressed=true]{background:var(--jade);border-color:var(--jade);color:white}
 #pairPick{display:flex;gap:6px;margin:8px 0}#pairPick button{font-size:12px;padding:4px 8px}
-#questionBox{padding:10px 14px 12px;border-left:3px solid #976642;background:#ede8da;margin:10px 0}
-#questionBox h3{margin:0 0 6px;font-family:var(--serif);font-size:16px}
-#answers{display:flex;gap:6px}#feedback{font-size:13px;margin-top:5px;color:#593e29}
 #paneBoxes,.pane{position:absolute;pointer-events:none;z-index:1}
 #paneBoxes{inset:0}.pane{border:1px solid #879892;border-radius:10px;overflow:hidden}
 .pane b,.pane small,.pane span{position:absolute;z-index:1;white-space:nowrap}
@@ -111,7 +107,6 @@ body[data-desk=story] #panel{background:#fffaf0;border-color:#cbbaa4}
 body[data-desk=story] :is(.player,#readingRef,#levels){background:#eee6d9}
 body[data-desk=story] .study-grid [aria-pressed=true],body[data-desk=story] .cards .active{background:#7e5941;color:#fff4e5}
 body[data-desk=story] #liveValues{color:#5e4432;border-color:#92694c;background:#f8f4e4}
-body.recall #paneBoxes span{display:none}
 #quickPlay{display:none}
 @media(max-width:850px){main{grid-template-columns:minmax(0,1fr) 294px}.specimens span{padding:3px 4px 6px}}
 @media(max-width:630px){
@@ -145,31 +140,23 @@ body[data-desk=story] .stage-title small{color:#705e44}
 #workspaceTabs button[aria-pressed=true]{background:transparent;color:var(--ink);box-shadow:inset 0 -2px currentColor}
 body:is([data-desk=pair],[data-desk=story]):not([data-tab=model]) #bonePanel{display:none}
 body:is([data-desk=pair],[data-desk=story]):not([data-tab=measure]) :is(#featureBox,#quantBox,#readingRef){display:none}
-body:is([data-desk=pair],[data-desk=story]):not([data-tab=study]) :is(#studyTools,#notes,#questionBox,#pairPick){display:none}
+body:is([data-desk=pair],[data-desk=story]):not([data-tab=study]) :is(#studyTools,#notes,#pairPick){display:none}
 body:is([data-desk=pair],[data-desk=story])[data-tab=model] #viewOptions{display:none}
-body[data-desk=story] #questionBox{margin-top:18px;background:#eae1cb;padding:16px;border-left:3px solid #967447}
-body[data-desk=story] #questionBox h3{font:600 18px/1.5 var(--serif)}
-#mobilePractice,#practiceDrawer{display:none}
-@media(max-width:630px){
- #mobilePractice:not([hidden]){display:block;position:fixed;right:108px;bottom:12px;z-index:3;border-color:#92795b;background:#fffaef}
- body.panel-open #mobilePractice{display:none}
- body.practice-open #practiceDrawer{display:block;position:fixed;z-index:3;right:10px;bottom:54px;width:min(360px,calc(100% - 20px));padding:12px;background:#fff9ec;color:#342e28;border:1px solid #bda581;border-radius:9px;box-shadow:0 3px 15px #33271823}
- #practiceDrawer .row{display:flex;align-items:start;justify-content:space-between;gap:5px}#mobileAnswers{display:flex;gap:7px;margin-top:8px}#mobileFeedback{margin-top:5px;font-size:12px}#closePractice{font-size:11px}
-}
+
 .pane .rotation-guide path{fill:none;stroke:#97ead0;stroke-width:2}.pane .rotation-guide path:nth-child(2){stroke:#ff9d69;stroke-width:3}.pane .rotation-guide path:nth-child(3){stroke:#f8dbb4;stroke-width:1.5}
 #whole{margin-right:0;white-space:nowrap}.panel-head #breadcrumb{margin-right:auto}
 body[data-desk=pair] .pane .components{white-space:normal;text-align:right}
-@media(max-width:630px){body.practice-open[data-desk=story] #viewport{bottom:190px}body.practice-open #liveValues,body.practice-open .stage-foot{visibility:hidden}}
 
-.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+
 #projectionCard{margin:15px 0 0;border-top:1px solid #5b727b;padding:3px 0 10px}
 #projectionCard>div{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 #projectionCard label{display:block;font-size:11px;color:#b2c7cf;background:#192e39;border-left:2px solid #82b2bb;padding:9px 10px}
 #projectionCard output{display:block;font:550 24px/1.35 "Segoe UI",sans-serif;font-variant-numeric:tabular-nums;color:#e3f5ea}
-body[data-desk=pair]:not([data-tab=study]) #projectionCard,body.recall #projectionCard{display:none}
+body[data-desk=pair]:not([data-tab=study]) #projectionCard{display:none}
 body[data-desk=story] #viewport{background:linear-gradient(to bottom,#2b3e3a 0,#41554c var(--main-h),#efeadb var(--main-h),#e5dece 100%)}
 body[data-desk=story] .pane:first-child b,body[data-desk=story] .pane:first-child small{background:#22372ff0;color:#ebf1d9}
-body[data-desk=story] #answers button{min-height:36px;border-radius:4px;padding:5px 14px}
-body[data-desk=story] #questionBox h3{font-size:15px;margin:0 0 6px}
 
 .pane .rotation-guide path:first-child{stroke-dasharray:5 3}.pane svg circle:first-of-type{fill:#142c36;stroke:#a8decc;stroke-width:2}
+
+.frame-tools{display:flex;align-items:center;gap:6px}.frame-tools button{padding:1px 8px;font-size:16px;line-height:1.25}.frame-tools output{min-width:43px;text-align:center;font-size:12px;font-variant-numeric:tabular-nums}

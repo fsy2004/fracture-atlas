@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {gunzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import * as T from '../vendor/three.module.js';
-import {decodeSurfaces} from '../detail.js';
+import {decodeSurfaces,landmark,planeNormal,inReflectedFrame} from '../detail.js';
 import {section,atLevel} from '../geometry.js';
 import {makeObservation,wristLandmarks} from '../observation.js';
 import {courses} from '../courses.js';
@@ -22,11 +22,15 @@ test('every indexed male bone resolves to its verified higher-resolution surface
   assert.ok(mesh.index.array.every(i=>i<mesh.attributes.position.count),bone.name);
  }
 });
-test('wrist courses retain their intended radiocarpal involvement after mesh registration',()=>{
- const course=courses.find(c=>c.id==='radius'),g=meshes.get(index.find(m=>m.name==='Right radius').mesh);
+for(const side of ['Right','Left'])test(side+' native wrist preserves its intended radiocarpal involvement',()=>{
+ const course=courses.find(c=>c.id==='radius');
+ const native=meshes.get(index.find(m=>m.name===side+' radius').mesh);
+ const originalMap=native.userData.landmarkMap;
+ const g=side==='Right'?native:inReflectedFrame(native);
+ assert.equal(native.userData.landmarkMap,originalMap);
  for(const [k,v] of course.variants.entries()){
-  const spec=v.cuts[0],a=new T.Vector3(...(spec.anchor||atLevel(g,spec.axis,spec.level)));
-  const parts=section(g,spec.normal,a.toArray()).map(({geo,outline},i)=>({
+  const spec=v.cuts[0],a=spec.anchor?landmark(g,spec.anchor):new T.Vector3(...atLevel(g,spec.axis,spec.level));
+  const parts=section(g,spec.anchor?planeNormal(g,spec.normal):spec.normal,a.toArray()).map(({geo,outline},i)=>({
    name:spec.bone,shell:new T.Mesh(geo),edge:new T.LineSegments(outline),pivot:new T.Group(),anchor:a,moving:i===0
   }));
   const obs=makeObservation({course,variant:k,source:spec,geometry:g,anchor:a,parts,group:new T.Group(),context:[],joint:false});
@@ -34,6 +38,21 @@ test('wrist courses retain their intended radiocarpal involvement after mesh reg
   if(k===0){
    const rim=wristLandmarks(g);
    for(const point of [rim.dorsal,rim.volar])assert.ok(point.clone().sub(a).dot(new T.Vector3(...spec.normal))<0);
+  }
+ }
+});
+
+test('all native meshes share one world transform and retain the released source coordinates',()=>{
+ const packed=gunzipSync(compressed);
+ for(const m of details.entries){
+  const g=meshes.get(m.mesh),attr=g.attributes.position;
+  const file=packed.subarray(m.offset,m.offset+m.vertices*12);
+  assert.equal(createHash('sha256').update(file).digest('hex'),m.native_xyz_sha256);
+  const raw=new Float32Array(file.buffer,file.byteOffset,file.length/4);
+  for(let j=0;j<raw.length;j++)assert.ok(Math.abs(attr.array[j]*1000-raw[j]-details.display_offset_mm[j%3])<.00015);
+  if(m.head_fit){
+   assert.ok(m.head_fit.fitted_vertices>100&&m.head_fit.patch_rms_mm<1.5);
+   assert.ok(m.head_fit.radius_mm>15&&m.head_fit.radius_mm<32);
   }
  }
 });

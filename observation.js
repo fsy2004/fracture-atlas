@@ -1,4 +1,5 @@
 import * as T from './vendor/three.module.js';
+import {landmark} from './detail.js';
 import {atLevel} from './geometry.js';
 
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
@@ -45,7 +46,7 @@ function patchFor(item,rule,extent){
 }
 
 function nearest(g,xyz){
- const p=g.attributes.position,mark=V(...xyz),out=V();let best=Infinity;
+ const p=g.attributes.position,mark=landmark(g,xyz),out=V();let best=Infinity;
  for(let i=0;i<p.count;i++){const a=V().fromBufferAttribute(p,i),d=a.distanceToSquared(mark);if(d<best){out.copy(a);best=d;}}
  return out;
 }
@@ -74,7 +75,7 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const spoke=V(1,0,0);if(Math.abs(along.x)>.85)spoke.set(0,0,1);spoke.addScaledVector(along,-spoke.dot(along)).normalize();
  const rule=faceRegions[course.id];
  const patches=rule?items.map(i=>patchFor(i,rule,geometry.boundingBox)).filter(Boolean):[];
- const guide=source.axis!==undefined&&['tibia','humerus','femur','forearm','single-forearm','finger','toes','metacarpal','metatarsal','radius','distalfemur','elbow'].includes(course.id);
+ const guide=Boolean(joint&&frame)||source.axis!==undefined&&['tibia','humerus','femur','forearm','single-forearm','finger','toes','metacarpal','metatarsal','radius','distalfemur','elbow'].includes(course.id);
  function posed(item,p){return item?p.clone().sub(item.anchor).applyQuaternion(item.pivot.quaternion).add(item.pivot.position):p.clone();}
  function endpoint(item,rest,length){return posed(item,anchor.clone().addScaledVector(rest,length));}
  const tags=[];

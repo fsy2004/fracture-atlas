@@ -44,6 +44,9 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   input.oninput=()=>{c.value=+input.value;values[key]=c.value;paint();onEdit();};
   row.append(title,read,input);host.append(row);controls.push(c);
  }
+ const ball=joint&&items.some(i=>i.jointAxis);
+ const internal=clinical.id==='hip-dislocation'?clinical.variant===0:clinical.variant===1;
+ if(ball)field('jointTwist',internal?'伴随内旋':'伴随外旋','°',0,30,1);
  const wrist=Number.isFinite(clinical.palmar);
  if(wrist){
   const baseline=clinical.palmar;
@@ -68,21 +71,35 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   note.textContent=wrist?'伸直型背倾探索 0°～35°。在侧面按掌背缘参考点与桡骨干轴计算；伤前角度取自当前模型。':'肱骨干成角 0°～60°。试比较 10°、25° 和 40° 时两段骨轴的夹角。';
   host.append(note);
  }
+ const hingeArm=new T.Vector3();
+ const rim=tagged.find(i=>i.tuned==='shaft'&&i.edge);
+ if(rim&&frame&&flags.includes('angle')){
+  // Pivot at the lateral cortical margin for this example, not inside the two bone ends.
+  const p=rim.edge.geometry.attributes.position,point=new T.Vector3();let best=-Infinity;
+  for(let j=0;j<p.count;j++){
+   point.fromBufferAttribute(p,j).sub(rim.anchor);const d=point.dot(frame.side);
+   if(d>best){best=d;hingeArm.copy(point);}
+  }
+ }
+ const rotatedArm=new T.Vector3();
  const map=Object.fromEntries(controls.map(c=>[c.key,c]));
  const val=(k,f=0)=>map[k]?.value??f;
  const translation=new T.Vector3(),qa=new T.Quaternion(),qb=new T.Quaternion();
  function format(n){return Number(n.toFixed(1)).toString();}
  function apply(p,report=true){
-  const shiftT=eased(p,.25,.78),lengthT=eased(p,.44,.87),angleT=eased(p,.54,1);
+  const shiftT=eased(p,.25,.78),lengthT=eased(p,.56,.91),angleT=eased(p,.54,1),clearT=eased(p,.23,.56),jointT=eased(p,.10,.77);
   for(const i of items){
    const {pivot,anchor,shift,baseRotation:r}=i;
    if(i.tuned==='shaft'&&frame){
     // First clear the cortex laterally, then bring the distal end proximally.
-    const clearance=width*1.03*Math.min(1,val('shorten')/Math.max(.1,width*.15));
-    translation.copy(frame.side).multiplyScalar(mm*(val('side')+clearance)*shiftT)
+    const clearance=val('shorten')>0?width*1.03:0;
+    translation.copy(frame.side).multiplyScalar(mm*(val('side')*shiftT+clearance*clearT))
      .addScaledVector(frame.axis,mm*(val('shorten')-val('separate'))*lengthT);
     qa.setFromAxisAngle(frame.bend,val('angle')*angleT*rad);
     qb.setFromAxisAngle(frame.axis,val('rotate')*angleT*rad);
+    if(!val('shorten')&&!val('separate')&&!val('side')){
+     translation.add(hingeArm).sub(rotatedArm.copy(hingeArm).applyQuaternion(qa));
+    }
     pivot.quaternion.copy(qa).multiply(qb);
    }else{
     const scale=maxTravel>0?val('travel',maxTravel)/maxTravel:1;
@@ -92,6 +109,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
      r.angle*(maxSpin>0?val('spin',maxSpin)/maxSpin:1);
     pivot.quaternion.setFromAxisAngle(r.axis,degrees*rad*angleT);
    }
+   if(i.jointAxis)pivot.quaternion.setFromAxisAngle(i.jointAxis,(internal?1:-1)*val('jointTwist')*rad*jointT);
    pivot.position.copy(anchor).add(translation);
    if(i.ghost)i.ghost.visible=document.getElementById('ghost').checked&&p>.29&&
     (translation.lengthSq()>1e-9||pivot.quaternion.angleTo(identity)>.01);
@@ -103,14 +121,19 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
     return {label:dorsal>=0?'背倾':'掌倾',num:format(Math.abs(dorsal)),unit:'°'};
    }
-   const t=['spin','angle','rotate'].includes(c.key)?angleT:['shorten','separate','wedge'].includes(c.key)?lengthT:shiftT;
-   return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',spin:'转角',wedge:'预设形变倍率'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
+   const t=c.key==='jointTwist'?jointT:['spin','angle','rotate'].includes(c.key)?angleT:['shorten','separate','wedge'].includes(c.key)?lengthT:shiftT;
+   return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',spin:'转角',jointTwist:internal?'内旋':'外旋',wedge:'预设形变倍率'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
   });
   const tray=document.getElementById('liveValues');
+  if(tagged[0]?.tuned==='shaft'&&val('shorten')>0){
+   const total=width*1.03*clearT+val('side')*shiftT;
+   const sideReading=readouts.find(x=>x.label===names.side);
+   if(sideReading){sideReading.label='合计侧移';sideReading.num=format(total);}
+   else readouts.push({label:'伴随侧移',num:format(total),unit:'mm'});
+  }
   const text=readouts.map(a=>a.label+' '+a.num+' '+a.unit).join('　');
   if(tray.textContent!==text)tray.textContent=text;
  }
- apply.targetValue=key=>val(key,0);
  const identity=new T.Quaternion();
  return apply;
 }

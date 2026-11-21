@@ -3,7 +3,7 @@ import * as T from './vendor/three.module.js';
 export const desks = {
  plate:{name:'解剖图版',action:'转动看形态'},
  pair:{name:'正交观察室',action:'双向看位移'},
- story:{name:'运动手记',action:'分帧看过程'}
+ story:{name:'运动分镜',action:'分帧看过程'}
 };
 export const deskFromURL = () => {
  const id=new URLSearchParams(location.search).get('desk');
@@ -63,23 +63,4 @@ export function drawDesk({desk,renderer,world,camera,target,host,panels,time,pos
   }
  }
  renderer.clippingPlanes=[];renderer.setScissorTest(false);renderer.setViewport(0,0,w,h);
-}
-
-// Prompts describe the visible model in patient coordinates.
-export function recallItem(c,i,v,custom,delta){
- if(custom)return {q:custom.motions.length?'终点有哪些非零的附加移位？':'这条断线怎样穿过骨干？',answer:v.observe,free:true};
- if(c.id==='radius'||c.id==='hip-dislocation'||c.id==='shoulder-dislocation'||c.id==='elbow-dislocation'){
-  const wrist=c.id==='radius',elbow=c.id==='elbow-dislocation';
-  const question=wrist?'比较伤前与终点，远段断面参考点怎样平移？':
-   elbow?'比较伤前与终点，尺桡骨近端向哪里平移？':'比较伤前与终点，骨头相对关节窝怎样平移？';
-  const options=wrist?['背侧','掌侧','无前后平移']:elbow?['后方','外侧','无平移']:['后方','前方','无前后平移'];
-  const d=delta||new T.Vector3();
-  // Evaluate the tracked point at the configured endpoint. Rotation alone can leave it stationary.
-  const zero=elbow?d.length()<.00005:Math.abs(d.z)<.00005;
-  const correct=zero?2:elbow?(Math.abs(d.x)>Math.abs(d.z)?1:0):d.z>0?1:0;
-  const reason=zero?(wrist?'此终点参考点的前后平移为零，转角可以独立变化。':'此终点在所问方向上的平移为零，可与伤前关节轮廓对照。'):'终点参考点移向'+options[correct]+'。与伤前轮廓对照核实。';
-  return {q:question,options,correct,answer:reason};
- }
- if(c.id==='tibia')return {q:'腓骨的断线与胫骨相比，位于哪里？',options:['相近高度','更靠近膝部'],correct:i,answer:i?'本例腓骨骨折线较高。':'本例的两条骨折线位于相近高度。'};
- return {q:c.kind==='joint'?'以关节窝为参照，描述骨端的运动。':'先找骨折线，再描述两个骨段的空间关系。',answer:v.observe,free:true};
 }
