@@ -43,3 +43,133 @@ details{border-top:1px solid var(--edge);padding:9px 0 0;margin-top:11px}summary
 
 .clinical-note{font-size:12px;line-height:1.65;color:var(--muted);margin:7px 0}
 .recall #variants,.recall #system,.recall #featureBox,.recall #quantBox,.recall #levelbox,.recall .study-grid{visibility:hidden}
+
+/* The three reading surfaces share controls and meshes; their compositions follow the viewing task. */
+header{height:64px;border-bottom:1px solid #a8bdaf;background:#183c33;color:#fbf8e9}
+.brand{border-color:#a0b8a0;background:transparent;box-shadow:none;color:#dce9d2}
+header h1{font-size:22px;letter-spacing:.09em}.discipline{border-color:#69907a;color:#d4e3d5}
+main{height:calc(100dvh - 64px);grid-template-columns:minmax(0,1fr) clamp(340px,29vw,450px)}
+.stage{background:radial-gradient(ellipse at 52% 44%,#fffdf0 0%,#ecefe2 62%,#d4e1d5)}
+.stage-title h2{font-size:clamp(28px,4vw,62px);letter-spacing:.045em}.stage-title p{max-width:32ch}
+.in-lesson .stage-title h2{font-size:clamp(26px,3.4vw,48px)}
+aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
+#launchpad h2{font-size:17px;letter-spacing:.06em}
+.specimens{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:9px}
+.specimens a{min-width:0;text-decoration:none;display:flex;flex-direction:column;overflow:hidden;align-items:stretch;background:#e9eee3;border-radius:8px;color:var(--ink);border:1px solid #d4ded1;transition:background .15s}
+.specimens a:nth-child(2){background:#eee7db}.specimens a:nth-child(3){background:#e5e9e5}
+.specimens a:hover{background:#d4e4d5}.specimens a:focus-visible{outline:3px solid var(--jade)}
+.specimens img{width:100%;height:65px;object-fit:contain;margin-top:6px;filter:drop-shadow(2px 4px 3px #29392f24)}
+.specimens span{padding:4px 8px 8px;display:grid}.specimens b{font:650 17px var(--serif)}
+.specimens small{font-size:10px;color:#476354;white-space:nowrap}
+#desks{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+#desks button{padding:5px;line-height:1.35;display:flex;align-items:center;justify-content:center;gap:5px;min-height:38px;font-size:12px}
+#desks i{display:block;width:19px;height:15px;border:1px solid currentColor;border-radius:2px;opacity:.85}
+#desks button[data-desk=pair] i{background:linear-gradient(90deg,transparent 43%,currentColor 43% 55%,transparent 55%)}
+#desks button[data-desk=story] i{background:linear-gradient(0deg,transparent 38%,currentColor 38% 48%,transparent 48%),linear-gradient(90deg,transparent 47%,currentColor 47% 53%,transparent 53%) left bottom/100% 40% no-repeat}
+#desks button[aria-pressed=true],#pairPick button[aria-pressed=true]{background:var(--jade);border-color:var(--jade);color:white}
+#pairPick{display:flex;gap:6px;margin:8px 0}#pairPick button{font-size:12px;padding:4px 8px}
+#questionBox{padding:10px 14px 12px;border-left:3px solid #976642;background:#ede8da;margin:10px 0}
+#questionBox h3{margin:0 0 6px;font-family:var(--serif);font-size:16px}
+#answers{display:flex;gap:6px}#feedback{font-size:13px;margin-top:5px;color:#593e29}
+#paneBoxes,.pane{position:absolute;pointer-events:none;z-index:1}
+#paneBoxes{inset:0}.pane{border:1px solid #879892;border-radius:10px;overflow:hidden}
+.pane b,.pane small,.pane span{position:absolute;z-index:1;white-space:nowrap}
+.pane b{top:10px;left:12px;font-size:13px;padding:2px 8px;background:#faf8ecdf;color:#3a4944;border-radius:4px}
+.pane small{bottom:9px;left:10px;font-size:11px;letter-spacing:.07em;background:#fff9debc;color:#444d43;padding:1px 6px}
+.pane span{font-size:12px;padding:1px 5px;background:#f7f7e7e8;color:#405349;border-left:2px solid #8c6249}.pane span:empty{display:none}
+body:is([data-desk=pair],[data-desk=story]) #viewport{inset:100px 20px 65px;width:auto;height:auto}
+body:is([data-desk=pair],[data-desk=story]) .stage-title{top:15px;left:24px;max-width:calc(100% - 44px)}
+body:is([data-desk=pair],[data-desk=story]) .stage-title h2{font-size:clamp(23px,2.25vw,34px);margin:2px 0}
+body:is([data-desk=pair],[data-desk=story]) .stage-title:after{display:none}
+body:is([data-desk=pair],[data-desk=story]) #liveValues{bottom:34px;left:24px;font-size:12px;padding:2px 8px}
+body:is([data-desk=pair],[data-desk=story]) .stage-foot{bottom:10px;left:24px;right:24px}
+body[data-desk=pair]{--ink:#e7eef1;--muted:#b2c4cf;--jade:#276480;--edge:#445968;--paper:#14232c;--porcelain:#243845;--serif:"Microsoft YaHei",sans-serif;color:var(--ink)}
+body[data-desk=pair] header{background:#101c23;border-color:#394f5e}
+body[data-desk=pair] .stage{color:#eff8f5;background:radial-gradient(ellipse at 50% 42%,#254252,#101d25)}
+body[data-desk=pair] .stage:after{display:none}
+body[data-desk=pair] .stage-title h2{color:#f4f5eb;letter-spacing:0;font-weight:600}
+body[data-desk=pair] :is(.stage-title small,.stage-title p,.stage-foot,#inspectHelp,#notes p,summary,.quiet,.back,.scope,.clinical-note,#readingText,h3 small,.hint){color:#c1d2d9}
+body[data-desk=pair] #panel{background:#1b2a35;border-color:#50616d}
+body[data-desk=pair] :is(button,#sites){background:#233745;border-color:#506674;color:#edf3f3;border-radius:3px}
+body[data-desk=pair] :is(button:hover,.primary,.cards .active,.pills .active,.study-grid [aria-pressed=true],#desks [aria-pressed=true],#pairPick [aria-pressed=true]){background:#b3e3d7;color:#182e32;border-color:#b3e3d7}
+body[data-desk=pair] :is(.player,#levels,#readingRef){background:#203847;color:#ebf5ef}body[data-desk=pair] .measure-row output{color:#a6e7d6}
+body[data-desk=pair] .pane{border-color:#607981;border-radius:4px}.pane b{font-weight:600}
+body[data-desk=pair] .pane b,body[data-desk=pair] .pane small{background:#12232adb;color:#d4e8e4}
+body[data-desk=pair] .stage-title small{color:#9bb7c6}
+body[data-desk=pair] #liveValues{background:#12262b;color:#bfe8df;border-color:#79cdbd}
+body[data-desk=story]{--ink:#342e28;--muted:#706151;--jade:#814d36;--edge:#d4c4ae;--porcelain:#fff9ec;--paper:#eee4d4;color:var(--ink)}
+body[data-desk=story] header{background:#f1e8d9;color:#453a2c;border-color:#c6b6a1}
+body[data-desk=story] .brand{background:#864e34;border-radius:2px;color:#faefdf;border-color:#864e34}
+body[data-desk=story] .discipline{color:#71604c;border-color:#c9b89c}
+body[data-desk=story] .stage{background:#f0e7d5}
+body[data-desk=story] #viewport{background:radial-gradient(ellipse at 55% 28%,#e6e0ce,#d1c5af);border-radius:12px}
+body[data-desk=story] .pane{border-color:#baa78e;border-radius:8px}
+body[data-desk=story] .pane:nth-child(n+2){box-shadow:inset 0 0 0 3px #f6f3e7a3}
+body[data-desk=story] .stage-title h2{color:#563c2c}
+body[data-desk=story] .pane b{font-family:var(--serif);font-size:16px;color:#5c3d29}
+body[data-desk=story] #panel{background:#fffaf0;border-color:#cbbaa4}
+body[data-desk=story] :is(.player,#readingRef,#levels){background:#eee6d9}
+body[data-desk=story] .study-grid [aria-pressed=true],body[data-desk=story] .cards .active{background:#7e5941;color:#fff4e5}
+body[data-desk=story] #liveValues{color:#5e4432;border-color:#92694c;background:#f8f4e4}
+body.recall #paneBoxes span{display:none}
+#quickPlay{display:none}
+@media(max-width:850px){main{grid-template-columns:minmax(0,1fr) 294px}.specimens span{padding:3px 4px 6px}}
+@media(max-width:630px){
+ header{height:53px}main{height:calc(100dvh - 53px);display:block}
+ body:is([data-desk=pair],[data-desk=story]) #viewport{inset:77px 8px 62px}
+ body:is([data-desk=pair],[data-desk=story]) .stage-title{left:11px;top:8px}
+ body:is([data-desk=pair],[data-desk=story]) .stage-title p{display:none}
+ #quickPlay:not([hidden]){display:block;position:fixed;z-index:4;right:12px;bottom:12px;background:#244e42;color:white;border:0;box-shadow:0 3px 12px #1234}
+ body.panel-open #quickPlay{display:none}
+}
+
+
+
+.specimens img{height:76px}
+.specimens a{border-radius:3px 11px 3px 3px}
+.pane svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none}
+.pane line{stroke:#a5f0d6;stroke-width:2}.pane circle{fill:#f4b279;stroke:#182b35;stroke-width:1}.pane circle:last-child{fill:#a5f0d6}
+.pane .components{position:absolute;bottom:11px;right:8px;max-width:86%;font:500 12px/1.55 "Microsoft YaHei",sans-serif;color:#eaf8ee;background:#0a1e25dd;padding:2px 7px;border-radius:2px}
+.pane .components:empty{display:none}
+body[data-desk=pair] .pane small{top:13px;right:8px;left:auto;bottom:auto}
+body[data-desk=story] .stage-title h2{font-family:var(--serif);font-size:clamp(21px,2.35vw,36px)}
+body[data-desk=story] .stage-title small{color:#705e44}
+@media(max-width:630px){
+ header h1{font-size:17px;white-space:nowrap}.discipline{display:none}#mobilePanel{white-space:nowrap}
+ body[data-desk=story] .stage-title h2{font-size:18px}
+ .specimens img{height:55px}
+ .pane .components{font-size:10px}
+}
+#workspaceTabs{display:flex;margin:14px 0 7px;border-bottom:1px solid var(--edge);gap:12px}
+#workspaceTabs button{border:0;border-radius:0;padding:5px 2px;background:transparent;color:var(--muted)}
+#workspaceTabs button[aria-pressed=true]{background:transparent;color:var(--ink);box-shadow:inset 0 -2px currentColor}
+body:is([data-desk=pair],[data-desk=story]):not([data-tab=model]) #bonePanel{display:none}
+body:is([data-desk=pair],[data-desk=story]):not([data-tab=measure]) :is(#featureBox,#quantBox,#readingRef){display:none}
+body:is([data-desk=pair],[data-desk=story]):not([data-tab=study]) :is(#studyTools,#notes,#questionBox,#pairPick){display:none}
+body:is([data-desk=pair],[data-desk=story])[data-tab=model] #viewOptions{display:none}
+body[data-desk=story] #questionBox{margin-top:18px;background:#eae1cb;padding:16px;border-left:3px solid #967447}
+body[data-desk=story] #questionBox h3{font:600 18px/1.5 var(--serif)}
+#mobilePractice,#practiceDrawer{display:none}
+@media(max-width:630px){
+ #mobilePractice:not([hidden]){display:block;position:fixed;right:108px;bottom:12px;z-index:3;border-color:#92795b;background:#fffaef}
+ body.panel-open #mobilePractice{display:none}
+ body.practice-open #practiceDrawer{display:block;position:fixed;z-index:3;right:10px;bottom:54px;width:min(360px,calc(100% - 20px));padding:12px;background:#fff9ec;color:#342e28;border:1px solid #bda581;border-radius:9px;box-shadow:0 3px 15px #33271823}
+ #practiceDrawer .row{display:flex;align-items:start;justify-content:space-between;gap:5px}#mobileAnswers{display:flex;gap:7px;margin-top:8px}#mobileFeedback{margin-top:5px;font-size:12px}#closePractice{font-size:11px}
+}
+.pane .rotation-guide path{fill:none;stroke:#97ead0;stroke-width:2}.pane .rotation-guide path:nth-child(2){stroke:#ff9d69;stroke-width:3}.pane .rotation-guide path:nth-child(3){stroke:#f8dbb4;stroke-width:1.5}
+#whole{margin-right:0;white-space:nowrap}.panel-head #breadcrumb{margin-right:auto}
+body[data-desk=pair] .pane .components{white-space:normal;text-align:right}
+@media(max-width:630px){body.practice-open[data-desk=story] #viewport{bottom:190px}body.practice-open #liveValues,body.practice-open .stage-foot{visibility:hidden}}
+
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#projectionCard{margin:15px 0 0;border-top:1px solid #5b727b;padding:3px 0 10px}
+#projectionCard>div{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#projectionCard label{display:block;font-size:11px;color:#b2c7cf;background:#192e39;border-left:2px solid #82b2bb;padding:9px 10px}
+#projectionCard output{display:block;font:550 24px/1.35 "Segoe UI",sans-serif;font-variant-numeric:tabular-nums;color:#e3f5ea}
+body[data-desk=pair]:not([data-tab=study]) #projectionCard,body.recall #projectionCard{display:none}
+body[data-desk=story] #viewport{background:linear-gradient(to bottom,#2b3e3a 0,#41554c var(--main-h),#efeadb var(--main-h),#e5dece 100%)}
+body[data-desk=story] .pane:first-child b,body[data-desk=story] .pane:first-child small{background:#22372ff0;color:#ebf1d9}
+body[data-desk=story] #answers button{min-height:36px;border-radius:4px;padding:5px 14px}
+body[data-desk=story] #questionBox h3{font-size:15px;margin:0 0 6px}
+
+.pane .rotation-guide path:first-child{stroke-dasharray:5 3}.pane svg circle:first-of-type{fill:#142c36;stroke:#a8decc;stroke-width:2}

@@ -84,7 +84,10 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const rim=course.id==='radius'&&variant<2?wristLandmarks(geometry):null;
  const fixedRim=line(fixedInk,2),movedRim=line(mobileInk,2);
  let fragmentIndex=Math.max(0,items.indexOf(moving));
- return {fragment:()=>String(fragmentIndex+1)+' / '+items.length,advance:()=>{fragmentIndex=(fragmentIndex+1)%items.length;},
+ return {axisGuide:()=>guide?{
+   axis:along.clone(),rest:spoke.clone().applyQuaternion(reference?.pivot.quaternion||new T.Quaternion()),
+   moved:spoke.clone().applyQuaternion(moving.pivot.quaternion),origin:posed(moving,anchor)
+  }:null,referencePoints:()=>[posed(reference,anchor),posed(moving,anchor)],fragment:()=>String(fragmentIndex+1)+' / '+items.length,advance:()=>{fragmentIndex=(fragmentIndex+1)%items.length;},
   patch:patches.length>0,crosses:patches.some(p=>p.hit),cut:items.length>1,guide, tags,
   update(mode,p,showOthers){
    for(const m of context)m.visible=showOthers&&mode!=='cut'&&mode!=='facet';

@@ -6,21 +6,26 @@
 <main>
 <section class="stage" aria-label="三维观察区">
  <div class="stage-title"><small id="crumb">成年男性 · 解剖总览</small><h2 id="heading">全身骨骼</h2><p id="description">点击骨骼，进入局部观察</p></div>
- <div id="viewport"><div id="status" role="status">正在加载骨骼…</div><div id="labels" aria-hidden="true"></div><div id="markLayer" aria-hidden="true"></div><span id="tip" hidden></span></div>
- <div id="liveValues" aria-label="当前帧示意量"></div><div class="stage-foot"><span id="meshState">精细骨表面载入中</span><span id="orientation">前方</span><span>拖动旋转 · 滚轮或双指缩放</span></div>
+ <div id="viewport"><div id="paneBoxes" aria-hidden="true"><div class="pane"><b></b><small></small><span></span><strong class="components"></strong><svg aria-hidden="true"><line/><circle r="3"/><circle r="3"/></svg><svg class="rotation-guide" aria-hidden="true"><path/><path/><path/></svg></div><div class="pane"><b></b><small></small><span></span><strong class="components"></strong><svg aria-hidden="true"><line/><circle r="3"/><circle r="3"/></svg><svg class="rotation-guide" aria-hidden="true"><path/><path/><path/></svg></div><div class="pane"><b></b><small></small><span></span><strong class="components"></strong><svg aria-hidden="true"><line/><circle r="3"/><circle r="3"/></svg><svg class="rotation-guide" aria-hidden="true"><path/><path/><path/></svg></div></div><div id="status" role="status">正在加载骨骼…</div><div id="labels" aria-hidden="true"></div><div id="markLayer" aria-hidden="true"></div><span id="tip" hidden></span></div>
+ <div id="liveValues" aria-label="当前帧示意量"></div><div class="stage-foot"><span id="meshState">精细骨表面载入中</span><span id="orientation">前方</span><span id="gesture">拖动旋转 · 滚轮或双指缩放</span></div>
 </section>
 <aside id="panel" aria-label="骨骼导航与教学控制">
- <div class="panel-head"><div id="breadcrumb">全身骨骼</div><div class="head-actions"><button id="copyLink">复制链接</button><button id="expand">全屏</button><button id="foldPanel">收起</button></div></div>
- <div class="rail-scroll"><section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索骨名，如 胫骨" aria-label="搜索全身骨骼"></label>
+ <div class="panel-head"><button id="whole" class="back" hidden>‹ 全身索引</button><div id="breadcrumb">全身骨骼</div><div class="head-actions"><button id="copyLink">复制链接</button><button id="expand">全屏</button><button id="foldPanel">收起</button></div></div>
+ <div class="rail-scroll"><section id="launchpad"><h2>从一处损伤开始</h2><div class="specimens">
+ <a href="#radius/0/1?desk=plate&view=motion&q_tilt=20&at=1000"><img src="art/wrist.webp" alt=""><span><b>腕部</b><small>辨认背移与背倾</small></span></a>
+ <a href="#tibia/1/1?desk=pair&shape=spiral&move=shorten,rotate&at=1000"><img src="art/leg.webp" alt=""><span><b>小腿</b><small>追踪螺旋断线</small></span></a>
+ <a href="#hip-dislocation/0/1?desk=story&at=620"><img src="art/hip.webp" alt=""><span><b>髋部</b><small>观察股骨头移出</small></span></a></div></section><section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索骨名，如 胫骨" aria-label="搜索全身骨骼"></label>
  <div id="regions" class="tabs" aria-label="筛选解剖区域"></div><div id="count"></div><div id="catalog" aria-label="骨骼列表"></div></section>
  <section id="jointShortcuts"><h3>关节脱位</h3><div id="jointLinks" class="pills"></div></section>
- <section id="bonePanel" hidden><button id="whole" class="back">‹　全身索引</button><h2 id="boneTitle"></h2><p id="boneNote" class="hint"></p>
+ <section id="bonePanel" hidden><h2 id="boneTitle"></h2><p id="boneNote" class="hint"></p>
  <label for="sites" id="siteLabel">部位与损伤</label><select id="sites"></select>
  <h3 id="system"></h3><div id="variants" class="cards"></div>
  <div id="levelbox"><h3>骨折位置</h3><div id="levels" class="pills"></div></div>
  </section>
  <section id="lessonPanel" hidden>
- <div id="studyTools" hidden><h3>空间观察</h3><div class="study-grid"><button data-study="overview">整体</button><button data-study="cut">隔离断面</button><button data-study="motion">运动参照</button><button data-study="facet">关节面</button></div><button id="nextPart" class="quiet" hidden></button><p id="inspectHelp"></p><button id="recall" class="quiet">遮住提示回忆</button></div><div id="featureBox"><div id="shapeRow"><h3>骨折线形态</h3><div id="shapes" class="pills"></div><label id="planeRow" class="measure-row" hidden><span>断面相对横断面倾角（演示）</span><output id="planeValue"></output><input id="plane" type="range" step="1"></label>
+ <div id="deskTools"><h3>观察方式</h3><div id="desks"><button data-desk="plate"><i></i>解剖图版</button><button data-desk="pair"><i></i>正交观察室</button><button data-desk="story"><i></i>运动手记</button></div>
+ <div id="workspaceTabs" hidden><button data-tab="study">观察</button><button data-tab="model">分型</button><button data-tab="measure">调参</button></div><div id="pairPick" hidden><button data-pair="side">正面 ＋ 侧面</button><button data-pair="end">正面 ＋ 端面</button></div>
+ <div id="projectionCard" hidden><h3>参考点的投影位移</h3><div><label>正面投影<output id="measureFront">0.0 mm</output></label><label><span id="measureOtherName">侧面投影</span><output id="measureOther">0.0 mm</output></label></div></div><div id="questionBox" hidden><h3>你的判断</h3><p id="question" class="sr-only"></p><div id="answers"></div><p id="feedback" role="status"></p></div></div><div id="studyTools" hidden><h3>空间观察</h3><div class="study-grid"><button data-study="overview">整体</button><button data-study="cut">隔离断面</button><button data-study="motion">运动参照</button><button data-study="facet">关节面</button></div><button id="nextPart" class="quiet" hidden></button><p id="inspectHelp"></p><button id="recall" class="quiet">遮住提示回忆</button></div><div id="featureBox"><div id="shapeRow"><h3>骨折线形态</h3><div id="shapes" class="pills"></div><label id="planeRow" class="measure-row" hidden><span>断面相对横断面倾角（演示）</span><output id="planeValue"></output><input id="plane" type="range" step="1"></label>
  </div><div id="moveRow"><h3>移位表现 <small>可组合</small></h3><div id="motions" class="pills"></div></div></div>
  <div id="readingRef" hidden><h3>教材读图参考</h3><p id="readingText"></p></div><div id="quantBox"><h3>终点参数 <small>教学设定值</small></h3><div id="quantRows"></div></div>
  <details id="notes"><summary>发生机制与观察要点</summary><p id="cause"></p><p id="observe"></p></details></section>
@@ -28,4 +33,4 @@
  <div id="layers"><label><input id="ghost" type="checkbox" checked> 伤前轮廓</label><label><input id="guides" type="checkbox" checked> 方向标记</label><label><input id="neighbors" type="checkbox" checked> 邻近骨骼</label></div></details>
  <small class="scope">分段播放用于观察方向，轨迹和数值为教学设定。</small>
 </div><div class="player"><div class="player-head"><strong id="phase">正常形态</strong><button id="speed">1×</button></div><input type="range" id="time" min="0" max="1000" value="0" aria-label="骨折动画进度"><div id="steps" aria-label="分段观察"></div><div class="pair"><button id="normal">伤前状态</button><button id="play" class="primary">播放</button><button id="end">骨折后状态</button></div></div>
- </aside></main><script type="module" src="./app.js"></script></body></html>
+ </aside></main><div id="practiceDrawer"><div class="row"><b id="mobileQuestion"></b><button id="closePractice" aria-label="收起练习">收起</button></div><div id="mobileAnswers"></div><p id="mobileFeedback" role="status"></p></div><button id="mobilePractice" hidden>看图作答</button><button id="quickPlay" hidden aria-label="播放或暂停动画">播放</button><script type="module" src="./app.js"></script></body></html>

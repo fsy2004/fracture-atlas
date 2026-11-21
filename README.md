@@ -43,7 +43,7 @@
 
 自学页面专注骨性结构与分型示意。旧病例地址转至踝部骨折课程。
 
-[界面设计备选](design/) 独立于课堂主页面。三套预览使用本站渲染的同一示例制作。执行 `python tools/build_standalone.py atlas.html` 可生成独立 HTML，内含渲染代码、模型、数据许可和教案。
+[自学工作区对照](design/) 提供三种可操作页面的入口。执行 `python tools/build_standalone.py atlas.html` 可生成独立 HTML，内含渲染代码、模型、数据许可和教案。
 
 教材读图参考采用本版 PDF 文件页序：桡骨远端第 361–362 页、股骨颈第 384 页、跟骨第 426–427 页及肱骨髁上第 325 页。股骨颈 Linton 角保留教材的“常小于”和“左右”措辞。长骨斜形切面默认取自教案切面法向与局部长轴的夹角；自由角度调节只作用于斜形演示。短斜形不使用滑块范围作诊断界值。
 
@@ -61,3 +61,14 @@
 - 桡骨远端伸直型：以本模型掌侧缘、背侧缘的两个表面参考点及局部骨干轴计算侧面投影角。调节目标背倾会同时旋转远端骨块和腕骨。探索窗 0°–35° 选自复位前有背倾病例的测量量级；290 例老年队列原表以骨干轴为参照记录 83°–139°，以垂线为零对应约 −7° 至 49°。该队列以女性为主，不用于定义男性特异界值。掌倾为正的教材标记与界面背倾为正的目标控件分别说明。模型参考点尚未经临床逐点审校。[原始研究及表 2](https://pmc.ncbi.nlm.nih.gov/articles/PMC10041711/)
 - 胫骨干扭转骨折：一项成人远端骨干队列记录了位移与短缩常并存（初始短缩平均 8.7 mm）。该结果提示应将平移、长度及旋转分开观察。其余部位只提供有边界的演示参数，不作急性损伤的统一诊断阈值。[原始研究](https://doi.org/10.1302/0301-620X.68B3.3733815)
 - 学习交互参考：同一结构的隔离参见 [BoneHub](https://bonehub.github.io/Educational-Atlas/)，三维热点与自主导览参见 [Smithsonian Voyager](https://smithsonian.github.io/dpo-voyager/)。可交互踝部损伤模型曾用于医学生随机对照研究；本图谱尚未验证学习效果。[研究](https://pubmed.ncbi.nlm.nih.gov/40466756/)
+
+## 自学工作区
+
+- [解剖图版](https://fsy2004.github.io/fracture-atlas/#radius/2/1?desk=plate&view=facet&at=1000) 保留单一大模型，支持旋转、骨块隔离、关节面标示和附着在骨面上的引线。
+- [正交观察室](https://fsy2004.github.io/fracture-atlas/#tibia/1/1?desk=pair&pair=end&view=motion&shape=spiral&move=rotate&q_rotate=24&at=1000) 同步渲染同一时刻的正面和侧面，尺度相同。两窗分别显示三维参考点平移在各观察平面的投影。可改为端面，在支持的骨干上用两平行面截出损伤邻域，以 2.5 倍局部放大显示伤前/伤后方向半径及端面投影夹角。转角和参考点平移可单独观察。
+- [运动手记](https://fsy2004.github.io/fracture-atlas/#hip-dislocation/0/1?desk=story&at=640) 同时绘制当前状态和两幅固定参照帧，三格随同一观察方向转动。选择方向或先自行描述，再核对运动。方向题依据实际终点位移生成答案；参数归零时反馈随之改变。手机可收起索引并在模型下方展开作答。
+- 复制链接保留工作区、分型、参数、时间、视向、观察中心和缩放。图谱自带模型和渲染器；可用现有构建脚本重新生成离线单 HTML。
+
+交互设计参考了 [Garg 等的医学生空间解剖研究](https://pubmed.ncbi.nlm.nih.gov/11211004/) 对关键视角与可控多视角的比较，以及 [Dobson 等的解剖信息提取练习研究](https://pubmed.ncbi.nlm.nih.gov/27860396/)。藏品式单模型、局部注释与目录设计参照 [Smithsonian Voyager](https://smithsonian.github.io/dpo-voyager/) 和 [The Met 藏品页](https://www.metmuseum.org/perspectives/met-collection-api)。三种工作区使用本项目自己的界面和模型。尚未开展学生学习效果实验。
+
+独立体验审查覆盖桌面 Chromium 及手机触屏模拟。实际修正包括伤前帧残留其他场景标记、问题提前显示答案、零位移被判定为脱位、分享丢失观察视角、端面遮挡、手机答题时视角改变及零值组合反馈。用 `node --test tests/*.test.mjs` 运行当前的几何与视图回归检查。

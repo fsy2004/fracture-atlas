@@ -72,7 +72,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  const val=(k,f=0)=>map[k]?.value??f;
  const translation=new T.Vector3(),qa=new T.Quaternion(),qb=new T.Quaternion();
  function format(n){return Number(n.toFixed(1)).toString();}
- function apply(p){
+ function apply(p,report=true){
   const shiftT=eased(p,.25,.78),lengthT=eased(p,.44,.87),angleT=eased(p,.54,1);
   for(const i of items){
    const {pivot,anchor,shift,baseRotation:r}=i;
@@ -97,6 +97,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     (translation.lengthSq()>1e-9||pivot.quaternion.angleTo(identity)>.01);
   }
   for(const mesh of wedges)mesh.morphTargetInfluences[0]=val('wedge',100)/100*lengthT;
+  if(!report)return;
   const readouts=controls.map(c=>{
    if(c.key==='tilt'){
     const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
@@ -109,6 +110,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   const text=readouts.map(a=>a.label+' '+a.num+' '+a.unit).join('　');
   if(tray.textContent!==text)tray.textContent=text;
  }
+ apply.targetValue=key=>val(key,0);
  const identity=new T.Quaternion();
  return apply;
 }

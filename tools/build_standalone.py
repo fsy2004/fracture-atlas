@@ -35,6 +35,9 @@ def build(output):
     html = html.replace('<script type="module" src="./app.js"></script>',
                         '<script type="importmap">'+json.dumps({"imports": modules})+'</script>\n'
                         '<script type="module">import "@atlas/app.js";</script>')
+    for icon in ("wrist", "leg", "hip"):
+        path = "art/" + icon + ".webp"
+        html = html.replace('src="' + path + '"', 'src="' + data_uri("image/webp", (ROOT / path).read_bytes()) + '"')
     credits = ("Detailed surfaces: BodyParts3D, Copyright © 2008 Life Science Integrated Database Center. CC BY-SA 2.1 Japan. https://creativecommons.org/licenses/by-sa/2.1/jp/ Source: Kevin-Mattheus-Moerman/BodyParts3D, 2c83c698788cff57f6317bddcf712e7acfbea7d8. Mesh regrouping, registration and quantisation.\n" + (ROOT / "models/provenance.json").read_text(encoding="utf8") + "\n" +
                (ROOT / "vendor/LICENSE-three.txt").read_text(encoding="utf8"))
     output.write_text(html.replace("</body>", "<!--\n"+credits.replace("--","—")+"\n-->\n</body>"), encoding="utf8")
