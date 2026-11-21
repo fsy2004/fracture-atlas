@@ -64,7 +64,7 @@ export function buildIndex(names,select,courseCount){
    primary.onclick=()=>select(defaultKey);primary.setAttribute('aria-label','放大'+boneName(defaultKey));
    const title=document.createElement('strong');title.textContent=row.label;
    const meta=document.createElement('small'),n=courseCount(defaultKey);
-   meta.textContent=n?n+' 个骨折专题':'解剖定位';
+   meta.textContent=n?n+' 个骨伤专题':'解剖定位';
    primary.append(title,meta);line.append(primary);
    for(const key of keys.sort((a,b)=>Number(/left/i.test(a))-Number(/left/i.test(b)))){
     const button=document.createElement('button');const side=boneName(key).match(/^[左右]/)?.[0];
