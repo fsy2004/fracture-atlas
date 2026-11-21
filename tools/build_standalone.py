@@ -7,7 +7,6 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = "https://fsy2004.github.io/fracture-atlas/"
 
 def data_uri(content_type, data):
     return "data:" + content_type + ";base64," + base64.b64encode(data).decode("ascii")
@@ -32,7 +31,6 @@ def build(output):
     html = (ROOT / "index.html").read_text(encoding="utf-8-sig")
     html = html.replace('<link rel="stylesheet" href="./style.css">',
                         "<style>" + (ROOT / "style.css").read_text(encoding="utf-8-sig") + "</style>")
-    html = html.replace('href="case.html"', 'href="' + PAGES + 'case.html"')
     html = html.replace('<script type="module" src="./app.js"></script>',
                         '<script type="importmap">'+json.dumps({"imports": modules})+'</script>\n'
                         '<script type="module">import "@atlas/app.js";</script>')

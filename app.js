@@ -147,7 +147,7 @@ function route(){
 function showControls(){
  const local=Boolean(selected),lesson=Boolean(course&&variant>=0);
  $('indexPanel').hidden=local;$('bonePanel').hidden=!local;$('lessonPanel').hidden=!lesson;
- $('caseStudy').hidden=!lesson||course.id!=='ankle';
+
  document.querySelector('[data-view=detail]').textContent=course?.kind==='joint'?'关节特写':'放大断面';
  $('layers').hidden=!lesson;document.querySelector('[data-view=detail]').hidden=!lesson;
  $('labels').hidden=local;$('breadcrumb').textContent=local?'骨骼索引　/　'+regionFor(selected):'全身骨骼　/　索引';
@@ -176,12 +176,22 @@ function showControls(){
  $('moveRow').querySelector('small').textContent=f.motions.length>1?'可组合':'可选';
  $('shapeRow').hidden=!f.shapes.length;$('moveRow').hidden=!f.motions.length;
  const shapeKeys=f.shapes,base=initialShape(course,variant),chosen=shape||base;
- const adjustable=f.shapes.length&&['oblique','shortOblique'].includes(chosen);
+ const adjustable=f.shapes.length&&chosen==='oblique';
  $('planeRow').hidden=!adjustable;
  if(adjustable){
-  const min=chosen==='shortOblique'?5:10,max=chosen==='shortOblique'?45:75;
-  const n=Math.max(min,Math.min(max,quantities.plane??(chosen==='shortOblique'?24:48)));
-  $('plane').min=min;$('plane').max=max;$('plane').value=n;$('planeValue').textContent=n+'°';
+  $('plane').min=1;$('plane').max=89;
+ }
+ const readings={
+  radius:'正常解剖参考：侧位观察掌倾角 10°～15°，正位观察尺倾角 20°～25°。伸直型注意远段背移、背倾和桡移；屈曲型注意远段掌移和桡移。',
+  neck:'股骨正位观察骨折线与股骨干轴垂线的夹角（Linton 角）。教材描述外展型常小于 30°、内收型常在 45° 左右。结合嵌插、内翻及骨折位置判断。',
+  calcaneus:'正常解剖参考：在跟骨侧位观察结节关节角，本教材取 30°～45°。骨折后可减小、消失或呈负角，同时观察跟骨高度及后关节面。',
+  elbow:'解剖参考：前臂完全旋后、肘伸直时，携带角为外翻 10°～15°。这是肱骨与前臂长轴间的角度。另在侧位观察髁上骨折远段向前或向后移。',
+  'elbow-dislocation':'在侧位观察尺桡骨近端相对肱骨远端的位置。后方骨性标志包括鹰嘴及内、外上髁；伸肘时三点成线，屈肘 90° 时构成肘后三角。'
+ };
+ $('readingRef').hidden=!readings[course.id];
+ $('readingText').textContent=readings[course.id]||'';
+ if(!adjustable&&quantities.plane!==undefined){
+  delete quantities.plane;
  }
 
  buttons($('shapes'),shapeKeys.map(k=>shapeNames[k]),shapeKeys.indexOf(shape||base),i=>{
@@ -296,7 +306,15 @@ function renderLesson(smooth=false,keepView=false){
    across.addScaledVector(along,-across.dot(along));
    if(across.lengthSq()<.01)across.copy(shaftFrame(new T.Vector3(),along,false).side);
    across.normalize();
-   const theta=surface==='transverse'?0:Number($('plane').value)*Math.PI/180;
+   const authored=vec(s.normal).normalize();
+   let theta=surface==='transverse'?0:Math.acos(Math.min(1,Math.abs(authored.dot(along))));
+   if(surface==='oblique'){
+    if(Number.isFinite(quantities.plane))theta=T.MathUtils.degToRad(Math.max(1,Math.min(89,quantities.plane)));
+    if(original===v.cuts[0]){
+     const degrees=T.MathUtils.radToDeg(theta);
+     $('plane').value=Math.round(degrees);$('planeValue').textContent=degrees.toFixed(1)+'°';
+    }
+   }
    s.normal=along.multiplyScalar(Math.cos(theta)).addScaledVector(across,Math.sin(theta)).toArray();
   }
   if(shape==='spiral')s.spiralHeight=(g.boundingBox.max.y-g.boundingBox.min.y)*.15;

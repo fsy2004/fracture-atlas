@@ -13,17 +13,17 @@
  <div class="panel-head"><div id="breadcrumb">全身骨骼</div><button id="expand">全屏</button></div>
  <section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索骨名，如 胫骨" aria-label="搜索全身骨骼"></label>
  <div id="regions" class="tabs" aria-label="筛选解剖区域"></div><div id="count"></div><div id="catalog" aria-label="骨骼列表"></div></section>
- <section id="jointShortcuts"><h3>关节脱位</h3><div id="jointLinks" class="pills"></div><a class="case-link" href="case.html">真实病例 · 男性踝部骨折 ↗</a></section>
+ <section id="jointShortcuts"><h3>关节脱位</h3><div id="jointLinks" class="pills"></div></section>
  <section id="bonePanel" hidden><button id="whole" class="back">‹　全身索引</button><h2 id="boneTitle"></h2><p id="boneNote" class="hint"></p>
  <label for="sites" id="siteLabel">部位与损伤</label><select id="sites"></select>
  <h3 id="system"></h3><div id="variants" class="cards"></div>
  <div id="levelbox"><h3>骨折位置</h3><div id="levels" class="pills"></div></div>
  </section>
- <section id="lessonPanel" hidden><div id="featureBox"><div id="shapeRow"><h3>骨折线形态</h3><div id="shapes" class="pills"></div><label id="planeRow" class="measure-row" hidden><span>断面相对横断面倾角</span><output id="planeValue"></output><input id="plane" type="range" step="1"></label>
+ <section id="lessonPanel" hidden><div id="featureBox"><div id="shapeRow"><h3>骨折线形态</h3><div id="shapes" class="pills"></div><label id="planeRow" class="measure-row" hidden><span>断面相对横断面倾角（演示）</span><output id="planeValue"></output><input id="plane" type="range" step="1"></label>
  </div><div id="moveRow"><h3>移位表现 <small>可组合</small></h3><div id="motions" class="pills"></div></div></div>
- <div id="quantBox"><h3>终点参数 <small>教学设定值</small></h3><div id="quantRows"></div></div>
+ <div id="readingRef" hidden><h3>教材读图参考</h3><p id="readingText"></p></div><div id="quantBox"><h3>终点参数 <small>教学设定值</small></h3><div id="quantRows"></div></div>
  <div class="player"><div class="player-head"><strong id="phase">正常形态</strong><button id="speed">1×</button></div><input type="range" id="time" min="0" max="1000" value="0" aria-label="骨折动画进度"><div id="steps" aria-label="分段观察"></div><div class="pair"><button id="normal">伤前状态</button><button id="play" class="primary">播放</button><button id="end">骨折后状态</button></div></div>
- <a id="caseStudy" class="case-link" href="case.html" hidden>对照男性踝部 CT 重建 ↗</a><details id="notes"><summary>发生机制与观察要点</summary><p id="cause"></p><p id="observe"></p></details></section>
+ <details id="notes"><summary>发生机制与观察要点</summary><p id="cause"></p><p id="observe"></p></details></section>
  <details id="viewOptions"><summary>视角与显示</summary><div class="pills views"><button data-view="front">正面</button><button data-view="side">右侧</button><button data-view="top">上方</button><button data-view="detail">放大断面</button><button data-view="home">复位视角</button></div>
  <div id="layers"><label><input id="ghost" type="checkbox" checked> 伤前轮廓</label><label><input id="guides" type="checkbox" checked> 方向标记</label><label><input id="neighbors" type="checkbox" checked> 邻近骨骼</label></div></details>
  <small class="scope">分段播放用于观察方向，轨迹和数值为教学设定。</small>

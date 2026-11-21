@@ -40,3 +40,5 @@ aside section{margin-top:16px}aside h2{font-size:24px;font-weight:690;letter-spa
 #liveValues:empty{display:none}.case-link{display:inline-block;margin-top:10px;color:#25648d;font-size:14px}.player .pair button{font-size:12px}.scope{font-size:12px}
 
 #steps{display:flex;gap:4px;margin:3px 0 10px;flex-wrap:wrap}#steps button{font-size:12px;padding:3px 9px;border-radius:12px}.measure-row{margin:0}
+
+#readingRef{margin:12px 0;padding:10px 12px;background:#edf4f8;border-left:3px solid #618daa}#readingRef h3{margin:0 0 4px}#readingText{color:#314f61;font-size:13px;line-height:1.65}
