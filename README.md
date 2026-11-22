@@ -10,7 +10,7 @@
 
 每个骨折分型可以保留其原有几何和移位。在有相应教材依据的课程中，可另选骨折线形态及移位表现。以胫腓骨干为例，直接暴力可选横断、短斜形、粉碎，间接暴力可选斜形、螺旋形；两组均可切换上、中、下 1/3。骨干移位可组合成角、侧方、缩短、分离和旋转，缩短与分离互斥。组合模式在原分型位置上演示断面和相对骨段运动。缩短示例含侧方错开和纵向重叠。桡骨远端伸直型和屈曲型可附加短缩，同时保留各自规定的远端朝向。成人参考模型未加入骨骺分离等儿童骨骺形态。
 
-链接包含骨骼、分型、分段以及可选组合；旧课程链接继续有效。鼠标和触屏可旋转、缩放，右侧可控制视角、显示层、播放进度和速度。
+链接包含骨骼、分型、分段以及可选组合；旧课程链接继续有效。选择骨骼后，鼠标左键或单指可绕骨面连续旋转，滚轮或双指可缩放。复制链接保留局部视向与倾斜方向。每个损伤分型在模型下方附有可收起的读图卡片。教材未单列的形态标作“教材对照”。
 
 橙线标出断面轮廓，橙色箭头表示示意受力，青色箭头表示骨段平移方向。角度与幅度用于讲清空间关系；原始男性网格为健康解剖。分型场景为在该网格上制作的教学示例，部分采用规则切面、压缩变形和代表性移位。动画依据教材与专业资料编排，幅值来自参数设定。软组织伸长与骨面接触使用下述几何简化。涉及未闭合骨骺的章节用成人骨性标志示意空间方向。
 
@@ -19,7 +19,7 @@
 - 教材依据为黄桂成、王拥军主编的《中医骨伤科学》，全国中医药行业高等教育“十四五”规划教材，第六章和第七章。教材部位的章节、图号或 PDF 页序保存在课程数据中。仓库只含自行编写的简短讲解及动画参数。
 - **BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International.** [原始下载](https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html) · [许可说明](https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · [模型论文](https://doi.org/10.1093/nar/gkn613)
 - 上游网页用衍生网格来自 [JICio/tcm-3d 固定版本](https://github.com/JICio/tcm-3d/tree/e8b9ad1c17e67a25e94406100e3fb5c296c24f7a/public/models)。上游将 BodyParts3D 4.0 模型变换为米制 Y 向上坐标并减面。本项目从其男性模型中选取 201 个骨性网格，保留结构与概念标识，重新打包坐标和索引，计算顶点法线，制作交互切面、骨块和位移动画。网格数包括复合骨的组件、籽骨等，与人体标准骨数的计数口径不同。[上游署名](https://github.com/JICio/tcm-3d/blob/e8b9ad1c17e67a25e94406100e3fb5c296c24f7a/public/ATTRIBUTION.md)
-- 网页渲染使用 Three.js r160 和 OrbitControls，随仓库提供，采用 [MIT 许可](vendor/LICENSE-three.txt)。骨面查询使用随仓库提供的 three-mesh-bvh 0.7.6，模块引用指向同一份 Three.js。[源版本](https://github.com/gkjohnson/three-mesh-bvh/tree/v0.7.6) · [MIT 许可](vendor/LICENSE-mesh-bvh.txt)
+- 网页渲染使用 Three.js r160 与项目自带的视口手势控制，随仓库提供，采用 [MIT 许可](vendor/LICENSE-three.txt)。骨面查询使用随仓库提供的 three-mesh-bvh 0.7.6，模块引用指向同一份 Three.js。[源版本](https://github.com/gkjohnson/three-mesh-bvh/tree/v0.7.6) · [MIT 许可](vendor/LICENSE-mesh-bvh.txt)
 
 ## 项目入口
 
@@ -29,6 +29,8 @@
 | bone-index.js、features.js | 全身骨名索引、形态与移位的适用范围和运动参数 |
 | courses.js、regional-courses.js、supplemental.js、joints.js | 教材部位、同类部位与补充形态、脱位分型和运动参数 |
 | contact.js、mechanics.js | 三角网格取样检测、韧带纤维束长度和轨迹限位 |
+| view-controls.js、bone-framing.js | 鼠标与触屏手势、局部环绕和骨面居中 |
+| knowledge-card.js、fracture-notes.js、regional-notes.js | 各分型读图卡片及相应教材定位 |
 | geometry.js | 根据教学切面切分网格，生成骨折轮廓和断面 |
 | models/index.json、models/bones.bin | 结构 ID、英文名称、二进制偏移、顶点和三角面索引 |
 | models/provenance.json | 来源、版本、许可、修改与校验值 |

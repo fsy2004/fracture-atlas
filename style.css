@@ -5,10 +5,10 @@ button{background:var(--porcelain);border:1px solid #bfcec2;color:var(--ink);bor
 button:hover,summary:hover{background:#edf2e9}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #77a999;outline-offset:2px}
 header{height:65px;display:flex;align-items:center;gap:14px;padding:0 clamp(18px,3vw,56px);background:var(--porcelain);border-bottom:1px solid #cad7cb}
 .brand{display:grid;place-items:center;width:35px;height:37px;border:1px solid var(--jade);border-radius:10px 2px 9px 2px;background:var(--jade);box-shadow:inset 0 0 0 3px #f3f4e526;color:#fff9e7;font:600 23px var(--serif)}
-h1{font:700 24px/1.2 var(--serif);letter-spacing:.05em}.discipline{font-size:13px;border-left:1px solid #c4cec4;color:var(--muted);padding-left:15px}
+h1{font:700 24px/1.2 var(--serif);letter-spacing:.05em}
 main{height:calc(100dvh - 65px);display:grid;grid-template-columns:minmax(0,1fr) clamp(325px,28vw,430px)}
 .stage{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 53% 40%,#f9f8ec 3%,#e8ecdf 70%,#d9e3d6)}
-.stage:after{content:"";position:absolute;inset:16px;border:1px solid #96a59063;pointer-events:none;z-index:0}
+.model-area:after{content:"";position:absolute;inset:16px;border:1px solid #96a59063;pointer-events:none;z-index:0}
 .stage-title,.stage-foot,#labels,#tip,#status,#markLayer{position:absolute;pointer-events:none;z-index:1}.stage-title{top:clamp(28px,4.5vh,50px);left:4.7%;max-width:61%}.stage-title small{font-size:12px;color:#456c5d;letter-spacing:.12em}
 .stage-title h2{font:600 clamp(27px,3.6vw,57px)/1.25 var(--serif);letter-spacing:.035em;margin:7px 0;color:#203c32}
 .stage-title p{font-size:13px;color:#506655}.stage-title:after{display:block;content:"";background:#789785;width:39px;height:2px;margin-top:13px}
@@ -37,7 +37,7 @@ aside h2{font:650 27px/1.4 var(--serif);margin-bottom:5px}aside section{margin-t
 .player{display:none;padding:12px clamp(16px,1.8vw,30px) 16px;background:#eff3e9;border-top:1px solid #b9cbbd}.in-lesson .player{display:block}.player-head{font-size:13px}.pair button{flex:1;white-space:nowrap}.pair .primary:hover{background:#194b3e}#steps{display:flex;gap:3px;margin:0 0 8px}#steps button{border:0;padding:2px 5px;background:transparent;color:#64776c;font-size:11px}#time{margin:7px 0 2px}
 details{border-top:1px solid var(--edge);padding:9px 0 0;margin-top:11px}summary{font-size:13px;color:#3f6855}.views,#layers,#notes p{margin-top:8px}#layers label{font-size:12px;margin-right:7px}input[type=checkbox]{accent-color:var(--jade)}.scope{font-size:11px;display:block;margin-top:12px}.empty{padding:12px;color:var(--muted)}#mobilePanel,#foldPanel{display:none}
 @media(max-width:850px){main{grid-template-columns:minmax(0,1fr) 300px}.callout{display:none}.stage-title{max-width:85%}.stage-foot span:last-child{display:none}}
-@media(max-width:630px){header{height:53px;padding:0 12px;gap:8px}h1{font-size:18px}.brand{width:28px;height:30px;font-size:18px}.discipline{font-size:11px;padding-left:8px}main{height:calc(100dvh - 53px);display:block}.stage{height:100%}.stage-title{top:18px}.stage-title h2{font-size:26px}.stage-title p{font-size:11px}.stage:after{inset:6px}aside{position:fixed;top:53px;right:0;bottom:0;width:min(82vw,340px);z-index:4;box-shadow:-10px 0 30px #17372d24;visibility:hidden;transform:translateX(105%)}body.panel-open aside{visibility:visible;transform:none}#mobilePanel{margin-left:auto;display:block}#foldPanel{display:block}.player{padding-bottom:8px}#motionReadout{font-size:12px}}
+@media(max-width:630px){header{height:53px;padding:0 12px;gap:8px}h1{font-size:18px}.brand{width:28px;height:30px;font-size:18px}main{height:calc(100dvh - 53px);display:block}.stage{height:100%}.stage-title{top:18px}.stage-title h2{font-size:26px}.stage-title p{font-size:11px}.model-area:after{inset:6px}aside{position:fixed;top:53px;right:0;bottom:0;width:min(82vw,340px);z-index:4;box-shadow:-10px 0 30px #17372d24;visibility:hidden;transform:translateX(105%)}body.panel-open aside{visibility:visible;transform:none}#mobilePanel{margin-left:auto;display:block}#foldPanel{display:block}.player{padding-bottom:8px}#motionReadout{font-size:12px}}
 [hidden]{display:none!important}
 
 .clinical-note{font-size:12px;line-height:1.65;color:var(--muted);margin:7px 0}
@@ -45,7 +45,7 @@ details{border-top:1px solid var(--edge);padding:9px 0 0;margin-top:11px}summary
 /* The three reading surfaces share controls and meshes; their compositions follow the viewing task. */
 header{height:64px;border-bottom:1px solid #a8bdaf;background:#183c33;color:#fbf8e9}
 .brand{border-color:#a0b8a0;background:transparent;box-shadow:none;color:#dce9d2}
-header h1{font-size:22px;letter-spacing:.09em}.discipline{border-color:#69907a;color:#d4e3d5}
+header h1{font-size:22px;letter-spacing:.09em}
 main{height:calc(100dvh - 64px);grid-template-columns:minmax(0,1fr) clamp(340px,29vw,450px)}
 .stage{background:radial-gradient(ellipse at 52% 44%,#fffdf0 0%,#ecefe2 62%,#d4e1d5)}
 .stage-title h2{font-size:clamp(28px,4vw,62px);letter-spacing:.045em}.stage-title p{max-width:32ch}
@@ -73,7 +73,7 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 .specimens a{border-radius:3px 11px 3px 3px}
 
 @media(max-width:630px){
- header h1{font-size:17px;white-space:nowrap}.discipline{display:none}#mobilePanel{white-space:nowrap}
+ header h1{font-size:17px;white-space:nowrap}#mobilePanel{white-space:nowrap}
 
  .specimens img{height:55px}
 
@@ -133,3 +133,32 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 
 #centreBone{position:absolute;right:0;bottom:30px;pointer-events:auto;padding:4px 9px;border-radius:6px;background:#f6f8efec;border:1px solid #afc2b5;color:#34594b;font-size:12px}
 @media(max-width:630px){#centreBone{right:0;bottom:48px}.in-lesson #centreBone{bottom:85px}}
+
+#viewport{touch-action:none;user-select:none;cursor:grab}#viewport:active canvas{cursor:grabbing!important}#viewport:focus-visible{outline:2px solid #608878;outline-offset:-3px}
+
+.stage{display:flex;flex-direction:column;min-height:0}
+.model-area{position:relative;isolation:isolate;flex:1 1 auto;min-height:0;overflow:hidden}
+#knowledgeCard{flex:0 0 auto;border:0;border-top:1px solid #c4d1c4;margin:0;padding:10px clamp(16px,3.2vw,42px) 12px;background:#fafbf4;color:#29473e;max-height:32%;overflow:auto;scrollbar-width:thin}
+#knowledgeCard[hidden]{display:none}
+#knowledgeCard summary{display:flex;align-items:baseline;gap:.75em;list-style:none;line-height:1.5;color:inherit}
+#knowledgeCard summary::-webkit-details-marker{display:none}
+#knowledgeCard summary:hover{background:transparent}
+#knowledgeCard summary:after{content:"展开";margin-left:auto;font-size:12px;color:#486759}
+#knowledgeCard[open] summary:after{content:"收起"}
+#knowledgeTitle{font:650 16px/1.5 var(--serif);color:#244e42;white-space:nowrap}
+#knowledgeCase{font-size:13px;color:#4d6358}
+#knowledgePoints{padding:0 0 0 1.2em;margin:5px 0 0;line-height:1.65;font-size:14px}
+#knowledgePoints li::marker{color:#5e8272}
+@media(max-width:630px){
+ #knowledgeCard{padding:9px 14px 11px;max-height:34%;font-size:14px}
+ #knowledgePoints{line-height:1.55}
+ #knowledgeCard summary{gap:7px}
+ #quickEdit:not([hidden]),#quickPlay:not([hidden]){position:absolute;bottom:10px}
+}
+@media(max-height:480px){#knowledgeCard{max-height:30%;padding-block:5px}}
+
+/* Keep text legible when a rotated bone passes behind the stage labels. */
+.in-lesson .stage-title{isolation:isolate}
+.in-lesson .stage-title:before{content:"";position:absolute;inset:-8px -18px -6px -10px;z-index:-1;background:linear-gradient(100deg,#f1f4e9ed 10%,#f1f4ead4 62%,transparent);border-radius:4px}
+.stage-foot #meshState,.stage-foot #orientation{padding:2px 5px;background:#f4f6ecdc;color:#354f43;border-radius:3px}
+@media(max-width:630px){.stage-foot #meshState,.stage-foot #orientation{max-width:53%;line-height:1.35}.stage-foot .mesh-detail{display:none}}

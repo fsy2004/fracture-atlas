@@ -87,7 +87,7 @@ export function specimenLibrary(read){
    if(!selected)return [];
    if(!v){const e=resolve(selected);return e?.role==='estimate'?[e.key,'halle-male-palate|Posterior hard palate region']:e?[e.key]:[];}
    const side=n=>/left/i.test(selected)?opposite(n):n;
-   if(c.id==='hip-dislocation'&&v===c.variants[1])return together(['Right femur','Right hip bone'].map(side));
+   if((c.id==='hip-dislocation'||c.id==='trochanter')&&v===c.variants[1])return together(['Right femur','Right hip bone'].map(side));
    if(['pip-dislocation','mcp-dislocation','mtp-dislocation','toe-ip-dislocation'].includes(c.id))
     return together([...new Set([...v.cuts.map(s=>s.bone),...v.fixed,...(v.jointFollowers||[])])].map(side));
    if(c.id==='plateau'&&v.depression)return together(['Right tibia','Right fibula'].map(side));

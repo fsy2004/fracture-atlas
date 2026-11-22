@@ -1,18 +1,20 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7ef"><title>骨折与脱位图谱 · 自学</title><link rel="stylesheet" href="./style.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7ef"><title>骨折与脱位图谱</title><link rel="stylesheet" href="./style.css"></head>
 <body>
-<header><span class="brand" aria-hidden="true">骨</span><h1>骨折与脱位图谱</h1><span class="discipline">中医骨伤科学 · 自学图谱</span><button id="mobilePanel" aria-controls="panel" aria-expanded="false">观察选项</button></header>
+<header><span class="brand" aria-hidden="true">骨</span><h1>骨折与脱位图谱</h1><button id="mobilePanel" aria-controls="panel" aria-expanded="false">观察选项</button></header>
 <main>
-<section class="stage" aria-label="三维观察区">
+<section class="stage" aria-label="三维观察区"><div class="model-area">
  <div class="stage-title"><small id="crumb">成年男性 · 解剖总览</small><h2 id="heading">全身骨骼</h2><p id="description">点击骨骼，进入局部观察</p></div>
- <div id="viewport"><div id="status" role="status" aria-live="polite">正在加载骨骼…</div><div id="labels" aria-hidden="true"></div><div id="markLayer" aria-hidden="true"></div><span id="tip" hidden></span></div>
- <div id="motionReadout" aria-label="当前主要移位"></div><div class="stage-foot"><span id="meshState">精细骨表面载入中</span><span id="orientation">前方</span><button id="centreBone" type="button" hidden title="保持当前方向，将所选整骨居中">整骨居中</button><span id="gesture">拖动旋转 · 滚轮或双指缩放</span></div>
+ <div id="viewport" tabindex="0" aria-label="三维骨骼，拖动或使用方向键旋转"><div id="status" role="status" aria-live="polite">正在加载骨骼…</div><div id="labels" aria-hidden="true"></div><div id="markLayer" aria-hidden="true"></div><span id="tip" hidden></span></div>
+ <div id="motionReadout" aria-label="当前主要移位"></div><div class="stage-foot"><span id="meshState">精细骨表面载入中</span><span id="orientation">前方</span><button id="centreBone" type="button" hidden title="保持当前方向，将所选整骨居中">整骨居中</button><span id="gesture">左键拖动旋转 · 滚轮缩放</span></div>
+ <button id="quickEdit" hidden>运动设置</button><button id="quickPlay" hidden aria-label="播放或暂停动画">播放</button></div>
+ <details id="knowledgeCard" hidden open><summary><strong id="knowledgeTitle">教材要点</strong><span id="knowledgeCase"></span></summary><ul id="knowledgePoints"></ul></details>
 </section>
 <aside id="panel" aria-label="骨骼导航与教学控制">
  <div class="panel-head"><button id="whole" class="back" hidden>‹ 全身索引</button><div id="breadcrumb">全身骨骼</div><div class="head-actions"><button id="copyLink">复制链接</button><button id="expand">全屏</button><button id="foldPanel">收起</button></div></div>
  <div class="rail-scroll"><section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索骨名，如 胫骨" aria-label="搜索全身骨骼"></label>
- <label class="precise-filter"><input type="checkbox" id="preciseOnly"> 仅显示本次补充的 88 个部位</label><div id="regions" class="tabs" aria-label="筛选解剖区域"></div><div id="count"></div><div id="catalog" aria-label="骨骼列表"></div></section>
+ <label class="precise-filter"><input type="checkbox" id="preciseOnly"> 筛选补充标本（88 个）</label><div id="regions" class="tabs" aria-label="筛选解剖区域"></div><div id="count"></div><div id="catalog" aria-label="骨骼列表"></div></section>
  <section id="launchpad"><details><summary>典型病例</summary><div class="specimens">
  <a href="#radius/2/1?compare=1&at=820&view=motion"><img src="art/wrist.webp" alt=""><span><b>桡骨远端</b><small>对照整段移位和缘骨片</small></span></a>
  <a href="#tibia/1/2?mv=2&amp;move=shorten,rotate&amp;play=1"><img src="art/leg.webp" alt=""><span><b>小腿</b><small>观察旋转与短缩</small></span></a>
@@ -23,8 +25,7 @@
  <div id="levelbox"><h3>骨折位置</h3><div id="levels" class="pills"></div></div>
  </section>
  <section id="lessonPanel" hidden>
- <section id="typeSign" hidden><h3 id="signName"></h3><p id="signFinding"></p></section>
- <details id="clinicalNotes"><summary>分型要点与牵拉</summary><p id="signLook"></p><p id="surfaceShare" hidden></p><button id="showRim" hidden>查看桡腕相对骨面</button><button id="signView">转到鉴别视角</button><section id="traction" hidden><h3>肌肉牵拉与断端移位</h3><div id="tractionRows"></div></section><div id="readingRef" hidden><h3>教材读图参考</h3><p id="readingText"></p></div><section id="notes"><h3>发生机制</h3><p id="cause"></p><p id="observe"></p></section></details>
+ <details id="clinicalNotes"><summary>分型鉴别与牵拉</summary><section id="typeSign" hidden><h3 id="signName"></h3><p id="signFinding"></p></section><p id="signLook"></p><p id="surfaceShare" hidden></p><button id="showRim" hidden>查看桡腕相对骨面</button><button id="signView">转到鉴别视角</button><section id="traction" hidden><h3>肌肉牵拉与断端移位</h3><div id="tractionRows"></div></section><div id="readingRef" hidden><h3>教材读图参考</h3><p id="readingText"></p></div><section id="notes"><h3>发生机制</h3><p id="cause"></p><p id="observe"></p></section></details>
  <details id="advanced"><summary>调整运动与断线</summary><div id="featureBox"><div id="shapeRow"><h3>骨折线形态</h3><div id="shapes" class="pills"></div><label id="planeRow" class="measure-row" hidden><span>断面相对横断面倾角（演示）</span><output id="planeValue"></output><input id="plane" type="range" step="1"></label>
  </div><div id="moveRow"><h3>移位表现 <small>可组合</small></h3><div id="motions" class="pills"></div></div></div>
  <div id="quantBox"><h3>终点参数 <small>教学设定值</small></h3><div id="quantRows"></div></div>
@@ -42,4 +43,4 @@
  <div class="pair"><button id="normal">伤前</button><button id="play" class="primary">播放</button><button id="end">伤后</button></div>
  <div class="motion-actions"><button id="zoomMotion">断端特写</button><button id="captureFrame">截取当前帧</button></div>
  <p id="contactState" role="status"></p></div>
- </aside></main><dialog id="frameDialog"><form method="dialog"><button autofocus>返回模型</button><a id="saveFrame" download>保存 PNG</a><button id="removeFrame" type="button">移除这帧</button></form><div id="frameSheet" hidden></div><img id="framePreview" alt="截取的模型姿态"><p id="frameCaption"></p></dialog><button id="quickEdit" hidden>运动设置</button><button id="quickPlay" hidden aria-label="播放或暂停动画">播放</button><script type="module" src="./app.js"></script></body></html>
+ </aside></main><dialog id="frameDialog"><form method="dialog"><button autofocus>返回模型</button><a id="saveFrame" download>保存 PNG</a><button id="removeFrame" type="button">移除这帧</button></form><div id="frameSheet" hidden></div><img id="framePreview" alt="截取的模型姿态"><p id="frameCaption"></p></dialog><script type="module" src="./app.js"></script></body></html>

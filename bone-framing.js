@@ -2,9 +2,10 @@ import * as T from './vendor/three.module.js';
 
 // Fit the selected surface in perspective, including its depth. The projected
 // outline of a long, curved bone need not be centred on its world bounding box.
-export function frameBone(mesh,direction,fov,aspect,fill=.77){
- const z=direction.clone().normalize(),up=new T.Vector3(0,1,0);
- if(Math.hypot(z.x,z.z)<1e-11)up.set(0,0,-Math.sign(z.y));
+export function frameBone(mesh,direction,fov,aspect,fill=.77,screenUp=new T.Vector3(0,1,0)){
+ const z=direction.clone().normalize(),up=screenUp.clone().normalize();
+ if(Math.abs(up.dot(z))>1-1e-13)up.set(0,0,Math.abs(z.y)>.9?-Math.sign(z.y):1);
+ if(Math.abs(up.dot(z))>1-1e-13)up.set(1,0,0);
  const x=new T.Vector3().crossVectors(up,z).normalize(),y=new T.Vector3().crossVectors(z,x);
  const meshes=Array.isArray(mesh)?mesh:[mesh],bounds=new T.Box3(),partBox=new T.Box3();
  let count=0;

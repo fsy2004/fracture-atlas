@@ -7,8 +7,7 @@ function bind(id,suffix,bone,title,context){
  const template=courses.find(c=>c.id===id);
  const original=template.variants[0].cuts[0].bone;
  const variants=template.variants.map(v=>{
-  const observe=v.observe.replace(/以右侧第二跖骨为例，|以右示指近节骨干为例，|本例选取右拇趾近节。|以右第六肋为例，/g,'')
-   .replace('第一腰椎',title);
+  const observe=v.observe.replace('第一腰椎',title);
   return {...v,observe,context,span:undefined,cuts:v.cuts.map(s=>({...s,bone}))};
  });
  extra.push({...template,id:id+'-'+suffix,family:id,sourceBone:original,name:title,context,span:undefined,variants});

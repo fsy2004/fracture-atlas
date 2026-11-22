@@ -1,6 +1,7 @@
+import {showKnowledgeCard} from './knowledge-card.js';
 import {frameBone} from './bone-framing.js';
 import * as T from './vendor/three.module.js';
-import { OrbitControls } from './vendor/OrbitControls.js';
+import {ViewControls} from './view-controls.js';
 import { courses as fractures,levels } from './courses.js';
 import { section,atLevel,sliceMetrics,branchSection,shortShaftCut } from './geometry.js';
 
@@ -267,8 +268,20 @@ function pickVariant(i){
  quantities={};chosenFragment=null;holdUntil=0;variant=i;shape='';motions=[];playing=!locked;
  updateURL(locked);renderLesson(!locked,locked);
 }
+function saveCamera(params){
+ if(!camera||!controls)return;
+ params.set('space','native');
+ params.set('cam',[...camera.position.toArray(),...controls.target.toArray()].map(x=>Number(x.toFixed(6))).join(','));
+ params.set('up',camera.up.toArray().map(x=>Number(x.toFixed(6))).join(','));
+}
 function updateURL(includeFrame=false){
- let hash=selected?'bone/'+meshByKey.get(selected)+(regionReference?'?original=1':atlasPalate?'?atlas=1':''):'skeleton';
+ let hash='skeleton';
+ if(selected&&variant<0){
+  const params=new URLSearchParams();
+  if(regionReference)params.set('original','1');else if(atlasPalate)params.set('atlas','1');
+  if(includeFrame)saveCamera(params);
+  hash='bone/'+meshByKey.get(selected)+(params.size?'?'+params:'');
+ }
  if(course&&variant>=0){
   const params=new URLSearchParams();if(!legacyMotion)params.set('mv','2');
   if($('compareTypes').checked)params.set('compare','1');
@@ -276,8 +289,7 @@ function updateURL(includeFrame=false){
   if(studyMode!=='overview')params.set('view',studyMode);
   if(includeFrame){
    params.set('at',Math.round(progress*1000));
-   if(camera&&controls)params.set('space','native');
-   if(camera&&controls)params.set('cam',[...camera.position.toArray(),...controls.target.toArray()].map(x=>Number(x.toFixed(5))).join(','));
+   saveCamera(params);
   }
   if(chosenFragment!==null)params.set('frag',chosenFragment);
   if(repeating)params.set('loop','1');
@@ -336,7 +348,7 @@ function restoreView(params){
  if(studyMode==='facet')aim(['radius','intercondylar','distalfemur'].includes(course?.id)?'inferior':'top');
  if(studyMode==='motion'&&course?.id==='radius')aim('side');
  const raw=params.get('cam')?.split(',');
- if(lessonOpen()&&raw?.length===6&&raw.every(n=>n.trim()&&Number.isFinite(+n)&&Math.abs(+n)<=24)){
+ if(selected&&(lessonOpen()||params.get('space')==='native')&&raw?.length===6&&raw.every(n=>n.trim()&&Number.isFinite(+n)&&Math.abs(+n)<=24)){
   const convert=values=>{
    const pt=vec(values.map(Number));
    if(params.get('space')==='native')return pt;
@@ -345,12 +357,21 @@ function restoreView(params){
    return converted;
   };
   const a=convert(raw.slice(0,3)),b=convert(raw.slice(3)),dist=a.distanceTo(b);
-  if(dist>=.0005&&dist<=20.001){flight=null;camera.position.copy(a);controls.target.copy(b);controls.update();dirty=true;}
+  if(dist>=.0005&&dist<=20.001){
+   const parts=params.get('up')?.split(',').map(Number);
+   const up=parts?.length===3&&parts.every(Number.isFinite)?vec(parts):vec([0,1,0]);
+   if(up.lengthSq()>.00001&&Math.abs(up.normalize().dot(a.clone().sub(b).normalize()))<.999999)camera.up.copy(up);
+   flight=null;automaticFit=false;camera.position.copy(a);controls.target.copy(b);controls.update();dirty=true;}
  }
  orientation();
 }
+function syncCard(){
+ const customized=Boolean(shape||motions.length||Object.keys(quantities).length);
+ showKnowledgeCard(lessonOpen()?course:null,variant,customized);
+}
 function showControls(){
  const local=Boolean(selected),lesson=Boolean(course&&variant>=0);
+ syncCard();
  document.body.classList.toggle('in-lesson',lesson);document.body.classList.toggle('in-index',!local);
 
  $('centreBone').hidden=!local;$('whole').hidden=!local;$('indexPanel').hidden=local;$('bonePanel').hidden=!local;$('lessonPanel').hidden=!lesson;
@@ -452,14 +473,15 @@ function overviewLabels(){
   el.style.setProperty('--leader',len+'px');el.textContent=boneName(name);const latin=document.createElement('i');latin.textContent=english;el.append(latin);labels.append(el);
  }
 }
-let selectedMesh=null,automaticFit=false,displayedBone=null;
+let selectedMesh=null,automaticFit=false,displayedBone=null,viewEdits=0;
 function centreMesh(dir,meshes=selectedMesh){
- const fit=frameBone(meshes,dir,camera.fov,camera.aspect);
+ const fit=frameBone(meshes,dir,camera.fov,camera.aspect,.77,camera.up);
  flight=null;controls.target.copy(fit.target);camera.position.copy(fit.position);controls.update();dirty=true;automaticFit=true;
 }
 function aim(view='home',smooth=false){
  if(!camera)return;
  if(view==='detail'&&!course)return;
+ camera.up.set(0,1,0);
  const localJoint=lessonOpen()&&course.kind==='joint'&&course.variants[variant].nativePoint&&['front','top','side','leftSide'].includes(view);
  const target=view==='detail'||view==='rearDetail'||view==='plateauDetail'||localJoint?fractureFocus:focus;
  const dir={inferior:[0,-1,.001],detail:[-.6,.17,1],rear:[0,0,-1],rearDetail:[0,.02,-1],plateauDetail:[-.32,1,.45],front:[0,0,1],side:[-1,0,0],leftSide:[1,0,0],top:[0,1,.001],home:selected?[-.36,.12,1]:[0,0,1]}[view];
@@ -520,14 +542,14 @@ function assetsForLesson(){
 function renderLesson(smooth=false,keepView=false,viewParams=null){
  if(!ready)return;
  const serial=++viewSerial,needed=assetsForLesson(),fetching=needed.length>0&&!specimen.ready(needed);
- const resume=playing,lesson=lessonOpen();
+ const resume=playing,lesson=lessonOpen(),editAtRequest=viewEdits;
  if(fetching||lesson){
   playing=false;loadingSpecimen=true;flight=null;host.dataset.pending='true';
   if(displayedBone!==selected||!lesson){
    clearScene();const g=boneData.get(selected);
    if(g){
     selectedMesh=new T.Mesh(g,bone);selectedMesh.userData.bone=selected;group.add(selectedMesh);
-    centreMesh(vec([-.36,.12,1]));
+    camera.up.set(0,1,0);centreMesh(vec([-.36,.12,1]));
    }
   }
   displayedBone=selected;
@@ -540,7 +562,28 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
   const paint=new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
   Promise.all([paint,fetching?specimen.load(needed):null]).then(()=>{
    if(serial!==viewSerial)return;
-   playing=resume;finishLesson(smooth,keepView,viewParams,needed);
+   const changed=viewEdits!==editAtRequest;
+   const direction=camera.position.clone().sub(controls.target).normalize(),up=camera.up.clone();
+   let offset=null,scale=1;
+   if(changed&&selectedMesh){
+    const preview=frameBone(selectedMesh,direction,camera.fov,camera.aspect,.77,up);
+    offset=controls.target.clone().sub(preview.target);
+    scale=camera.position.distanceTo(controls.target)/preview.position.distanceTo(preview.target);
+   }
+   playing=resume&&!document.hidden;
+   finishLesson(changed?false:smooth,keepView,changed?null:viewParams,needed);
+   if(changed){
+    flight=null;automaticFit=false;camera.up.copy(up);
+    if(selectedMesh&&!lessonOpen()){
+     const fit=frameBone(selectedMesh,direction,camera.fov,camera.aspect,.77,up);
+     controls.target.copy(fit.target);if(offset)controls.target.add(offset);
+     camera.position.copy(controls.target).addScaledVector(direction,fit.position.distanceTo(fit.target)*scale);
+    }else{
+     const distance=camera.position.distanceTo(controls.target);
+     camera.position.copy(controls.target).addScaledVector(direction,distance);
+    }
+    controls.update();dirty=true;
+   }
   }).catch(err=>{if(serial===viewSerial){$('status').textContent='模型准备失败，重新选择可重试。';console.error(err);}});
   return;
  }
@@ -551,7 +594,13 @@ function finishLesson(smooth,keepView,viewParams,needed){
  $('centreBone').disabled=$('quickPlay').disabled=$('quickEdit').disabled=false;$('viewOptions').inert=false;
  $('captureFrame').disabled=false;$('lessonPanel').inert=false;document.querySelector('.player').inert=false;
  specimen.trim(needed,course&&variant>=0?course:null);$('status').hidden=true;
- $('meshState').textContent=useSpecimen?specimen.label(needed)+' · '+specimen.faces(needed).toLocaleString()+' 面'+(needed.length>1?'（含参照）':''):baseDetail?'成年男性全身图谱':'初始预览';
+ const meshState=$('meshState');
+ meshState.textContent=useSpecimen?specimen.label(needed):baseDetail?'成年男性全身图谱':'初始预览';
+ if(useSpecimen){
+  const count=document.createElement('span');count.className='mesh-detail';
+  count.textContent='· '+specimen.faces(needed).toLocaleString()+' 面'+(needed.length>1?'（含参照）':'');
+  meshState.append(count);
+ }
  $('meshState').dataset.specimen=String(useSpecimen);$('meshState').dataset.group=specimen.group(needed)||'';
  selectedMesh=null;
  if(!selected||!course||variant<0){
@@ -568,7 +617,9 @@ function finishLesson(smooth,keepView,viewParams,needed){
    $('description').textContent=atlasPalate?'独立骨形态参照':region?'同一来源的连续区域表面':'';
    if(region&&/palatine/.test(selected))$('description').textContent='可旋转查看硬腭与相邻骨壁的实测区域';
   }
-  if(!keepView||automaticFit&&selected)aim('home',false);return;
+  if(!keepView||automaticFit&&selected)aim('home',false);
+  if(selected&&viewParams)restoreView(viewParams);
+  return;
  }
  const v=course.variants[variant],bounds=new T.Box3(),anchors=[];
  const mirror=/\bleft\b/i.test(selected);
@@ -681,6 +732,12 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   }
   if(s.anchor)s={...s,normal:planeNormal(g,s.normal),anchor:landmark(g,s.anchor).toArray(),second:s.second?planeNormal(g,s.second):undefined};
   if(s.pivot)s={...s,pivot:landmark(g,s.pivot).toArray()};
+  if(s.proximalHeadPivot&&g.userData.headCentre){
+   // Set this specimen's reverse-oblique plane below the head, between the trochanters.
+   s={...s,anchor:g.userData.headCentre.clone().add(new T.Vector3(0,-.043,0)).toArray()};
+   // The coarser left atlas starts with slight overlap at the hip articular surface.
+   if(!useSpecimen&&mirror)s={...s,plus:{...s.plus,shift:[-.2,-.15,.15]}};
+  }
   let fraction=s.level;
   if(shared!==null){
    const y=shared+(variant===1&&s.bone==='Right fibula'?.033:0);
@@ -796,7 +853,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    if(['femur','humerus'].includes(course.id)&&variant<2&&!motions.length&&!shape){
     animated[start].tractionTiming='distal';animated.at(-1).tractionTiming='proximal';
    }
-   if(['femur','humerus'].includes(course.id)&&variant<2&&!motions.length&&g.userData.headCentre){
+   if((s.proximalHeadPivot||(['femur','humerus'].includes(course.id)&&variant<2))&&!motions.length&&g.userData.headCentre){
     const proximal=animated.at(-1),head=g.userData.headCentre;
     proximal.anchor=head.clone();proximal.pivot.position.copy(head);
     for(const obj of proximal.pivot.children)obj.position.copy(head).negate();
@@ -905,7 +962,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
  }
  if(mirror){focus.x*=-1;fractureFocus.x*=-1;}
  applyMotion=buildKinematics(animated,wedges,motions,frame,referenceWidth,course.kind==='joint',quantities,()=>{
-  fragmentRig?.sample();playing=false;setProgress(1);syncPlayer();updateURL();
+  fragmentRig?.sample();playing=false;setProgress(1);syncPlayer();syncCard();updateURL();
  },{id:course.id,variant,legacyMotion,selectedShape:shape,wedge:shape==='wedgeFragment',palmar:course.id==='radius'&&variant===0?wristLandmarks(lessonMesh('Right radius')).palmar:null,ankleSign:anklePose?.sign,mirror});
  const primary=v.cuts.find(s=>s.bone===teachingBone(selected))||v.cuts[0];
  function observe(item){
@@ -914,7 +971,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   inspection=makeObservation({course,variant,source,geometry:lessonMesh(source.bone),anchor:anchors[i]||anchors[0],parts:animated,group,context:nearBones,joint:course.kind==='joint',frame,tracked:item,lookupGeometry:lessonMesh});
  }
  fragmentRig=fragmentEditor({items:animated,values:quantities,primary:primary.bone,mirror,world:group,basePose:applyMotion,preferred:chosenFragment,
-  onEdit:()=>{playing=false;holdUntil=0;setProgress(1);updateURL();},
+  onEdit:()=>{playing=false;holdUntil=0;setProgress(1);syncCard();updateURL();},
   onSelect:g=>{chosenFragment=g.id;observe(g.members.find(i=>i.name===primary.bone)||g.members[0]);syncStudy();setProgress(progress);updateURL();}
  });
  const active=fragmentRig?.active;
@@ -1047,7 +1104,8 @@ function orientation(){
  const axis=screenRight.map((n,i)=>[Math.abs(n),i]).sort((a,b)=>b[0]-a[0])[0][1];
  const sign=screenRight[axis]>0?0:1;
  const compass=Math.abs(screenRight[axis])>.90?'　← '+names[axis][1-sign]+'　'+names[axis][sign]+' →':'';
- $('orientation').textContent='视向 · '+major.filter(x=>x[0]>.36).map(x=>x[1]).join(' / ')+compass;
+ const inverted=new T.Vector3(0,1,0).applyQuaternion(camera.quaternion).y<-.65;
+ $('orientation').textContent='视向 · '+major.filter(x=>x[0]>.36).map(x=>x[1]).join(' / ')+compass+(inverted?'　头侧 ↓':'');
 }
 function frame(now){
  if(playing&&course){
@@ -1073,8 +1131,9 @@ function frame(now){
 async function start(){
  renderer=new T.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
  host.append(renderer.domElement);
- camera=new T.PerspectiveCamera(38,1,.001,30);controls=new OrbitControls(camera,renderer.domElement);
- controls.addEventListener('start',()=>{flight=null;automaticFit=false;});controls.enableDamping=false;controls.addEventListener('change',orientation);
+ camera=new T.PerspectiveCamera(38,1,.001,30);controls=new ViewControls(camera,host,()=>Boolean(selected));
+ controls.addEventListener('start',()=>{flight=null;automaticFit=false;});controls.addEventListener('change',orientation);
+ controls.addEventListener('input',()=>{viewEdits++;});
  bone.color.set(0xe4d6bb);accent.color.set(0x81ae9c);world.add(new T.HemisphereLight(0xfffcf4,0x625c53,.92));
  for(const [pos,intensity] of [[[2,3,3],2.25],[[-3,1,-3],.95]]){const l=new T.DirectionalLight(0xfff3dc,intensity);l.position.set(...pos);world.add(l);}
  const resize=()=>{
@@ -1117,10 +1176,10 @@ async function start(){
   baseDetail=true;$('meshState').dataset.ready='true';if(!useSpecimen&&!loadingSpecimen)renderLesson(false,true);
  }
  buildIndex(boneData.keys(),pickBone,key=>matches(key).length,specimen.isAddition);ready=true;route();$('status').hidden=!loadingSpecimen;
- const ray=new T.Raycaster(),canvas=renderer.domElement,pointerIds=new Set();
+ const ray=new T.Raycaster(),canvas=renderer.domElement;
  const fullDpr=Math.min(devicePixelRatio,2);
  function dragResolution(moving){const next=moving?Math.min(1.25,fullDpr):fullDpr;if(renderer.getPixelRatio()!==next){renderer.setPixelRatio(next);dirty=true;}}
- const impact=new T.Vector3(),pointer=new T.Vector2();let press=null,dragged=false,lowDetail=false,hoverRequest=0,lastHoverAt=0;
+ const impact=new T.Vector3(),pointer=new T.Vector2();let lowDetail=false,hoverRequest=0,lastHoverAt=0;
  function overviewLOD(low){
   if(selected||lowDetail===low)return;lowDetail=low;
   for(const m of group.children){const g=(low?overviewMeshes:boneData).get(m.userData.bone);if(g)m.geometry=g;}
@@ -1150,30 +1209,18 @@ async function start(){
   if(hovered){hovered.material=bone;hovered=null;dirty=true;}
   $('tip').hidden=true;canvas.style.cursor='grab';
  }
- canvas.addEventListener('pointerdown',e=>{
-  pointerIds.add(e.pointerId);dragged=pointerIds.size>1;
-  if(pointerIds.size===1)press={x:e.clientX,y:e.clientY,id:e.pointerId};clearHover();
+ controls.addEventListener('start',clearHover);
+ controls.addEventListener('drag',()=>{dragResolution(true);if(!selected)overviewLOD(true);});
+ controls.addEventListener('end',()=>{dragResolution(false);overviewLOD(false);});
+ controls.addEventListener('tap',e=>{
+  if(!selected){const name=hit(e.originalEvent)?.userData.bone;if(name)pickBone(name);}
  });
- function endGesture(e){
-  pointerIds.delete(e.pointerId);if(pointerIds.size)return;
-  dragResolution(false);overviewLOD(false);const click=e.type==='pointerup'&&!selected&&press?.id===e.pointerId&&!dragged&&Math.hypot(e.clientX-press.x,e.clientY-press.y)<6;
-  press=null;dragged=false;
-  if(click){const name=hit(e)?.userData.bone;if(name)pickBone(name);}
- }
- canvas.addEventListener('pointerup',endGesture);canvas.addEventListener('pointercancel',endGesture);
- canvas.addEventListener('lostpointercapture',e=>{if(pointerIds.has(e.pointerId))endGesture(e);});
- canvas.addEventListener('pointerleave',clearHover);
- canvas.addEventListener('pointermove',e=>{
-  if(press){
-   if(dragged||Math.hypot(e.clientX-press.x,e.clientY-press.y)>=6){
-    dragged=true;dragResolution(true);if(!selected)overviewLOD(true);
-   }
-   return;
-  }
-  if(selected)return;
+ host.addEventListener('pointerleave',clearHover);
+ host.addEventListener('pointermove',e=>{
+  if(selected||controls.interacting)return;
   if(e.pointerType==='touch'||hoverRequest||performance.now()-lastHoverAt<40)return;
   hoverRequest=requestAnimationFrame(()=>{
-   hoverRequest=0;if(selected||press)return;lastHoverAt=performance.now();
+   hoverRequest=0;if(selected||controls.interacting)return;lastHoverAt=performance.now();
    const next=hit(e);if(!next){clearHover();return;}
    if(hovered!==next){if(hovered)hovered.material=bone;hovered=next;hovered.material=accent;dirty=true;}
    canvas.style.cursor='pointer';const tip=$('tip'),box=host.getBoundingClientRect();
