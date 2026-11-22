@@ -1,11 +1,44 @@
 import * as T from './vendor/three.module.js';
 
+import {nativeGeometry,sourceVersion,cutKey,cachedCut} from './section-cache.js';
 import {endostealLoop} from './endosteum.js';
 import {fractureRelief,gridCoordinate,facetPolygons} from './fracture-surface.js';
 
 const vec = a => new T.Vector3(...a);
 
 export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiralAxis=[0,1,0], exteriorEnd=Infinity,posteriorSpiral=false,relief=null,retry=0) {
+  if(retry===0&&exteriorEnd===Infinity&&nativeGeometry(geometry)){
+   const key=cutKey(geometry,normal,anchor,fold,spiralHeight,spiralAxis,posteriorSpiral,relief);
+   return cachedCut(geometry,key,()=>computeSection(geometry,normal,anchor,fold,spiralHeight,spiralAxis,exteriorEnd,posteriorSpiral,relief,0));
+  }
+  return computeSection(geometry,normal,anchor,fold,spiralHeight,spiralAxis,exteriorEnd,posteriorSpiral,relief,retry);
+}
+
+// A paged float stream avoids growing multi-million-element JavaScript number arrays
+// when most faces of the input mesh simply pass unchanged into a fragment.
+class FloatTriples {
+ constructor(capacity){this.capacity=capacity;this.pages=[];this.length=0;this.pos=capacity;}
+ push(x,y,z){
+  if(this.pos===this.capacity){this.page=new Float32Array(this.capacity);this.pages.push(this.page);this.pos=0;}
+  const p=this.pos;this.page[p]=x;this.page[p+1]=y;this.page[p+2]=z;this.pos+=3;this.length+=3;
+ }
+ triangle(array,indices,offset){
+  if(this.pos===this.capacity){this.page=new Float32Array(this.capacity);this.pages.push(this.page);this.pos=0;}
+  let dest=this.pos;
+  for(let j=offset;j<offset+3;j++){
+   const src=indices[j]*3;
+   this.page[dest++]=array[src];this.page[dest++]=array[src+1];this.page[dest++]=array[src+2];
+  }
+  this.pos=dest;this.length+=9;
+ }
+ finish(){
+  if(this.pages.length===1&&this.length===this.capacity)return this.page;
+  const out=new Float32Array(this.length);
+  for(let i=0;i<this.pages.length;i++)out.set(this.pages[i].subarray(0,Math.min(this.capacity,this.length-i*this.capacity)),i*this.capacity);
+  return out;
+ }
+}
+function computeSection(geometry,normal,anchor,fold,spiralHeight,spiralAxis,exteriorEnd,posteriorSpiral,relief,retry){
   const n=vec(spiralHeight?spiralAxis:normal).normalize(), origin=vec(anchor);
   const axis=new T.Vector3(Math.abs(n.x)<.8?1:0,Math.abs(n.x)<.8?0:1,0).cross(n).normalize();
   if(posteriorSpiral)axis.set(0,0,1).addScaledVector(n,-n.z).normalize();
@@ -27,7 +60,12 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
   const band=spiralHeight*.51+(relief?.amplitude||0)+2e-8;
   const rise=(x,y)=>(spiralHeight?helix(x,y):0)+(relief?fractureRelief(x,y,relief):0);
   const positions=geometry.attributes.position, norms=geometry.attributes.normal;
-  const index=geometry.index.array, groups=[[],[]], normals=[[],[]], edges=[];
+  const index=geometry.index.array,capacity=Math.min(65520,Math.max(198,index.length*3));
+  const packed=positions.array instanceof Float32Array&&norms.array instanceof Float32Array&&
+    positions.itemSize===3&&norms.itemSize===3&&!positions.normalized&&!norms.normalized&&
+    !positions.isInterleavedBufferAttribute&&!norms.isInterleavedBufferAttribute;
+  const groups=[new FloatTriples(capacity),new FloatTriples(capacity)];
+  const normals=[new FloatTriples(capacity),new FloatTriples(capacity)],edges=[];
   const inherited=[[],[]];let isExterior=true;
   function emit(side,poly) {
     for(let k=1;k+1<poly.length;k++) for(const v of [poly[0],poly[k],poly[k+1]]) {
@@ -100,9 +138,19 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
   for(let i=0;i<index.length;i+=3){
     isExterior=i<exteriorEnd;
     const a=index[i],b=index[i+1],c=index[i+2],da=axialFromPlane[a],db=axialFromPlane[b],dc=axialFromPlane[c];
-    if(!fold&&(Math.min(da,db,dc)>band||Math.max(da,db,dc)<-band)){
-     const side=Number(da>0),out=isExterior?groups[side]:inherited[side],ns=normals[side];
-     for(let j=i;j<i+3;j++){
+    let low=Math.min(da,db,dc),high=Math.max(da,db,dc);
+    if(fold){
+     const x=positions.getX(a)-origin.x,y=positions.getX(b)-origin.x,z=positions.getX(c)-origin.x;
+     if(Math.min(x,y,z)<0&&Math.max(x,y,z)>0){low=-Infinity;high=Infinity;}
+     else{
+      const h1=da+fold*Math.abs(x),h2=db+fold*Math.abs(y),h3=dc+fold*Math.abs(z);
+      low=Math.min(h1,h2,h3);high=Math.max(h1,h2,h3);
+     }
+    }
+    if(low>band||high<-band){
+     const side=Number(low>band),out=isExterior?groups[side]:inherited[side],ns=normals[side];
+     if(isExterior&&packed){out.triangle(positions.array,index,i);ns.triangle(norms.array,index,i);}
+     else for(let j=i;j<i+3;j++){
       const k=index[j];out.push(positions.getX(k),positions.getY(k),positions.getZ(k));
       if(isExterior)ns.push(norms.getX(k),norms.getY(k),norms.getZ(k));
      }
@@ -254,8 +302,8 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
   }
   return groups.map((list,side)=>{
     const geo=new T.BufferGeometry();
-    geo.setAttribute('position',new T.Float32BufferAttribute(list,3));
-    geo.setAttribute('normal',new T.Float32BufferAttribute(normals[side],3));
+    geo.setAttribute('position',new T.BufferAttribute(list.finish(),3));
+    geo.setAttribute('normal',new T.BufferAttribute(normals[side].finish(),3));
     const face=new T.BufferGeometry();
     const surface=new Float32Array(cap);
     if(side===1)for(let k=0;k<surface.length;k+=9)for(let j=0;j<3;j++){
@@ -338,14 +386,80 @@ function containsPoint(poly,p){
 // Integrate area moments over oriented triangle/plane intersection segments.
 // This depends on the surface shape, not vertex density near the cut.
 export function sliceMetrics(g,origin,normal,lateral){
+  if(!nativeGeometry(g))return computeSliceMetrics(g,origin,normal,lateral);
+  if(!metricOwners.has(g)){
+   metricOwners.add(g);
+   function release(){sliceCache.delete(g);slabCache.delete(g);metricOwners.delete(g);g.removeEventListener('dispose',release);}
+   g.addEventListener('dispose',release);
+  }
+  let cache=sliceCache.get(g);
+  const version=sourceVersion(g);
+  if(cache?.version!==version){cache={version,values:new Map()};sliceCache.set(g,cache);}
+  const key=[origin.x,origin.y,origin.z,normal.x,normal.y,normal.z,lateral.x,lateral.y,lateral.z].join(',');
+  if(!cache.values.has(key)){
+   if(cache.values.size>=64)cache.values.delete(cache.values.keys().next().value);
+   cache.values.set(key,computeSliceMetrics(g,origin,normal,lateral));
+  }
+  const result=cache.values.get(key);
+  return result?{...result,centre:result.centre.clone()}:null;
+}
+const metricOwners=new WeakSet(),sliceCache=new WeakMap();
+const slabCache=new WeakMap();
+// Store at most one anatomical axis per source. Bin memberships keep the original
+// triangle order so clipped area, centre and perimeter integrate identically.
+function trianglesAt(g,axis,value){
+ const p=g.attributes.position,idx=g.index.array,version=sourceVersion(g);
+ let slabs=slabCache.get(g);
+ if(!slabs||slabs.version!==version||slabs.axis!==axis){
+  if(!g.boundingBox)g.computeBoundingBox();
+  const min=g.boundingBox.min.getComponent(axis),span=g.boundingBox.max.getComponent(axis)-min;
+  if(!(span>0))return null;
+  const bin=x=>Math.max(0,Math.min(63,Math.floor((x-min)*64/span)));
+  const counts=new Uint32Array(65),ranges=new Uint8Array(2*idx.length/3),coords=p.array;
+  for(let j=0;j<idx.length;j+=3){
+   const a=coords[idx[j]*3+axis],b=coords[idx[j+1]*3+axis],c=coords[idx[j+2]*3+axis];
+   const lo=bin(Math.min(a,b,c)),hi=bin(Math.max(a,b,c));
+   ranges[j/3*2]=lo;ranges[j/3*2+1]=hi;
+   for(let k=lo;k<=hi;k++)counts[k+1]++;
+  }
+  for(let k=1;k<counts.length;k++)counts[k]+=counts[k-1];
+  let offsets=null;
+  if(counts[64]<=idx.length){
+   offsets=new Uint32Array(counts[64]);const cursor=counts.slice();
+   for(let j=0;j<idx.length;j+=3){
+    for(let k=ranges[j/3*2];k<=ranges[j/3*2+1];k++)offsets[cursor[k]++]=j;
+   }
+  }
+  slabs={axis,version,counts,offsets,bin};slabCache.set(g,slabs);
+ }
+ if(!slabs.offsets)return null;
+ const k=slabs.bin(value);
+ return slabs.offsets.subarray(slabs.counts[k],slabs.counts[k+1]);
+}
+function computeSliceMetrics(g,origin,normal,lateral){
   const n=normal.clone().normalize(),u=lateral.clone().addScaledVector(n,-lateral.dot(n)).normalize();
   const v=new T.Vector3().crossVectors(n,u),pos=g.attributes.position,index=g.index.array;
   const triangle=[new T.Vector3(),new T.Vector3(),new T.Vector3()],d=[0,0,0];
   const cuts=[new T.Vector3(),new T.Vector3()],ab=new T.Vector3(),ac=new T.Vector3(),tangent=new T.Vector3();
   let twiceArea=0,mx=0,my=0,perimeter=0,lx=0,ly=0,min=Infinity,max=-Infinity;
-  for(let i=0;i<index.length;i+=3){
-    for(let j=0;j<3;j++){triangle[j].fromBufferAttribute(pos,index[i+j]).sub(origin);d[j]=triangle[j].dot(n);}
+  // Measure a signed distance once per indexed vertex. Only intersected triangles
+  // need full Vector3 coordinates for contour integration.
+  const cardinal=n.x===1&&n.y===0&&n.z===0?0:n.y===1&&n.x===0&&n.z===0?1:n.z===1&&n.x===0&&n.y===0?2:-1;
+  const packed=pos.array instanceof Float32Array&&pos.itemSize===3&&!pos.normalized&&!pos.isInterleavedBufferAttribute;
+  const value=cardinal<0?0:origin.getComponent(cardinal);
+  const candidates=cardinal>=0&&packed&&nativeGeometry(g)&&index.length>=60000?trianglesAt(g,cardinal,value):null;
+  let distance;
+  if(!candidates){
+   distance=new Float64Array(pos.count);
+   for(let j=0;j<pos.count;j++)distance[j]=n.x*(pos.getX(j)-origin.x)+n.y*(pos.getY(j)-origin.y)+n.z*(pos.getZ(j)-origin.z);
+  }
+  const count=candidates?candidates.length:index.length/3;
+  for(let row=0;row<count;row++){
+    const i=candidates?candidates[row]:3*row;
+    if(candidates)for(let j=0;j<3;j++)d[j]=pos.array[index[i+j]*3+cardinal]-value;
+    else {d[0]=distance[index[i]];d[1]=distance[index[i+1]];d[2]=distance[index[i+2]];}
     if((d[0]>=0)===(d[1]>=0)&&(d[1]>=0)===(d[2]>=0))continue;
+    for(let j=0;j<3;j++)triangle[j].fromBufferAttribute(pos,index[i+j]).sub(origin);
     let k=0;
     for(let j=0;j<3;j++){
       const b=(j+1)%3;

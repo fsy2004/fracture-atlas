@@ -1,0 +1,59 @@
+{
+  "scope": "Displaced examples and the tested single-axis and combined movement controls, both sides. Fixed normalized replay samples from the actual teaching meshes.",
+  "series": {
+    "actual-presets": {
+      "routes": 52,
+      "posesPerRoute": 257,
+      "contacts": 0
+    },
+    "actual-combos": {
+      "routes": 144,
+      "posesPerRoute": 129,
+      "contacts": 0
+    },
+    "actual-wrist": {
+      "routes": 4,
+      "posesPerRoute": 257,
+      "contacts": 0
+    }
+  },
+  "legacyControl": {
+    "route": "#tibia/1/2?move=rotate&q_rotate=35",
+    "stoppedAt": 0.17903648376464845
+  },
+  "newValues": {
+    "femurUpper": {
+      "proximalAngleDeg": 21,
+      "distalSuperiorMm": 14.95
+    },
+    "tibialSpiral": {
+      "shaftRotationDeg": 12,
+      "distalTranslationMm": 12
+    },
+    "colles": {
+      "dorsalTiltDeg": 15
+    },
+    "transversePatella": {
+      "superiorFragmentMm": 10.5
+    }
+  },
+  "combinations": [
+    "rotate",
+    "shorten",
+    "side",
+    "angle",
+    "shorten,rotate",
+    "shorten,side,rotate"
+  ],
+  "courses": {
+    "longBoneCombinations": [
+      "tibia",
+      "femur",
+      "humerus"
+    ],
+    "wristShortening": [
+      "Colles",
+      "Smith"
+    ]
+  }
+}

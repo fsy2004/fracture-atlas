@@ -9,7 +9,7 @@ const {chromium}=require(process.env.ATLAS_PLAYWRIGHT||'playwright');
 const root=fileURLToPath(new URL('../',import.meta.url));
 const probe=`
 window.inspectAtlasPose=async(steps)=>{
- while(!mechanics){
+ while(loadingSpecimen||!mechanics){
   if(document.getElementById('status').textContent.includes('失败'))throw Error(document.getElementById('status').textContent);
   await new Promise(resolve=>setTimeout(resolve,25));
  }

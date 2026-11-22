@@ -23,7 +23,7 @@ function rimData(item){
  }
  if(!length)return {centre:item.anchor.clone(),limit:3,points:[item.anchor.clone()]};
  const width=Math.max(...box.getSize(v()).toArray());
- return {centre:centre.divideScalar(length),limit:Math.max(3,Math.min(30,Math.round(width*400))),points};
+ return {width,centre:centre.divideScalar(length),limit:Math.max(3,Math.min(30,Math.round(width*400))),points};
 }
 
 // A common rigid correction about the current cut-rim centre preserves wrist and paired-shaft followers.
@@ -92,10 +92,28 @@ export function fragmentEditor({items,values,primary,mirror,world,basePose,onEdi
  const markers=[0x26786b,0xa95029].map(color=>new T.Mesh(new T.SphereGeometry(radius,12,8),new T.MeshBasicMaterial({color,depthTest:false})));
  markers.forEach(m=>m.renderOrder=9);const trace=new T.Group();trace.add(path,...markers);world.add(trace);
  let point=active.centre.clone(),isMoving=false;
- const focus={centre:v(),delta:v(),size:.06};
+ const restRim=new T.LineSegments(new T.BufferGeometry(),new T.LineDashedMaterial({
+  color:0x237366,dashSize:.0015,gapSize:.0012,transparent:true,opacity:.78,depthTest:false
+ }));
+ restRim.renderOrder=7;trace.add(restRim);
+ const spoke=(rest)=>{
+  const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(new Float32Array(6),3));
+  const mat=rest?new T.LineDashedMaterial({color:0x237366,dashSize:.002,gapSize:.0012,depthTest:false}):new T.LineBasicMaterial({color:0x9c452d,depthTest:false});
+  const obj=new T.Line(geo,mat);obj.renderOrder=8;obj.frustumCulled=false;trace.add(obj);return obj;
+ };
+ const previousSpoke=spoke(true),currentSpoke=spoke(false);
+ let outlined=null,editingGroup=null;
+ const focus={centre:v(),delta:v(),size:.06,width:.02};
  function sample(){
   basePose(1,false);apply(1);
   const item=active.members[0],ref=active.ref;
+  if(outlined!==active){
+   outlined=active;restRim.geometry.dispose();restRim.geometry=new T.BufferGeometry();
+   restRim.geometry.setAttribute('position',item.edge.geometry.attributes.position.clone());restRim.computeLineDistances();
+   const spacing=Math.max(.00032,Math.min(.0025,(active.width||.02)*.07));
+   restRim.material.dashSize=spacing;restRim.material.gapSize=spacing*.8;
+  }
+  focus.width=active.width||.02;
   let distance=-1;
   for(const candidate of active.points){
    const target=transformed(item,candidate),other=ref?transformed(ref,candidate):candidate;
@@ -118,10 +136,20 @@ export function fragmentEditor({items,values,primary,mirror,world,basePose,onEdi
   const target=transformed(active.members[0],point),other=active.ref?transformed(active.ref,point):point;
   lineGeo.setDrawRange(0,Math.floor(p*steps)+1);trace.visible=show&&isMoving&&p>.08;
   markers[0].position.copy(point);markers[1].position.copy(target);
-  return {target,distance:target.distanceTo(other)*1000,travel:target.distanceTo(point)*1000};
+  const item=active.members[0],turning=Math.abs(item.pivot.quaternion.w)<.99985;
+  restRim.visible=target.distanceToSquared(point)>1e-8;
+  previousSpoke.visible=currentSpoke.visible=turning;
+  if(trace.visible&&turning){
+   const movingCentre=transformed(item,active.centre);
+   for(const [obj,a,b] of [[previousSpoke,active.centre,point],[currentSpoke,movingCentre,target]]){
+    const attr=obj.geometry.attributes.position;attr.setXYZ(0,a.x,a.y,a.z);attr.setXYZ(1,b.x,b.y,b.z);attr.needsUpdate=true;
+   }
+   previousSpoke.computeLineDistances();
+  }
+  return {target,referenceVisible:trace.visible&&restRim.visible,distance:target.distanceTo(other)*1000,travel:target.distanceTo(point)*1000};
  }
  function fields(){
-  host.replaceChildren();
+  editingGroup=active;host.replaceChildren();
   for(const [k,label,unit] of components){
    const row=document.createElement('div'),caption=document.createElement('span'),box=document.createElement('span'),number=document.createElement('input'),input=document.createElement('input');
    const max=unit==='°'?30:active.limit;row.className='measure-row';caption.textContent=label;
@@ -142,8 +170,8 @@ export function fragmentEditor({items,values,primary,mirror,world,basePose,onEdi
  }
  select.onchange=()=>{active=groups.find(g=>g.id===Number(select.value));fields();sample();onSelect(active);};
  document.getElementById('restoreFragment').onclick=()=>{clearEdits(values);fields();sample();onEdit();};
- fields();sample();
- return {apply,display,sample,focus,get active(){return active;},count:groups.length,dispose(){
+ if(document.getElementById('fragmentBox').open)fields();sample();
+ return {apply,display,sample,focus,prepareEditor(){if(editingGroup!==active)fields();},get active(){return active;},count:groups.length,dispose(){
   select.onchange=null;document.getElementById('restoreFragment').onclick=null;world.remove(trace);trace.traverse(m=>{m.geometry?.dispose();m.material?.dispose();});
  }};
 }

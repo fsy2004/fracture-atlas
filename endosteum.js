@@ -1,6 +1,12 @@
 import * as T from './vendor/three.module.js';
 const tau=2*Math.PI;
+const samplers=new WeakMap();
 export function canalSampler(rows,transform,mirrored=false){
+ let byTransform=samplers.get(rows);if(!byTransform){byTransform=new WeakMap();samplers.set(rows,byTransform);}
+ let pair=byTransform.get(transform);if(!pair){pair=[];byTransform.set(transform,pair);}
+ return pair[Number(mirrored)]??=makeSampler(rows,transform,mirrored);
+}
+function makeSampler(rows,transform,mirrored){
  const r=new T.Matrix3().set(...transform.rotation.flat()),inv=r.clone().transpose(),t=new T.Vector3(...transform.translation_mm);
  const raw=p=>new T.Vector3(mirrored?-p.x:p.x,p.y,p.z).multiplyScalar(1000).sub(t).applyMatrix3(inv);
  function sample(z){

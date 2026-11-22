@@ -1,5 +1,6 @@
 import * as T from './vendor/three.module.js';
 import {contactBody,makeContactSet} from './contact.js';
+import {warmContactTrees} from './contact-preparation.js';
 import {sweepTimes} from './injury-timing.js';
 import {boneName} from './bone-index.js';
 
@@ -47,7 +48,7 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
   const key=o.userData.bone,b=contactBody(o,null,toLabel(key));b.key=key;b.active=targets.has(key)||nearBones.includes(o);
   bodies.push(b);
  });
- const set=makeContactSet(bodies),helpers=new T.Group();world.add(helpers);
+ const set=makeContactSet(bodies),cancelWarmup=set.count?warmContactTrees(bodies):()=>{},helpers=new T.Group();world.add(helpers);
  const marker=new T.Mesh(new T.SphereGeometry(.0018,12,8),new T.MeshBasicMaterial({color:0xe64332,depthTest:false}));
  marker.renderOrder=16;helpers.add(marker);marker.visible=false;
  const ties=[];
@@ -80,29 +81,44 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
   }
   return {bone,lig,most};
  }
- let limit=null,swept=0,lastTime=-1,lastKey='',lastReport=-1,lastDraw=0,cached=null;
+ let limit=null,pending=null,swept=0,lastTime=-1,lastKey='',lastReport=-1,lastDraw=0,cached=null;
  return {bodies:bodies.length,candidateCount:set.count,ties:ties.map(t=>t.name),
-  limit(requested,opts,key){
-   if(!opts.limitBones&&!(opts.hold&&ties.length))return {time:requested,reason:null};
-   if(lastKey!==key){limit=null;swept=0;lastTime=-1;lastKey=key;}
+  limit(requested,opts,key,budgetMs=Infinity){
+   if(!opts.limitBones&&!(opts.hold&&ties.length)){pending=null;return {time:requested,reason:null};}
+   if(lastKey!==key){limit=null;pending=null;swept=0;lastTime=-1;lastKey=key;}
    const probe=t=>{
     pose(t);const e=evaluate({...opts,checkBones:opts.limitBones},false);
     return (opts.limitBones&&e.bone?.kind==='bone'?e.bone:null)||(opts.hold?e.lig:null);
    };
+   if(pending&&requested!==pending.target)pending=null;
    if(limit&&requested>=limit.time)return limit;
-   if(requested!==lastTime&&requested>0){
-    // Check the requested pose as well as subdivisions on jumps and slider scrubs.
-    let safe=requested>swept?swept:Math.max(0,requested-1/128);
-    for(const t of sweepTimes(safe,requested,timing)){
-     const reason=probe(t);
-     if(reason){
-      if(probe(safe))safe=0;
-      let hi=t;for(let j=0;j<12;j++){const mid=(safe+hi)/2;if(probe(mid))hi=mid;else safe=mid;}
-      limit={time:safe,reason};lastTime=safe;return limit;
-     }
-     safe=t;
+   if(pending||(requested!==lastTime&&requested>0)){
+    // Resume the same ordered probes (including contact refinement) on a later
+    // playback frame. A different request or parameter change discards this work.
+    if(!pending){
+     const safe=requested>swept?swept:Math.max(0,requested-1/128);
+     pending={target:requested,safe,times:sweepTimes(safe,requested,timing),cursor:0,refine:0,hi:0,reason:null};
     }
-    swept=Math.max(swept,requested);lastTime=requested;
+    const state=pending,deadline=Number.isFinite(budgetMs)?performance.now()+Math.max(0,budgetMs):Infinity;
+    while(state.cursor<state.times.length||state.refine){
+     if(state.refine){
+      const mid=(state.safe+state.hi)/2;
+      if(probe(mid))state.hi=mid;else state.safe=mid;
+      if(--state.refine===0){limit={time:state.safe,reason:state.reason};lastTime=state.safe;pending=null;return limit;}
+     }else{
+      const t=state.times[state.cursor++],reason=probe(t);
+      if(reason){
+       if(probe(state.safe))state.safe=0;
+       state.hi=t;state.reason=reason;state.refine=12;
+      }else state.safe=t;
+     }
+     if((state.cursor<state.times.length||state.refine)&&performance.now()>=deadline){
+      // Only the most recently verified pose may be displayed during preparation.
+      lastTime=state.safe;swept=Math.max(swept,state.safe);
+      return {time:state.safe,reason:null,unfinished:true,target:requested};
+     }
+    }
+    pending=null;swept=Math.max(swept,requested);lastTime=requested;
    }
    return {time:requested,reason:null};
   },
@@ -115,6 +131,6 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
    return cached;
   },
   hide(){helpers.visible=false;},
-  dispose(){helpers.removeFromParent();helpers.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});}
+  dispose(){cancelWarmup();helpers.removeFromParent();helpers.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});}
  };
 }

@@ -29,7 +29,7 @@ export async function decodeSurfaces(manifest,bytes){
  const packed=magic[0]===31&&magic[1]===139
   ?await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():bytes;
  if(manifest.format!=='native-f32-mm-v1')throw Error('精细网格与坐标版本不匹配');
- const surfaces=new Map(),offset=manifest.display_offset_mm;
+ const surfaces=new Map(),offset=manifest.display_offset_mm;let yieldedAt=performance.now();
  for(const m of manifest.entries){
   const src=new Float32Array(packed,m.offset,3*m.vertices),positions=new Float32Array(src.length);
   for(let i=0;i<src.length;i++)positions[i]=(src[i]+offset[i%3])*.001;
@@ -39,6 +39,10 @@ export async function decodeSurfaces(manifest,bytes){
   g.userData.landmarkMap=landmarkMap(m,offset);
   if(m.head_fit)g.userData.headCentre=new T.Vector3(...m.head_fit.centre_mm).add(new T.Vector3(...offset)).multiplyScalar(.001);
   g.computeVertexNormals();g.computeBoundingBox();g.computeBoundingSphere();surfaces.set(m.mesh,g);
+  if(typeof window!=='undefined'&&performance.now()-yieldedAt>12){
+   if(globalThis.scheduler?.yield)await globalThis.scheduler.yield();else await new Promise(resolve=>setTimeout(resolve,0));
+   yieldedAt=performance.now();
+  }
  }
  return surfaces;
 }

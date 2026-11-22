@@ -11,6 +11,34 @@ ROOT = Path(__file__).resolve().parents[1]
 def data_uri(content_type, data):
     return "data:" + content_type + ";base64," + base64.b64encode(data).decode("ascii")
 
+def classic_contact_worker():
+    # Chromium does not start module workers from a file:// document. Bundle the two
+    # pinned MIT modules into a classic blob worker while retaining their lexical scopes.
+    three = (ROOT / "vendor/three.module.js").read_text(encoding="utf-8-sig")
+    bvh = (ROOT / "vendor/mesh-bvh.js").read_text(encoding="utf-8-sig")
+    worker = (ROOT / "contact-worker.js").read_text(encoding="utf-8")
+    imported = re.search(r"import\s*\{([^}]+)\}\s*from './three.module.js';", bvh)
+    exported = re.search(r"export\s*\{([^}]+)\};?\s*$", three)
+    if not imported or not exported:
+        raise ValueError("Cannot bundle the pinned contact-worker dependencies")
+    names = {n.strip() for n in imported[1].split(",")}
+    bindings = {}
+    for entry in exported[1].split(","):
+        pair = entry.strip().split(" as ")
+        if pair[-1] in names:
+            bindings[pair[-1]] = pair[0]
+    if set(bindings) != names:
+        raise ValueError("Missing Three.js bindings in offline contact worker")
+    fields = ",".join(k + ":" + v for k, v in bindings.items())
+    core = "const THREE=(()=>{" + three[:exported.start()] + "\nreturn {" + fields + "};})();\n"
+    bvh = bvh[:imported.start()] + "const {" + imported[1] + "}=THREE;" + bvh[imported.end():]
+    bvh, count = re.subn(r"export\s*\{[^}]+\};?\s*$", "return {MeshBVH,CENTER};", bvh)
+    if count != 1:
+        raise ValueError("Missing BVH exports in offline contact worker")
+    core += "const {MeshBVH,CENTER}=(()=>{" + bvh + "})();\nconst {BufferGeometry,BufferAttribute}=THREE;\n"
+    worker = re.sub(r"import\s*\{[^}]+\}\s*from '[^']+';", "", worker)
+    return (core + worker).replace("</script", "<\\/script")
+
 def build(output):
     modules = {}
     def add(name):
@@ -31,7 +59,9 @@ def build(output):
 """ + code.replace("await fetch(u)", "await embedded(u)").replace("await fetch(assetURL(u))","await embedded(u)")
         modules["@atlas/" + name] = data_uri("text/javascript", code.encode())
     add("app.js")
+    worker_code = classic_contact_worker()
     html = (ROOT / "index.html").read_text(encoding="utf-8-sig")
+    html = html.replace("</body>", '<script type="text/plain" id="contactWorkerSource">' + worker_code + '</script></body>')
     html = html.replace('<link rel="stylesheet" href="./style.css">',
                         "<style>" + (ROOT / "style.css").read_text(encoding="utf-8-sig") + "</style>")
     asset_tags = []

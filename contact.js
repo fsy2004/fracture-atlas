@@ -1,6 +1,8 @@
 import * as T from './vendor/three.module.js';
 import {MeshBVH,CENTER} from './vendor/mesh-bvh.js';
 
+import {preparedTree,keepTree} from './contact-preparation.js';
+
 const EPS=.00005; // 0.05 mm computational tolerance, in model metres.
 const normalA=new T.Vector3(),normalB=new T.Vector3(),segment=new T.Line3();
 const rayDir=new T.Vector3(.719,.327,.614).normalize();
@@ -18,7 +20,9 @@ function solid(shell,cap,morph){
  }else{
   g.setAttribute('position',morph?p.clone():p);if(shell.index)g.setIndex(shell.index.clone());
  }
- const bvh=new MeshBVH(g,{strategy:CENTER,maxLeafTris:8});
+ const entry=morph?null:preparedTree(shell,cap);
+ const bvh=entry?.packed?MeshBVH.deserialize(entry.packed,g):new MeshBVH(g,{strategy:CENTER,maxLeafTris:8});
+ if(entry&&!entry.packed)keepTree(entry,MeshBVH.serialize(bvh,{cloneBuffers:false}));
  const triangles=g.index.count/3,count=Math.min(48,triangles);
  const probeIndices=Array.from({length:count},(_,k)=>3*Math.min(triangles-1,Math.floor((k+.5)*triangles/count)));
  const samples=probeIndices.map(()=>new T.Vector3());
@@ -40,7 +44,9 @@ export function contactBody(mesh,cap=null,name=''){
  let meshData,restData;
  const capNormals=capGeo?.attributes.normal;
  const capDirection=capNormals?.count?new T.Vector3().fromBufferAttribute(capNormals,0).normalize():null;
- return {mesh,name,capDirection,world:new T.Matrix4(),box:new T.Box3(),lastMorph:'',
+ const prepare=!morph&&!dynamic&&(mesh.geometry.index?.count||mesh.geometry.attributes.position.count)>12000?
+  ()=>meshData?null:{entry:preparedTree(mesh.geometry,capGeo),shell:mesh.geometry,cap:capGeo}:null;
+ return {mesh,name,prepare,capDirection,world:new T.Matrix4(),box:new T.Box3(),lastMorph:'',
   data(){return meshData||=solid(mesh.userData.restSurface||mesh.geometry,cap?.userData?.restSurface||capGeo,morph||dynamic);},
   restData(){return morph||dynamic?(restData||=solid(mesh.userData.restSurface||mesh.geometry,cap?.userData?.restSurface||capGeo,false)):this.data();},
   sync(){
@@ -99,6 +105,11 @@ export function penetration(a,b){
  const A=a.data(),B=b.data();
  let witness=null;
  A.bvh.bvhcast(B.bvh,transform,{intersectsTriangles:(t,u)=>{
+  // Overlapping BVH leaves can still contain disjoint triangles. Reject only
+  // strictly separated coordinate intervals before constructing face normals.
+  if(Math.max(t.a.x,t.b.x,t.c.x)<Math.min(u.a.x,u.b.x,u.c.x)||Math.max(u.a.x,u.b.x,u.c.x)<Math.min(t.a.x,t.b.x,t.c.x)||
+     Math.max(t.a.y,t.b.y,t.c.y)<Math.min(u.a.y,u.b.y,u.c.y)||Math.max(u.a.y,u.b.y,u.c.y)<Math.min(t.a.y,t.b.y,t.c.y)||
+     Math.max(t.a.z,t.b.z,t.c.z)<Math.min(u.a.z,u.b.z,u.c.z)||Math.max(u.a.z,u.b.z,u.c.z)<Math.min(t.a.z,t.b.z,t.c.z))return false;
   t.getNormal(normalA);u.getNormal(normalB);
   if(!straddles(t,normalB,u.a)||!straddles(u,normalA,t.a))return false;
   if(!t.intersectsTriangle(u,segment)||segment.distance()<EPS)return false;
@@ -124,8 +135,19 @@ export function makeContactSet(bodies){
   if(!(a.active||b.active)||a.mesh.parent===b.mesh.parent&&!a.mesh.morphTargetInfluences&&!b.mesh.morphTargetInfluences)continue;
   pairs.push({a,b,rest:new T.Matrix4().copy(a.mesh.matrixWorld).invert().multiply(b.mesh.matrixWorld),baseline:undefined});
  }
+ const worlds=new Float64Array(16*bodies.length),deformation=new Array(bodies.length);
+ let checked=false,previousHit=null;
+ function finish(hit){previousHit=hit?{...hit,point:hit.point.clone()}:null;return hit;}
  return {count:pairs.length,sync(){for(const b of bodies)b.sync();},check(){
-  this.sync();let nativeHit=null;
+  this.sync();let same=checked;
+  for(let i=0;i<bodies.length;i++){
+   const b=bodies[i],matrix=b.world.elements,j=i*16;
+   if(same)for(let k=0;k<16;k++)if(matrix[k]!==worlds[j+k]){same=false;break;}
+   if(deformation[i]!==b.lastMorph)same=false;
+   deformation[i]=b.lastMorph;worlds.set(matrix,j);
+  }
+  if(same)return previousHit?{...previousHit,point:previousHit.point.clone()}:null;
+  checked=true;let nativeHit=null;
   for(const pair of pairs){
    const {a,b,rest}=pair;
    const current=new T.Matrix4().copy(a.world).invert().multiply(b.world);
@@ -138,7 +160,7 @@ export function makeContactSet(bodies){
     const restBody=(body,matrix)=>({world:matrix,box:body.restData().g.boundingBox.clone().applyMatrix4(matrix),data:()=>body.restData()});
     pair.baseline=!!penetration(restBody(a,new T.Matrix4()),restBody(b,rest));
    }
-   if(!pair.baseline)return {kind:'bone',name:a.name+' / '+b.name,point:hit};
+   if(!pair.baseline)return finish({kind:'bone',name:a.name+' / '+b.name,point:hit});
    // If two native surfaces already overlap, distinguish newly buried sample points.
    const checkSamples=(subject,other,toRest,toNow)=>{
     const data=subject.data(),dst=other.data();
@@ -152,10 +174,10 @@ export function makeContactSet(bodies){
    };
    const inv=rest.clone().invert(),nowInv=current.clone().invert();
    const newer=checkSamples(b,a,rest,current)||checkSamples(a,b,inv,nowInv);
-   if(newer)return {kind:'bone',name:a.name+' / '+b.name,point:newer};
+   if(newer)return finish({kind:'bone',name:a.name+' / '+b.name,point:newer});
    if(!nativeHit)nativeHit={kind:'native',name:a.name+' / '+b.name,point:hit};
   }
-  return nativeHit;
+  return finish(nativeHit);
  }};
 }
 

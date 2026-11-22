@@ -19,7 +19,7 @@ main{height:calc(100dvh - 65px);display:grid;grid-template-columns:minmax(0,1fr)
 .callout:before{content:"";position:absolute;right:100%;bottom:-1px;width:var(--leader);border-bottom:1px solid #839a8a}.callout.left{text-align:right;transform:translate(-100%,-100%)}.callout.left:before{right:auto;left:100%}
 .pin{position:absolute;color:#304e42;font-size:13px;font-weight:600;white-space:nowrap;padding:1px 6px;background:#f5f7ebec;border-bottom:1px solid #687e6e;transform:translate(38px,calc(-100% + var(--tag-y)))}.pin:before{content:"";position:absolute;bottom:-1px;right:100%;width:38px;border-bottom:1px solid #687e6e;transform-origin:right;transform:skewY(var(--slope,0deg))}.pin.left{transform:translate(calc(-100% - 38px),calc(-100% + var(--tag-y)))}.pin.left:before{right:auto;left:100%}
 #tip,#status{background:#244e43;color:#fff;border-radius:4px;padding:4px 9px;font-size:13px}#status{top:45%;left:50%;transform:translate(-50%,-50%)}
-#liveValues{position:absolute;bottom:52px;left:4%;max-width:91%;pointer-events:none;border-left:3px solid var(--jade);background:#fffdf0e8;padding:6px 11px;font-size:14px;color:#23483d;font-variant-numeric:tabular-nums}#liveValues:empty{display:none}
+#motionReadout{position:absolute;bottom:52px;left:4%;max-width:91%;pointer-events:none;border-left:3px solid var(--jade);background:#fffdf0e8;padding:6px 11px;font-size:14px;color:#23483d;font-variant-numeric:tabular-nums}#motionReadout:empty{display:none}
 aside{min-height:0;background:var(--porcelain);border-left:1px solid #b5c7bb;display:flex;flex-direction:column}.rail-scroll{overflow:auto;min-height:0;flex:1;scrollbar-width:thin;padding:0 clamp(16px,1.8vw,30px) 14px}
 .panel-head,.player-head,.pair{display:flex;align-items:center;justify-content:space-between;gap:8px}.head-actions{display:flex;gap:5px}.panel-head{font-size:12px;color:var(--muted);padding:14px clamp(16px,1.8vw,30px);border-bottom:1px solid var(--edge)}
 .head-actions button,#speed{border:0;background:#eaf0e7;border-radius:4px;font-size:12px;padding:4px 7px}
@@ -37,7 +37,7 @@ aside h2{font:650 27px/1.4 var(--serif);margin-bottom:5px}aside section{margin-t
 .player{display:none;padding:12px clamp(16px,1.8vw,30px) 16px;background:#eff3e9;border-top:1px solid #b9cbbd}.in-lesson .player{display:block}.player-head{font-size:13px}.pair button{flex:1;white-space:nowrap}.pair .primary:hover{background:#194b3e}#steps{display:flex;gap:3px;margin:0 0 8px}#steps button{border:0;padding:2px 5px;background:transparent;color:#64776c;font-size:11px}#time{margin:7px 0 2px}
 details{border-top:1px solid var(--edge);padding:9px 0 0;margin-top:11px}summary{font-size:13px;color:#3f6855}.views,#layers,#notes p{margin-top:8px}#layers label{font-size:12px;margin-right:7px}input[type=checkbox]{accent-color:var(--jade)}.scope{font-size:11px;display:block;margin-top:12px}.empty{padding:12px;color:var(--muted)}#mobilePanel,#foldPanel{display:none}
 @media(max-width:850px){main{grid-template-columns:minmax(0,1fr) 300px}.callout{display:none}.stage-title{max-width:85%}.stage-foot span:last-child{display:none}}
-@media(max-width:630px){header{height:53px;padding:0 12px;gap:8px}h1{font-size:18px}.brand{width:28px;height:30px;font-size:18px}.discipline{font-size:11px;padding-left:8px}main{height:calc(100dvh - 53px);display:block}.stage{height:100%}.stage-title{top:18px}.stage-title h2{font-size:26px}.stage-title p{font-size:11px}.stage:after{inset:6px}aside{position:fixed;top:53px;right:0;bottom:0;width:min(82vw,340px);z-index:4;box-shadow:-10px 0 30px #17372d24;visibility:hidden;transform:translateX(105%)}body.panel-open aside{visibility:visible;transform:none}#mobilePanel{margin-left:auto;display:block}#foldPanel{display:block}.player{padding-bottom:8px}#liveValues{font-size:12px}}
+@media(max-width:630px){header{height:53px;padding:0 12px;gap:8px}h1{font-size:18px}.brand{width:28px;height:30px;font-size:18px}.discipline{font-size:11px;padding-left:8px}main{height:calc(100dvh - 53px);display:block}.stage{height:100%}.stage-title{top:18px}.stage-title h2{font-size:26px}.stage-title p{font-size:11px}.stage:after{inset:6px}aside{position:fixed;top:53px;right:0;bottom:0;width:min(82vw,340px);z-index:4;box-shadow:-10px 0 30px #17372d24;visibility:hidden;transform:translateX(105%)}body.panel-open aside{visibility:visible;transform:none}#mobilePanel{margin-left:auto;display:block}#foldPanel{display:block}.player{padding-bottom:8px}#motionReadout{font-size:12px}}
 [hidden]{display:none!important}
 
 .clinical-note{font-size:12px;line-height:1.65;color:var(--muted);margin:7px 0}
@@ -104,3 +104,32 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 #compareTypesRow{display:flex;gap:6px;align-items:center;font-size:13px;margin:12px 0;color:var(--jade)}#compareTypesRow[hidden]{display:none}#typeSign{padding:9px 12px;border-left:3px solid #577969;background:#edf2e9;margin:12px 0}#typeSign p{font-size:13px;margin:5px 0;line-height:1.5}#signLook{color:#50655a}
 
 #atlasPalate:not([hidden]),#regionReference:not([hidden]){display:block;padding:6px 10px;margin:5px 0;border:1px solid #b7c7bd;border-radius:4px;background:#f5f6ee}#typeSign button{margin:4px 5px 0 0}#surfaceShare{font-weight:600;color:#245e50}
+
+#advanced,#clinicalNotes,#viewOptions{padding:0;margin:10px 0 0;border:1px solid var(--edge);border-radius:7px;background:#f8f9f1}
+#advanced>summary,#clinicalNotes>summary,#viewOptions>summary{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;list-style:none;font-weight:600;color:#294e42}
+#advanced>summary:after,#clinicalNotes>summary:after,#viewOptions>summary:after{content:"＋";color:#617a68;font-weight:400}
+#advanced[open]>summary:after,#clinicalNotes[open]>summary:after,#viewOptions[open]>summary:after{content:"−"}
+#advanced[open],#clinicalNotes[open],#viewOptions[open]{background:#fbfcf6;padding:0 12px 10px}
+#advanced[open]>summary,#clinicalNotes[open]>summary,#viewOptions[open]>summary{margin:0 -12px;border-bottom:1px solid var(--edge)}
+#advanced #liveValues{margin-top:10px;font-size:13px;line-height:1.55;color:var(--jade);font-variant-numeric:tabular-nums}
+#clinicalNotes #traction{border:0;margin:6px 0}#clinicalNotes:has(#signLook[hidden]) #signLook{display:none}
+#signLook,#surfaceShare{margin:8px 0;font-size:13px}#clinicalNotes button,#frameNavigation button{font-size:12px}
+#typeSign{padding:8px 12px}#typeSign h3{font-size:12px;margin:0;color:#557064}#typeSign #signFinding{margin:2px 0;line-height:1.55}
+#frameNavigation{margin:8px 0}#frameNavigation .frame-tools{justify-content:start}#frameNavigation #steps{flex-wrap:wrap}
+.player-head #frameTime{margin-left:auto;font:12px/1.4 "Microsoft YaHei",sans-serif;font-variant-numeric:tabular-nums;color:var(--muted)}
+.player .motion-actions{margin:8px 0 0;justify-content:center;gap:12px}.player .motion-actions button{background:transparent;border:0;padding:3px 5px;font-size:12px;color:var(--jade)}
+.player .pair{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:6px}.player .pair button{border-radius:6px}
+#contactState:not(.conflict){display:none}aside:has(#mechanicsBox[open]) #contactState{display:block}
+#launchpad details,#jointShortcuts details{padding-top:8px}#launchpad summary,#jointShortcuts summary{font-weight:600}
+#motionReadout{border-radius:0 5px 5px 0;background:#fafbf1e8;font-size:13px;letter-spacing:.015em}
+@media(max-width:630px){#mobilePanel{padding:6px 10px;background:#f2f5e9;color:#224d41;border-radius:5px}.stage-foot{bottom:10px;gap:4px;align-items:flex-start;flex-direction:column;font-size:10px}.stage-foot span:last-child{display:none}#motionReadout{bottom:57px;font-size:12px}.stage-title{max-width:80%}.stage-title:after{margin-top:6px}.player{padding-top:8px}}
+
+#motionReadout.with-reference:not(:empty)::before{content:"┄ 伤前断缘";font-size:.84em;color:#287165;margin-right:.75em}
+
+#viewport[data-pending] #status{top:auto;left:auto;right:5%;bottom:15%;transform:none;background:#fcfcf2ed;color:#345c50;border:1px solid #cbd9ce;border-radius:20px;padding:4px 11px}
+#viewport[data-pending] #status:before{content:"";display:inline-block;width:8px;height:8px;border:2px solid #c5d6cb;border-top-color:#326b58;border-radius:50%;margin-right:6px;animation:loadingSpin 1s linear infinite}
+@keyframes loadingSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){#viewport[data-pending] #status:before{animation:none}}
+
+#centreBone{position:absolute;right:0;bottom:30px;pointer-events:auto;padding:4px 9px;border-radius:6px;background:#f6f8efec;border:1px solid #afc2b5;color:#34594b;font-size:12px}
+@media(max-width:630px){#centreBone{right:0;bottom:48px}.in-lesson #centreBone{bottom:85px}}

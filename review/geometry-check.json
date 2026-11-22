@@ -30,11 +30,5 @@
       "intersecting": false
     }
   ],
-  "errors": [],
-  "updatedSubset": {
-    "course": "lunate-dislocation",
-    "sidesAndVariants": 4,
-    "poses": 1028,
-    "reason": "Final wrist source switched to the high-resolution same-donor assembly. The affected subset was rerun."
-  }
+  "errors": []
 }

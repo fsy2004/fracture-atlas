@@ -1,6 +1,7 @@
 import * as T from './vendor/three.module.js';
 
 import {createWedgePose} from './wedge.js';
+import {teachingTargets} from './motion-presets.js';
 const rad=Math.PI/180, mm=.001;
 const limit=(n,min,max)=>Math.max(min,Math.min(max,n));
 const eased=(t,a,b)=>{const x=limit((t-a)/(b-a),0,1);return x*x*(3-2*x);};
@@ -40,6 +41,15 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   }
   if(!i.tuned){maxTravel=Math.max(maxTravel,i.shift.length()/mm);maxSpin=Math.max(maxSpin,i.baseRotation.angle);}
  }
+ const targets=teachingTargets(clinical,maxTravel,maxSpin);
+ // Rough opposing cortices must disengage before a purely lateral or spinning target can move.
+ // These paths were checked on both specimens at the authored shaft cuts.
+ const guided=tagged[0]?.tuned==='shaft'&&!clinical.legacyMotion&&!clinical.selectedShape&&['femur','humerus','tibia'].includes(clinical.id);
+ const helical=guided&&clinical.id==='tibia'&&clinical.variant===1;
+ const guidedWrist=clinical.id==='radius'&&tagged[0]?.tuned==='wrist'&&!clinical.legacyMotion;
+ const wristRelease=clinical.variant===0?2:5;
+ const lateralSign=guided&&(clinical.id==='tibia'||clinical.variant===2)?-1:1;
+ const clearWidths=guided?(lateralSign<0?1.45:1.18):1.03;
  function field(key,label,unit,base,max,step=1,min=0){
   const row=document.createElement('label');row.className='measure-row';
   const title=document.createElement('span'),read=document.createElement('output'),input=document.createElement('input');
@@ -63,19 +73,23 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  const wrist=Number.isFinite(clinical.palmar);
  if(wrist){
   const baseline=clinical.palmar;
-  field('tilt','终点背倾（模型侧面）','°',limit(values.spin===undefined?15-baseline:values.spin-baseline,0,35),35,1);
+  let targetTilt=guidedWrist?18:15;
+  if(clinical.legacyMotion)targetTilt=15-baseline;
+  if(values.spin!==undefined)targetTilt=values.spin-baseline;
+  field('tilt','终点背倾（模型侧面）','°',limit(targetTilt,0,35),35,1);
  }
  if(tagged.length){
   const defaults={shorten:width*.57,separate:width*.48,side:width*.42,angle:16,rotate:24};
-  if(tagged[0].tuned==='wrist')defaults.shorten=4;
+  if(tagged[0].tuned==='wrist')defaults.shorten=guidedWrist?5:4;
+  if(helical){defaults.rotate=16;defaults.shorten=12;}
   for(const key of flags){
    const angular=key==='angle'||key==='rotate';
    const angleLimit=key==='angle'&&clinical.id==='humerus'?60:35;
-   field(key,tagged[0].tuned==='wrist'?'附加缩短':names[key],angular?'°':'mm',Math.round(defaults[key]*10)/10,angular?angleLimit:Math.min(60,Math.max(8,width*1.6)),angular?1:.5);
+   field(key,tagged[0].tuned==='wrist'&&!guidedWrist?'附加缩短':names[key],angular?'°':'mm',Math.round(defaults[key]*10)/10,angular?angleLimit:Math.min(60,Math.max(8,width*1.6)),angular?1:.5);
   }
  }else{
-  if(maxTravel>.02)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',maxTravel,maxTravel*1.75,.5);
-  if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',maxSpin,Math.min(180,maxSpin*1.75),1);
+  if(maxTravel>.02)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',targets.travel,Math.max(maxTravel*1.75,targets.travel),.5);
+  if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',targets.spin,Math.min(180,Math.max(maxSpin*1.75,targets.spin*1.3)),1);
  }
  let maxDepth=0;
  function blendedDepth(blend){
@@ -118,13 +132,20 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  function apply(p,report=true){
   const linearMotion=tagged.length?flags.some(k=>['side','shorten','separate'].includes(k)&&val(k)>0):val('travel',maxTravel)>.02;
   const shiftT=eased(p,.18,.78),lengthT=eased(p,.56,.91),angleT=eased(p,linearMotion ? .54 : .18,1),compressT=eased(p,.18,.91),clearT=eased(p,.23,.56),jointT=eased(p,.10,.77);
+  let gap=0;
+  if(guided){
+   const fraction=Math.min(1,Math.max(val('shorten')/12,val('side')/8,val('angle')/16,val('rotate')/(helical?16:24)));
+   const clearance=helical?(val('shorten')?13:10):5;
+   gap=fraction*clearance;
+  }
+  const opening=gap*(eased(p,.08,.20)-(val('shorten')?eased(p,.53,.8):val('separate')?lengthT:0));
   for(const i of items){
    const {pivot,anchor,shift,baseRotation:r}=i;
    if(i.tuned==='shaft'&&frame){
     // First clear the cortex laterally, then bring the distal end proximally.
-    const clearance=val('shorten')>0?width*1.03:0;
-    translation.copy(frame.side).multiplyScalar(mm*(val('side')*shiftT+clearance*clearT))
-     .addScaledVector(frame.axis,mm*(val('shorten')-val('separate'))*lengthT);
+    const clearance=val('shorten')>0?width*clearWidths:0;
+    translation.copy(frame.side).multiplyScalar(lateralSign*mm*(val('side')*shiftT+clearance*clearT))
+     .addScaledVector(frame.axis,mm*((val('shorten')-val('separate'))*lengthT-opening));
     qa.setFromAxisAngle(frame.bend,val('angle')*angleT*rad);
     qb.setFromAxisAngle(frame.axis,val('rotate')*angleT*rad);
     if(!val('shorten')&&!val('separate')&&!val('side')){
@@ -149,7 +170,15 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
      endDir.set(Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch));
      jointOrientation.setFromUnitVectors(shift.clone().normalize(),endDir);translation.applyQuaternion(jointOrientation);
     }
-    if(i.tuned==='wrist')translation.addScaledVector(frame.axis,val('shorten',4)*mm*lengthT);
+    if(i.tuned==='wrist'){
+     if(guidedWrist){
+      // A displaced distal radius clears the opposite cortex toward the dorsal or
+      // volar side before the carpus and distal fragment telescope together.
+      const tangent=clinical.variant===0?2.2:3;
+      translation.copy(shift).addScaledVector(frame.axis,-shift.dot(frame.axis)).multiplyScalar(tangent*shiftT);
+      translation.addScaledVector(frame.axis,mm*(val('shorten')*lengthT-wristRelease*(eased(p,.10,.27)-lengthT)));
+     }else translation.addScaledVector(frame.axis,val('shorten',4)*mm*lengthT);
+    }
     const degrees=wrist&&r.angle>0?(val('tilt')+clinical.palmar)*r.angle/15:
      r.angle*(maxSpin>0?val('spin',maxSpin)/maxSpin:1);
     pivot.quaternion.setFromAxisAngle(r.axis,degrees*rad*(i.tractionTiming==='proximal'?eased(p,.22,.66):angleT));
@@ -181,7 +210,11 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   if(!report)return;
   const readouts=controls.filter(c=>!['bearing','elevation'].includes(c.key)||c.value!==0).map(c=>{
    if((wedgePose||items.some(i=>i.tractionTiming))&&c.key==='travel')return {label:'骨段参照点平移',num:format(Math.max(...items.map(i=>i.pivot.position.distanceTo(i.anchor)))/mm),unit:'mm'};
-  if((wedgePose||items.some(i=>i.tractionTiming))&&c.key==='spin')return {label:'骨段转角',num:format(Math.max(...items.map(i=>i.pivot.quaternion.angleTo(identity)))/rad),unit:'°'};
+   if((wedgePose||items.some(i=>i.tractionTiming))&&c.key==='spin')return {label:'骨段转角',num:format(Math.max(...items.map(i=>i.pivot.quaternion.angleTo(identity)))/rad),unit:'°'};
+   if(guidedWrist&&c.key==='shorten'){
+    const axial=tagged[0].pivot.position.clone().sub(tagged[0].anchor).dot(frame.axis)/mm;
+    return {label:axial>=0?'轴向缩短':'轴向分离',num:format(Math.abs(axial)),unit:'mm'};
+   }
   if(c.key==='travel'&&joint)return {label:'平移',num:format(primary.pivot.position.distanceTo(primary.anchor)/mm),unit:'mm'};
   if(c.key==='tilt'){
     const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
@@ -195,9 +228,19 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    if(flex)readouts.push({label:flex<0?'屈曲':'后伸',num:format(Math.abs(flex)*u),unit:'°'});
    if(side)readouts.push({label:side<0?'外展':'内收',num:format(Math.abs(side)*u),unit:'°'});
   }
+  if(guidedWrist){
+   const wrist=tagged[0],sagittal=(wrist.pivot.position.z-wrist.anchor.z)/mm;
+   if(Math.abs(sagittal)>.05)readouts.push({label:sagittal>0?'伴随掌移':'伴随背移',num:format(Math.abs(sagittal)),unit:'mm'});
+  }
+  if(opening>.05){
+   const length=readouts.find(a=>['轴向缩短','轴向分离'].includes(a.label));
+   const axial=(val('shorten')-val('separate'))*lengthT-opening;
+   if(length){length.label=axial>0?'轴向缩短':'轴向分离';length.num=format(Math.abs(axial));}
+   else readouts.push({label:'伴随轴向让位',num:format(opening),unit:'mm'});
+  }
   const tray=document.getElementById('liveValues');
   if(tagged[0]?.tuned==='shaft'&&val('shorten')>0){
-   const total=width*1.03*clearT+val('side')*shiftT;
+   const total=width*clearWidths*clearT+val('side')*shiftT;
    const sideReading=readouts.find(x=>x.label===names.side);
    if(sideReading){sideReading.label='合计侧移';sideReading.num=format(total);}
    else readouts.push({label:'伴随侧移',num:format(total),unit:'mm'});

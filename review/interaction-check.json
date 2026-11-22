@@ -1,0 +1,290 @@
+{
+  "baseline": "6242988d1840d17cbe8db16d501bccfea753a24a",
+  "environment": "Same-machine Chromium with SwiftShader; synchronous geometry preparation, excluding downloads and GPU presentation. Timings are illustrative.",
+  "femur": {
+    "coldBeforeMs": [
+      340,
+      296,
+      292
+    ],
+    "coldAfterMs": [
+      215,
+      193,
+      241
+    ],
+    "revisitsBeforeMs": [
+      247,
+      295,
+      362,
+      231,
+      285,
+      402
+    ],
+    "revisitsAfterMs": [
+      43,
+      38,
+      49,
+      37,
+      48,
+      44
+    ]
+  },
+  "fixedProgressPlayback": {
+    "original": [
+      {
+        "index": 0,
+        "openMs": 530,
+        "preparedMs": null,
+        "maximum": 398.09999999962747,
+        "total": 700.0999999996275,
+        "calls": 101,
+        "rawWorst": 398.09999999962747
+      },
+      {
+        "index": 1,
+        "openMs": 238,
+        "preparedMs": null,
+        "maximum": 302.69999999925494,
+        "total": 504.7000000011176,
+        "calls": 101,
+        "rawWorst": 302.69999999925494
+      },
+      {
+        "index": 0,
+        "openMs": 219,
+        "preparedMs": null,
+        "maximum": 362.40000000037253,
+        "total": 735.4000000003725,
+        "calls": 101,
+        "rawWorst": 362.40000000037253
+      }
+    ],
+    "updated": [
+      {
+        "index": 0,
+        "openMs": 297,
+        "preparedMs": 762,
+        "maximum": 86.30000000074506,
+        "total": 377.30000000074506,
+        "calls": 111,
+        "rawWorst": 195.5
+      },
+      {
+        "index": 1,
+        "openMs": 217,
+        "preparedMs": 506,
+        "maximum": 110.29999999888241,
+        "total": 405.09999999962747,
+        "calls": 110,
+        "rawWorst": 205.2000000011176
+      },
+      {
+        "index": 0,
+        "openMs": 24,
+        "preparedMs": null,
+        "maximum": 78.79999999888241,
+        "total": 335.1999999973923,
+        "calls": 111,
+        "rawWorst": 160.90000000037253
+      }
+    ]
+  },
+  "framing": {
+    "fullIndex": {
+      "count": 201,
+      "maxFraction": 0,
+      "maxSize": 0.77,
+      "minCoverage": 0.77,
+      "exceptions": []
+    },
+    "oldSample": [
+      {
+        "bone": "Right femur",
+        "centre": [
+          -0.0049,
+          0.0105
+        ],
+        "size": [
+          0.152,
+          0.734
+        ],
+        "mesh": "VHM 男性标本 · 217,404 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Right sixth rib",
+        "centre": [
+          -0.0179,
+          -0.0645
+        ],
+        "size": [
+          0.266,
+          0.601
+        ],
+        "mesh": "VHM 男性标本 · 37,984 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Left scapula",
+        "centre": [
+          -0.0077,
+          0.027
+        ],
+        "size": [
+          0.504,
+          0.715
+        ],
+        "mesh": "VHM 男性标本 · 131,868 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Right radius",
+        "centre": [
+          -0.0033,
+          -0.0219
+        ],
+        "size": [
+          0.117,
+          0.769
+        ],
+        "mesh": "OpenSkeleton 男性标本 · 17,098 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Right femur",
+        "centre": [
+          -0.0109,
+          0.0105
+        ],
+        "size": [
+          0.34,
+          0.734
+        ],
+        "mesh": "VHM 男性标本 · 217,404 面",
+        "drawer": true,
+        "w": 390,
+        "h": 707
+      },
+      {
+        "bone": "Right sixth rib",
+        "centre": [
+          -0.0327,
+          -0.0213
+        ],
+        "size": [
+          0.336,
+          0.342
+        ],
+        "mesh": "VHM 男性标本 · 37,984 面",
+        "drawer": true,
+        "w": 390,
+        "h": 707
+      }
+    ],
+    "newSample": [
+      {
+        "bone": "Right femur",
+        "centre": [
+          0,
+          0
+        ],
+        "size": [
+          0.159,
+          0.77
+        ],
+        "mesh": "VHM 男性标本 · 217,404 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Right sixth rib",
+        "centre": [
+          0,
+          0
+        ],
+        "size": [
+          0.38,
+          0.77
+        ],
+        "mesh": "VHM 男性标本 · 37,984 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Left scapula",
+        "centre": [
+          0,
+          0
+        ],
+        "size": [
+          0.547,
+          0.77
+        ],
+        "mesh": "VHM 男性标本 · 131,868 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Right radius",
+        "centre": [
+          0,
+          0
+        ],
+        "size": [
+          0.117,
+          0.77
+        ],
+        "mesh": "OpenSkeleton 男性标本 · 17,098 面",
+        "drawer": false,
+        "w": 994,
+        "h": 806
+      },
+      {
+        "bone": "Right femur",
+        "centre": [
+          0,
+          0
+        ],
+        "size": [
+          0.356,
+          0.77
+        ],
+        "mesh": "VHM 男性标本 · 217,404 面",
+        "drawer": false,
+        "w": 390,
+        "h": 707
+      },
+      {
+        "bone": "Right sixth rib",
+        "centre": [
+          0,
+          0
+        ],
+        "size": [
+          0.77,
+          0.707
+        ],
+        "mesh": "VHM 男性标本 · 37,984 面",
+        "drawer": false,
+        "w": 390,
+        "h": 707
+      }
+    ],
+    "centreMetric": "projected outline midpoint minus canvas midpoint, as fractions of viewport width and height; rounded to 4 decimal places"
+  },
+  "overviewTriangles": {
+    "duringDrag": 222604,
+    "afterRelease": 1832914
+  }
+}

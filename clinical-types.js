@@ -57,7 +57,8 @@ export function typeSign(course,index){return signs[course?.id]?.[index];}
 export function showTypeSign(course,index,custom){
  const v=course?.variants[index];
  const d=typeSign(course,index)||(v&&course.variants.length>1?[v.name,v.observe,'']:null),box=document.getElementById('typeSign');
- box.hidden=!d||custom;if(box.hidden)return;
+ box.hidden=!d||custom;
+ if(box.hidden){const look=document.getElementById('signLook');look.textContent='';look.hidden=true;return;}
  document.getElementById('signName').textContent=d[0];
  document.getElementById('signFinding').textContent=d[1];
  document.getElementById('signLook').textContent=d[2];document.getElementById('signLook').hidden=!d[2];
