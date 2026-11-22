@@ -17,12 +17,4 @@ const examples={
  ],
  olecranon:[[ ['近侧骨块','肱三头肌经鹰嘴止点','向近侧牵移'] ]]
 };
-export function showTraction(course,index,custom){
- const box=document.getElementById('traction'),rows=document.getElementById('tractionRows');
- const data=examples[course?.id]?.[index];
- box.hidden=!data||custom;rows.replaceChildren();if(box.hidden)return;
- for(const [part,muscles,motion] of data){
-  const row=document.createElement('div'),label=document.createElement('strong'),action=document.createElement('span'),cause=document.createElement('small');
-  label.textContent=part;action.textContent=motion;cause.textContent=muscles;row.append(label,action,cause);rows.append(row);
- }
-}
+export function hasTraction(course,index){return Boolean(examples[course?.id]?.[index]);}

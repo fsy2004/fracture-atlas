@@ -42,7 +42,7 @@ let browser;
 try{
  browser=await chromium.launch({executablePath:process.env.ATLAS_CHROMIUM||undefined,args:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
  const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('#meshState[data-ready=true]').waitFor({timeout:90000});
+ await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('#viewport[data-ready=true]').waitFor({timeout:90000});
  const report=await page.evaluate(async scope=>{
   const [{courses},{regionalCourses},{supplementalCourses},{joints}]=await Promise.all(['courses','regional-courses','supplemental','joints'].map(n=>import('./'+n+'.js')));
   const registry=await (await fetch('./models/index.json')).json(),ids=new Map();

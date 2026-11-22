@@ -1,4 +1,4 @@
-import {showKnowledgeCard} from './knowledge-card.js';
+import {showExamPoints} from './exam-points.js';
 import {frameBone} from './bone-framing.js';
 import * as T from './vendor/three.module.js';
 import {ViewControls} from './view-controls.js';
@@ -22,8 +22,8 @@ import {digitalCut} from './digit-frame.js';
 import {specimenLibrary} from './specimen.js';
 import {lunateAdjuncts} from './lunate-adjuncts.js';
 import {carpalAlignment} from './carpal-alignment.js';
-import {showTypeSign,typeView} from './clinical-types.js';
-import {showTraction} from './traction.js';
+import {typeView} from './clinical-types.js';
+import {hasTraction} from './traction.js';
 import {createFrameTray} from './frame-tray.js';
 import {supplementalCourses} from './supplemental.js';
 import {regionalCourses} from './regional-courses.js';
@@ -86,7 +86,7 @@ function syncStudy(){
  const active=Boolean(inspection);
  const share=inspection?.surfaceShare;
  $('surfaceShare').hidden=!Number.isFinite(share);$('showRim').hidden=$('surfaceShare').hidden;
- if(Number.isFinite(share))$('surfaceShare').textContent='此标本着色的桡腕相对骨面中，约 '+Math.round(share*100)+'% 位于活动骨片。';
+ if(Number.isFinite(share))$('surfaceShare').textContent='着色的桡腕关节面中，约 '+Math.round(share*100)+'% 位于活动骨片。';
  $('studyTools').hidden=!active;
  $('viewSeam').hidden=!active||course?.id!=='tibia'||variant!==1||(shape&&shape!=='spiral');
  for(const b of document.querySelectorAll('[data-study]')){
@@ -98,7 +98,7 @@ function syncStudy(){
  $('inspectHelp').textContent=({cut:'单独旋转这块骨，沿赭色断面边缘追踪骨折线。',motion:'青线为参照，赭线随骨块运动；纵线看成角，横线看旋转，两点连线看平移。',facet:'青绿色标出关节面近似区域。转到关节端，观察断线是否穿入着色区。',overview:'旋转对照骨折处，拖动时间轴查看同一骨块的伤前与伤后位置。'})[studyMode];
  if(studyMode==='cut'&&animated.some(i=>i.face?.geometry.userData.canal)){
   const measured=animated.some(i=>i.face?.geometry.userData.canalMeasured);
-  $('inspectHelp').textContent=measured?'浅色为皮质断缘。内缘参考同一男性标本的断层密度变化重建，中央凹面和断面起伏为教学示意。':'浅色断缘为皮质，中央为估算的髓腔区。斜向观察断面起伏。';
+  $('inspectHelp').textContent=measured?'浅色为皮质断缘，内缘勾出髓腔边界。中央凹面及断面起伏为教学示意。':'浅色断缘为皮质，中央为估算的髓腔区。斜向观察断面起伏。';
  }
  if(studyMode==='facet'&&inspection?.patch)$('inspectHelp').textContent=inspection.crosses?(inspection.measurements()?'断线进入着色区。对照同源点的法向高差与面内错位。':'断线进入着色区，旋转模型可沿着色面追踪断缘。'):'在本模型的青绿色标示区未检出断线交点。转动比较断面与关节面的距离。';
  if(studyMode==='motion'&&course?.id==='radius')$('inspectHelp').textContent='比较伤前、伤后的掌背缘连线。侧面看背移与倾斜，正面看桡移。';
@@ -255,7 +255,7 @@ function pickBone(key){
  setPanel(false);
  studyMode='overview';
  quantities={};chosenFragment=null;holdUntil=0;
- $('clinicalNotes').open=false;$('viewOptions').open=false;
+ $('viewOptions').open=false;
  selected=key;course=matches(key)[0]||null;variant=-1;level=1;shape='';motions=[];playing=false;progress=0;
  updateURL();renderLesson(true);document.querySelector('.rail-scroll').scrollTop=0;
 }
@@ -365,13 +365,13 @@ function restoreView(params){
  }
  orientation();
 }
-function syncCard(){
+function syncExam(){
  const customized=Boolean(shape||motions.length||Object.keys(quantities).length);
- showKnowledgeCard(lessonOpen()?course:null,variant,customized);
+ showExamPoints(lessonOpen()?course:null,variant,level,customized);
 }
 function showControls(){
  const local=Boolean(selected),lesson=Boolean(course&&variant>=0);
- syncCard();
+ syncExam();
  document.body.classList.toggle('in-lesson',lesson);document.body.classList.toggle('in-index',!local);
 
  $('centreBone').hidden=!local;$('whole').hidden=!local;$('indexPanel').hidden=local;$('bonePanel').hidden=!local;$('lessonPanel').hidden=!lesson;
@@ -380,17 +380,18 @@ function showControls(){
  $('layers').hidden=!lesson;document.querySelector('[data-view=detail]').hidden=!lesson;
  $('labels').hidden=local;$('breadcrumb').textContent=local?regionFor(selected):'全身骨骼　/　索引';
  $('jointShortcuts').hidden=local;syncPlayer();
- $('mobilePanel').textContent=!local?'骨骼索引':lesson?'分型与观察':'选择分型';
- if(!local)return;
- showTypeSign(course,variant,Boolean(shape||motions.length||hasEdits(quantities)));
+ $('mobilePanel').textContent=!local?'骨骼索引':lesson?'分型与考点':'选择分型';
+ if(!local){$('extentRow').hidden=true;return;}
  $('signView').hidden=!typeView(course,variant);
- showTraction(course,variant,Boolean(shape||motions.length||hasEdits(quantities)));
- const region=specimen.region(selected);
- $('regionReference').hidden=!region||variant>=0;
- $('atlasPalate').hidden=!/palatine/i.test(selected)||variant>=0;
- $('atlasPalate').textContent=atlasPalate?'回到微 CT 定位':'查看完整图谱腭骨';
- $('regionKey').hidden=!/palatine/i.test(selected)||atlasPalate||regionReference;
- $('regionReference').textContent=regionReference?'返回独立骨面':'原始区域标本 · '+(region?.[1]||'');
+ const region=specimen.region(selected),palate=/palatine/i.test(selected);
+ $('extentRow').hidden=!region||lesson;
+ if(region&&!lesson){
+  const options=[new Option('局部骨面','bone'),new Option(region[1],'region')];
+  if(palate)options.push(new Option('完整腭骨外形','palate'));
+  $('anatomyExtent').replaceChildren(...options);
+  $('anatomyExtent').value=regionReference?'region':atlasPalate?'palate':'bone';
+ }
+ $('regionKey').hidden=!palate||atlasPalate||regionReference;
  $('boneTitle').textContent=boneName(selected);
  const list=matches(selected),has=list.length>0;
  $('boneNote').textContent=!has?'可旋转查看此骨的正常解剖，当前尚无对应损伤课程。':variant<0?'选择分型后自动播放。':'';
@@ -424,16 +425,6 @@ function showControls(){
  if(adjustable){
   $('plane').min=1;$('plane').max=89;
  }
- const readings={
-  humerus:'一组 65 例肱骨干骨折中，支具前的影像成角为 0°～60°，均值 25°。在“成角”下拖动，比较骨轴交角。这是该队列的观察范围。',
-  radius:'正常解剖参考：侧位观察掌倾角 10°～15°，正位观察尺倾角 20°～25°。伸直型注意远段背移、背倾和桡移；屈曲型注意远段掌移和桡移。',
-  neck:'股骨正位观察骨折线与股骨干轴垂线的夹角（Linton 角）。教材描述外展型常小于 30°、内收型常在 45° 左右。结合嵌插、内翻及骨折位置判断。',
-  calcaneus:'正常解剖参考：在跟骨侧位观察结节关节角，本教材取 30°～45°。骨折后可减小、消失或呈负角，同时观察跟骨高度及后关节面。',
-  elbow:'解剖参考：前臂完全旋后、肘伸直时，携带角为外翻 10°～15°。这是肱骨与前臂长轴间的角度。另在侧位观察髁上骨折远段向前或向后移。',
-  'elbow-dislocation':'在侧位观察尺桡骨近端相对肱骨远端的位置。后方骨性标志包括鹰嘴及内、外上髁；伸肘时三点成线，屈肘 90° 时构成肘后三角。'
- };
- $('readingRef').hidden=!readings[course.id];
- $('readingText').textContent=readings[course.id]||'';
  if(!adjustable&&quantities.plane!==undefined){
   delete quantities.plane;
  }
@@ -556,8 +547,8 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
   showControls();if(lesson)setLessonTitle();else{$('heading').textContent=boneName(selected);$('crumb').textContent=regionFor(selected)+' · 正常解剖';$('description').textContent='';}
   $('centreBone').disabled=$('quickPlay').disabled=$('quickEdit').disabled=true;$('viewOptions').inert=true;
   $('captureFrame').disabled=true;$('lessonPanel').inert=true;document.querySelector('.player').inert=true;
-  $('meshState').textContent=fetching?'载入精细标本':'准备分型';$('meshState').dataset.specimen='false';
-  $('status').textContent=fetching?'正在载入精细标本…':'正在准备模型…';$('status').hidden=false;
+  host.dataset.specimen='false';
+  $('status').textContent=fetching?'正在载入骨面…':'正在准备模型…';$('status').hidden=false;
   // Paint the selection before the CPU-heavy cut. Rapid navigation only builds the last request.
   const paint=new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
   Promise.all([paint,fetching?specimen.load(needed):null]).then(()=>{
@@ -594,14 +585,7 @@ function finishLesson(smooth,keepView,viewParams,needed){
  $('centreBone').disabled=$('quickPlay').disabled=$('quickEdit').disabled=false;$('viewOptions').inert=false;
  $('captureFrame').disabled=false;$('lessonPanel').inert=false;document.querySelector('.player').inert=false;
  specimen.trim(needed,course&&variant>=0?course:null);$('status').hidden=true;
- const meshState=$('meshState');
- meshState.textContent=useSpecimen?specimen.label(needed):baseDetail?'成年男性全身图谱':'初始预览';
- if(useSpecimen){
-  const count=document.createElement('span');count.className='mesh-detail';
-  count.textContent='· '+specimen.faces(needed).toLocaleString()+' 面'+(needed.length>1?'（含参照）':'');
-  meshState.append(count);
- }
- $('meshState').dataset.specimen=String(useSpecimen);$('meshState').dataset.group=specimen.group(needed)||'';
+ host.dataset.specimen=String(useSpecimen);
  selectedMesh=null;
  if(!selected||!course||variant<0){
   if(!selected){
@@ -614,7 +598,7 @@ function finishLesson(smooth,keepView,viewParams,needed){
    if(region)group.add(mesh);else if(useSpecimen&&mesh.geometry.userData.oralTrace)addBone('Posterior hard palate region',palateSurround);const box=mesh.geometry.boundingBox;
    selectedMesh=mesh;box.getCenter(focus);span=1.17*Math.max(...box.getSize(new T.Vector3()).toArray());
    $('heading').textContent=region?region[1]:boneName(selected)+(mesh.geometry.userData.oralTrace?' · 估计区':'');$('crumb').textContent=regionFor(selected)+' · 正常解剖';
-   $('description').textContent=atlasPalate?'独立骨形态参照':region?'同一来源的连续区域表面':'';
+   $('description').textContent=atlasPalate?'完整骨面':region?'局部与周围骨骼的关系':'';
    if(region&&/palatine/.test(selected))$('description').textContent='可旋转查看硬腭与相邻骨壁的实测区域';
   }
   if(!keepView||automaticFit&&selected)aim('home',false);
@@ -625,10 +609,6 @@ function finishLesson(smooth,keepView,viewParams,needed){
  const mirror=/\bleft\b/i.test(selected);
  group.scale.x=mirror?-1:1;
  setLessonTitle();
- if(course.reference)$('crumb').textContent+=' · '+(course.reference.startsWith('教材')?'教材同部位示例':'专业资料补充示例');
- $('cause').textContent=shape?(course.name+' · '+v.name+'，本例采用'+shapeNames[shape]+'骨折线。'):v.cause;
- $('observe').textContent=motions.length?'组合观察：'+motions.map(k=>motionNames[k]).join('、')+'。可用时间轴对照正常位置与骨折后状态。':shape?'旋转模型，观察所选断面与骨干长轴的关系。':v.observe;
- if(useSpecimen&&course.id==='scaphoid')$('observe').textContent='从舟月相对面沿长轴追至远端大小多角骨。腰部例观察远块向掌侧屈转，结节例观察掌侧的小骨片。';
  const ctx=useSpecimen?specimen.context(course,v):v.context||course.context||[], shared=course.levels?atLevel(lessonMesh('Right tibia'),1,levels[level][1])[1]:null;
  let spiralDirection=null,referenceWidth=0,sharedPivot=null,frame=null,followMotion=v.cuts[0].minus;
  if(course.kind==='joint'){
@@ -720,7 +700,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    const t=g.userData.oralTrace,flip=a=>new T.Vector3(a[0]*(mirror?-1:1),a[1],a[2]);addBone(s.bone,bone);
    const stroke=new T.Line(new T.BufferGeometry().setFromPoints(t.points_m.map(flip)),line);
    stroke.userData.dispose=true;annotations.push(stroke);group.add(stroke);anchors.push(flip(t.focus_m));bounds.union(g.boundingBox);
-   $('observe').textContent='沿水平板口腔面的旁正中线观察局部走向。线只标在有扫描骨面支持的区域，位置为教学示例。';continue;
+   continue;
   }
   if(s.surface){
    const mark=addSurfaceLesson(g,s,group,{bone,line,cap},annotations,wedges);
@@ -962,7 +942,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
  }
  if(mirror){focus.x*=-1;fractureFocus.x*=-1;}
  applyMotion=buildKinematics(animated,wedges,motions,frame,referenceWidth,course.kind==='joint',quantities,()=>{
-  fragmentRig?.sample();playing=false;setProgress(1);syncPlayer();syncCard();updateURL();
+  fragmentRig?.sample();playing=false;setProgress(1);syncPlayer();syncExam();updateURL();
  },{id:course.id,variant,legacyMotion,selectedShape:shape,wedge:shape==='wedgeFragment',palmar:course.id==='radius'&&variant===0?wristLandmarks(lessonMesh('Right radius')).palmar:null,ankleSign:anklePose?.sign,mirror});
  const primary=v.cuts.find(s=>s.bone===teachingBone(selected))||v.cuts[0];
  function observe(item){
@@ -971,7 +951,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   inspection=makeObservation({course,variant,source,geometry:lessonMesh(source.bone),anchor:anchors[i]||anchors[0],parts:animated,group,context:nearBones,joint:course.kind==='joint',frame,tracked:item,lookupGeometry:lessonMesh});
  }
  fragmentRig=fragmentEditor({items:animated,values:quantities,primary:primary.bone,mirror,world:group,basePose:applyMotion,preferred:chosenFragment,
-  onEdit:()=>{playing=false;holdUntil=0;setProgress(1);syncCard();updateURL();},
+  onEdit:()=>{playing=false;holdUntil=0;setProgress(1);syncExam();updateURL();},
   onSelect:g=>{chosenFragment=g.id;observe(g.members.find(i=>i.name===primary.bone)||g.members[0]);syncStudy();setProgress(progress);updateURL();}
  });
  const active=fragmentRig?.active;
@@ -1087,7 +1067,7 @@ function setProgress(value){
  }
  if(course?.kind!=='joint'&&!fragmentRig&&!wedges.length&&progress>.35)$('phase').textContent='断线观察 · 保持对位';
  if(timing==='fracture'){
-  const pull=!shape&&!motions.length&&!$('traction').hidden;
+  const pull=!shape&&!motions.length&&!hasEdits(quantities)&&hasTraction(course,variant);
   $('phase').textContent=progress<.12?'伤前对位':progress<.19?'断缘显露':progress<.40?'骨块初次错开':progress<.90?(pull?'牵拉移位':'断端继续移位'):'终末姿态';
  }
  if(course?.variants[variant]?.depression)$('phase').textContent=progress<.16?'平台对位':progress<.86?'关节面压低':'终末形态';
@@ -1163,7 +1143,7 @@ async function start(){
   const preview=materialize(m,bin);overviewMeshes.set(key,preview);alignPreview(preview,framesById.get(m.mesh));boneData.set(key,preview);meshByKey.set(key,m.mesh);keyByMesh.set(m.mesh,key);
  }
  upgradeDetail().catch(err=>{
-  $('meshState').textContent='基础网格 · 精细表面载入失败';console.error(err);
+  $('status').textContent='精细骨面载入失败，已显示预览。';$('status').hidden=false;console.error(err);
  });
  async function upgradeDetail(){
   const u='models/detail.bin.gz',res=await fetch(assetURL(u));
@@ -1173,9 +1153,9 @@ async function start(){
   if(surfaces.size!==boneData.size)throw Error('精细模型清单不完整');
   for(const g of reflectedMeshes.values())g.dispose();reflectedMeshes.clear();
   for(const [mesh,g] of surfaces){const key=keyByMesh.get(mesh);boneData.set(key,g);}
-  baseDetail=true;$('meshState').dataset.ready='true';if(!useSpecimen&&!loadingSpecimen)renderLesson(false,true);
+  baseDetail=true;host.dataset.ready='true';if(!useSpecimen&&!loadingSpecimen)renderLesson(false,true);
  }
- buildIndex(boneData.keys(),pickBone,key=>matches(key).length,specimen.isAddition);ready=true;route();$('status').hidden=!loadingSpecimen;
+ buildIndex(boneData.keys(),pickBone,key=>matches(key).length);ready=true;route();$('status').hidden=!loadingSpecimen;
  const ray=new T.Raycaster(),canvas=renderer.domElement;
  const fullDpr=Math.min(devicePixelRatio,2);
  function dragResolution(moving){const next=moving?Math.min(1.25,fullDpr):fullDpr;if(renderer.getPixelRatio()!==next){renderer.setPixelRatio(next);dirty=true;}}
@@ -1250,7 +1230,6 @@ $('speed').onclick=e=>{speed=speed===1?.5:speed===.5?.25:speed===.25?1.5:1;e.tar
 for(const id of ['guides','neighbors','ghost','trace'])$(id).onchange=()=>setProgress(progress);
 for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>aim(b.dataset.view);
 $('whole').onclick=()=>pickBone(null);
-$('atlasPalate').onclick=()=>{regionReference=false;atlasPalate=!atlasPalate;updateURL();renderLesson(false);};
 $('centreBone').onclick=()=>{
  if(!selected||loadingSpecimen)return;playing=false;
  const dir=camera.position.clone().sub(controls.target).normalize();
@@ -1260,7 +1239,9 @@ $('centreBone').onclick=()=>{
  if(!shown.length)group.traverse(o=>{if(o.isMesh&&o.visible&&o.userData.bone===key&&o.material!==ghostMaterial)shown.push(o);});
  if(shown.length)centreMesh(dir,shown);else aim('home',false);
 };
-$('regionReference').onclick=()=>{atlasPalate=false;regionReference=!regionReference;updateURL();renderLesson(false);};
+$('anatomyExtent').onchange=e=>{
+ regionReference=e.target.value==='region';atlasPalate=e.target.value==='palate';updateURL();renderLesson(false);
+};
 $('sites').onchange=e=>{legacyMotion=false;regionReference=false;
  $('compareTypes').checked=false;
  quantities={};course=courses.find(c=>c.id===e.target.value);variant=-1;playing=false;progress=0;shape='';motions=[];

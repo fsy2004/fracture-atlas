@@ -29,13 +29,13 @@ const toeJoint = lowerJoint('跖趾关节及趾间关节脱位');
 
 const joints = {
   'shoulder-dislocation': [
-    text(shoulder, '肱骨头向前离开肩胛盂。按它停留的位置，教材再分喙突下、盂下等类型。', '从侧面认清肩胛盂前缘，再看肱骨头前移时伴随的下移。'),
+    text(shoulder, '肱骨头向前离开肩胛盂。按肱骨头最后停留的位置可分喙突下、盂下等类型。', '从侧面认清肩胛盂前缘，再看肱骨头前移时伴随的下移。'),
     text(shoulder, '后脱位时，肱骨头位于肩胛盂后方。正面看两者仍可能重叠。', '把盂面转到接近侧位，比较肱骨头中心与盂后缘的位置。'),
   ],
   'elbow-dislocation': [
     text(elbow, '后脱位按尺桡骨近端命名，尺骨鹰嘴与桡骨头一起移到肱骨远端后方。', '从背侧看，鹰嘴尖与肱骨内、外上髁原有的三点关系改变。'),
     text(elbow, '侧方脱位时，尺桡骨近端向肱骨远端的一侧移出。', '从正面同时跟踪滑车和尺骨滑车切迹，本例向外侧错开。'),
-    text(elbow, '教材描述肘尖受力后鹰嘴先骨折，继而尺骨近端与桡骨头移到肱骨远端前方。', '侧面最易辨认前移。本例显示前臂骨的整体运动，鹰嘴骨折片未单独模拟。'),
+    text(elbow, '肘尖受力时可伴鹰嘴骨折，尺骨近端与桡骨头移到肱骨远端前方。', '侧面最易辨认前移。本例显示前臂骨的整体运动，鹰嘴骨折片未单独模拟。'),
   ],
   'hip-dislocation': [
     text(hip, '股骨头向臼后脱出。典型伤肢呈屈曲、内收、内旋，可见短缩。', '从侧面定位臼后缘，再转向正面看股骨干的内收和旋转。'),
@@ -45,8 +45,8 @@ const joints = {
     text(chapter.tmj, '两侧髁突向前越过颞骨关节结节，下颌整体前突、下垂。', '侧面看髁突离开下颌窝，正面看下颌中线。单侧前脱位时颏部常偏向健侧。'),
   ],
   'lunate-dislocation': [
-    text(wrist, '图7-13③示月骨约转过直角，同时掌移，这是教材所列的一个形态。', '从桡侧看月骨的凹面转向掌侧，头状骨与月骨原有的嵌合关系消失。'),
-    extra(wrist, '教材所示月骨掌侧脱位可用凹面转向和桡月失去对合来识别。', '为月骨周围背侧脱位。月骨仍对着桡骨，头状骨随远排腕骨向背侧移出。'),
+    text(wrist, '月骨可向掌侧翻转并移位，远侧凹面随之转向掌侧。', '从桡侧看月骨的凹面转向掌侧，头状骨与月骨原有的嵌合关系消失。'),
+    extra(wrist, '月骨掌侧脱位可用凹面转向和桡月失去对合来识别。', '为月骨周围背侧脱位。月骨仍对着桡骨，头状骨随远排腕骨向背侧移出。'),
   ],
   'mcp-dislocation': [
     text(fingerJoint, '掌指关节过伸时容易发生背侧脱位，拇指较常见。', '侧看拇指近节基底越过第一掌骨头，掌骨头相对突出于掌侧。'),
@@ -76,7 +76,7 @@ const joints = {
 };
 
 const displacement = '描述骨折时分别观察断线走向、断端错位和两段轴线的夹角。';
-const fissure = '教材以颅骨为裂缝骨折的常见部位，骨面可仅见细线样间隙。';
+const fissure = '颅骨发生裂缝骨折时，骨面可仅见细线样间隙。';
 const smallBones = {
   triquetrum: '取腕尺背侧的三角骨，观察骨体背缘的小骨片。',
   lunate: '沿月骨体的断面看两块骨片，再比较面向桡骨和头状骨的两个关节面。',
@@ -97,7 +97,7 @@ const skullLandmarks = {
   ethmoid: '从眼眶内侧定位筛骨眶板，转到侧面看薄壁上裂线的位置。',
   sphenoid: '先找蝶骨体，再向外追到大翼，确定局部裂线位于哪一侧骨壁。',
   maxilla: '从面部前方找上颌骨前壁，追踪裂线与眶下缘的相对位置。',
-  palatine: '从硬腭下方看腭骨水平板，沿裂线分辨板面与相邻骨缝。',
+  palatine: '从硬腭下方定位腭骨水平板。裂线在板面内，部分骨缝分界为估计。',
   vomer: '从侧方看构成骨性鼻中隔后下部的犁骨，沿薄板追踪裂线。',
 };
 const depression = {
@@ -112,8 +112,8 @@ const special = {
     extra(chapter.upperNeck, '读上颈椎时可同时比较寰椎两侧侧块及前弓与齿突的关系。', '从后方沿一侧侧块追向后弓，在环的后半部找裂线。'),
   ],
   axis: [
-    extra(chapter.upperNeck, '教材读片要点包括检查齿突骨折线及两侧寰椎侧块是否对称。', '裂线在齿突尖端，尖端的小骨片与下方完整的齿突主体分开。'),
-    extra(chapter.upperNeck, '教材读片要点包括检查齿突骨折线及两侧寰椎侧块是否对称。', '断面在齿突与枢椎椎体交界，整个齿突位于断面上方。'),
+    extra(chapter.upperNeck, '上颈椎读片应检查齿突骨折线及两侧寰椎侧块是否对称。', '裂线在齿突尖端，尖端的小骨片与下方完整的齿突主体分开。'),
+    extra(chapter.upperNeck, '上颈椎读片应检查齿突骨折线及两侧寰椎侧块是否对称。', '断面在齿突与枢椎椎体交界，整个齿突位于断面上方。'),
   ],
   'sternal-body': [extra(chapter.general, displacement, '侧看胸骨体前、后缘，断端前后错开会形成骨皮质台阶。')],
   xiphoid: [extra(chapter.general, displacement, '从胸骨体向下找到剑突，定位剑突近端断缘并与体剑交界比较。')],
@@ -121,9 +121,9 @@ const special = {
     extra(chapter.general, displacement, '断线横跨胸骨柄，侧视可见上下两段前缘的阶差。'),
     extra(chapter.general, displacement, '沿胸骨柄斜断线从一侧追到另一侧，对照两端与锁骨切迹的距离。'),
   ],
-  sacrum: [extra(chapter.pelvis, '读骨盆损伤时，教材要求核对骶骨断线、骶孔及垂直移位。', '从前面定位骶孔，纵行断面位于孔外的骶翼。')],
-  'iliac-wing': [extra(chapter.pelvis, '教材将髂骨翼骨折和骨盆旋转移位列为骨盆入口位观察内容。', '从髂嵴向下追踪髂翼上部斜断线，再看其与下方髋臼的距离。')],
-  scapula: [extra(chapter.general, '肩胛骨是教材举出的裂缝骨折常见部位之一，读图时还须区分有无移位。', '肩胛骨体出现分开的断面。转向背侧，从肩胛冈向下追踪薄板两侧。')],
+  sacrum: [extra(chapter.pelvis, '读骨盆损伤时应核对骶骨断线、骶孔及垂直移位。', '从前面定位骶孔，纵行断面位于孔外的骶翼。')],
+  'iliac-wing': [extra(chapter.pelvis, '骨盆入口位可用于观察骨盆环的旋转及前后移位。', '从髂嵴向下追踪髂翼上部斜断线，再看其与下方髋臼的距离。')],
+  scapula: [extra(chapter.general, '肩胛骨骨折需辨认受累部位，注意断线有无延至肩胛盂关节面。', '肩胛骨体出现分开的断面。转向背侧，从肩胛冈向下追踪薄板两侧。')],
   nasal: [
     extra(chapter.general, fissure, '以鼻背中线为参照，比较两侧轮廓，再找局部裂线。'),
     extra(chapter.general, displacement, '从正面看鼻背轮廓的不对称，转向侧面看鼻骨骨片的前后位置。'),
@@ -131,7 +131,7 @@ const special = {
   zygoma: [extra(chapter.general, displacement, '从头顶向下看颧弓的曲线，颧骨一侧的骨片向内移。')],
   mandible: [
     extra(chapter.general, displacement, '沿下颌体下缘追踪断面，在侧面比较高低，从前面比较左右错位。'),
-    extra(chapter.tmj, '教材指出，外伤后下颌活动受限时应鉴别关节脱位与髁突骨折。', '髁头与下颌窝仍对合，断面位于其下方的右髁突颈。'),
+    extra(chapter.tmj, '外伤后下颌活动受限时应鉴别关节脱位与髁突骨折。', '髁头与下颌窝仍对合，断面位于其下方的右髁突颈。'),
   ],
   hyoid: [extra(chapter.general, displacement, '从头端认出舌骨体和两侧大角，比较右侧大角断缘与左侧完整轮廓。')],
 };
@@ -157,9 +157,9 @@ function digitNote(course, key, index) {
 function regionalFracture(course, key, index) {
   if (key.startsWith('rib-')) {
     const level = Number(key.slice(4));
-    const landmark = level >= 11 ? '这根浮肋的前端游离，可沿肋弓向后找断口。' : '顺着相邻肋骨的弧度，找到伤肋偏离胸壁轮廓之处。';
+    const landmark = level >= 11 ? '第十一、十二肋为浮肋，前端游离，可沿受伤肋骨向后定位断口。' : '顺着相邻肋骨的弧度，找到伤肋偏离胸壁轮廓之处。';
     return index === 0 ? text(chapter.ribs, '局部直接受力时，断端可朝胸腔内移动。', landmark) :
-      text(chapter.ribs, '胸廓受到前后挤压时，肋骨可向外弯曲，在弧度最大处断裂。', '从头端沿胸壁观察，比较' + course.name + '断端与相邻肋弓的外凸程度。');
+      text(chapter.ribs, '胸廓受到前后挤压时，肋骨可向外弯曲，在弧度最大处断裂。', '从头端沿胸壁观察，比较' + course.name + '断端与相邻肋骨弧线的外凸程度。');
   }
   if (key.startsWith('body-')) {
     return index === 0 ? text(chapter.spine, '屈曲压缩可使椎体前半部高度下降，从侧面看呈楔形。', '对照相邻终板，比较' + course.name + '前缘和后缘保留的高度。') :
@@ -172,7 +172,7 @@ function regionalFracture(course, key, index) {
   if (key.startsWith('foot-')) {
     if (index === 0) return text(chapter.foot, '相邻跖骨互相支撑，跖骨干骨折的移位可以很轻。', '沿' + course.name + '从近端向趾端找骨干断线，与邻近跖骨的走行比较。');
     if (key === 'foot-fifth') return text(chapter.foot, '足内翻时腓骨短肌等牵拉可撕下第五跖骨基底的小骨片，移位常较轻。', '沿足外缘由跖骨干向近侧追踪，确定骨片位于基底，并辨认邻近骰骨。');
-    return extra(chapter.foot, '教材按受累部位区分跖骨基底、骨干和颈部。', '沿第一跖骨追到内侧楔骨，比较近端断面与第一跗跖关节面的距离。');
+    return extra(chapter.foot, '跖骨骨折可依受累部位分为基底、骨干和颈部骨折。', '沿第一跖骨追到内侧楔骨，比较近端断面与第一跗跖关节面的距离。');
   }
   if (Object.hasOwn(skullLandmarks, key)) return index === 0 ? extra(chapter.general, fissure, skullLandmarks[key]) :
     extra(chapter.general, '裂线是骨面的连续性改变。观察局部凹陷时，还需比较骨面高低。', depression[key]);

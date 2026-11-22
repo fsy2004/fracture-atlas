@@ -14,17 +14,18 @@ try{
   return page;
  }
  async function ready(page){
-  await page.waitForFunction(()=>document.querySelector('#meshState').dataset.ready==='true'&&document.querySelector('#status').hidden);
+  await page.waitForFunction(()=>document.querySelector('#viewport').dataset.ready==='true'&&document.querySelector('#status').hidden);
  }
- async function checkCard(page,expected){
-  const card=page.locator('#knowledgeCard');
-  assert.ok(await card.isVisible());
-  assert.match(await page.locator('#knowledgeCase').textContent(),expected);
-  assert.equal(await card.locator('li').count(),2);
-  const below=await card.evaluate(el=>el.getBoundingClientRect().top>=document.querySelector('#viewport').getBoundingClientRect().bottom-1);
-  assert.ok(below,'card and model occupy separate areas');
-  await card.locator('summary').click();assert.equal(await card.locator('li').first().isVisible(),false);
-  await card.locator('summary').click();
+ async function checkExam(page,expected){
+  const panel=page.locator('aside #examPoints');
+  assert.ok(await panel.isVisible());
+  assert.equal(await panel.locator('h3').innerText(),'考点');
+  assert.match(await panel.locator('#examCase').textContent(),expected);
+  const lines=await panel.locator('li').allTextContents();
+  assert.ok(lines.length>=2&&lines.length<=3);
+  assert.ok(lines.every(line=>line.trim()&&!/教材|参考资料/.test(line)));
+  assert.equal(await page.locator('.stage #examPoints,#clinicalNotes,#knowledgeCard,#preciseOnly,#meshState').count(),0);
+  assert.doesNotMatch(await page.locator('main').innerText(),/VHM|补充标本|原始区域标本|[0-9,]+ 面[（\s]|分型鉴别与牵拉|教材对照|教材要点/);
  }
  async function cameraState(page){
   await page.locator('#copyLink').click();
@@ -33,8 +34,8 @@ try{
  }
  const page=await viewport({viewport:{width:1360,height:850}});
  await page.goto(base+'#tibia/1/2?mv=2&move=shorten,rotate&at=1000');
- await page.waitForFunction(()=>document.querySelector('#meshState').dataset.ready==='true'&&document.querySelector('#status').hidden);
- await checkCard(page,/胫/);
+ await page.waitForFunction(()=>document.querySelector('#viewport').dataset.ready==='true'&&document.querySelector('#status').hidden);
+ await checkExam(page,/胫/);
  await page.locator('#end').click();
  assert.equal(await page.locator('#time').inputValue(),'1000');
  assert.equal(await page.locator('input[type=range]:visible').count(),1);
@@ -49,9 +50,17 @@ try{
  assert.ok(Number(await page.locator('#time').inputValue())>0);
  await page.locator('#captureFrame').click();await page.locator('#frameStrip img').first().waitFor();
  await page.goto(base+'#skeleton');await ready(page);
- assert.equal(await page.locator('#knowledgeCard').isVisible(),false);
+ assert.equal(await page.locator('#examPoints').isVisible(),false);
+ assert.equal(await page.locator('#catalog [data-bone]').count(),201);
+ await page.locator('#search').fill('腭骨');await page.locator('[data-bone="Left palatine bone"]').click();await ready(page);
+ assert.ok(await page.locator('#viewport').getAttribute('data-specimen')==='true');
+ await page.locator('#viewOptions > summary').click();await page.locator('#anatomyExtent').selectOption('region');await ready(page);
+ assert.match(await page.locator('#heading').innerText(),/硬腭/);
+ await page.locator('#anatomyExtent').selectOption('bone');await ready(page);
+ assert.match(await page.locator('#heading').innerText(),/左腭骨/);
+ await page.locator('#whole').click();await ready(page);await page.locator('#search').fill('');
  await page.locator('[data-bone="Right femur"]').click();await ready(page);
- assert.equal(await page.locator('#knowledgeCard').isVisible(),false);
+ assert.equal(await page.locator('#examPoints').isVisible(),false);
  // Copying an inverted anatomy view must round-trip through an ordinary shared URL.
  await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{value:{writeText:async()=>{}},configurable:true}));
  const area=await page.locator('#viewport').boundingBox(),x=area.x+area.width*.55,y=area.y+area.height*.2;
@@ -64,15 +73,21 @@ try{
  const [restored,restoredUp]=await cameraState(page);
  for(const [observed,expected] of [[restored,pose],[restoredUp,up]])
   assert.ok(observed.every((v,i)=>Math.abs(v-expected[i])<.000005),'shared camera and up vector are restored');
- await page.goto(base+'#elbow-dislocation/0/1?at=1000');await ready(page);await checkCard(page,/肘/);
+ await page.goto(base+'#elbow-dislocation/0/1?at=1000');await ready(page);await checkExam(page,/肘/);
  const mobile=await viewport({isMobile:true,hasTouch:true,deviceScaleFactor:2,viewport:{width:390,height:760}});
- await mobile.goto(base);await mobile.locator('#meshState[data-ready=true]').waitFor();
+ await mobile.goto(base);await mobile.locator('#viewport[data-ready=true]').waitFor();
  await mobile.locator('#mobilePanel').tap();await mobile.locator('[data-bone="Right radius"]').tap();
- await mobile.waitForFunction(()=>document.querySelector('#meshState').dataset.specimen==='true'&&document.querySelector('#status').hidden);
+ await mobile.waitForFunction(()=>document.querySelector('#viewport').dataset.specimen==='true'&&document.querySelector('#status').hidden);
  assert.equal(await mobile.locator('aside').isVisible(),false);
  await mobile.locator('#centreBone').tap();await mobile.locator('#mobilePanel').tap();await mobile.locator('#variants button').first().tap();
  await mobile.waitForFunction(()=>document.querySelector('#status').hidden&&!document.querySelector('.player').inert);
- await checkCard(mobile,/桡骨/);
+ await mobile.locator('#mobilePanel').tap();await checkExam(mobile,/桡骨/);
+ assert.match(await mobile.locator('#examList').innerText(),/餐叉/);
+ await mobile.locator('#variants button').nth(1).tap();await ready(mobile);
+ await mobile.locator('#mobilePanel').tap();await checkExam(mobile,/屈曲型/);
+ assert.match(await mobile.locator('#examList').innerText(),/Smith/);
+ assert.doesNotMatch(await mobile.locator('#examList').innerText(),/餐叉/);
+ await mobile.locator('#foldPanel').tap();
  await mobile.locator('#quickEdit').tap();assert.ok(await mobile.locator('#advanced').evaluate(el=>el.open));
- assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, cards, reference readouts and frame capture passed.');
+ assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}
