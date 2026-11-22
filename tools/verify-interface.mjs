@@ -23,7 +23,7 @@ try{
  assert.match(await page.locator('#liveValues').textContent(),/缩短/);
  await page.locator('#advanced > summary').click();
  assert.ok(await page.locator('#quantRows input:visible').count()>0);
- await page.locator('#fragmentBox > summary').click();assert.equal(await page.locator('[data-fine]:visible').count(),6);
+ await page.locator('#fragmentBox > summary').click();await page.locator('[data-fine]').first().waitFor();assert.equal(await page.locator('[data-fine]:visible').count(),6);
  await page.locator('#advanced > summary').click();await page.locator('#normal').click();
  assert.equal(await page.locator('#time').inputValue(),'0');
  await page.locator('#viewOptions > summary').click();await page.locator('#nextFrame').click();

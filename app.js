@@ -1249,6 +1249,7 @@ $('opacity').oninput=()=>{
  adjacent.needsUpdate=true;$('opacityValue').textContent=Math.round(opacity*100)+'%';dirty=true;
 };
 $('mechanicsBox').ontoggle=()=>{if(lessonOpen())setProgress(progress);};
+$('fragmentBox').querySelector('summary').onclick=()=>{if(!$('fragmentBox').open)fragmentRig?.prepareEditor();};
 $('fragmentBox').ontoggle=()=>{if($('fragmentBox').open)fragmentRig?.prepareEditor();if(lessonOpen())setProgress(progress);};
 $('repeat').onclick=()=>{repeating=!repeating;holdUntil=0;$('repeat').setAttribute('aria-pressed',String(repeating));updateURL(true);};
 $('viewSeam').onclick=()=>{playing=false;setProgress(progress);aim('rearDetail',true);setPanel(false);};
