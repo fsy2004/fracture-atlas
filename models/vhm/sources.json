@@ -1,0 +1,793 @@
+[
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/CALCANEUS_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/CALCANEUS_LEFT.stl",
+    "size": 1881084,
+    "SHA256": "d5c031f6f1f0fec47ccaaa1a07cfbb2b5167178eedf5d03a9e28ab58182f1df2",
+    "triangles": 37620
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/CUBOID_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/CUBOID_LEFT.stl",
+    "size": 550084,
+    "SHA256": "4b21d73057241923177f162e74fa899f2183878d8e5eacd674dae03a4e770f0c",
+    "triangles": 11000
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/INTERMEDIATE_CUNEIFORM_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/INTERMEDIATE_CUNEIFORM_LEFT.stl",
+    "size": 243284,
+    "SHA256": "c4c0a173439179edf31f303177554c5b0f0069b9f9ffbb3d88cbe0e715d96b87",
+    "triangles": 4864
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/LATERAL_CUNEIFORM_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/LATERAL_CUNEIFORM_LEFT.stl",
+    "size": 333484,
+    "SHA256": "c8439fc735d77c4b050914f2567a17c2efc7eedaf02673d7070d77f83fbac0be",
+    "triangles": 6668
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/MEDIAL_CUNEIFORM_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/MEDIAL_CUNEIFORM_LEFT.stl",
+    "size": 465484,
+    "SHA256": "e4ec5526df626569ae8b82b9bcec2c8d84b310a5ae37219e87a5ef6d71ddf948",
+    "triangles": 9308
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_1_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_1_LEFT.stl",
+    "size": 793884,
+    "SHA256": "4810097881282d5d194d256df2a8140c764ed65fad0a9f4047ee5393d607974c",
+    "triangles": 15876
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_2_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_2_LEFT.stl",
+    "size": 573484,
+    "SHA256": "d6d603a3321d2fcaba9a2a8fb9f09816f0811b060f21a055e5e3367a45e16ace",
+    "triangles": 11468
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_3_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_3_LEFT.stl",
+    "size": 535684,
+    "SHA256": "3dfe5f99c8703b3edc24b26ece4df322d2194ac612a9a97f2624af450988e677",
+    "triangles": 10712
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_4_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_4_LEFT.stl",
+    "size": 521884,
+    "SHA256": "c17afa641d8c3d5aa2a7cbcba0ce0d12862fb1a75340c8ae8db4d9015ca28961",
+    "triangles": 10436
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_5_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_5_LEFT.stl",
+    "size": 531884,
+    "SHA256": "5683ce2e75d235735d5dd822afc57ab31d2fc452e84c9d74827384b0620e945c",
+    "triangles": 10636
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/NAVICULAR_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/NAVICULAR_LEFT.stl",
+    "size": 526484,
+    "SHA256": "10a85c7823c37fc81a715d0a2194185108f649897ed735fde6c81c4348e0193d",
+    "triangles": 10528
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/TALUS_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/TALUS_LEFT.stl",
+    "size": 1238684,
+    "SHA256": "14a82c161a41c912329cc4af77f98b24ec5f29e0bc63ac314acaa51a9cc4b48f",
+    "triangles": 24772
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/CALCANEUS_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/CALCANEUS_RIGHT.stl",
+    "size": 1877684,
+    "SHA256": "c49cd1a34d877bee9c0a70fe50e3c396bb3e019d78fd001fce13d4823588afb1",
+    "triangles": 37552
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/CUBOID_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/CUBOID_RIGHT.stl",
+    "size": 542484,
+    "SHA256": "02130047b92b5d404c0fb33acc8fbb9dca4414c6996829d0727f239f2e712852",
+    "triangles": 10848
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/INTERMEDIATE_CUNEIFORM_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/INTERMEDIATE_CUNEIFORM_RIGHT.stl",
+    "size": 232084,
+    "SHA256": "872e04754d514d3366cbaab437fd2641c941fdd882278d01334ead7aa225c730",
+    "triangles": 4640
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/LATERAL_CUNEIFORM_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/LATERAL_CUNEIFORM_RIGHT.stl",
+    "size": 324684,
+    "SHA256": "97b2bbadb60b0424ced950babdb67454d2538683dfe796e3dc960d6114251a12",
+    "triangles": 6492
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/MEDIAL_CUNEIFORM_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/MEDIAL_CUNEIFORM_RIGHT.stl",
+    "size": 464284,
+    "SHA256": "a35f3ef514c473e17c41c9541f5ecf7c426b6a8b9c6d7e51aecdbaf828deb658",
+    "triangles": 9284
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_1_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_1_RIGHT.stl",
+    "size": 793684,
+    "SHA256": "863a2284c372af701e6f7cafa5186f300727e5528620c1d488138e578ba54d00",
+    "triangles": 15872
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_2_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_2_RIGHT.stl",
+    "size": 530284,
+    "SHA256": "5b0e2194c30124dcf6f89514e250055cdc312547357b63255d14c914e385e118",
+    "triangles": 10604
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_3_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_3_RIGHT.stl",
+    "size": 511084,
+    "SHA256": "9523028eafe68602b6dc20d7144e95dcf93265379efb42a3af93bd32ac1ed9bf",
+    "triangles": 10220
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_4_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_4_RIGHT.stl",
+    "size": 492884,
+    "SHA256": "c9b2f01bcf7785524717a1db39dd345cc2c2b3cfd948e94922088d796a6245f4",
+    "triangles": 9856
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_5_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_5_RIGHT.stl",
+    "size": 541684,
+    "SHA256": "6bb41c453926405ec6d07e13953654aeae2d48bb673f39b19e7bae0b1fdacd7a",
+    "triangles": 10832
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/NAVICULAR_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/NAVICULAR_RIGHT.stl",
+    "size": 499884,
+    "SHA256": "e2f5b3d43e52b4e3ff21e0e3935a020d0af4375ab4205c72aa0c8134dff33bc2",
+    "triangles": 9996
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/TALUS_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/TALUS_RIGHT.stl",
+    "size": 1220484,
+    "SHA256": "94c4b4b16c430b06d9832b09d295810179a37880b33515d71a15c1ac7322dff3",
+    "triangles": 24408
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/CAPITATE_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/CAPITATE_LEFT.stl",
+    "size": 244684,
+    "SHA256": "65ae6c8c2e09258afe9b09ca437cc3bdf532763b2e6b74d5ebf98a4270ce5c25",
+    "triangles": 4892
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/HAMATE_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/HAMATE_LEFT.stl",
+    "size": 218684,
+    "SHA256": "a1e2c234c3e3b6b5e98730b1aa10084a374216af0fb8c0ba07101765d6f2f2da",
+    "triangles": 4372
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/LUNATE_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/LUNATE_LEFT.stl",
+    "size": 160284,
+    "SHA256": "946154f276c122ef4c25a8d3526bd470cebcb82cf3292469bd10135f4edebc9f",
+    "triangles": 3204
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_1_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_1_LEFT.stl",
+    "size": 377484,
+    "SHA256": "129996139f84f6036abc0f0620c8e9bbe091c04ef5606439eb95064602d0a03e",
+    "triangles": 7548
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_2_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_2_LEFT.stl",
+    "size": 516684,
+    "SHA256": "6ab41b0c1303a6e770e599f103af9fcc7320c62b02b3ea21624285a0e680bf85",
+    "triangles": 10332
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_3_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_3_LEFT.stl",
+    "size": 500684,
+    "SHA256": "9486e05b73fa42cfd675ba707092bf8ba91247d95616bbfda7052c233b034c9e",
+    "triangles": 10012
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_4_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_4_LEFT.stl",
+    "size": 357684,
+    "SHA256": "43dce1674409bfd1c986060c13b25a09efb6c1149f3f13ab3f31c5f919e365cf",
+    "triangles": 7152
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_5_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_5_LEFT.stl",
+    "size": 310084,
+    "SHA256": "b31206039dad93e62a38889cd0366fb4583512f5515b8841bb1c820bf601c2e3",
+    "triangles": 6200
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/PISIFORM_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/PISIFORM_LEFT.stl",
+    "size": 93484,
+    "SHA256": "01c8aa3e66379c286f28cb0abcc5604f7ab9386e8a189f42df36d419ffef65c2",
+    "triangles": 1868
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/SCAPHOID_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/SCAPHOID_LEFT.stl",
+    "size": 207884,
+    "SHA256": "3bb2b96b7ae2309beab7207eaa9d51a17dcdd3863e7e5dfa69da9105e57a9223",
+    "triangles": 4156
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRAPEZIUM_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRAPEZIUM_LEFT.stl",
+    "size": 170684,
+    "SHA256": "c4f4c8e64417dc278e71f8d41bf5b2dc09fe044edf3f6785cd1e885f91d8d732",
+    "triangles": 3412
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRAPEZOID_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRAPEZOID_LEFT.stl",
+    "size": 119884,
+    "SHA256": "3de9eb5b35d79741812edca14c21375b408359b1d56b586ce1daee3612c5b19a",
+    "triangles": 2396
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRIQUETRUM_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRIQUETRUM_LEFT.stl",
+    "size": 141084,
+    "SHA256": "b05b3a50fdc6a355f1455f62953585ad9a221ced1e2da877d497bcf4082e80f2",
+    "triangles": 2820
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/CAPITATE_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/CAPITATE_RIGHT.stl",
+    "size": 244684,
+    "SHA256": "2650e40efdcac7aa66615fe2d34bef83360be245664d11d3a45d6319363c8a77",
+    "triangles": 4892
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/HAMATE_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/HAMATE_RIGHT.stl",
+    "size": 230084,
+    "SHA256": "ccf22374f8b48f599588c89d740aeb250d18d10329e6ee5ce34fce5263292bf1",
+    "triangles": 4600
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/LUNATE_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/LUNATE_RIGHT.stl",
+    "size": 161084,
+    "SHA256": "4ea402d943fe43baf8d032f24877b6b3e514f6faab042b82e54f2a5306b9fd46",
+    "triangles": 3220
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_1_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_1_RIGHT.stl",
+    "size": 387684,
+    "SHA256": "112e35cd0a7515a7591eb45f3420924012008b42448972ab3487204ca71d9a99",
+    "triangles": 7752
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_2_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_2_RIGHT.stl",
+    "size": 527084,
+    "SHA256": "f58f6eb4745e85799adac75aa97721670ff6d9d989b30d6fb8ffbbb36637ccc8",
+    "triangles": 10540
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_3_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_3_RIGHT.stl",
+    "size": 518884,
+    "SHA256": "3b8cbdf527ca1b3efc287b8994559819bd7b70e89c8af811d2173313717832c0",
+    "triangles": 10376
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_4_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_4_RIGHT.stl",
+    "size": 371284,
+    "SHA256": "82a3abd6b0d2a8e482953c3ac6e64d3d2efb86c7470ac73eeba5eda946e11467",
+    "triangles": 7424
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_5_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_5_RIGHT.stl",
+    "size": 326084,
+    "SHA256": "3a37954d8a08f5f0071341b4b23552c91878e1a0dd6daac4af223ca0d76fdc83",
+    "triangles": 6520
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/PISIFORM_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/PISIFORM_RIGHT.stl",
+    "size": 89484,
+    "SHA256": "1844bb2aba692abbacb0e456164e9e4e3516803828602552ce94f1a29d2c9609",
+    "triangles": 1788
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/SCAPHOID_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/SCAPHOID_RIGHT.stl",
+    "size": 212284,
+    "SHA256": "d0ec9ad0e9df14356958a4d6f6c38ed2f0460830e35e006bc16b0324953a4563",
+    "triangles": 4244
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRAPEZIUM_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRAPEZIUM_RIGHT.stl",
+    "size": 170684,
+    "SHA256": "21f2c94d55a692a8bae4f00aff5bac98232a211734bbf221172378242589850e",
+    "triangles": 3412
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRAPEZOID_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRAPEZOID_RIGHT.stl",
+    "size": 108884,
+    "SHA256": "ee4768262ab550cc2b3af240aa944921319a0fb3931225b72da84fd24125095d",
+    "triangles": 2176
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRIQUETRUM_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRIQUETRUM_RIGHT.stl",
+    "size": 138484,
+    "SHA256": "7e6ad450ada5f027347b9e5726113941730cd981615f0cc0d183e063748ace82",
+    "triangles": 2768
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/FEMUR_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/FEMUR_LEFT.stl",
+    "size": 10941284,
+    "SHA256": "b20aaef389d7548e17646ce91416bc8537d51bd6b7da22dda2fc77175f073902",
+    "triangles": 218824
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/FIBULA_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/FIBULA_LEFT.stl",
+    "size": 2955484,
+    "SHA256": "29ef584e6b747b23b23fe00f744cfa0b04087c0323c3f28d66e6ecaddb2a0041",
+    "triangles": 59108
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/HIP_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/HIP_LEFT.stl",
+    "size": 10208684,
+    "SHA256": "91f9995e457846aeaa1791cbcb7cc4b7d3657f5f4da677a3454fa8da2f4b5d18",
+    "triangles": 204172
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/PATELLA_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/PATELLA_LEFT.stl",
+    "size": 731884,
+    "SHA256": "60ee654432ece9a38269d3b90a96816ee48ce39dc7bdedc2ba424e5a72ad6461",
+    "triangles": 14636
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/TIBIA_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/TIBIA_LEFT.stl",
+    "size": 7797884,
+    "SHA256": "91edad75ac19c9b6a6a6b6dd091b4b3f0203d6fad2518ec1386ecf56cea1f98e",
+    "triangles": 155956
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/FEMUR_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/FEMUR_RIGHT.stl",
+    "size": 10870284,
+    "SHA256": "a69956bf5caa6fb04529c64e8ea507ff9ee77c0d51d1fae3de60661410d55661",
+    "triangles": 217404
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/FIBULA_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/FIBULA_RIGHT.stl",
+    "size": 2867284,
+    "SHA256": "49212545569f7170636a7abc81a5807abf11e50c5f158e097419067ab5949f08",
+    "triangles": 57344
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/HIP_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/HIP_RIGHT.stl",
+    "size": 10091684,
+    "SHA256": "9f4d7253b0aad2ab861f09c963f19db5c91f74ebb0df56d2a08aade56dd2473d",
+    "triangles": 201832
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/PATELLA_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/PATELLA_RIGHT.stl",
+    "size": 749284,
+    "SHA256": "78bdfb420100a05b8adb7e7e856d29b2170b326265b3d9f70a9ec78510eef9ad",
+    "triangles": 14984
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/TIBIA_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/TIBIA_RIGHT.stl",
+    "size": 7656884,
+    "SHA256": "a88be4d8cb5ca0e6b9d285af788636ba5d9f3ae96cba37575330a35a2dd4d500",
+    "triangles": 153136
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SKULL/SKULL_MANDIBLE.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SKULL/SKULL_MANDIBLE.stl",
+    "size": 3503684,
+    "SHA256": "8095c784bf179f4daf4d979952840a12dfc2f150c5ae2901e2a682214e373e6f",
+    "triangles": 70072
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C1.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C1.stl",
+    "size": 947684,
+    "SHA256": "0f55b03c2a9159fd4807b7cdd84bc4e74df93fce3f8d15c94843990dc6c8cae5",
+    "triangles": 18952
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C2.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C2.stl",
+    "size": 1018284,
+    "SHA256": "360673ba138168e09d92610c845a228537ed4fef72a2346871fb838983badadc",
+    "triangles": 20364
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C3.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C3.stl",
+    "size": 829484,
+    "SHA256": "f15f2a0cb536d1a3c4121ed18cc4248126b11fe616f92cfa1cfb26670391f0a3",
+    "triangles": 16588
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C4.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C4.stl",
+    "size": 854684,
+    "SHA256": "052a3e0724df3ec0fce93ec12f32bcc8141b511b6cffdb0f52a8492240e36b7e",
+    "triangles": 17092
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C5.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C5.stl",
+    "size": 852284,
+    "SHA256": "07bdff0a29c96966bfe0ce49deb38bcbc439fae0a79d0e215820bbcce4bc2a7a",
+    "triangles": 17044
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C6.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C6.stl",
+    "size": 1002884,
+    "SHA256": "98d1d8cbae5bbe6d985dbfa057b2cded3966925d16f2d5f9021146e496a070ea",
+    "triangles": 20056
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C7.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C7.stl",
+    "size": 1108684,
+    "SHA256": "cc4a61dd5a80ae55c4c9c547247d051740a01576b496e713f42b20a415f91868",
+    "triangles": 22172
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L1.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L1.stl",
+    "size": 2192484,
+    "SHA256": "a2a2a0092ba872998dc0ccdb828a7c4549212a13c1d7e589a438a37dc1ed38e8",
+    "triangles": 43848
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L2.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L2.stl",
+    "size": 2402884,
+    "SHA256": "6f755ad863f15a9d39e074296e3f5cd596de4aa831d7e72087ce2dc4c00b708c",
+    "triangles": 48056
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L3.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L3.stl",
+    "size": 2607884,
+    "SHA256": "43bed3cb8d4289c74af2fbdf44f5b057e9505ae88abea713897c9af27a85b420",
+    "triangles": 52156
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L4.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L4.stl",
+    "size": 2587484,
+    "SHA256": "03e8d57856d875dfd0cab8d25b807da76eb837ea6399fdf4b39eed584c1e346a",
+    "triangles": 51748
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L5.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L5.stl",
+    "size": 2536084,
+    "SHA256": "f9375582f3ca7f2efe85cdf238db890edfd4e8151776969e35985ea50edc23a2",
+    "triangles": 50720
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T1.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T1.stl",
+    "size": 1272684,
+    "SHA256": "e7944312b8887dfbc515e67a945cb3cd53315316d11d0245a074a64f632d9ea0",
+    "triangles": 25452
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T10.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T10.stl",
+    "size": 1700484,
+    "SHA256": "5b694c9016d6e2cdca47b1e3116935586a09f7a4b610f8abbb75c869a3ea27be",
+    "triangles": 34008
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T11.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T11.stl",
+    "size": 1712084,
+    "SHA256": "7705b5cada87bca94399d856638de09587d0af5f1f30707294c5c0d1be9d0df7",
+    "triangles": 34240
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T12.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T12.stl",
+    "size": 1794884,
+    "SHA256": "0fc17af8cfe98b7ec2947ae459b44d3e619ad4dc76b0fd0d05f1362ca56bcfee",
+    "triangles": 35896
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T2.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T2.stl",
+    "size": 1208684,
+    "SHA256": "6b0b49cfea0f9a4ef2b3e4aca27c2840a208b1fc19d9d860397b33998d04568a",
+    "triangles": 24172
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T3.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T3.stl",
+    "size": 1294284,
+    "SHA256": "377077d6ec88629030da4f4ebce13dd2f8f9f3945452d61b0cc3219da2cb76e1",
+    "triangles": 25884
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T4.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T4.stl",
+    "size": 1326084,
+    "SHA256": "5c8c8aaba967786adf9868949a37eb3e568c76ac30863deb3504efcf136c49b5",
+    "triangles": 26520
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T5.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T5.stl",
+    "size": 1359884,
+    "SHA256": "7e3b1ea5fd484a8f7b732f33781764e6ad8041b1496a1720fa8cfd4d1f17aa29",
+    "triangles": 27196
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T6.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T6.stl",
+    "size": 1414484,
+    "SHA256": "c314395bea3dedcde83ca4c62ba0475c9451d8a97f98bd7035c3d858f2cefb43",
+    "triangles": 28288
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T7.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T7.stl",
+    "size": 1499684,
+    "SHA256": "41f1bc71df9ef1edc498026e14b9b80db38aed74bed83a406043a52c22e04d34",
+    "triangles": 29992
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T8.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T8.stl",
+    "size": 1560084,
+    "SHA256": "52a5b7dc1a6202c8d7ac845e50af4bf0418af684d2f25674a625247369882240",
+    "triangles": 31200
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T9.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T9.stl",
+    "size": 1607684,
+    "SHA256": "112e245e6c2927e7b96c705db9b336c84ac4211fe583f21e9083d0ac10075e2e",
+    "triangles": 32152
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_10_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_10_LEFT.stl",
+    "size": 1496084,
+    "SHA256": "6c286e6506848c0192ed7e80140440393e221982284f7eafaebc76ab5f5cb59e",
+    "triangles": 29920
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_10_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_10_RIGHT.stl",
+    "size": 1453484,
+    "SHA256": "31b272b801da2cc497eb520ee249224fe046f35fb18e043307ff3a07e924771a",
+    "triangles": 29068
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_11_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_11_LEFT.stl",
+    "size": 928884,
+    "SHA256": "95254079b4f7ce7c933fd564e4652aa3d01aef9bd02190dccffba39ed3a113f4",
+    "triangles": 18576
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_11_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_11_RIGHT.stl",
+    "size": 1084284,
+    "SHA256": "6a3cfd4874edbb9133294bec4bf5e6dbf5fc0bb933e2e66971251a5fe565a46b",
+    "triangles": 21684
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_12_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_12_LEFT.stl",
+    "size": 456084,
+    "SHA256": "945a54e9f21a5b81c2e434e28a9e73cd20c058e5fb66b5554fd7fe4ea39abfb1",
+    "triangles": 9120
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_12_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_12_RIGHT.stl",
+    "size": 622484,
+    "SHA256": "a649ce233fe57a2fe26b7d33d6c76ada69d68d9a33f578ef9c78323b5b046597",
+    "triangles": 12448
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_1_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_1_LEFT.stl",
+    "size": 767684,
+    "SHA256": "17d9e4af28a4eaf780d0bb14ea6a8d006158d521fd05e0b0bf4795c8d8d8e404",
+    "triangles": 15352
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_1_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_1_RIGHT.stl",
+    "size": 883884,
+    "SHA256": "59db69c5b35228d357bd415fc393bf6cf6cbe3f0525302e2a28a6fe957533356",
+    "triangles": 17676
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_2_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_2_LEFT.stl",
+    "size": 1113884,
+    "SHA256": "c42f066176e9dd808971dd2d7f8b1ac09daef62429f0448eb4151ec6b20b70f0",
+    "triangles": 22276
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_2_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_2_RIGHT.stl",
+    "size": 1135284,
+    "SHA256": "6aee7b437c23c38a269107466ff8766b762dedc725df17bff60f3eed7cd3608e",
+    "triangles": 22704
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_3_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_3_LEFT.stl",
+    "size": 1416084,
+    "SHA256": "761f5773ca58aeb67ab7d3da872feb07b361c98e033b163c01bf59aa3250c3c8",
+    "triangles": 28320
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_3_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_3_RIGHT.stl",
+    "size": 1453084,
+    "SHA256": "e792eee7e4fe1ea7615e66b920687c48698f3b08f2c5a7875bfe31866ef33af4",
+    "triangles": 29060
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_4_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_4_LEFT.stl",
+    "size": 1588484,
+    "SHA256": "60b4adedd0259fe0ba1430d0d879cb25fa51e45b657492fbd98185f98f2a8029",
+    "triangles": 31768
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_4_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_4_RIGHT.stl",
+    "size": 1658484,
+    "SHA256": "e1f9cd76e92f1cd4e96dd3000556313502b440c33150ec0ca32c3302e6238881",
+    "triangles": 33168
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_5_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_5_LEFT.stl",
+    "size": 1779284,
+    "SHA256": "4fc83da9ec74553a115a0e46ad8cb07fe3f6ba7ce2a6a205ec61707a8972640b",
+    "triangles": 35584
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_5_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_5_RIGHT.stl",
+    "size": 1764284,
+    "SHA256": "34c3ab7fc0dc08992cfe124ac15ba6fb053746969bd291e194bcd6c228f18dde",
+    "triangles": 35284
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_6_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_6_LEFT.stl",
+    "size": 1863084,
+    "SHA256": "4163929db2807dd575a390718e82615ca9ec9da77cb7f197ff7561c37ff4257d",
+    "triangles": 37260
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_6_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_6_RIGHT.stl",
+    "size": 1899284,
+    "SHA256": "c888a6e2f5f17561fed9d16de8b403f21d3a171e414647887d8e6bd2e596a8c1",
+    "triangles": 37984
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_7_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_7_LEFT.stl",
+    "size": 1938284,
+    "SHA256": "28f5ce8f9ebf1df97f34538b178aee0c5fe9f626859ceb6949cd919b218ba8ba",
+    "triangles": 38764
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_7_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_7_RIGHT.stl",
+    "size": 1932084,
+    "SHA256": "0ef09a0a2cd649a6a83661ff521b7df8fbd4755777a44b97817dc4b75af8cbf2",
+    "triangles": 38640
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_8_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_8_LEFT.stl",
+    "size": 1772284,
+    "SHA256": "0155e5600c7277d35a7611bab0853e3b1a550ca0252ebfe431feca4c24e20efd",
+    "triangles": 35444
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_8_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_8_RIGHT.stl",
+    "size": 1813484,
+    "SHA256": "ad51b2aff2095fc9ce2fc98c537914c6e4b4eba6b577099038d53eeb3e50578b",
+    "triangles": 36268
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_9_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_9_LEFT.stl",
+    "size": 1698484,
+    "SHA256": "0d61cd26a6a116fbaa69194f8ddabe57364dd619f47e39f37e99d38558341d0e",
+    "triangles": 33968
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_9_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_9_RIGHT.stl",
+    "size": 1850284,
+    "SHA256": "ee6a120a38005009bea00c362f33875c7b0a24fcfbc36aad1206e90aa2e9b494",
+    "triangles": 37004
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_LEFT/CLAVICLE_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_LEFT/CLAVICLE_LEFT.stl",
+    "size": 1565084,
+    "SHA256": "0eb2e02ed6bed3228a5d962c3a9cb48c572bb13ffdc6394d74dfdf6495712cf1",
+    "triangles": 31300
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_LEFT/SCAPULA_LEFT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_LEFT/SCAPULA_LEFT.stl",
+    "size": 6593484,
+    "SHA256": "f4f0d2abf99c2c1414fa9753ec9365b3fa59f53479d5cb9e46b8f0dadc4f4d61",
+    "triangles": 131868
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_RIGHT/CLAVICLE_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_RIGHT/CLAVICLE_RIGHT.stl",
+    "size": 1532284,
+    "SHA256": "6c3a31562cf72df4d6aafd6d2c78a049aa83a5606ff0ad10468b30ac8eb7df6f",
+    "triangles": 30644
+  },
+  {
+    "path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_RIGHT/SCAPULA_RIGHT.stl",
+    "url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models/resolve/9cdfccfc74a42ea657c2adf055513e6371239f49/visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_RIGHT/SCAPULA_RIGHT.stl",
+    "size": 6633484,
+    "SHA256": "a251d9cdd21539feb91322408886035eea647c509e6d8bd2ae96a3f0be8d0e80",
+    "triangles": 132668
+  }
+]

@@ -92,7 +92,7 @@ for(const [slug,bone,label,axis,level,n,near,ob] of [
  ['trapezoid','Right trapezoid','小多角骨体',2,.50,[.1,0,1],'Right second metacarpal bone','以第二掌骨基底为参照观察骨体斜断。'],
  ['navicular','Navicular bone of right foot','足舟骨体',0,.50,[1,.1,.25],'Right talus','观察近侧距舟与远侧舟楔关节面的关系。'],
  ['cuboid','Right cuboid bone','骰骨体',2,.52,[.15,.1,1],'Right calcaneus','比较外侧柱长度和跟骰、跖骰两端的方向。'],
- ...['medial','intermediate','lateral'].map((n,i)=>['cuneiform-'+n,'Right '+n+' cuneiform bone',['内侧','中间','外侧'][i]+'楔骨',2,.5,[.3,.1,1],'Navicular bone of right foot','沿内侧柱看骨片与相邻跖骨、足舟骨的相对位置。']),
+ ...['medial','intermediate','lateral'].map((n,i)=>['cuneiform-'+n,'Right '+n+' cuneiform bone',['内侧','中间','外侧'][i]+'楔骨',2,.5,[.3,.1,1],'Navicular bone of right foot','以足舟骨为近侧参照，观察'+['第一','第二','第三'][i]+'跖跗关节方向的楔骨断端。']),
  ...['Sesamoid bone of right foot','Sesamoid bone of right foot FJ3376'].map((b,i)=>['sesamoid-'+i,b,['第一跖骨头内侧籽骨','第一跖骨头外侧籽骨'][i],2,.5,[0,0,1],'Right first metatarsal bone','从足底面查看该枚籽骨。正常分叶需另结合边缘形态判断。'])
 ]){
  const foot=['navicular','cuboid'].includes(slug)||slug.startsWith('cuneiform')||slug.startsWith('sesamoid');
@@ -128,6 +128,11 @@ add('mandible','下颌骨','头颈','按骨折部位','AO-MANDIBLE',['Right temp
  example('右髁突颈骨折','断面位于下颌骨右侧髁突颈。','髁头保留在下颌窝内，观察颈部断面与远段的轻度移位。',[cut('Mandible',1,.87,[-.9,.85,-.22],pose([1.4,-1.6,-.5],[0,1,0]),still(),{nativePoint:[.11,.85,.14]})])
 ]);
 add('hyoid','舌骨','头颈','按受累部位','HYOID',[],[example('大角骨折','以舌骨体和大角连接区为参照观察一侧骨片。','从上方辨认 U 形骨体和两侧大角；本例为右侧。',[cut('Hyoid bone',0,.24,[1,.1,.18],pose([-.8,0,.7]),still())])]);
+add('iliac-wing','髂骨翼','躯干','按受累位置','AO-ILIAC',[],[
+ example('髂翼上部骨折','局部受力可造成髂翼骨折。此例的断线位于髋臼上方。','自前外侧看髂嵴下方的斜行断缘，转到内侧比较髂窝两侧的高度；髋臼与髋骨下部保留为参照。',[
+  cut('Right hip bone',1,.80,[-.22,1,.18],still(),pose([-.8,3,1],[.5,0,.6]))
+ ])
+]);
 // Adjacent bones retain articulation with the fragment bearing their joint surface.
 for(const c of list)for(const [index,v] of c.variants.entries()){
  if(c.id.startsWith('region-shaft-'))v.bind={[c.context[0]]:1};

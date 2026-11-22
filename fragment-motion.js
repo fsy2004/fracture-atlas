@@ -116,7 +116,7 @@ export function fragmentEditor({items,values,primary,mirror,world,basePose,onEdi
  }
  function display(p,show){
   const target=transformed(active.members[0],point),other=active.ref?transformed(active.ref,point):point;
-  trace.visible=show&&isMoving&&p>.08;
+  lineGeo.setDrawRange(0,Math.floor(p*steps)+1);trace.visible=show&&isMoving&&p>.08;
   markers[0].position.copy(point);markers[1].position.copy(target);
   return {target,distance:target.distanceTo(other)*1000,travel:target.distanceTo(point)*1000};
  }

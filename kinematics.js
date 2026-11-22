@@ -1,5 +1,6 @@
 import * as T from './vendor/three.module.js';
 
+import {createWedgePose} from './wedge.js';
 const rad=Math.PI/180, mm=.001;
 const limit=(n,min,max)=>Math.max(min,Math.min(max,n));
 const eased=(t,a,b)=>{const x=limit((t-a)/(b-a),0,1);return x*x*(3-2*x);};
@@ -25,6 +26,7 @@ export function shaftFrame(low,high,distalPositive){
 export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEdit,clinical={}){
  const controls=[],host=document.getElementById('quantRows');
  host.replaceChildren();
+ const wedgePose=clinical.wedge?createWedgePose(items):null;
  const tagged=items.filter(i=>i.tuned);
  const primary=items[0],jointOrientation=new T.Quaternion(),endDir=new T.Vector3();
  let maxTravel=0,maxSpin=0;
@@ -53,7 +55,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  }
  const ball=joint&&items.some(i=>i.jointAxis);
  const internal=clinical.id==='hip-dislocation'?clinical.variant===0:clinical.variant===1;
- if(ball)field('jointTwist',internal?'伴随内旋':'伴随外旋','°',0,30,1);
+ if(ball)field('jointTwist',internal?'伴随内旋':'伴随外旋','°',primary.axial||0,35,1);
  if(joint){
   field('bearing','移出方向 · 水平偏角','°',0,20,1,-20);
   field('elevation','移出方向 · 仰俯偏角','°',0,15,1,-15);
@@ -132,6 +134,11 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    }else{
     const scale=maxTravel>0?val('travel',maxTravel)/maxTravel:1;
     translation.copy(shift).multiplyScalar(scale*(i.timing?eased(p,...i.timing):shiftT));
+    if(i.tractionTiming==='distal'){
+     translation.x=shift.x*scale*eased(p,.16,.56);
+     translation.z=shift.z*scale*eased(p,.16,.56);
+     translation.y=shift.y*scale*eased(p,.65,1)-.0035*scale*(eased(p,.10,.28)-eased(p,.65,1));
+    }
     if(i.sharedClock&&i.stops){
      const u=p*(i.stops.length-1),k=Math.min(Math.floor(u),i.stops.length-2);
      translation.lerpVectors(i.stops[k],i.stops[k+1],u-k).multiplyScalar(scale);
@@ -145,13 +152,26 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     if(i.tuned==='wrist')translation.addScaledVector(frame.axis,val('shorten',4)*mm*lengthT);
     const degrees=wrist&&r.angle>0?(val('tilt')+clinical.palmar)*r.angle/15:
      r.angle*(maxSpin>0?val('spin',maxSpin)/maxSpin:1);
-    pivot.quaternion.setFromAxisAngle(r.axis,degrees*rad*angleT);
+    pivot.quaternion.setFromAxisAngle(r.axis,degrees*rad*(i.tractionTiming==='proximal'?eased(p,.22,.66):angleT));
    }
-   if(i.jointAxis)pivot.quaternion.setFromAxisAngle(i.jointAxis,(internal?1:-1)*val('jointTwist')*rad*jointT);
+   if(i.jointAxis){
+    const phase=eased(p,.10,.78);
+    pivot.quaternion.setFromAxisAngle(i.jointAxis,(internal?1:-1)*val('jointTwist')*rad*jointT);
+    if(i.posture){
+     const [flex,,abd]=i.posture;
+     qa.setFromEuler(new T.Euler(flex*rad*phase,0,abd*rad*phase,'ZXY'));
+     pivot.quaternion.premultiply(qa);
+    }
+   }
+   if(i.clearancePulse){
+    const scale=maxTravel?val('travel',maxTravel)/maxTravel:0;
+    translation.addScaledVector(i.clearancePulse,scale*(eased(p,.1,.3)-eased(p,.62,.96)));
+   }
    pivot.position.copy(anchor).add(translation);
    if(i.ghost)i.ghost.visible=document.getElementById('ghost').checked&&p>.29&&
     (translation.lengthSq()>1e-9||pivot.quaternion.angleTo(identity)>.01);
   }
+  if(wedgePose)wedgePose(p,maxTravel?val('travel',maxTravel)/maxTravel:1,maxSpin?val('spin',maxSpin)/maxSpin:1);
   if(wedges.length){
    const blend=val('breadth')/100;
    if(lastBlend!==blend){maxDepth=blendedDepth(blend);lastBlend=blend;}
@@ -160,7 +180,9 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   }
   if(!report)return;
   const readouts=controls.filter(c=>!['bearing','elevation'].includes(c.key)||c.value!==0).map(c=>{
-   if(c.key==='travel'&&joint)return {label:'平移',num:format(primary.pivot.position.distanceTo(primary.anchor)/mm),unit:'mm'};
+   if((wedgePose||items.some(i=>i.tractionTiming))&&c.key==='travel')return {label:'骨段参照点平移',num:format(Math.max(...items.map(i=>i.pivot.position.distanceTo(i.anchor)))/mm),unit:'mm'};
+  if((wedgePose||items.some(i=>i.tractionTiming))&&c.key==='spin')return {label:'骨段转角',num:format(Math.max(...items.map(i=>i.pivot.quaternion.angleTo(identity)))/rad),unit:'°'};
+  if(c.key==='travel'&&joint)return {label:'平移',num:format(primary.pivot.position.distanceTo(primary.anchor)/mm),unit:'mm'};
   if(c.key==='tilt'){
     const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
     return {label:dorsal>=0?'背倾':'掌倾',num:format(Math.abs(dorsal)),unit:'°'};
@@ -168,6 +190,11 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    const t=['bearing','elevation'].includes(c.key)?1:c.key==='footRoll'?eased(p,.19,.76):c.key==='breadth'?1:c.key==='crush'?compressT:c.key==='jointTwist'?jointT:['spin','angle','rotate'].includes(c.key)?angleT:['shorten','separate'].includes(c.key)?lengthT:shiftT;
    return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',bearing:'水平偏角',elevation:'仰俯偏角',spin:'转角',jointTwist:internal?'内旋':'外旋',crush:'局部压低',breadth:'分布拓宽',footRoll:clinical.ankleSign>0?'内翻':'外翻'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
   });
+  if(primary?.posture){
+   const u=eased(p,.10,.78),[flex,,side]=primary.posture;
+   if(flex)readouts.push({label:flex<0?'屈曲':'后伸',num:format(Math.abs(flex)*u),unit:'°'});
+   if(side)readouts.push({label:side<0?'外展':'内收',num:format(Math.abs(side)*u),unit:'°'});
+  }
   const tray=document.getElementById('liveValues');
   if(tagged[0]?.tuned==='shaft'&&val('shorten')>0){
    const total=width*1.03*clearT+val('side')*shiftT;

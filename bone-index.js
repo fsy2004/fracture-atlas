@@ -39,7 +39,7 @@ export function regionFor(name){
  if(/椎|肋骨|胸骨|骶骨|髋骨|剑突/.test(text))return '躯干';
  return '头颈';
 }
-export function buildIndex(names,select,courseCount){
+export function buildIndex(names,select,courseCount,hasSpecimen){
  const host=document.getElementById('catalog'),search=document.getElementById('search');
  const groups=new Map(),tabs=document.getElementById('regions');
  for(const key of names){
@@ -50,13 +50,13 @@ export function buildIndex(names,select,courseCount){
  const priority=['胫骨','股骨','肱骨','桡骨','尺骨','腓骨','锁骨','髌骨','髋骨','手舟骨','跟骨'];
  const rank=x=>priority.includes(x.label)?priority.indexOf(x.label):100;
  const rows=[...groups.values()].sort((a,b)=>rank(a)-rank(b)||a.label.localeCompare(b.label,'zh-CN',{numeric:true}));
- let region='全部';
+ let region='全部';const precise=document.getElementById('preciseOnly');
  function draw(){
   const q=search.value.trim().toLowerCase();host.replaceChildren();
   let count=0;
   for(const row of rows){
    if(region!=='全部'&&region!==row.region)continue;
-   const keys=row.keys.filter(k=>(boneName(k)+' '+k).toLowerCase().includes(q));
+   const keys=row.keys.filter(k=>(!precise.checked||hasSpecimen(k))&&(boneName(k)+' '+k).toLowerCase().includes(q));
    if(!keys.length)continue;
    const line=document.createElement('div');line.className='bone-row';
    const primary=document.createElement('button');primary.className='bone-link';
@@ -82,5 +82,5 @@ export function buildIndex(names,select,courseCount){
   const mark=()=>{for(const b of tabs.children){b.classList.toggle('active',b.textContent===region);b.setAttribute('aria-pressed',String(b.textContent===region));}};
   mark();button.onclick=()=>{region=name;mark();draw();};
  }
- search.oninput=draw;draw();
+ precise.onchange=draw;search.oninput=draw;draw();
 }

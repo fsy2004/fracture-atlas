@@ -25,6 +25,9 @@ const faceRegions={
 // In a healthy pose, proximity and-facing tests identify a local opposed bony surface.
 
 const opposingFaces={
+ 'vhm-sca-0':['Right scaphoid','Right lunate','舟月相对骨面',.003],
+ 'vhm-sca-1':['Right scaphoid','Right capitate','舟头相对骨面',.003],
+ 'vhm-sca-2':['Right scaphoid','Right trapezium','舟大多角相对骨面',.003],
  calcaneus:['Right calcaneus','Right talus','距跟相对骨面',.0045],
  patella:['Right patella','Right femur','髌股相对骨面',.005],
  olecranon:['Right ulna','Right humerus','肱尺相对骨面',.004],
@@ -125,7 +128,7 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const boneSpan=geometry.boundingBox.getSize(V()).length(),length=Math.max(.006,Math.min(.065,boneSpan*.25));
  const along=frame?.axis.clone()||(source.axis!==undefined?V(...atLevel(geometry,source.axis,.62)).sub(V(...atLevel(geometry,source.axis,.38))).normalize():V(0,1,0));
  const spoke=V(1,0,0);if(Math.abs(along.x)>.85)spoke.set(0,0,1);spoke.addScaledVector(along,-spoke.dot(along)).normalize();
- const rule=faceRegions[course.id]||opposedRule(course.id,lookupGeometry);
+ const rule=faceRegions[course.id]||opposedRule(course.id==='scaphoid'&&geometry.userData.specimen?'vhm-sca-'+variant:course.id,lookupGeometry);
  const patches=rule?items.map(i=>patchFor(i,rule,geometry.boundingBox)).filter(Boolean):[];
  const pair=sharedFacetPoint(patches,moving);
  const stepLine=line(mobileInk,2,facetLines),slipLine=line(fixedInk,2,facetLines);
@@ -146,7 +149,24 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const rim=course.id==='radius'&&variant<2?wristLandmarks(geometry):null;
  const fixedRim=line(fixedInk,2),movedRim=line(mobileInk,2);
  let fragmentIndex=Math.max(0,items.indexOf(moving));
- return {measurements,dispose(){
+ function cutView(){
+  const part=items[fragmentIndex];if(!part?.face)return null;
+  const face=part.face,points=face.geometry.attributes.position,box=new T.Box3(),centre=V(),normal=V(),a=V(),b=V(),c=V(),areaNormal=V(),bb=V(),cc=V();
+  let area=0;face.updateWorldMatrix(true,false);
+  for(let i=0;i<points.count;i+=3){
+   a.fromBufferAttribute(points,i).applyMatrix4(face.matrixWorld);b.fromBufferAttribute(points,i+1).applyMatrix4(face.matrixWorld);c.fromBufferAttribute(points,i+2).applyMatrix4(face.matrixWorld);
+   areaNormal.crossVectors(bb.subVectors(b,a),cc.subVectors(c,a));const w=areaNormal.length();if(!w)continue;
+   area+=w;centre.addScaledVector(a,w/3).addScaledVector(b,w/3).addScaledVector(c,w/3);normal.add(areaNormal);box.expandByPoint(a).expandByPoint(b).expandByPoint(c);
+  }
+  if(!area)return null;centre.divideScalar(area);
+  const g=part.shell.geometry;if(!g.boundingBox)g.computeBoundingBox();
+  const outward=centre.clone().sub(part.shell.localToWorld(g.boundingBox.getCenter(V()))).normalize();
+  if(normal.lengthSq()<1e-18)normal.copy(outward);
+  normal.normalize();if(normal.dot(outward)<0)normal.negate();
+  const tangent=(Math.abs(normal.z)<.8?V(0,0,1):V(1,0,0));tangent.addScaledVector(normal,-normal.dot(tangent)).normalize();
+  return {centre,dir:normal.addScaledVector(tangent,.62).normalize(),size:box.getSize(V()).length()};
+ }
+ return {measurements,cutView,dispose(){
    for(const root of [modeGroup,facetLines]){group.remove(root);root.traverse(o=>{if(o.userData.dispose)o.geometry.dispose();});}
    for(const p of patches){p.mesh.removeFromParent();p.mesh.geometry.dispose();}
   },axisGuide:()=>guide?{
@@ -178,6 +198,15 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
     else label('骨折线',posed(moving,cutPt));return;
    }
    if(mode==='overview'){
+    if(p>.28&&!joint&&items.length>=2&&['femur','humerus','clavicle','patella','single-forearm','tibia'].includes(course.id)){
+     for(const [k,item] of items.entries()){
+      const pos=item.shell.geometry.boundingBox|| (item.shell.geometry.computeBoundingBox(),item.shell.geometry.boundingBox);
+      const point=pos.getCenter(V()).lerp(anchor,.6);
+      const name=course.id==='clavicle'?(k===0?'外侧段':'内侧段'):course.id==='patella'?(k===0?'下方骨块':'上方骨块'):(k===0?'远段':'近段');
+      label(items.length===3&&k===1?'中间骨块':name,posed(item,point));
+     }
+     return;
+    }
     if(p>.42)label(joint?(jointLabels[course.id]||'活动骨端'):'骨折块',posed(moving,cutPt));
     return;
    }

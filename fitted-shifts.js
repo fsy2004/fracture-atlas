@@ -63,8 +63,6 @@ export const fittedShifts={
  "metatarsal/2/1/R":[[0,0,0.3],[0,0,0.4],[0,0,0.4]],
  "monteggia/1/1/L":[null,[0.1,0.5,0]],
  "monteggia/1/1/R":[null,[0.3,0.4,0.1]],
- "monteggia/2/1/L":[null,[-0.2,0.4,-1.5]],
- "monteggia/2/1/R":[null,[-0.2,0.4,-1.5]],
  "neck/0/1/L":[[-7.2,-3.8,1.9],null],
  "neck/0/1/R":[[-10.3,-0.9,7.2],null],
  "neck/1/1/L":[[-4.4,-3.3,-1.1],null],

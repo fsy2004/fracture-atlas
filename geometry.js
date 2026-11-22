@@ -1,18 +1,30 @@
 import * as T from './vendor/three.module.js';
 
+import {fractureRelief,gridCoordinate,facetPolygons} from './fracture-surface.js';
+
 const vec = a => new T.Vector3(...a);
-const vertexKey = v => [v.x,v.y,v.z].map(n=>Math.round(n*1e7)).join(',');
-export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiralAxis=[0,1,0], exteriorEnd=Infinity) {
+
+export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiralAxis=[0,1,0], exteriorEnd=Infinity,posteriorSpiral=false,relief=null,retry=0) {
   const n=vec(spiralHeight?spiralAxis:normal).normalize(), origin=vec(anchor);
   const axis=new T.Vector3(Math.abs(n.x)<.8?1:0,Math.abs(n.x)<.8?0:1,0).cross(n).normalize();
+  if(posteriorSpiral)axis.set(0,0,1).addScaledVector(n,-n.z).normalize();
   const up=n.clone().cross(axis);
   const axial=p=>n.dot(p.clone().sub(origin));
-  function rise(x,y){
+  function helix(x,y){
+    if(posteriorSpiral){
+      // Anterior-reference azimuth; the near-longitudinal connecting limb lies posteriorly.
+      const seam=.075,u=(Math.atan2(-y,x)/(2*Math.PI)+1.5+seam/2)%1;
+      const h=u<seam?.5-u/seam:(u-seam)/(1-seam)-.5;
+      return spiralHeight*h*T.MathUtils.smoothstep(Math.hypot(x,y),0,spiralHeight*.10);
+    }
     const angle=(Math.atan2(y,x)+Math.PI)/(2*Math.PI);
     const ramp=angle<.84?angle/.84:(1-angle)/.16;
     // A continuous core avoids a singular height at the axis inside the bone.
     return spiralHeight*(ramp-.5)*T.MathUtils.smoothstep(Math.hypot(x,y),0,spiralHeight*.16);
   }
+  const curved=Boolean(spiralHeight||relief);
+  const band=spiralHeight*.51+(relief?.amplitude||0)+2e-8;
+  const rise=(x,y)=>(spiralHeight?helix(x,y):0)+(relief?fractureRelief(x,y,relief):0);
   const positions=geometry.attributes.position, norms=geometry.attributes.normal;
   const index=geometry.index.array, groups=[[],[]], normals=[[],[]], edges=[];
   const inherited=[[],[]];let isExterior=true;
@@ -22,9 +34,14 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
       else inherited[side].push(...v.p.toArray());
     }
   }
+  const coord=(p,k)=>gridCoordinate(p.dot(axis)-origin.dot(axis),p.dot(up)-origin.dot(up),relief,k);
+  function splitFaceted(tri){
+    const cells=facetPolygons(tri,(v,k)=>coord(v.p,k),(a,b,t)=>({p:a.p.clone().lerp(b.p,t),n:a.n.clone().lerp(b.n,t).normalize()}),relief);
+    for(const poly of cells)for(let j=1;j+1<poly.length;j++)clip([poly[0],poly[j],poly[j+1]]);
+  }
   function signed(p){
     const relative=p.clone().sub(origin);
-    if(!spiralHeight)return n.dot(relative)+fold*Math.abs(relative.x);
+    if(!curved)return n.dot(relative)+fold*Math.abs(relative.x);
     return n.dot(relative)-rise(relative.dot(axis),relative.dot(up));
   }
   function clip(tri){
@@ -54,8 +71,8 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     if(cross.length===2 && cross[0].distanceToSquared(cross[1])>1e-16) edges.push(cross);
   }
   function refine(tri,depth){
-    const farAbove=tri.every(v=>axial(v.p)>spiralHeight*.51);
-    const farBelow=tri.every(v=>axial(v.p)<-spiralHeight*.51);
+    const farAbove=tri.every(v=>axial(v.p)>band);
+    const farBelow=tri.every(v=>axial(v.p)<-band);
     if(!depth||farAbove||farBelow){clip(tri);return;}
     const mids=tri.map((v,j)=>({p:v.p.clone().lerp(tri[(j+1)%3].p,.5),n:v.n.clone().lerp(tri[(j+1)%3].n,.5).normalize()}));
     tri.forEach((v,j)=>refine([v,mids[j],mids[(j+2)%3]],depth-1));
@@ -75,20 +92,43 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     }
     for(const poly of halves)for(let k=1;k+1<poly.length;k++)emitTriangle([poly[0],poly[k],poly[k+1]]);
   }
+  // Most of a high-resolution shaft is entirely outside the cut band.
+  // Preserve those triangles verbatim without allocating clipping vertices.
+  const axialFromPlane=new Float64Array(positions.count),offset=n.dot(origin);
+  for(let j=0;j<positions.count;j++)axialFromPlane[j]=n.x*positions.getX(j)+n.y*positions.getY(j)+n.z*positions.getZ(j)-offset;
   for(let i=0;i<index.length;i+=3){
     isExterior=i<exteriorEnd;
+    const a=index[i],b=index[i+1],c=index[i+2],da=axialFromPlane[a],db=axialFromPlane[b],dc=axialFromPlane[c];
+    if(!fold&&(Math.min(da,db,dc)>band||Math.max(da,db,dc)<-band)){
+     const side=Number(da>0),out=isExterior?groups[side]:inherited[side],ns=normals[side];
+     for(let j=i;j<i+3;j++){
+      const k=index[j];out.push(positions.getX(k),positions.getY(k),positions.getZ(k));
+      if(isExterior)ns.push(norms.getX(k),norms.getY(k),norms.getZ(k));
+     }
+     continue;
+    }
     const tri=Array.from(index.slice(i,i+3),j=>({p:new T.Vector3().fromBufferAttribute(positions,j),n:new T.Vector3().fromBufferAttribute(norms,j)}));
-    if(spiralHeight)refine(tri,3);
+    if(spiralHeight)refine(tri,index.length>250000?1:3);
+    else if(relief)splitFaceted(tri);
     else if(fold&&tri.some(a=>a.p.x>origin.x)&&tri.some(a=>a.p.x<origin.x))splitCrease(tri,clip);
     else clip(tri);
   }
-  const graph=new Map(), points=new Map();
+  const graph=new Map(),points=new Map(),buckets=new Map(),weld=.0000004;
+  function rimKey(p){
+   const x=Math.floor(p.x/weld),y=Math.floor(p.y/weld),z=Math.floor(p.z/weld);
+   for(let i=x-1;i<=x+1;i++)for(let j=y-1;j<=y+1;j++)for(let k=z-1;k<=z+1;k++){
+    const ids=buckets.get(i+','+j+','+k);if(!ids)continue;
+    for(const id of ids)if(points.get(id).distanceToSquared(p)<weld*weld)return id;
+   }
+   const key=x+','+y+','+z,id=points.size;points.set(id,p);
+   if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(id);return id;
+  }
   for(const [a,b] of edges){
-    const i=vertexKey(a),j=vertexKey(b);
+    const i=rimKey(a),j=rimKey(b);
     if(i===j)continue;
     for(const [from,to,p] of [[i,j,a],[j,i,b]]){
       if(!graph.has(from))graph.set(from,new Set());
-      graph.get(from).add(to);points.set(from,p);
+      graph.get(from).add(to);
     }
   }
   const rings=[],cap=[];
@@ -106,6 +146,12 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
       if(area>1e-14)rings.push({loop,flat,area,holes:[],depth:0});
     }
   }
+  // A plane passing exactly through source vertices can yield an open boundary graph
+  // at float32 precision. Recut the entire pair together, never fill only one side.
+  if(!rings.length&&edges.length>5&&groups.every(side=>side.length)&&retry<3){
+   const delta=[.000005,-.000011,.000018][retry],nearby=origin.clone().addScaledVector(n,delta);
+   return section(geometry,normal,nearby.toArray(),fold,spiralHeight,spiralAxis,exteriorEnd,posteriorSpiral,relief,retry+1);
+  }
   // A concentric contour bounds a cavity; an island inside a cavity is solid again.
   rings.sort((a,b)=>b.area-a.area);
   for(let i=0;i<rings.length;i++){
@@ -118,8 +164,26 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
       }
     }
   }
+  const canals=[];
   for(const ring of rings){
     if(ring.depth%2)continue;
+    if(relief?.canal&&ring===rings[0]&&!ring.holes.length&&!spiralHeight){
+     // The atlas supplies the external cortex only. Use a labelled internal teaching model.
+     const flat=ring.flat,centre=new T.Vector2();let sum=0;
+     for(let i=0;i<flat.length;i++){
+      const a=flat[i],b=flat[(i+1)%flat.length],w=a.x*b.y-a.y*b.x;
+      sum+=w;centre.x+=(a.x+b.x)*w;centre.y+=(a.y+b.y)*w;
+     }
+     if(Math.abs(sum)>1e-15){
+      centre.divideScalar(3*sum);
+      const inner=flat.map(p=>p.clone().sub(centre).multiplyScalar(relief.canal).add(centre));
+      if(T.ShapeUtils.area(inner)<0)inner.reverse();
+      const lift=v=>origin.clone().addScaledVector(axis,v.x).addScaledVector(up,v.y).addScaledVector(n,rise(v.x,v.y));
+      const loop=inner.map(lift);
+      ring.holes.push({flat:inner,loop});
+      canals.push({loop,centre:lift(centre),depth:Math.min(.0045,Math.sqrt(ring.area)*.13)});
+     }
+    }
     const vertices=[ring,...ring.holes].flatMap(r=>r.loop);
     const faces=T.ShapeUtils.triangulateShape(ring.flat,ring.holes.map(r=>r.flat));
     const border=new Set();
@@ -131,13 +195,13 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     function surfaceMid(a,b){
       const p=a.clone().lerp(b,.5);
       const relative=p.clone().sub(origin);
-      const height=spiralHeight?rise(relative.dot(axis),relative.dot(up)):-fold*Math.abs(relative.x);
+      const height=curved?rise(relative.dot(axis),relative.dot(up)):-fold*Math.abs(relative.x);
       return p.addScaledVector(n,height-n.dot(relative));
     }
     // Split long interior diagonals on both adjacent triangles. Leave the cut rim exactly as clipped.
     let triangles=faces;
     if(spiralHeight){
-      const size=spiralHeight/12;
+      const size=relief?Math.max(.0008,relief.spacing*.35):spiralHeight/12;
       for(let depth=0;depth<7;depth++){
         const mids=new Map(),next=[];
         for(const [i,j,k] of triangles){
@@ -165,7 +229,13 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     }
     for(const face of triangles){
       const tri=face.map(j=>vertices[j]);
-      if(fold&&tri.some(p=>p.x>origin.x)&&tri.some(p=>p.x<origin.x)){
+      if(relief&&!spiralHeight){
+        const cells=facetPolygons(tri,coord,(a,b,t)=>a.clone().lerp(b,t),relief);
+        for(const poly of cells)for(let j=1;j+1<poly.length;j++)for(const v of [poly[0],poly[j],poly[j+1]]){
+          const r=v.clone().sub(origin),h=fractureRelief(r.dot(axis),r.dot(up),relief);
+          cap.push(...v.clone().addScaledVector(n,h-r.dot(n)).toArray());
+        }
+      }else if(fold&&tri.some(p=>p.x>origin.x)&&tri.some(p=>p.x<origin.x)){
         // Keep the ridge shared by both planar arms of a Y-shaped break.
         splitCrease(tri.map(p=>({p,n})),row=>{
           for(const v of row){
@@ -186,9 +256,40 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     if(side===1)for(let k=0;k<surface.length;k+=9)for(let j=0;j<3;j++){
       const temp=surface[k+3+j];surface[k+3+j]=surface[k+6+j];surface[k+6+j]=temp;
     }
-    const combined=new Float32Array(surface.length+inherited[side].length);
+    const wall=[],marrow=[];
+    const tri=(out,a,b,c)=>{for(const v of (side?[a,c,b]:[a,b,c]))out.push(...v.toArray());};
+    for(const canal of canals){
+     const advance=side?canal.depth:-canal.depth;
+     const heights=canal.loop.map(p=>p.dot(n));
+     const baseHeight=(side?Math.max(...heights):Math.min(...heights))+advance;
+     const floor=canal.loop.map(p=>p.clone().addScaledVector(n,baseHeight-p.dot(n)));
+     const centre=canal.centre.clone().addScaledVector(n,baseHeight-canal.centre.dot(n));
+     for(let i=0;i<floor.length;i++){
+      const j=(i+1)%floor.length;
+      tri(wall,canal.loop[i],canal.loop[j],floor[i]);tri(wall,canal.loop[j],floor[j],floor[i]);
+      tri(marrow,centre,floor[i],floor[j]);
+     }
+    }
+    const outerLength=surface.length+inherited[side].length;
+    const combined=new Float32Array(outerLength+wall.length+marrow.length);
+    combined.set(wall,outerLength);combined.set(marrow,outerLength+wall.length);
+    if(wall.length){
+     face.addGroup(0,outerLength/3,0);face.addGroup(outerLength/3,wall.length/3,1);
+     face.addGroup((outerLength+wall.length)/3,marrow.length/3,2);face.userData.canal=true;
+    }
     combined.set(surface);combined.set(inherited[side],surface.length);
     face.setAttribute('position',new T.BufferAttribute(combined,3));face.computeVertexNormals();
+    if(relief&&!spiralHeight){
+     // Smooth lighting across very small facets while retaining their full relief and edges.
+     const step=relief.spacing*.20,fn=face.attributes.normal,v=new T.Vector3();
+     for(let k=0;k<surface.length/3;k++){
+      v.fromArray(surface,k*3).sub(origin);const u=v.dot(axis),w=v.dot(up);
+      const dx=(fractureRelief(u+step,w,relief)-fractureRelief(u-step,w,relief))/(2*step);
+      const dy=(fractureRelief(u,w+step,relief)-fractureRelief(u,w-step,relief))/(2*step);
+      v.copy(n).addScaledVector(axis,-dx).addScaledVector(up,-dy).normalize().multiplyScalar(side?-1:1);
+      fn.setXYZ(k,v.x,v.y,v.z);
+     }
+    }
     const outline=new T.BufferGeometry().setFromPoints(edges.flat());
     return {geo,face,outline};
   });

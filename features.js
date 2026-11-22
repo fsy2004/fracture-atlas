@@ -1,5 +1,5 @@
 // Shape describes the fracture surface; displacement describes the relative pose.
-export const shapeNames={transverse:'横断',shortOblique:'短斜形',oblique:'斜形',spiral:'螺旋形',comminuted:'粉碎'};
+export const shapeNames={wedgeFragment:'弯曲楔形（蝶形骨块）',transverse:'横断',shortOblique:'短斜形',oblique:'斜形',spiral:'螺旋形',comminuted:'粉碎'};
 export const motionNames={shorten:'缩短（重叠）',rotate:'旋转',angle:'成角',side:'侧方',separate:'分离'};
 const transverse=['transverse','shortOblique','comminuted'];
 const torsional=['oblique','spiral'];
@@ -13,7 +13,7 @@ const shafts={
 };
 export function initialShape(course,i){
  if(course.id==='clavicle')return 'shortOblique';
- if(course.id==='tibia')return i?'oblique':'transverse';
+ if(course.id==='tibia')return i?'spiral':'transverse';
  if(course.id==='forearm')return i?'oblique':'transverse';
  if(course.id==='humerus')return i===2?'oblique':'transverse';
  if(course.id==='femur')return i===2?'shortOblique':'transverse';
@@ -23,7 +23,7 @@ export function initialShape(course,i){
 export function featuresFor(course,index){
  const id=course.family||course.id;
  const shapes=shafts[id]?.[index];
- if(shapes)return {shapes,motions:Object.keys(motionNames)};
+ if(shapes)return {shapes:id==='femur'?[...shapes,'wedgeFragment']:shapes,motions:Object.keys(motionNames)};
  if(id==='metacarpal'&&index===3)return {shapes:allShaft,motions:Object.keys(motionNames)};
  if(id==='radius'&&index<2)return {shapes:[],motions:['shorten']};
  if(id==='toes'&&index===2)return {shapes:[],motions:[]};

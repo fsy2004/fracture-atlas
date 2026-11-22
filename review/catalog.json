@@ -23,7 +23,7 @@
       "Right fibula"
     ],
     "fixed": [],
-    "observation": "对照两条斜线，腓骨断面高于胫骨；沿骨长轴观察远段旋转。"
+    "observation": "先看胫骨内侧低、外侧高的斜线，再转向后侧找纵裂。此例腓骨断面较高。"
   },
   {
     "route": "#femur/0/1",
@@ -205,7 +205,7 @@
       "Right clavicle"
     ],
     "fixed": [],
-    "observation": "锁骨中段骨折时，内侧段向后上方，外侧段向前下方移位。"
+    "observation": "胸锁乳突肌牵拉内侧段向后上方；上肢重量与三角肌作用使外侧段向前下方。"
   },
   {
     "route": "#clavicle/2/1",
@@ -3125,7 +3125,7 @@
       "Right medial cuneiform bone"
     ],
     "fixed": [],
-    "observation": "沿内侧柱看骨片与相邻跖骨、足舟骨的相对位置。"
+    "observation": "以足舟骨为近侧参照，观察第一跖跗关节方向的楔骨断端。"
   },
   {
     "route": "#region-cuneiform-intermediate/0/1",
@@ -3137,7 +3137,7 @@
       "Right intermediate cuneiform bone"
     ],
     "fixed": [],
-    "observation": "沿内侧柱看骨片与相邻跖骨、足舟骨的相对位置。"
+    "observation": "以足舟骨为近侧参照，观察第二跖跗关节方向的楔骨断端。"
   },
   {
     "route": "#region-cuneiform-lateral/0/1",
@@ -3149,7 +3149,7 @@
       "Right lateral cuneiform bone"
     ],
     "fixed": [],
-    "observation": "沿内侧柱看骨片与相邻跖骨、足舟骨的相对位置。"
+    "observation": "以足舟骨为近侧参照，观察第三跖跗关节方向的楔骨断端。"
   },
   {
     "route": "#region-sesamoid-0/0/1",
@@ -3390,6 +3390,18 @@
     ],
     "fixed": [],
     "observation": "从上方辨认 U 形骨体和两侧大角；本例为右侧。"
+  },
+  {
+    "route": "#region-iliac-wing/0/1",
+    "scope": "部位补充形态",
+    "site": "髂骨翼",
+    "pattern": "髂翼上部骨折",
+    "reference": "AO-ILIAC",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "自前外侧看髂嵴下方的斜行断缘，转到内侧比较髂窝两侧的高度；髋臼与髋骨下部保留为参照。"
   },
   {
     "route": "#shoulder-dislocation/0/1",

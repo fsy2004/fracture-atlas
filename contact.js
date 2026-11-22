@@ -38,7 +38,9 @@ function solid(shell,cap,morph){
 export function contactBody(mesh,cap=null,name=''){
  const morph=!!mesh.morphTargetInfluences,capGeo=cap?.geometry||cap,dynamic=!!mesh.userData.restSurface;
  let meshData,restData;
- return {mesh,name,world:new T.Matrix4(),box:new T.Box3(),lastMorph:'',
+ const capNormals=capGeo?.attributes.normal;
+ const capDirection=capNormals?.count?new T.Vector3().fromBufferAttribute(capNormals,0).normalize():null;
+ return {mesh,name,capDirection,world:new T.Matrix4(),box:new T.Box3(),lastMorph:'',
   data(){return meshData||=solid(mesh.userData.restSurface||mesh.geometry,cap?.userData?.restSurface||capGeo,morph||dynamic);},
   restData(){return morph||dynamic?(restData||=solid(mesh.userData.restSurface||mesh.geometry,cap?.userData?.restSurface||capGeo,false)):this.data();},
   sync(){
@@ -69,6 +71,23 @@ function inside(s,point){
  for(const h of hits)if(h.distance-last>1e-7){count++;last=h.distance;}
  return count%2===1;
 }
+// A cap normal proposes a separating axis. Project every current vertex of both solids
+// before accepting it, including the caps themselves and any deformed vertices.
+function separatedOnCap(a,b){
+ for(const planeBody of [a,b]){
+  if(!planeBody.capDirection)continue;
+  const n=planeBody.capDirection.clone().transformDirection(planeBody.world);
+  const range=body=>{
+   const m=body.world.elements,p=body.data().g.attributes.position.array;
+   const x=n.x*m[0]+n.y*m[1]+n.z*m[2],y=n.x*m[4]+n.y*m[5]+n.z*m[6],z=n.x*m[8]+n.y*m[9]+n.z*m[10];
+   const offset=n.x*m[12]+n.y*m[13]+n.z*m[14];let lo=Infinity,hi=-Infinity;
+   for(let j=0;j<p.length;j+=3){const d=x*p[j]+y*p[j+1]+z*p[j+2];lo=Math.min(lo,d);hi=Math.max(hi,d);}
+   return [lo+offset,hi+offset];
+  };
+  const [u,v]=range(a),[w,q]=range(b);if(v<=w+EPS||q<=u+EPS)return true;
+ }
+ return false;
+}
 // Returns a world-space witness. Ignore coincident rims and coplanar resting contact.
 export function penetration(a,b){
  // A shared plane or line has zero overlap volume, including cut caps after an axial turn.
@@ -90,7 +109,10 @@ export function penetration(a,b){
  for(const [subject,other,toLocal,world] of [[B,A,transform,b.world],[A,B,invert,a.world]]){
   for(const v of subject.samples){
    const q=v.clone().applyMatrix4(toLocal);
-   if(other.g.boundingBox?.containsPoint(q)&&inside(other,q))return v.clone().applyMatrix4(world);
+   if(other.g.boundingBox?.containsPoint(q)&&inside(other,q)){
+    if(separatedOnCap(a,b))return null;
+    return v.clone().applyMatrix4(world);
+   }
   }
  }
  return null;

@@ -8,15 +8,24 @@ const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.ATLAS_PLAYWRIGHT||'playwright');
 const root=fileURLToPath(new URL('../',import.meta.url));
 const probe=`
-window.inspectAtlasPose=(steps)=>{
- const states={contact:[],invalid:false},options={checkBones:true,slack:.10,draw:false};
+window.inspectAtlasPose=async(steps)=>{
+ while(!mechanics){
+  if(document.getElementById('status').textContent.includes('失败'))throw Error(document.getElementById('status').textContent);
+  await new Promise(resolve=>setTimeout(resolve,25));
+ }
+ const states={contact:[],invalid:animated.some(i=>i.shell&&(!i.shell.geometry.attributes.position.count||!i.face.geometry.attributes.position.count))},options={checkBones:true,slack:.10,draw:false};
  for(let i=0;i<=steps;i++){
   const t=i/steps;rawPose(t);
   const collision=mechanics.report(t,options,true)?.bone;
   if(collision?.kind==='bone')states.contact.push([i,collision.name]);
   if(animated.some(x=>![...x.pivot.position.toArray(),...x.pivot.quaternion.toArray()].every(Number.isFinite)))states.invalid=true;
  }
- return states;
+ return {...states,specimen:useSpecimen};
+};
+window.inspectStop=()=>{
+ playing=false;setProgress(1);
+ const bone=mechanics.report(progress,{checkBones:true,slack:.1,draw:false},true).bone;
+ return {reached:progress,stopped:poseLimit?.reason?.kind==='bone',intersecting:bone?.kind==='bone'};
 };`;
 const server=http.createServer(async(req,res)=>{
  try{
@@ -38,7 +47,7 @@ try{
   const [{courses},{regionalCourses},{supplementalCourses},{joints}]=await Promise.all(['courses','regional-courses','supplemental','joints'].map(n=>import('./'+n+'.js')));
   const registry=await (await fetch('./models/index.json')).json(),ids=new Map();
   for(const e of registry)ids.set(ids.has(e.name)?e.name+' '+e.mesh:e.name,e.mesh);
-  const result={index:ids.size,fractureRoutes:0,fracturePoses:0,jointRoutes:0,jointPoses:0,issues:[]};
+  const result={index:ids.size,fractureRoutes:0,fracturePoses:0,jointRoutes:0,jointPoses:0,specimenFractureRoutes:0,specimenJointRoutes:0,issues:[]};
   for(const c of [...courses,...regionalCourses,...supplementalCourses,...joints]){
    const kind=c.kind==='joint'?'joint':'fracture',steps=kind==='joint'?256:128;
    for(const [i,v] of c.variants.entries()){
@@ -46,11 +55,25 @@ try{
     for(const bone of new Set([key,left]))for(const level of c.levels?[0,1,2]:[1]){
      const route='#'+c.id+'/'+i+'/'+level+'?at=0&bone='+ids.get(bone);
      history.replaceState(null,'',route);dispatchEvent(new Event('hashchange'));
-     const {invalid,contact}=window.inspectAtlasPose(steps);
+     const {invalid,contact,specimen}=await window.inspectAtlasPose(steps);
+     if(specimen)result[kind==='joint'?'specimenJointRoutes':'specimenFractureRoutes']++;
      result[kind+'Routes']++;result[kind+'Poses']+=steps+1;
      if(invalid||contact.length)result.issues.push({route,bone,invalid,first:contact[0],count:contact.length});
     }
    }
+  }
+  result.wedgePoses=0;
+  for(const name of ['Right femur','Left femur'])for(const i of [0,1,2]){
+   const route='#femur/'+i+'/1?shape=wedgeFragment&at=0&bone='+ids.get(name);
+   history.replaceState(null,'',route);dispatchEvent(new Event('hashchange'));
+   const x=await window.inspectAtlasPose(160);result.wedgePoses+=161;
+   if(x.invalid||x.contact.length)result.issues.push({route,bone:name,invalid:x.invalid,first:x.contact[0],count:x.contact.length});
+  }
+  result.customStops=[];
+  for(const route of ['#hip-dislocation/0/1?at=0&q_travel=18','#radius/0/1?at=0&q_f0_dy=12','#tibia/1/2?at=0&move=rotate&q_rotate=35']){
+   history.replaceState(null,'',route);dispatchEvent(new Event('hashchange'));await window.inspectAtlasPose(1);
+   const check=window.inspectStop();result.customStops.push({route,...check});
+   if(!check.stopped||check.intersecting||check.reached>=1)result.issues.push({route,guard:check});
   }
   return result;
  });

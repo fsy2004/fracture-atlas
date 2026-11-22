@@ -2,10 +2,33 @@
   "fractureIntervals": 128,
   "jointIntervals": 256,
   "index": 201,
-  "fractureRoutes": 509,
-  "fracturePoses": 65661,
+  "fractureRoutes": 511,
+  "fracturePoses": 65919,
   "jointRoutes": 39,
   "jointPoses": 10023,
+  "specimenFractureRoutes": 229,
+  "specimenJointRoutes": 2,
   "issues": [],
+  "wedgePoses": 966,
+  "customStops": [
+    {
+      "route": "#hip-dislocation/0/1?at=0&q_travel=18",
+      "reached": 0.35793972876764113,
+      "stopped": true,
+      "intersecting": false
+    },
+    {
+      "route": "#radius/0/1?at=0&q_f0_dy=12",
+      "reached": 0.17721824645996095,
+      "stopped": true,
+      "intersecting": false
+    },
+    {
+      "route": "#tibia/1/2?at=0&move=rotate&q_rotate=35",
+      "reached": 0.17903648376464845,
+      "stopped": true,
+      "intersecting": false
+    }
+  ],
   "errors": []
 }

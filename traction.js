@@ -1,0 +1,28 @@
+// These are resultant fragment movements described in the textbook, not isolated muscle-force measurements.
+const examples={
+ femur:[
+  [['近段','髂腰肌、臀中肌与臀小肌、外旋肌群','屈曲、外展、外旋'],['远段','内收肌群','向内、向上，伴后移']],
+  [['近段','髋外展肌与屈髋肌','外展、屈曲'],['远段','内收肌群','向内、向上，形成重叠']],
+  [['远段','腓肠肌、后关节囊','向后移位，侧面最清楚']]
+ ],
+ humerus:[
+  [['近段','胸大肌、背阔肌与大圆肌','向前内侧'],['远段','三角肌等及臂部肌群','向外上方']],
+  [['近段','三角肌与喙肱肌','向前外侧'],['远段','肱二头肌、肱三头肌','向近侧短缩']]
+ ],
+ clavicle:[null,[['内侧段','胸锁乳突肌','向后上方'],['外侧段','上肢重量及三角肌作用','向前下方']]],
+ patella:[[ ['近侧块','股四头肌经股四头肌腱','向上分离'],['远侧块','髌韧带与胫骨结节相连','相对留在下方'] ]],
+ 'single-forearm':[
+  [['近段','肱二头肌、旋后肌','旋后'],['远段','旋前圆肌、旋前方肌','旋前']],
+  [['近段','旋前、旋后肌群相互平衡','近于中立'],['远段','旋前方肌','旋前']]
+ ],
+ olecranon:[[ ['近侧骨块','肱三头肌经鹰嘴止点','向近侧牵移'] ]]
+};
+export function showTraction(course,index,custom){
+ const box=document.getElementById('traction'),rows=document.getElementById('tractionRows');
+ const data=examples[course?.id]?.[index];
+ box.hidden=!data||custom;rows.replaceChildren();if(box.hidden)return;
+ for(const [part,muscles,motion] of data){
+  const row=document.createElement('div'),label=document.createElement('strong'),action=document.createElement('span'),cause=document.createElement('small');
+  label.textContent=part;action.textContent=motion;cause.textContent=muscles;row.append(label,action,cause);rows.append(row);
+ }
+}

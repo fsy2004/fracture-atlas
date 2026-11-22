@@ -1,5 +1,6 @@
 import * as T from './vendor/three.module.js';
-import {contactBody,makeContactSet,firstLimit} from './contact.js';
+import {contactBody,makeContactSet} from './contact.js';
+import {sweepTimes} from './injury-timing.js';
 import {boneName} from './bone-index.js';
 
 // Approximate footprint seeds on the adult male atlas (mm; X left, Y superior, Z anterior).
@@ -31,7 +32,7 @@ function family(c){
  return '';
 }
 export function cableRatio(a,b,rest){return rest>1e-6?a.distanceTo(b)/rest:1;}
-export function buildMechanics({group,world,items,wedges,nearBones,course,variant,ghostMaterial,mirror,pose}){
+export function buildMechanics({group,world,items,wedges,nearBones,course,variant,ghostMaterial,mirror,pose,timing}){
  const toLabel=name=>boneName(name).replace(/^右/,mirror?'左':'右');
  const targets=new Set(variant.cuts.map(s=>s.bone)),scope=new Set([...targets,...(variant.fixed||[]),...(variant.context||course.context||[])]);
  if(course.id==='ankle')for(const n of ['Right talus','Right calcaneus'])scope.add(n);
@@ -40,6 +41,7 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
  for(const i of items.filter(i=>i.shell)){
   const b=contactBody(i.shell,i.face,toLabel(i.name)+'块'+(items.filter(j=>j.name===i.name).indexOf(i)+1));b.key=i.name;b.active=true;bodies.push(b);shells.add(i.shell);
  }
+ for(const mesh of nearBones)if(mesh.userData.bone)scope.add(mesh.userData.bone);
  group.traverse(o=>{
   if(!o.isMesh||!scope.has(o.userData.bone)||o.material===ghostMaterial||shells.has(o))return;
   const key=o.userData.bone,b=contactBody(o,null,toLabel(key));b.key=key;b.active=targets.has(key)||nearBones.includes(o);
@@ -78,17 +80,31 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
   }
   return {bone,lig,most};
  }
- let limit=null,lastKey='',lastReport=-1,lastDraw=0,cached=null;
+ let limit=null,swept=0,lastTime=-1,lastKey='',lastReport=-1,lastDraw=0,cached=null;
  return {bodies:bodies.length,candidateCount:set.count,ties:ties.map(t=>t.name),
   limit(requested,opts,key){
    if(!opts.limitBones&&!(opts.hold&&ties.length))return {time:requested,reason:null};
-   if(!limit||lastKey!==key){
-    limit=firstLimit(t=>{
-     pose(t);const e=evaluate({...opts,checkBones:opts.limitBones},false);
-     return (opts.limitBones&&e.bone?.kind==='bone'?e.bone:null)||(opts.hold?e.lig:null);
-    });lastKey=key;
+   if(lastKey!==key){limit=null;swept=0;lastTime=-1;lastKey=key;}
+   const probe=t=>{
+    pose(t);const e=evaluate({...opts,checkBones:opts.limitBones},false);
+    return (opts.limitBones&&e.bone?.kind==='bone'?e.bone:null)||(opts.hold?e.lig:null);
+   };
+   if(limit&&requested>=limit.time)return limit;
+   if(requested!==lastTime&&requested>0){
+    // Check the requested pose as well as subdivisions on jumps and slider scrubs.
+    let safe=requested>swept?swept:Math.max(0,requested-1/128);
+    for(const t of sweepTimes(safe,requested,timing)){
+     const reason=probe(t);
+     if(reason){
+      if(probe(safe))safe=0;
+      let hi=t;for(let j=0;j<12;j++){const mid=(safe+hi)/2;if(probe(mid))hi=mid;else safe=mid;}
+      limit={time:safe,reason};lastTime=safe;return limit;
+     }
+     safe=t;
+    }
+    swept=Math.max(swept,requested);lastTime=requested;
    }
-   return requested>limit.time?limit:{time:requested,reason:null};
+   return {time:requested,reason:null};
   },
   report(p,opts,force){
    helpers.visible=opts.draw;
