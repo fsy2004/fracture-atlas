@@ -1,0 +1,18 @@
+[
+  {
+    "id": "lunate-dislocation",
+    "i": 0,
+    "label": "月骨掌侧脱位",
+    "marker": "",
+    "mesh": "OpenSkeleton 男性标本 · 21,052 面（含参照）",
+    "progress": 0.62
+  },
+  {
+    "id": "lunate-dislocation",
+    "i": 1,
+    "label": "月骨周围背侧脱位",
+    "marker": "",
+    "mesh": "OpenSkeleton 男性标本 · 21,898 面（含参照）",
+    "progress": 0.62
+  }
+]

@@ -55,6 +55,11 @@ export function inReflectedFrame(source){
  const map=source.userData.landmarkMap;
  if(map)g.userData.landmarkMap={linear:reflect.clone().multiply(map.linear).multiply(reflect),
   translation:map.translation.clone().applyMatrix3(reflect),offset:map.offset.clone().applyMatrix3(reflect)};
+ if(source.userData.digit){
+  const d=source.userData.digit,flip=a=>[-a[0],a[1],a[2]];
+  g.userData.digit={...d,proximal_m:flip(d.proximal_m),distal_m:flip(d.distal_m),axis:flip(d.axis),
+   transverse:flip(d.transverse)};
+ }
  if(source.userData.headCentre)g.userData.headCentre=source.userData.headCentre.clone().applyMatrix3(reflect);
  return g;
 }

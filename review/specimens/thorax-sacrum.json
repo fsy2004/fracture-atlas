@@ -1,0 +1,128 @@
+{
+  "source": "BoneHub/visible-human-3d-models",
+  "revision": "9cdfccfc74a42ea657c2adf055513e6371239f49",
+  "license": "CC BY 4.0",
+  "credit": "Seyed Hamidreza Alavi and Malte Asseln, Visible-Human-3d-Models (2026); source aligned CT, Andreassen et al. (2023), NLM Visible Human Project.",
+  "source_url": "https://huggingface.co/datasets/BoneHub/visible-human-3d-models",
+  "citations": [
+    "https://doi.org/10.57967/hf/10464",
+    "https://doi.org/10.1038/s41597-022-01905-2"
+  ],
+  "entries": [
+    {
+      "name": "Manubrium",
+      "mesh": "FJ3290",
+      "group": "axial",
+      "file": "manubrium.bin.gz",
+      "vertices": 15020,
+      "indices": 90108,
+      "triangles": 30036,
+      "bounds_m": [
+        [
+          -0.03542981296777725,
+          1.2849105596542358,
+          0.02831987291574478
+        ],
+        [
+          0.03768386319279671,
+          1.3447060585021973,
+          0.07428883016109467
+        ]
+      ],
+      "packed_bytes": 271705,
+      "sha256": "6b8c7558f7914ee9c6181b2d37068a4ffaaaa9293376ba282094a16387e60c11",
+      "packed_raw_sha256": "25006d0bc3f8229872bbaccdc9a54c860e1264207f4f4854c30bb67f67ef514d",
+      "relation": "CT-referenced anatomical region",
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "volume_cm3": 46.374990474501296
+    },
+    {
+      "name": "Body of sternum",
+      "mesh": "FJ3178",
+      "group": "axial",
+      "file": "body-of-sternum.bin.gz",
+      "vertices": 17372,
+      "indices": 104220,
+      "triangles": 34740,
+      "bounds_m": [
+        [
+          -0.022268244996666908,
+          1.1834064722061157,
+          0.057031236588954926
+        ],
+        [
+          0.02590802125632763,
+          1.2932851314544678,
+          0.11332238465547562
+        ]
+      ],
+      "packed_bytes": 311137,
+      "sha256": "a681a371fc5c367df7c3bba7dbee8d60e3c44584397047a68c454ac29a449a60",
+      "packed_raw_sha256": "36b55028e75702b207c5b5c8ebe3435a5a1f0b0ff75eda5c4c3a2f0a0129f40e",
+      "relation": "CT-referenced anatomical region",
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "volume_cm3": 48.85960566012754
+    },
+    {
+      "name": "Xiphoid process",
+      "mesh": "FJ3153",
+      "group": "axial",
+      "file": "xiphoid-process.bin.gz",
+      "vertices": 3869,
+      "indices": 23202,
+      "triangles": 7734,
+      "bounds_m": [
+        [
+          -0.014660860411822796,
+          1.1407029628753662,
+          0.10169774293899536
+        ],
+        [
+          0.015919148921966553,
+          1.1899429559707642,
+          0.1221587061882019
+        ]
+      ],
+      "packed_bytes": 69795,
+      "sha256": "c0ec55c1cf5e01aa194cab51df30806e32518cf7a5d40e36cf56fe1f69b297c8",
+      "packed_raw_sha256": "8c1c6b1b37164069fed9f188e2baacd4858e5a1551c011e7857d72f0a23d37bf",
+      "relation": "CT-referenced anatomical region",
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "volume_cm3": 4.76425586930245
+    },
+    {
+      "name": "Sacrum",
+      "mesh": "FJ3393",
+      "group": "axial",
+      "file": "sacrum.bin.gz",
+      "vertices": 68032,
+      "indices": 408312,
+      "triangles": 136104,
+      "bounds_m": [
+        [
+          -0.06552781909704208,
+          0.7952502965927124,
+          -0.08206774294376373
+        ],
+        [
+          0.05390777438879013,
+          0.9210436940193176,
+          0.02852591872215271
+        ]
+      ],
+      "packed_bytes": 1265342,
+      "sha256": "013f6f29a777f1f71e554849a3bb4dfb09689feba8678bbb22250ee133d0dde3",
+      "packed_raw_sha256": "97e6472aa0fdc9e5e2091f2734baeb31811309860a1d20799496d82462103056",
+      "relation": "CT-referenced exclusion of coccyx",
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "volume_cm3": 248.35905359251143
+    }
+  ],
+  "ct_sha256": "2ad6bb4129aa529e0d8d0f059694fccb4d996867cff3cfdf3c1cf1f4250fc776",
+  "segmentation_sternum": "786da6e14d9e57e9622ff74f49bfc0f9fae4ce99946149ddc41a73773dc04f46",
+  "segmentation_sacrum": "cb75888dea51a6ad7790f2bc6b076ffa92658fc92883c318faa44094a55821b7"
+}

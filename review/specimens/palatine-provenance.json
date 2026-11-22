@@ -1,0 +1,117 @@
+{
+  "format": "vhm-f32m-u32-v1",
+  "license": "CC BY 4.0 (Halle CT), CC BY-SA 2.1 JP (registered BodyParts3D shape prior). Redistribution of these derivatives: CC BY-SA 2.1 JP, with attribution to both.",
+  "raw_md5": "2b46ca394084ab84af20bc267114e75f",
+  "source_mask_md5": "7ae22945a353069bdb695b63fa2f20bd",
+  "source_spacing_mm": 0.125,
+  "output_grid_mm": 0.25,
+  "face_confidence_classes": [
+    "0: close to acquired skull-air surface, external position supported; label ownership remains estimated",
+    "1: probable measured surface, limited local agreement",
+    "2: inferred separating interface"
+  ],
+  "entries": [
+    {
+      "name": "Right palatine bone",
+      "mesh": "FJ3379",
+      "group": "halle-male-palate",
+      "file": "right-palatine-estimate.bin.gz",
+      "vertices": 71350,
+      "indices": 429096,
+      "triangles": 143032,
+      "previous_triangles": 3592,
+      "packed_bytes": 1261499,
+      "sha256": "0d12210825ade4b55b63fa437b55c2d3b2ebc5f675891ead74b09732861b2cb3",
+      "packed_raw_sha256": "9c3515d0a9ae1b25ad4ea433d4ba569a63b9c5d6c245f01448765a1416af5e59",
+      "bounds_m": [
+        [
+          -0.025174826383590698,
+          1.4898383617401123,
+          0.016269976273179054
+        ],
+        [
+          6.565834337379783e-05,
+          1.5378084182739258,
+          0.05134238675236702
+        ]
+      ],
+      "face_confidence": "right-palatine-face-confidence.u8.gz",
+      "face_confidence_sha256": "d30443e37f567e637f52534264a92836bebc2384492f7f8df50c8eca46cd035a",
+      "source": "Thomas Kirchner et al., 2022, Halle male dry skull, 70 years; author bone/tissue mask and micro-CT intensities; assisted reconstruction by this atlas.",
+      "source_url": "https://doi.org/10.5281/zenodo.6108435",
+      "source_segmentation": "Atlas-conditioned unilateral estimate. Surface/perforations follow measured skull; deep interfaces with maxilla/sphenoid are inferred where sutures cannot be resolved.",
+      "author_independent_label": false,
+      "role": "primary",
+      "qa": {
+        "surface_area_mm2": 3008.51,
+        "volume_mm3": 1309.28,
+        "face_area_fraction": [
+          0.9122,
+          0.0424,
+          0.0454
+        ],
+        "connected_outer_shell_fraction": 0.9937,
+        "removed_inner_shells": 17,
+        "min_voxels_to_crop_edge": [
+          34,
+          39,
+          47
+        ],
+        "triangles": 143032,
+        "vertices": 71350,
+        "closed_single_component": true
+      }
+    },
+    {
+      "name": "Left palatine bone",
+      "mesh": "FJ3273",
+      "group": "halle-male-palate",
+      "file": "left-palatine-estimate.bin.gz",
+      "vertices": 81915,
+      "indices": 492666,
+      "triangles": 164222,
+      "previous_triangles": 3642,
+      "packed_bytes": 1446963,
+      "sha256": "1682ae59cb16e4d1b9d610c6d5f8c2b384199becae6a264a512fa38d7dec5b44",
+      "packed_raw_sha256": "e825d1ddb5aeea96fd3caae22f66e983ce7c239bd10fd870eecac1321f8f3cac",
+      "bounds_m": [
+        [
+          -0.0014529421459883451,
+          1.488311529159546,
+          0.014171948656439781
+        ],
+        [
+          0.02477809600532055,
+          1.536391258239746,
+          0.05284367874264717
+        ]
+      ],
+      "face_confidence": "left-palatine-face-confidence.u8.gz",
+      "face_confidence_sha256": "4b94445c657bda1498beef221e38fa2a64d35baf4b498ba0cbd6a7bdbb622087",
+      "source": "Thomas Kirchner et al., 2022, Halle male dry skull, 70 years; author bone/tissue mask and micro-CT intensities; assisted reconstruction by this atlas.",
+      "source_url": "https://doi.org/10.5281/zenodo.6108435",
+      "source_segmentation": "Atlas-conditioned unilateral estimate. Surface/perforations follow measured skull; deep interfaces with maxilla/sphenoid are inferred where sutures cannot be resolved.",
+      "author_independent_label": false,
+      "role": "primary",
+      "qa": {
+        "surface_area_mm2": 3442.34,
+        "volume_mm3": 1586.2,
+        "face_area_fraction": [
+          0.9126,
+          0.0405,
+          0.0468
+        ],
+        "connected_outer_shell_fraction": 0.9982,
+        "removed_inner_shells": 29,
+        "min_voxels_to_crop_edge": [
+          42,
+          28,
+          32
+        ],
+        "triangles": 164222,
+        "vertices": 81915,
+        "closed_single_component": true
+      }
+    }
+  ]
+}

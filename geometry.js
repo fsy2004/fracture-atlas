@@ -1,5 +1,6 @@
 import * as T from './vendor/three.module.js';
 
+import {endostealLoop} from './endosteum.js';
 import {fractureRelief,gridCoordinate,facetPolygons} from './fracture-surface.js';
 
 const vec = a => new T.Vector3(...a);
@@ -176,12 +177,16 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
      }
      if(Math.abs(sum)>1e-15){
       centre.divideScalar(3*sum);
-      const inner=flat.map(p=>p.clone().sub(centre).multiplyScalar(relief.canal).add(centre));
+      const toWorld=q=>origin.clone().addScaledVector(axis,q.x).addScaledVector(up,q.y).addScaledVector(n,rise(q.x,q.y));
+      const toFlat=q=>{const v=q.clone().sub(origin);return new T.Vector2(v.dot(axis),v.dot(up));};
+      const measured=relief.ct?endostealLoop(flat,centre,toWorld,toFlat,relief.ct):null;
+      if(measured)centre.copy(measured.centre);
+      const inner=measured?.inner||flat.map(p=>p.clone().sub(centre).multiplyScalar(relief.canal).add(centre));
       if(T.ShapeUtils.area(inner)<0)inner.reverse();
       const lift=v=>origin.clone().addScaledVector(axis,v.x).addScaledVector(up,v.y).addScaledVector(n,rise(v.x,v.y));
       const loop=inner.map(lift);
       ring.holes.push({flat:inner,loop});
-      canals.push({loop,centre:lift(centre),depth:Math.min(.0045,Math.sqrt(ring.area)*.13)});
+      canals.push({loop,measured:Boolean(measured),centre:lift(centre),depth:Math.min(.0045,Math.sqrt(ring.area)*.13)});
      }
     }
     const vertices=[ring,...ring.holes].flatMap(r=>r.loop);
@@ -275,7 +280,7 @@ export function section(geometry, normal, anchor, fold=0, spiralHeight=0, spiral
     combined.set(wall,outerLength);combined.set(marrow,outerLength+wall.length);
     if(wall.length){
      face.addGroup(0,outerLength/3,0);face.addGroup(outerLength/3,wall.length/3,1);
-     face.addGroup((outerLength+wall.length)/3,marrow.length/3,2);face.userData.canal=true;
+     face.addGroup((outerLength+wall.length)/3,marrow.length/3,2);face.userData.canal=true;face.userData.canalMeasured=canals.some(entry=>entry.measured);
     }
     combined.set(surface);combined.set(inherited[side],surface.length);
     face.setAttribute('position',new T.BufferAttribute(combined,3));face.computeVertexNormals();

@@ -1,0 +1,1 @@
+export const lunateAdjuncts={"Right":{"Right capitate":{"via":[-4,-4,0],"shift":[3,5,-1]},"Right scaphoid":{"via":[-2,-1,0],"shift":[-1,0,-1]},"Right triquetral":{"via":[2,-1,0],"shift":[0,0,0]}},"Left":{"Right capitate":{"via":[-4,-6,-2],"shift":[1.5,6,-2]},"Right scaphoid":{"via":[-2,-1,-1],"shift":[-2,-1,-1]},"Right triquetral":{"via":[2,-2,-1],"shift":[0,0,0]}}};

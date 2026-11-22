@@ -38,6 +38,10 @@ def build(output):
     vhm=json.loads((ROOT / 'models/vhm/manifest.json').read_text(encoding='utf-8-sig'))
     names=["models/index.json","models/bones.bin","models/detail.json","models/detail.bin.gz","models/vhm/manifest.json"]
     names.extend("models/vhm/"+entry["file"] for entry in vhm["entries"])
+    extra=json.loads((ROOT/'models/extended/manifest.json').read_text(encoding='utf-8-sig'))
+    names.extend(['models/extended/manifest.json','models/extended/canal.json'])
+    names.extend(dict.fromkeys('models/extended/'+e['file'] for e in extra['entries']))
+    names.extend('models/extended/'+e['face_confidence'] for e in extra['entries'] if e.get('face_confidence'))
     for name in names:
         content = base64.b64encode((ROOT / name).read_bytes()).decode("ascii")
         asset_tags.append('<script type="application/octet-stream" id="'+name+'">'+content+'</script>')
@@ -47,7 +51,8 @@ def build(output):
     for icon in ("wrist", "leg", "hip"):
         path = "art/" + icon + ".webp"
         html = html.replace('src="' + path + '"', 'src="' + data_uri("image/webp", (ROOT / path).read_bytes()) + '"')
-    credits = (vhm["credit"]+" · "+vhm["license"]+" · "+vhm["source_url"]+"\nDetailed surfaces: BodyParts3D, Copyright © 2008 Life Science Integrated Database Center. CC BY-SA 2.1 Japan. https://creativecommons.org/licenses/by-sa/2.1/jp/ Source: Kevin-Mattheus-Moerman/BodyParts3D, 2c83c698788cff57f6317bddcf712e7acfbea7d8. Native float32 mesh packing, shared rigid coordinate transform, and mapping of lesson landmarks.\n" + (ROOT / "models/provenance.json").read_text(encoding="utf8") + "\n" +
+    additional="\n".join(s["credit"]+" · "+s["license"]+" · "+s["url"] for s in extra["sources"].values())+"\n"
+    credits = (additional+vhm["credit"]+" · "+vhm["license"]+" · "+vhm["source_url"]+"\nDetailed surfaces: BodyParts3D, Copyright © 2008 Life Science Integrated Database Center. CC BY-SA 2.1 Japan. https://creativecommons.org/licenses/by-sa/2.1/jp/ Source: Kevin-Mattheus-Moerman/BodyParts3D, 2c83c698788cff57f6317bddcf712e7acfbea7d8. Native float32 mesh packing, shared rigid coordinate transform, and mapping of lesson landmarks.\n" + (ROOT / "models/provenance.json").read_text(encoding="utf8") + "\n" +
                (ROOT / "vendor/LICENSE-three.txt").read_text(encoding="utf8") + "\n" + (ROOT / "vendor/LICENSE-mesh-bvh.txt").read_text(encoding="utf8"))
     output.write_text(html.replace("</body>", "<!--\n"+credits.replace("--","—")+"\n-->\n</body>"), encoding="utf8")
 

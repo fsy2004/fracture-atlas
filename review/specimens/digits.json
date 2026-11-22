@@ -1,0 +1,16 @@
+{
+  "mode": "Live Chromium source; test probe samples unbounded authored poses and measured local cap normals, alongside all included neighboring contact bodies.",
+  "routes": 154,
+  "poses": 24794,
+  "fracture_routes": 144,
+  "joint_routes": 10,
+  "tuft_routes": 20,
+  "tuft_minimum_fraction": 0.053168601842358124,
+  "tuft_minimum_volume_cc": 0.004648028182129461,
+  "tuft_minimum_cap_mm2": 7.902327891099109,
+  "maximum_volume_sum_relative_error": 2.445640313597508e-07,
+  "local_cut_angle_max_deviation_degrees": 0.0019138242311503993,
+  "foreign_neighbour_group_count": 0,
+  "new_contacts": 0,
+  "all_in_source_groups": true
+}

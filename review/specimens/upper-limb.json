@@ -1,0 +1,95 @@
+{
+  "source_athens": {
+    "doi": "10.5281/zenodo.6614647",
+    "specimen": "ABH074",
+    "sex": "male",
+    "age_years": 26,
+    "type": "independent photogrammetric bones"
+  },
+  "source_openskeleton": {
+    "doi": "10.5281/zenodo.22833546",
+    "ct_case": "N187928",
+    "sex_code": "Male",
+    "age_years": 58,
+    "type": "subject-specific registered CT bone shapes in their common upper-extremity acquisition frame"
+  },
+  "accepted_arm_and_wrist_routes": 50,
+  "poses_per_route": 257,
+  "poses_sampled": 12850,
+  "detected_new_intersections": 0,
+  "empty_fracture_faces": 0,
+  "wrist_measurements": {
+    "radius/0/1/R": {
+      "palmar_before_deg": 10.207,
+      "palmar_after_deg": -4.793,
+      "area_on_active_fragment_mm2": 462.68,
+      "area_on_reference_mm2": 0,
+      "intersects_joint": false,
+      "paired_joint_reference": false,
+      "coupled_carpals": 8
+    },
+    "radius/1/1/R": {
+      "palmar_before_deg": 10.207,
+      "palmar_after_deg": 25.207,
+      "area_on_active_fragment_mm2": 462.68,
+      "area_on_reference_mm2": 0,
+      "intersects_joint": false,
+      "paired_joint_reference": false,
+      "coupled_carpals": 8
+    },
+    "radius/2/1/R": {
+      "palmar_before_deg": 10.207,
+      "palmar_after_deg": 6.207,
+      "area_on_active_fragment_mm2": 107.8,
+      "area_on_reference_mm2": 355.04,
+      "intersects_joint": true,
+      "paired_joint_reference": true,
+      "coupled_carpals": 8
+    },
+    "radius/3/1/R": {
+      "palmar_before_deg": 10.207,
+      "palmar_after_deg": 14.207,
+      "area_on_active_fragment_mm2": 205.33,
+      "area_on_reference_mm2": 257.33,
+      "intersects_joint": true,
+      "paired_joint_reference": true,
+      "coupled_carpals": 8
+    },
+    "radius/0/1/L": {
+      "palmar_before_deg": 11.529,
+      "palmar_after_deg": -3.471,
+      "area_on_active_fragment_mm2": 463.72,
+      "area_on_reference_mm2": 0,
+      "intersects_joint": false,
+      "paired_joint_reference": false,
+      "coupled_carpals": 8
+    },
+    "radius/1/1/L": {
+      "palmar_before_deg": 11.529,
+      "palmar_after_deg": 26.529,
+      "area_on_active_fragment_mm2": 463.72,
+      "area_on_reference_mm2": 0,
+      "intersects_joint": false,
+      "paired_joint_reference": false,
+      "coupled_carpals": 8
+    },
+    "radius/2/1/L": {
+      "palmar_before_deg": 11.529,
+      "palmar_after_deg": 7.529,
+      "area_on_active_fragment_mm2": 116.7,
+      "area_on_reference_mm2": 346.88,
+      "intersects_joint": true,
+      "paired_joint_reference": true,
+      "coupled_carpals": 8
+    },
+    "radius/3/1/L": {
+      "palmar_before_deg": 11.529,
+      "palmar_after_deg": 15.529,
+      "area_on_active_fragment_mm2": 195.3,
+      "area_on_reference_mm2": 268.08,
+      "intersects_joint": true,
+      "paired_joint_reference": true,
+      "coupled_carpals": 8
+    }
+  }
+}

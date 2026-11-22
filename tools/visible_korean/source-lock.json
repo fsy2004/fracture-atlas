@@ -1,0 +1,130 @@
+{
+  "record": 22759852,
+  "credit": [
+    {
+      "name": "Kim, Chung Yoh",
+      "affiliation": "Dongguk University School of Medicine",
+      "orcid": "0000-0001-8074-076X"
+    },
+    {
+      "name": "Park, Jin Seo",
+      "affiliation": "Ajou university School of Medicine",
+      "orcid": "0000-0001-7956-4148"
+    }
+  ],
+  "license": {
+    "id": "cc-by-nc-4.0"
+  },
+  "url": "https://zenodo.org/api/records/22759852/files/4.%20Surface%20models.zip/content",
+  "zip_md5": "md5:9eeca57bbe289be6b5bcf6c142c20219",
+  "files": [
+    {
+      "file": "Skeletal system, cranium/Ethmoid bone.stl",
+      "offset": 107510086,
+      "compressed": 1073625,
+      "size": 2145084,
+      "CRC": 2026997760,
+      "mode": 8,
+      "sha256": "fd4f0a7ed7a9e5220ae147cbd190d20949c965fcc69b17fb914f43ae08b41eb8"
+    },
+    {
+      "file": "Skeletal system, cranium/Frontal bone.stl",
+      "offset": 108583782,
+      "compressed": 1674407,
+      "size": 3329484,
+      "CRC": 2187569336,
+      "mode": 8,
+      "sha256": "98575025de083a82cd1c3d39f97ca9762baacf04c56d652cf01447669d0ad39a"
+    },
+    {
+      "file": "Skeletal system, cranium/Hyoid bone.stl",
+      "offset": 110515834,
+      "compressed": 355208,
+      "size": 724484,
+      "CRC": 1241452154,
+      "mode": 8,
+      "sha256": "cc2688bd2a535adf29e2eecdbde46d4088697114a024c10df28aaa8b118dc89a"
+    },
+    {
+      "file": "Skeletal system, cranium/Mandible.stl",
+      "offset": 111991011,
+      "compressed": 1550811,
+      "size": 3051084,
+      "CRC": 917064108,
+      "mode": 8,
+      "sha256": "dcc8cd4f083bae1b6e29eaba73812ddf4ff8669e1c16adc0bc70d849084637a0"
+    },
+    {
+      "file": "Skeletal system, cranium/Maxilla.stl",
+      "offset": 113541889,
+      "compressed": 2059499,
+      "size": 3977384,
+      "CRC": 2074300088,
+      "mode": 8,
+      "sha256": "d4436ae29ff28bdfc6e099a69958ac2d2b371e68748f0523bb27cc4e92a5f17f"
+    },
+    {
+      "file": "Skeletal system, cranium/Nasal bone.stl",
+      "offset": 115922034,
+      "compressed": 388348,
+      "size": 869384,
+      "CRC": 3779605641,
+      "mode": 8,
+      "sha256": "8846fcfce2c20b5c3fd9e36ad3a82495a5b19730e9d5a6fc0015ddc44192b059"
+    },
+    {
+      "file": "Skeletal system, cranium/Occipital bone.stl",
+      "offset": 116310451,
+      "compressed": 1507111,
+      "size": 3115284,
+      "CRC": 11068476,
+      "mode": 8,
+      "sha256": "bac8c9855790ac5d780e2ebfa20f82f2646dce95ba6413df9fbac900e5315265"
+    },
+    {
+      "file": "Skeletal system, cranium/Parietal bone.stl",
+      "offset": 117817635,
+      "compressed": 1540652,
+      "size": 2997184,
+      "CRC": 1364130615,
+      "mode": 8,
+      "sha256": "ba377cc921f68d5be056d4a30991aedac20a6c56f107af396e817bee66091562"
+    },
+    {
+      "file": "Skeletal system, cranium/Sphenoid bone.stl",
+      "offset": 119661249,
+      "compressed": 3409711,
+      "size": 6964284,
+      "CRC": 3403113884,
+      "mode": 8,
+      "sha256": "28f3d0ca5255e1e5b34243d06b853987f313fd4fd4dcb22e586846aa6889b425"
+    },
+    {
+      "file": "Skeletal system, cranium/Temporal bone.stl",
+      "offset": 123239692,
+      "compressed": 4208225,
+      "size": 8390584,
+      "CRC": 1211338161,
+      "mode": 8,
+      "sha256": "f8fdb0aa3681022b58be9a3c8f293c85b862371bef482e757d51ef15b70f59b4"
+    },
+    {
+      "file": "Skeletal system, cranium/Vomer.stl",
+      "offset": 127447989,
+      "compressed": 135019,
+      "size": 298984,
+      "CRC": 3524316437,
+      "mode": 8,
+      "sha256": "c5eeca99c28fcfae1bb1e5319b9420611eacd196330a5420c5a38be0a7c7b582"
+    },
+    {
+      "file": "Skeletal system, cranium/Zygomatic bone.stl",
+      "offset": 127583072,
+      "compressed": 641753,
+      "size": 1435484,
+      "CRC": 3045277264,
+      "mode": 8,
+      "sha256": "45908f3edaaa6aa4b17e379602741f29154e16bdad039ae58eb2085729751459"
+    }
+  ]
+}

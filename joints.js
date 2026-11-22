@@ -57,9 +57,19 @@ export const joints=[
 ];
 
 // Intermediate translations are teaching poses relative to the healthy bone, in millimetres.
+// Separate diagnoses compared by which carpal articulation loses congruity (AO wrist).
+const carpal=joints.find(c=>c.id==='lunate-dislocation');
+carpal.name='腕骨脱位';carpal.variants[0].name='月骨掌侧脱位（转位伴掌移）';carpal.system='按失去对合的关节';
+carpal.variants.push({
+ name:'月骨周围背侧脱位',source:'AO 月头关节脱位 · 补充鉴别',cause:'本例保留桡月对位。头状骨从月骨远侧凹面向背侧移出。',
+ observe:'在侧面跟踪桡骨月骨窝、月骨与头状骨。比较桡月和月头两处对位。',
+ cuts:[{bone:'Right capitate'}],fixed:['Right radius','Right lunate'],nativePoint:[.5,.79,.5],span:.075,
+ shift:[0,-4,-17],jointFollowers:['Right hamate','Right trapezium','Right trapezoid'],turn:[8,0,0]
+});
+for(const v of carpal.variants)v.compareBones=['Right lunate','Right radius','Right capitate'];
 const routes={
  'hip-dislocation':{0:[[-28,0,0]]},
- 'lunate-dislocation':{0:[[0,0,9]]},
+ 'lunate-dislocation':{0:[[0,0,9]],1:[[0,-5,0]]},
  'elbow-dislocation':{1:[[0,-9,-4.5]],2:[[0,-22.5,-11.2]]},
  'mcp-dislocation':{0:[[-1.4,-5.8,2.1]]},
  'pip-dislocation':{0:[[-.2,-5.2,.1]]},

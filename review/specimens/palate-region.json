@@ -1,0 +1,41 @@
+{
+  "file": "halle-palate-region.bin.gz",
+  "vertices": 338503,
+  "indices": 2023644,
+  "triangles": 674548,
+  "sha256": "1f012b7fa1ad82e4d70446b5b45d9f01a6482d4cfbe010352b2a6a2811d8a461",
+  "source": "Thomas Kirchner (2022), A micro-CT of a human skull. Halle 70-year-old male.",
+  "source_url": "https://doi.org/10.5281/zenodo.6108435",
+  "license": "CC BY 4.0",
+  "voxel_mm": 0.125,
+  "surface_sample_mm": 0.375,
+  "context": "Posterior hard palate and adjacent maxillary and sphenoid regions; this is a registered regional bone surface. No individual palatine labels are supplied.",
+  "bounds_m": [
+    [
+      -0.03307478824791041,
+      1.4792188420326458,
+      0.013545425532739472
+    ],
+    [
+      0.028369400941493723,
+      1.5310100398822941,
+      0.06425306502001743
+    ]
+  ],
+  "source_crop_zyx": [
+    [
+      112,
+      1024,
+      349
+    ],
+    [
+      506,
+      1414,
+      833
+    ]
+  ],
+  "packed_raw_sha256": "623811d72e7a2cfbceb22f9f580447efef0ccc2963efe9193cd120834a4fe243",
+  "smoothing_sigma_mm": 0.10625,
+  "raw_segmented_md5": "7ae22945a353069bdb695b63fa2f20bd",
+  "region_only": true
+}

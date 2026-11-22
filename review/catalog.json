@@ -415,6 +415,30 @@
     "observation": "从上方看内、外两侧平台，从正面看两髁与干骺端的关系。"
   },
   {
+    "route": "#plateau/3/1",
+    "scope": "教材分型示例",
+    "site": "胫骨髁",
+    "pattern": "外侧平台 · 局部压陷",
+    "reference": "AO 41B2 · 平台压陷形态",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "上方看受累范围，斜侧面比较压低中心和周围平台的高度；外侧皮质缘保持连续。"
+  },
+  {
+    "route": "#plateau/4/1",
+    "scope": "教材分型示例",
+    "site": "胫骨髁",
+    "pattern": "外侧平台 · 劈裂伴压陷",
+    "reference": "AO 41B3.1 · 外侧平台劈裂压陷形态",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "先看外侧皮质的分离，再转到上方查看独立可调的中央压低区。"
+  },
+  {
     "route": "#distalfemur/0/1",
     "scope": "教材分型示例",
     "site": "股骨髁上",
@@ -3526,8 +3550,8 @@
   {
     "route": "#lunate-dislocation/0/1",
     "scope": "成人关节脱位",
-    "site": "月骨脱位",
-    "pattern": "掌侧转位伴掌移",
+    "site": "腕骨脱位",
+    "pattern": "月骨掌侧脱位（转位伴掌移）",
     "reference": "教材第七章 · 月骨脱位",
     "affected": [
       "Right lunate"
@@ -3536,6 +3560,21 @@
       "Right radius"
     ],
     "observation": "从桡侧看月骨远侧凹面向掌侧转约 90°，头状骨随后向近端靠近桡骨远端。"
+  },
+  {
+    "route": "#lunate-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "腕骨脱位",
+    "pattern": "月骨周围背侧脱位",
+    "reference": "AO 月头关节脱位 · 补充鉴别",
+    "affected": [
+      "Right capitate"
+    ],
+    "fixed": [
+      "Right radius",
+      "Right lunate"
+    ],
+    "observation": "在侧面跟踪桡骨月骨窝、月骨与头状骨。比较桡月和月头两处对位。"
   },
   {
     "route": "#mcp-dislocation/0/1",

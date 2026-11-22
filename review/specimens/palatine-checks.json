@@ -1,0 +1,22 @@
+[
+ {
+  "name": "Right palatine bone",
+  "tags": [
+   0,
+   1,
+   2
+  ],
+  "trace_segments": 95,
+  "maximum_line_to_surface_normal_error_mm": 5.314963519508193e-06
+ },
+ {
+  "name": "Left palatine bone",
+  "tags": [
+   0,
+   1,
+   2
+  ],
+  "trace_segments": 113,
+  "maximum_line_to_surface_normal_error_mm": 6.152670682803936e-06
+ }
+]

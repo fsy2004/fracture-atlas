@@ -100,3 +100,7 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 #frameSheet:not([hidden]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:68vh;overflow:auto;margin-top:12px}#frameSheet button{padding:0;border:0}#frameSheet img{width:100%;height:auto;margin:0}#frameDialog [hidden]{display:none}#compareFrames{margin-bottom:4px}#frameDialog:has(#frameSheet:not([hidden])){width:min(94vw,1120px)}
 
 .precise-filter{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin:9px 0}
+
+#compareTypesRow{display:flex;gap:6px;align-items:center;font-size:13px;margin:12px 0;color:var(--jade)}#compareTypesRow[hidden]{display:none}#typeSign{padding:9px 12px;border-left:3px solid #577969;background:#edf2e9;margin:12px 0}#typeSign p{font-size:13px;margin:5px 0;line-height:1.5}#signLook{color:#50655a}
+
+#atlasPalate:not([hidden]),#regionReference:not([hidden]){display:block;padding:6px 10px;margin:5px 0;border:1px solid #b7c7bd;border-radius:4px;background:#f5f6ee}#typeSign button{margin:4px 5px 0 0}#surfaceShare{font-weight:600;color:#245e50}

@@ -32,7 +32,7 @@ function family(c){
  return '';
 }
 export function cableRatio(a,b,rest){return rest>1e-6?a.distanceTo(b)/rest:1;}
-export function buildMechanics({group,world,items,wedges,nearBones,course,variant,ghostMaterial,mirror,pose,timing}){
+export function buildMechanics({group,world,items,wedges,nearBones,course,variant,ghostMaterial,mirror,pose,timing,bandLandmarks=true}){
  const toLabel=name=>boneName(name).replace(/^右/,mirror?'左':'右');
  const targets=new Set(variant.cuts.map(s=>s.bone)),scope=new Set([...targets,...(variant.fixed||[]),...(variant.context||course.context||[])]);
  if(course.id==='ankle')for(const n of ['Right talus','Right calcaneus'])scope.add(n);
@@ -52,7 +52,7 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
  marker.renderOrder=16;helpers.add(marker);marker.visible=false;
  const ties=[];
  for(const [name,boneA,seedA,boneB,seedB,region] of bands){
-  if(region!==family(course))continue;
+  if(!bandLandmarks||region!==family(course))continue;
   const a=anchor(bodies,boneA,seedA),b=anchor(bodies,boneB,seedB);if(!a||!b)continue;
   const A=a.mesh.localToWorld(a.point.clone()),B=b.mesh.localToWorld(b.point.clone());
   const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(new Float32Array(6),3));

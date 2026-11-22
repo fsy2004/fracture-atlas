@@ -102,3 +102,13 @@ courses.push(
  site('talus','距骨','下肢','按骨折部位 · 教材示例','第三节 · 十｜图 6-93',
   ['距骨颈','距骨后唇'].map((name,i)=>lesson(name+'骨折',i?'过度跖屈时胫骨后踝与距骨后部相互挤压。':'踝部急剧背伸时，胫骨前缘可挤压距骨颈。',i?'转至后方观察距骨后缘的小骨块。':'在侧位观察分开距骨体与头颈区的骨折线。',[cut('Right talus',i?.105:.70,i?[0,.32,1]:[0,.2,1],motion(i?[0,0,-2]:zero),motion(i?zero:[1,1,2]),{axis:2})],{context:['Right calcaneus'],span:.12})))
 );
+
+// The main classification is still the involved condyle. These lateral examples show
+// the clinically independent split and depression components on the same specimen.
+const plateau=courses.find(c=>c.id==='plateau');
+plateau.variants.push(
+ lesson('外侧平台 · 局部压陷','轴向负荷可使外侧平台中央的关节面和其下方骨质局部压低。','上方看受累范围，斜侧面比较压低中心和周围平台的高度；外侧皮质缘保持连续。',
+  [{bone:tib,pit:true}],{depression:'only',span:.14,context:[fib],source:'AO 41B2 · 平台压陷形态'}),
+ lesson('外侧平台 · 劈裂伴压陷','外侧骨壁劈开，同时关节面局部下沉。','先看外侧皮质的分离，再转到上方查看独立可调的中央压低区。',
+  [cut(tib,.94,[-1,.65,0],motion(),motion([-2,1,0]))],{depression:'split',span:.14,context:[fib],source:'AO 41B3.1 · 外侧平台劈裂压陷形态'})
+);

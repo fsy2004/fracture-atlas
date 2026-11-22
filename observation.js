@@ -1,5 +1,6 @@
 import * as T from './vendor/three.module.js';
 import {landmark} from './detail.js';
+import {measuredWrist} from './measured-wrist.js';
 import {atLevel} from './geometry.js';
 import {surfaceTree} from './surface-lessons.js';
 
@@ -25,6 +26,8 @@ const faceRegions={
 // In a healthy pose, proximity and-facing tests identify a local opposed bony surface.
 
 const opposingFaces={
+ 'rad-sca':['Right radius','Right scaphoid','桡腕相对骨面',.004],
+ 'rad-lun':['Right radius','Right lunate','桡腕相对骨面',.004],
  'vhm-sca-0':['Right scaphoid','Right lunate','舟月相对骨面',.003],
  'vhm-sca-1':['Right scaphoid','Right capitate','舟头相对骨面',.003],
  'vhm-sca-2':['Right scaphoid','Right trapezium','舟大多角相对骨面',.003],
@@ -67,7 +70,7 @@ function patchFor(item,rule,extent){
  const boundary=new Set(),edge=item.edge?.geometry.attributes.position;
  const key=(x,y,z)=>[x,y,z].map(v=>Math.round(v*1e6)).join(',');
  for(let k=0;edge&&k<edge.count;k++)boundary.add(key(edge.getX(k),edge.getY(k),edge.getZ(k)));
- const matches=new Map(),hits=[],mask=[],centre=V(),normal=V(),dir=V(...direction);
+ const matches=new Map(),hits=[],mask=[],ids=[],centre=V(),normal=V(),dir=V(...direction);
  for(let k=0;k<p.count;k+=3){
   centre.set(0,0,0);normal.set(0,0,0);
   for(let j=0;j<3;j++){centre.add(V().fromBufferAttribute(p,k+j));normal.add(V().fromBufferAttribute(n,k+j));}
@@ -75,17 +78,30 @@ function patchFor(item,rule,extent){
   normal.normalize();
   if(rule[6]?!rule[6](centre,normal):(Math.abs(centre.getComponent(axis)-from)>limit||normal.dot(dir)<.55))continue;
   for(let j=0;j<3;j++){
-   const pt=V().fromBufferAttribute(p,k+j);mask.push(pt.x,pt.y,pt.z);
+   const pt=V().fromBufferAttribute(p,k+j);mask.push(pt.x,pt.y,pt.z);ids.push(k+j);
    const id=key(pt.x,pt.y,pt.z);
    if(boundary.has(id)){hits.push(pt);matches.set(id,{point:pt,normal:V().fromBufferAttribute(n,k+j).normalize()});}
   }
  }
  if(!mask.length)return null;
  const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(mask,3));
- const mesh=new T.Mesh(geo,facetMaterial);mesh.position.copy(item.shell.position);mesh.userData.dispose=true;
+ if(item.shell.geometry.morphAttributes.position?.length){
+  geo.morphTargetsRelative=true;
+  geo.morphAttributes.position=item.shell.geometry.morphAttributes.position.map(attr=>{
+   const a=new Float32Array(ids.length*3);ids.forEach((key,i)=>{a[i*3]=attr.getX(key);a[i*3+1]=attr.getY(key);a[i*3+2]=attr.getZ(key);});return new T.BufferAttribute(a,3);
+  });
+ }
+ let area=0;
+ const pp=geo.attributes.position,aa=V(),bb=V(),cc=V();
+ for(let i=0;i<pp.count;i+=3){
+  aa.fromBufferAttribute(pp,i);bb.fromBufferAttribute(pp,i+1).sub(aa);cc.fromBufferAttribute(pp,i+2).sub(aa);
+  area+=bb.cross(cc).length()*.5;
+ }
+ const mesh=new T.Mesh(geo,facetMaterial);
+ if(geo.morphAttributes.position)mesh.morphTargetInfluences=item.shell.morphTargetInfluences;mesh.position.copy(item.shell.position);mesh.userData.dispose=true;
  item.pivot.add(mesh);mesh.visible=false;
  const intersects=hits.length>1&&hits.some(pt=>pt.distanceTo(hits[0])>.001);
- return {mesh,item,matches,point:V(...mask.slice(0,3)),hit:intersects?hits[Math.floor(hits.length/2)]:null};
+ return {mesh,item,area,matches,point:V(...mask.slice(0,3)),hit:intersects?hits[Math.floor(hits.length/2)]:null};
 }
 
 function sharedFacetPoint(patches,tracked){
@@ -106,6 +122,7 @@ function nearest(g,xyz){
  return out;
 }
 export function wristLandmarks(g){
+ const measured=measuredWrist(g);if(measured)return measured;
  const dorsal=nearest(g,[-.2586,.8872,.0103]),volar=nearest(g,[-.2562,.8925,.0264]);
  const axis=V(...atLevel(g,1,.42)).sub(V(...atLevel(g,1,.17))).normalize();
  const rim=volar.clone().sub(dorsal);
@@ -128,7 +145,9 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
  const boneSpan=geometry.boundingBox.getSize(V()).length(),length=Math.max(.006,Math.min(.065,boneSpan*.25));
  const along=frame?.axis.clone()||(source.axis!==undefined?V(...atLevel(geometry,source.axis,.62)).sub(V(...atLevel(geometry,source.axis,.38))).normalize():V(0,1,0));
  const spoke=V(1,0,0);if(Math.abs(along.x)>.85)spoke.set(0,0,1);spoke.addScaledVector(along,-spoke.dot(along)).normalize();
- const rule=faceRegions[course.id]||opposedRule(course.id==='scaphoid'&&geometry.userData.specimen?'vhm-sca-'+variant:course.id,lookupGeometry);
+ const opposed=course.id==='radius'&&measuredWrist(geometry)?['rad-sca','rad-lun'].map(id=>opposedRule(id,lookupGeometry)).filter(Boolean):[];
+ const radiocarpal=opposed.length?['Right radius',1,-1,.064,[0,-1,0],'桡腕相对骨面',(pt,n)=>opposed.some(region=>region[6](pt,n))]:null;
+ const rule=radiocarpal||faceRegions[course.id]||opposedRule(course.id==='scaphoid'&&geometry.userData.specimen?'vhm-sca-'+variant:course.id,lookupGeometry);
  const patches=rule?items.map(i=>patchFor(i,rule,geometry.boundingBox)).filter(Boolean):[];
  const pair=sharedFacetPoint(patches,moving);
  const stepLine=line(mobileInk,2,facetLines),slipLine=line(fixedInk,2,facetLines);
@@ -140,7 +159,7 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
   return {a,b,joint,height:a.distanceTo(joint)*1000,slip:b.distanceTo(joint)*1000};
  };
  const guide=Boolean(joint&&frame)||source.axis!==undefined&&['tibia','humerus','femur','forearm','single-forearm','finger','toes','metacarpal','metatarsal','radius','distalfemur','elbow'].includes(course.family||course.id);
- function posed(item,p){return item?p.clone().sub(item.anchor).applyQuaternion(item.pivot.quaternion).add(item.pivot.position):p.clone();}
+ function posed(item,p){return item?(item.shell?.userData.deformPoint?.(p)||p.clone()).sub(item.anchor).applyQuaternion(item.pivot.quaternion).add(item.pivot.position):p.clone();}
  function endpoint(item,rest,length){return posed(item,anchor.clone().addScaledVector(rest,length));}
  const tags=[];
  const label=(text,point)=>tags.push({text,point:point.clone()});
@@ -166,7 +185,9 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
   const tangent=(Math.abs(normal.z)<.8?V(0,0,1):V(1,0,0));tangent.addScaledVector(normal,-normal.dot(tangent)).normalize();
   return {centre,dir:normal.addScaledVector(tangent,.62).normalize(),size:box.getSize(V()).length()};
  }
- return {measurements,cutView,dispose(){
+ const area=patches.reduce((v,p)=>v+p.area,0);
+ const mobileArea=patches.filter(p=>p.item.moving).reduce((v,p)=>v+p.area,0);
+ return {surfaceShare:course.id==='radius'&&area>0?mobileArea/area:null,measurements,cutView,dispose(){
    for(const root of [modeGroup,facetLines]){group.remove(root);root.traverse(o=>{if(o.userData.dispose)o.geometry.dispose();});}
    for(const p of patches){p.mesh.removeFromParent();p.mesh.geometry.dispose();}
   },axisGuide:()=>guide?{
@@ -207,7 +228,7 @@ export function makeObservation({course,variant,source,geometry,anchor,parts,gro
      }
      return;
     }
-    if(p>.42)label(joint?(jointLabels[course.id]||'活动骨端'):'骨折块',posed(moving,cutPt));
+    if(p>.42)label(joint?(course.id==='lunate-dislocation'&&variant===1?'头状骨头':(jointLabels[course.id]||'活动骨端')):'骨折块',posed(moving,cutPt));
     return;
    }
    const from=posed(reference,anchor),to=posed(moving,anchor);

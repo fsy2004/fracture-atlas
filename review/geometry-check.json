@@ -2,12 +2,12 @@
   "fractureIntervals": 128,
   "jointIntervals": 256,
   "index": 201,
-  "fractureRoutes": 511,
-  "fracturePoses": 65919,
-  "jointRoutes": 39,
-  "jointPoses": 10023,
-  "specimenFractureRoutes": 229,
-  "specimenJointRoutes": 2,
+  "fractureRoutes": 515,
+  "fracturePoses": 66435,
+  "jointRoutes": 41,
+  "jointPoses": 10537,
+  "specimenFractureRoutes": 451,
+  "specimenJointRoutes": 27,
   "issues": [],
   "wedgePoses": 966,
   "customStops": [
@@ -19,7 +19,7 @@
     },
     {
       "route": "#radius/0/1?at=0&q_f0_dy=12",
-      "reached": 0.17721824645996095,
+      "reached": 0.17769134521484375,
       "stopped": true,
       "intersecting": false
     },
@@ -30,5 +30,11 @@
       "intersecting": false
     }
   ],
-  "errors": []
+  "errors": [],
+  "updatedSubset": {
+    "course": "lunate-dislocation",
+    "sidesAndVariants": 4,
+    "poses": 1028,
+    "reason": "Final wrist source switched to the high-resolution same-donor assembly. The affected subset was rerun."
+  }
 }
