@@ -12,7 +12,7 @@ self.ATLAS_OFFLINE_FILES = [
  "models/extended/canal.json",
  "anatomy-data.js",
  "anatomy-panel.js",
- "app.js?v=eedd848",
+ "app.js?v=4cf1b3d",
  "bone-framing.js",
  "bone-index.js",
  "bone-index.js?v=eedd848",

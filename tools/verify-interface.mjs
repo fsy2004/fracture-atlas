@@ -59,6 +59,13 @@ try{
  assert.equal(await page.locator('#dirTR').innerText(),'患者右侧');
  await page.locator('#viewRail [data-view=home]').click();
  assert.equal(await page.locator('#dirTR').innerText(),'患者左侧');
+ assert.equal(await page.locator('#dirTL').innerText(),'上方');
+ assert.equal(await page.locator('#dirBR').innerText(),'下方');
+ await page.getByRole('button',{name:'上面观',exact:true}).click();
+ assert.equal(await page.locator('[data-view=top]').getAttribute('aria-pressed'),'true');
+ await page.getByRole('button',{name:'下面观',exact:true}).click();
+ assert.equal(await page.locator('[data-view=inferior]').getAttribute('aria-pressed'),'true');
+ await page.locator('#viewRail [data-view=home]').click();
  await page.locator('#search').fill('腭骨');await page.locator('[data-bone="Left palatine bone"]').click();await ready(page);
  assert.ok(await page.locator('#viewport').getAttribute('data-specimen')==='true');
  await page.locator('#advanced > summary').click();await page.locator('#viewOptions > summary').click();await page.locator('#anatomyExtent').selectOption('region');await ready(page);

@@ -1271,7 +1271,7 @@ function setProgress(value){
  $('quickPlay').textContent=playing?'Ⅱ　暂停':progress>=1||poseLimit?.reason?'↻　重播':'▶　播放';
  $('play').textContent=playing?'Ⅱ 暂停':progress>=1||poseLimit?.reason?'↻ 重播':'▶ 播放';
 }
-const anatomyDirections=[['患者左侧','患者右侧'],['头侧','尾侧'],['腹侧','背侧']];
+const anatomyDirections=[['患者左侧','患者右侧'],['上方','下方'],['前方','后方']];
 const viewsByAxis=[['leftSide','side'],['top','inferior'],['front','rear']];
 function orientation(){
  dirty=true;
