@@ -205,6 +205,5 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 #anatomyMarks div{border-top:1px solid #dce5da;padding:6px 0;font-size:13px}
 #anatomyMarks dt{font-weight:600}
 #anatomyMarks dd{margin:2px 0 0;color:#405a50;line-height:1.65}
-.feedback-link{display:inline-flex;align-items:center;color:var(--jade);padding:3px 5px;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
 
 #networkTools{display:flex;align-items:center;gap:7px;margin-top:12px;color:var(--muted);font-size:12px}

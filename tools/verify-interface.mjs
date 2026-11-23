@@ -123,6 +123,6 @@ try{
  assert.match(await page.locator('#contactState').textContent(),/已限位/);
  await page.goto(base+'#radius/v01/1?at=1000');await ready(page);
  await checkExam(page,/伸直型/);
- assert.equal(await page.locator('.feedback-link').getAttribute('href'),'https://github.com/fsy2004/fracture-atlas/discussions');
+ assert.equal(await page.getByRole('link',{name:'反馈',exact:true}).count(),0);
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}
