@@ -1,3 +1,6 @@
+import {loadOverviewBytes} from './preview-mirror.js';
+import {assembledSurfaces,detailRegions,regionsForScene} from './assembly-detail.js';
+import {motionGuide} from './motion-guides.js';
 import {cutField} from './cut-field.js';
 import {guidesFor,updateAnatomyPanel} from './anatomy-panel.js';
 import {canonicalCourse,variantIndex} from './variant-registry.js';
@@ -129,7 +132,7 @@ let fractureFocus=new T.Vector3();
 let focus=new T.Vector3(),span=.45,distance=.7,previous=0,ready=false;
 const keyByMesh=new Map(),meshByKey=new Map();
 let selected=null,shape='',motions=[],flight=null,hovered=null,lastLabelView='';
-let anklePose=null;
+let anklePose=null,poseGuide=null,motionWords=[];
 
 function lessonOpen(){return Boolean(course&&variant>=0&&selected);}
 function jointView(){
@@ -170,7 +173,7 @@ function materialize(meta,bytes){
 }
 function clearScene(){
  profile?.dispose();profile=null;profileMarks=[];bedRims=[];alignment?.dispose();alignment=null;mechanics?.dispose();mechanics=null;timing=null;impaction=null;poseLimit=null;$('contactState').textContent='';
- fragmentRig?.dispose();fragmentRig=null;anklePose=null;inspection=null;dirty=true;syncStudy();applyMotion=null;$('liveValues').textContent='';$('motionReadout').textContent='';$('motionReadout').classList.remove('with-reference');hovered=null;$('tip').hidden=true;group.scale.x=1;
+ fragmentRig?.dispose();fragmentRig=null;anklePose=null;poseGuide=null;motionWords=[];inspection=null;dirty=true;syncStudy();applyMotion=null;$('liveValues').textContent='';$('motionReadout').textContent='';$('motionReadout').classList.remove('with-reference');hovered=null;$('tip').hidden=true;group.scale.x=1;
  group.traverse(o=>{if(o.userData.dispose)o.geometry?.dispose();if(o.isArrowHelper||o.type==='ArrowHelper')o.dispose?.();});
  group.traverse(o=>{
   if(o.userData.ownMaterial)o.material.dispose();
@@ -179,8 +182,8 @@ function clearScene(){
  group.clear();animated.length=annotations.length=nearBones.length=jointReferences.length=deformationGhosts.length=pieces.length=wedges.length=0;fragmentMarks=[];anatomyGuides=[];
 }
 const specimen=specimenLibrary(async u=>await fetch(u));
-let atlasPalate=false,regionReference=false,loadingSpecimen=false,useSpecimen=false,viewSerial=0,baseDetail=false;
-let loadAssemblyDetail;
+let atlasPalate=false,regionReference=false,loadingSpecimen=false,useSpecimen=false,viewSerial=0;
+let assemblyDetail;
 const reflectedMeshes=new Map(),overviewMeshes=new Map();
 function lessonMesh(name){
  if(useSpecimen)return specimen.get(name,lessonOpen()&&/left/i.test(selected));
@@ -310,6 +313,7 @@ function nameFragmentEnds(items,spec,anchor){
   const centre=item.shell.geometry.boundingBox.getCenter(new T.Vector3());
   item.segment=limb?(i===0?lower:i===order.length-1?upper:'中间骨块'):'骨块 '+(i+1);
   item.guidePoint=anchor.clone().lerp(centre,.24);
+  if(limb){item.cutReference=anchor;item.segmentCentre=centre;}
  }
 }
 function motionLabels(){
@@ -627,11 +631,23 @@ function assetsForLesson(){
  const currentGroup=specimen.group(names);
  return currentGroup&&relevant.every(option=>specimen.group(specimen.required(selected,course,option))===currentGroup)?names:[];
 }
+let detailTimer;
+function scheduleFullDetail(serial){
+ clearTimeout(detailTimer);
+ if(location.protocol==='file:'||navigator.connection?.saveData||(smallScreen.matches&&(navigator.deviceMemory??4)<4))return;
+ detailTimer=setTimeout(async()=>{
+  for(const region of detailRegions){
+   if(viewSerial!==serial||selected||document.hidden)return;
+   try{await assemblyDetail.load([region]);}catch{return;}
+  }
+ },2200);
+}
 function renderLesson(smooth=false,keepView=false,viewParams=null){
  if(!ready)return;
  const serial=++viewSerial,lesson=lessonOpen(),resume=playing,editAtRequest=viewEdits;
  const needed=selected&&!specimen.catalogueReady()?null:assetsForLesson();
- const awaiting=Boolean(selected&&(needed===null||(needed.length?!specimen.ready(needed):!baseDetail)));
+ const regionNames=selected?regionsForScene(selected,course,lesson?course.variants[variant]:null):[];
+ const awaiting=Boolean(selected&&(needed===null||(needed.length?!specimen.ready(needed):!assemblyDetail.ready(regionNames))));
  $('loadNotice').hidden=true;
  if(awaiting||lesson){
   playing=false;loadingSpecimen=true;flight=null;host.dataset.pending='true';
@@ -655,7 +671,7 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
    if(serial!==viewSerial)return [];
    const keys=needed??assetsForLesson();
    if(keys.length)await specimen.load(keys);
-   else if(selected)await loadAssemblyDetail();
+   else if(selected)await assemblyDetail.load(regionNames);
    return keys;
   })();
   Promise.all([paint,available]).then(([,loaded])=>{
@@ -706,6 +722,7 @@ function finishLesson(smooth,keepView,viewParams,needed){
    for(const name of boneData.keys())addBone(name,bone);
    focus.set(0,.82,0);span=1.64;
    $('heading').textContent='全身骨骼';$('crumb').textContent='成年男性 · 解剖总览';$('description').textContent='点击骨骼，进入局部观察';
+   scheduleFullDetail(viewSerial);
   }else{
    const region=regionReference?specimen.region(selected):null;
    const mesh=region?new T.Mesh(specimen.fromKey(region[0]),bone):addBone(selected,bone);
@@ -752,7 +769,7 @@ function finishLesson(smooth,keepView,viewParams,needed){
    const linked=addBone(name,adjacent,pivot);linked.position.copy(a).negate();nearBones.push(linked);
   }
   for(const name of v.fixed){if(useSpecimen&&course.id==='hip-dislocation'&&name==='Sacrum')continue;const m=addBone(name,bone);if(m)jointReferences.push(m);}
-  animated.push({jointLabel:'活动骨端',trajectory,pivot,anchor:a,shift:vec(digitPath?.end||localPath?.end||v.shift).multiplyScalar(.001),turn:vec(digitPath?.turn||(vkJaw?[18,0,0]:v.turn)||[0,0,0]).multiplyScalar(Math.PI/180),posture:shoulder?localPath.pose:v.posture,axial:shoulder?localPath.axial:v.axial,waypoints:digitPath?digitPath.waypoints:localPath?(localPath.via?[localPath.via]:undefined):vkJaw?[[0,-5,5]]:v.waypoints,sharedClock:course.id==='lunate-dislocation'&&variant===0,ghost,jointAxis:shoulder?vec(shoulder.axial_in_template):frame?.axis});
+  animated.push({jointLabel:'活动骨端',trajectory,pivot,anchor:a,shift:vec(digitPath?.end||localPath?.end||v.shift).multiplyScalar(.001),turn:vec(digitPath?.turn||(vkJaw?[18,0,0]:v.turn)||[0,0,0]).multiplyScalar(Math.PI/180),posture:shoulder?localPath.pose:v.posture,axial:shoulder?localPath.axial:v.axial,waypoints:digitPath?digitPath.waypoints:localPath?(localPath.via?[localPath.via]:undefined):vkJaw?[[0,-5,5]]:v.waypoints,sharedClock:course.id==='lunate-dislocation'&&variant===0,ghost,jointAxis:frame?.axis});
   anchors.push(a);
  }
  for(const original of course.kind==='joint'?[]:v.cuts){
@@ -1000,7 +1017,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
     animated[start].tractionTiming='distal';animated.at(-1).tractionTiming='proximal';
    }
    if((s.proximalHeadPivot||(['femur','humerus'].includes(course.id)&&variant<2))&&!motions.length&&g.userData.headCentre){
-    const proximal=animated.at(-1),head=g.userData.headCentre;
+    const proximal=animated.at(-1),head=g.userData.headCentre;proximal.headCentre=head;
     proximal.anchor=head.clone();proximal.pivot.position.copy(head);
     for(const obj of proximal.pivot.children)obj.position.copy(head).negate();
    }
@@ -1127,6 +1144,13 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   fragmentRig?.sample();playing=false;setProgress(1);syncPlayer();syncExam();updateURL();
  },{id:course.id,variant,legacyMotion,selectedShape:shape,wedge:shape==='wedgeFragment',palmar:course.id==='radius'&&variant===0?wristLandmarks(lessonMesh('Right radius')).palmar:null,ankleSign:anklePose?.sign,mirror});
  const primary=v.cuts.find(s=>s.bone===teachingBone(selected))||v.cuts[0];
+ const proximalFemur=(course.id==='trochanter'&&variant===1||course.id==='femur'&&variant===0)&&!shape&&!motions.length;
+ const forearm=course.id==='single-forearm'&&variant<2&&!shape&&!motions.length;
+ poseGuide=motionGuide(group,animated,primary.bone,proximalFemur?'proximal-femur':forearm?'forearm':'standard',span);
+ const cue=poseGuide?'虚线为伤前骨轴，实线为当前骨轴。':'';
+ $('motionNote').textContent=(v.observe||'')+cue;
+ $('motionNote').hidden=!$('motionNote').textContent;
+
  function observe(item){
   inspection?.dispose();
   const i=Math.max(0,v.cuts.findIndex(s=>s.bone===(item?.name||primary.bone))),source=v.cuts[i];
@@ -1234,6 +1258,7 @@ function scenePose(requested,report=true){
    $('liveValues').textContent=(read?read+'　':'')+(impaction?'相对伤前断缘位移 ':'断缘对应点错开 ')+marked.distance.toFixed(1)+' mm';
   }
  }
+ motionWords=poseGuide?.update($('guides').checked&&layersVisible&&progress>.15)||[];
  if(report&&observationMode==='facet'){
   const m=inspection?.measurements();
   if(m)$('liveValues').textContent+='　标示点高差 '+m.height.toFixed(1)+' mm　面内错位 '+m.slip.toFixed(1)+' mm';
@@ -1244,7 +1269,10 @@ function updateMotionReadout(){
  const fields=full.split(/　+/).filter(Boolean);
  const main=fields.filter(s=>/旋|短缩|缩短|平移|侧移|移位|成角|倾|转角|压低|分离|重叠|内翻|外翻|内收|外展|屈曲|后伸/.test(s)&&!s.includes('断缘对应点'));
  const nonzero=main.filter(s=>/[-+]?[0-9.]+/.test(s)&&Number(s.match(/[-+]?[0-9.]+/)[0])!==0);
- const summary=(nonzero.length?nonzero:main.length?main:fields).slice(0,3).join('　');
+ const minimum=nonzero.length?nonzero:main.length?main:fields;
+ const travel=nonzero.filter(note=>/平移/.test(note));
+ const visible=motionWords.length?[...motionWords,...(course?.kind==='joint'?travel:[])]:minimum;
+ const summary=visible.slice(0,4).join('　');
  if($('motionReadout').textContent!==summary)$('motionReadout').textContent=summary;
 }
 function setProgress(value){
@@ -1362,7 +1390,7 @@ async function start(){
  }
  let previewMeta=null;
  const metadata=getAsset('models/detail.json').then(value=>previewMeta=value,()=>null);
- const [index,bin]=await Promise.all([getAsset('models/index.json'),getAsset('models/bones.bin')]);
+ const [index,bin]=await Promise.all([getAsset('models/index.json'),loadOverviewBytes(getAsset)]);
  const framesById=new Map(previewMeta?.entries.map(entry=>[entry.mesh,landmarkMap(entry,previewMeta.display_offset_mm)]));
  for(const m of index){
   const key=boneData.has(m.name)?m.name+' '+m.mesh:m.name;
@@ -1370,17 +1398,25 @@ async function start(){
   if(coordinateMap)alignPreview(preview,coordinateMap);
   overviewMeshes.set(key,preview);boneData.set(key,preview);meshByKey.set(key,m.mesh);keyByMesh.set(m.mesh,key);
  }
- let assemblyPending;
- loadAssemblyDetail=()=>assemblyPending??=(async()=>{
-  const [manifest,bytes]=await Promise.all([
-   metadata.then(value=>value??getAsset('models/detail.json')),
-   getAsset('models/detail.bin.gz')
-  ]);
-  const surfaces=await decodeSurfaces(manifest,bytes);
-  if(surfaces.size!==boneData.size)throw Error('精细模型清单不完整');
+ const readFullMetadata=()=>metadata.then(value=>value??getAsset('models/detail.json'));
+ function installAssembly(surfaces){
   for(const [mesh,g] of surfaces)boneData.set(keyByMesh.get(mesh),g);
-  baseDetail=true;
- })().catch(error=>{assemblyPending=null;throw error;});
+  host.dataset.detailedBones=String([...boneData].filter(([name,g])=>g!==overviewMeshes.get(name)).length);
+  if(!selected&&!controls.interacting){
+   for(const child of group.children){
+    const detail=boneData.get(child.userData.bone);
+    if(detail)child.geometry=detail;
+   }
+   dirty=true;
+  }
+ }
+ if(location.protocol==='file:'){
+  let allSurfaces;
+  assemblyDetail={ready:()=>Boolean(allSurfaces),load:()=>allSurfaces??=(async()=>{
+   const [manifest,bytes]=await Promise.all([readFullMetadata(),getAsset('models/detail.bin.gz')]);
+   installAssembly(await decodeSurfaces(manifest,bytes));
+  })().catch(error=>{allSurfaces=null;throw error;})};
+ }else assemblyDetail=assembledSurfaces(getAsset,readFullMetadata,installAssembly);
  buildIndex(boneData.keys(),pickBone,key=>matches(key).length);
  ready=true;host.dataset.ready='true';route();$('status').hidden=!loadingSpecimen;
  // A prior release let the user save an offline web snapshot. Retire only
@@ -1531,6 +1567,7 @@ for(const id of ['bandRule','slack','drawConstraints'])$(id).onchange=()=>{
 };
 $('normal').onclick=()=>{playing=false;setProgress(0);};
 document.addEventListener('visibilitychange',()=>{
+ if(ready&&!document.hidden&&!selected)scheduleFullDetail(viewSerial);
  previous=performance.now();if(document.hidden&&playing){playing=false;setProgress(progress);}
 });
 start().catch(err=>{$('status').hidden=false;$('status').textContent='三维视图加载失败，请使用支持 WebGL 的浏览器刷新。'+err.message;console.error(err);});

@@ -212,6 +212,10 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     if(i.posture){
      const [flex,,abd]=i.posture;
      qa.setFromEuler(new T.Euler(flex*rad*phase,0,abd*rad*phase,'ZXY'));
+     // Transfer swing to the registered shaft without an incidental axial
+     // rotation. The separately authored internal/external rotation follows it.
+     endDir.copy(i.jointAxis).applyQuaternion(qa);
+     qa.setFromUnitVectors(i.jointAxis,endDir);
      pivot.quaternion.premultiply(qa);
     }
    }

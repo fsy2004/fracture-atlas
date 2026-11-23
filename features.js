@@ -1,6 +1,6 @@
 // Shape describes the fracture surface; displacement describes the relative pose.
 export const shapeNames={wedgeFragment:'弯曲楔形（蝶形骨块）',transverse:'横断',shortOblique:'短斜形',oblique:'斜形',spiral:'螺旋形',comminuted:'粉碎'};
-export const motionNames={shorten:'缩短（重叠）',rotate:'旋转',angle:'成角',side:'侧方',separate:'分离'};
+export const motionNames={shorten:'缩短移位',rotate:'旋转移位',angle:'成角移位',side:'侧方移位',separate:'分离移位'};
 const transverse=['transverse','shortOblique','comminuted'];
 const torsional=['oblique','spiral'];
 const allShaft=['transverse','oblique','spiral','comminuted'];

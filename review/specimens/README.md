@@ -28,3 +28,7 @@
 ## 数据再使用
 
 VK 头部数据及其衍生骨面使用 CC BY-NC 4.0，适用于本项目的非商业教学用途。Halle 腭骨估计区使用 CC BY 4.0 的微 CT 与 CC BY-SA 2.1 Japan 的 BodyParts3D 形状先验，衍生区按 CC BY-SA 2.1 Japan 并列署名。其他数据按各自许可保留归属和修改记录。网页按需加载，离线单 HTML 内附许可归属。可用 `node tools/verify-specimen-library.mjs` 对实际分发文件及 201 个索引做校验。[补充模型清单](../../models/extended/manifest.json) · [VK 重建工具](../../tools/visible_korean/README.md)
+
+## 软组织来源核对
+
+可从髋部起步，用伤前几何显示臀中肌、髂腰肌等近端牵拉结构，以及股动脉、股静脉和坐骨神经的前后关系。已核对的[Visible Human Male 下肢数据](https://digitalcommons.du.edu/visiblehuman/2/)有 CC BY 4.0 的双侧肌肉，可核对骨、肌配准。BodyParts3D 的 4.0 索引也有左右侧臀中肌、髂肌、腰大肌和股动静脉候选。现有索引里的这些结构需要与每个场景实际使用的骨面版本配准；坐骨神经仍缺已核验的同体几何。软组织应先作为可独立开关的伤前参照，牵拉、压迫等动态关系需另外建模和验证。

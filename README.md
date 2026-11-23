@@ -132,5 +132,11 @@
 
 - 右栏“骨性标志与解剖”覆盖索引中的每个结构。骨面定位显示的是有依据的区位。文字所列的细小孔、沟和嵴可能超过当前模型的分辨率。按区域参照 [OpenStax 轴骨](https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system) 和 [附肢骨](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-introduction)，解剖名称参照 [FIPAT](https://ifaa.net/committees/anatomical-terminology-fipat/)。
 - 新链接用病种 ID 与分型 ID，例如 `#radius/v01/1`。旧数字链接照常解析。新增分型时在 `variant-registry.js` 末尾增加分型 ID，重命名时更新对应名称，沿用已有 ID 和旧序号。提交前运行 `node tools/build_review.mjs` 和 `node --test tests/*.test.mjs`。
-- 网页先显示全身预览。选骨后按需读取精细标本，使用全身精细组装骨面的分型再加载该组装包。本阶段暂停发布离线版。
+- 网页先显示全身预览，随后按分区逐步替换为精细骨面。选骨时优先读取已核对的标本。同体标本组合缺失的场景只加载涉及的组装分区。浏览器启用节省流量或内存受限时，精细局部按需加载。公共站点的预览骨面有校验过的固定版本备用下载。
 - 在 [GitHub Discussions](https://github.com/fsy2004/fracture-atlas/discussions) 讨论内容与功能，也可通过 [Issues](https://github.com/fsy2004/fracture-atlas/issues) 提交可以复现的问题。反馈时可用网页的“复制链接”保存分型、方向和当前姿态。
+
+## 运动词汇与模型
+
+教材第六章图 6-1 将成角、侧方、缩短、分离和旋转列为骨折移位方式。可同时观察多个方向。对可确定近、远段和长轴的骨折，图谱读数取自当前骨块姿态。第七章关节脱位的方向与伤肢姿势分别描述。髋、肩使用显示标本上的实际长轴计算旋转，图例的虚线与实线分别表示伤前和当前骨轴。桡骨干适用示例显示近、远段的旋前与旋后。角度和位移均为当前教学模型的读数。
+
+运行 `node tools/build_detail_regions.mjs` 从原有组合骨面按区域打包。保持原始顶点和三角面字节，区域清单记录偏移与哈希。自动检查验证六个分区共同覆盖全部索引结构，并与原始组装包逐块比较。

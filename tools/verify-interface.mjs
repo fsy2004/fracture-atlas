@@ -152,5 +152,15 @@ try{
   assert.match(await slow.locator('#loadNotice').innerText(),/已显示预览/);
   assert.equal(await slow.locator('#viewport').getAttribute('data-specimen'),'false');
  }
+ for(const [route,words] of [
+  ['hip-dislocation/v01/1?at=1000',/屈曲.+内收.+内旋/],
+  ['shoulder-dislocation/v01/1?at=1000&bone=FJ3262',/外展.+外旋/],
+  ['single-forearm/v01/1?at=1000',/近段旋后.+远段旋前/],
+  ['radius/v01/1?at=1000',/侧方移位.+成角移位/]
+ ]){
+  await page.goto(base+'#'+route);await ready(page);
+  assert.equal(await page.locator('#time').inputValue(),'1000');
+  assert.match(await page.locator('#motionReadout').innerText(),words);
+ }
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}
