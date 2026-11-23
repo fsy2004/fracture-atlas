@@ -333,6 +333,7 @@ function computeSection(geometry,normal,anchor,fold,spiralHeight,spiralAxis,exte
      face.addGroup((outerLength+wall.length)/3,marrow.length/3,2);face.userData.canal=true;face.userData.canalMeasured=canals.some(entry=>entry.measured);
     }
     combined.set(surface);combined.set(inherited[side],surface.length);
+    if(exteriorEnd!==Infinity)face.userData.newSurfaceVertices=surface.length/3;
     face.setAttribute('position',new T.BufferAttribute(combined,3));face.computeVertexNormals();
     if(relief&&!spiralHeight){
      // Smooth lighting across very small facets while retaining their full relief and edges.
@@ -370,6 +371,7 @@ export function branchSection(first,normal,anchor){
  children.forEach((item,k)=>{
   const pos=item.outline.attributes.position.array,coords=new Float32Array(pos.length+3*extra[k].length);coords.set(pos);
   extra[k].forEach((p,i)=>p.toArray(coords,pos.length+3*i));
+  item.outline.userData.branchRimVertices=pos.length/3;
   item.outline.setAttribute('position',new T.BufferAttribute(coords,3));
  });
  merged.dispose();return children;

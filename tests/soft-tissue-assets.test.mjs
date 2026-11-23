@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
+import {referenceName} from '../soft-tissue-view.js';
 
 const base=new URL('../models/soft-tissue/',import.meta.url);
 const manifest=JSON.parse(readFileSync(new URL('manifest.json',base),'utf8'));
@@ -28,4 +29,14 @@ test('all anatomical zones have intact high resolution meshes for each layer',()
  }
  for(const side of ['.l','.r'])for(const name of ['Sciatic nerve','Femoral nerve','Median nerve','Ulnar nerve','Radial nerve'])
   assert.ok(manifest.structures.nerves[name+side],name+side);
+});
+
+test('every selectable bone resolves to a same-side soft-tissue reference',()=>{
+ const bones=JSON.parse(readFileSync(new URL('../models/index.json',import.meta.url),'utf8'));
+ for(const {name} of bones){
+  const reference=referenceName(name,manifest.structures.bones);
+  assert.ok(reference,name);
+  if(/\bleft\b/i.test(name))assert.match(reference,/\.l$/);
+  if(/\bright\b/i.test(name))assert.match(reference,/\.r$/);
+ }
 });

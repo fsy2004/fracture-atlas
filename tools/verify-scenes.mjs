@@ -83,7 +83,7 @@ try{
   const [{courses},{regionalCourses},{supplementalCourses},{joints}]=await Promise.all(['courses','regional-courses','supplemental','joints'].map(n=>import('./'+n+'.js')));
   const registry=await (await fetch('./models/index.json')).json(),ids=new Map();
   for(const e of registry)ids.set(ids.has(e.name)?e.name+' '+e.mesh:e.name,e.mesh);
-  const result={index:ids.size,fractureRoutes:0,fracturePoses:0,jointRoutes:0,jointPoses:0,specimenFractureRoutes:0,specimenJointRoutes:0,cutFaces:0,motionRoutes:0,vertebralRoutes:0,vertebralIntervals:0,issues:[]};
+  const result={index:ids.size,fractureRoutes:0,fracturePoses:0,jointRoutes:0,jointPoses:0,specimenFractureRoutes:0,specimenJointRoutes:0,cutFaces:0,motionRoutes:0,vertebralRoutes:0,vertebralIntervals:0,stationaryVariants:[],issues:[]};
   for(const c of [...courses,...regionalCourses,...supplementalCourses,...joints]){
    if(scope&&scope!==c.id)continue;
    const kind=c.kind==='joint'?'joint':'fracture',steps=kind==='joint'?256:128;
@@ -93,7 +93,10 @@ try{
      const route='#'+c.id+'/'+i+'/'+level+'?at=0&bone='+ids.get(bone);
      history.replaceState(null,'',route);dispatchEvent(new Event('hashchange'));
      const {invalid,contact,specimen,cutFaces,nontrivial,vertebral}=await window.inspectAtlasPose(steps);
-     result.cutFaces+=cutFaces;if(nontrivial)result.motionRoutes++;
+     result.cutFaces+=cutFaces;
+     if(nontrivial)result.motionRoutes++;
+     else if(!result.stationaryVariants.some(entry=>entry.course===c.id&&entry.variant===i))
+      result.stationaryVariants.push({course:c.id,variant:i,title:v.name,deliberate:Boolean(v.fissure||v.cuts.every(cut=>[cut.minus,cut.plus,...(cut.branches||[])].every(pose=>!pose||(!pose.shift.some(Boolean)&&!pose.turn.some(Boolean)))))});
      if(vertebral){result.vertebralRoutes++;result.vertebralIntervals+=vertebral.verticalIntervals;}
      if(specimen)result[kind==='joint'?'specimenJointRoutes':'specimenFractureRoutes']++;
      result[kind+'Routes']++;result[kind+'Poses']+=steps+1;

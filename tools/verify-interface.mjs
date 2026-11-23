@@ -11,6 +11,9 @@ try{
  async function viewport(options){
   const context=await browser.newContext({...options,offline:base.startsWith('file:')});
   const page=await context.newPage();page.setDefaultTimeout(60000);page.on('pageerror',err=>errors.push(err.message));
+  page.on('console',message=>{
+   if(message.type()==='error'&&/THREE\.WebGLProgram|VALIDATE_STATUS/.test(message.text()))errors.push(message.text());
+  });
   return page;
  }
  async function ready(page){
@@ -164,10 +167,16 @@ try{
  }
  if(!base.startsWith('file:')){
   await page.goto(base+'#hip-dislocation/v01/1?at=450');await ready(page);
-  await page.locator('#softTissuePanel summary').click();
+  if(!await page.locator('#softTissuePanel').evaluate(panel=>panel.open))await page.locator('#softTissuePanel summary').click();
   await page.locator('#softNerves').check();
   await page.locator('#viewport[data-soft-layers="nerves"]').waitFor({timeout:85000});
-  await page.waitForFunction(()=>document.querySelector('#markLayer').textContent.includes('坐骨神经'));
+  const sciatic=page.locator('#markLayer .pin:visible').getByText('坐骨神经',{exact:true});
+  await sciatic.waitFor();
+  await page.locator('#viewport[data-soft-mode="linked"]').waitFor();
+  assert.equal(await page.locator('#markLayer .pin:visible').filter({hasText:'尺神经'}).count(),0);
+  await page.locator('#end').click();
+  await page.waitForFunction(()=>+document.querySelector('#viewport').dataset.softDisplacement>.008);
+  await page.locator('#time').fill('450');
   await page.locator('#softVessels').check();
   await page.locator('#viewport[data-soft-layers="vessels,nerves"]').waitFor({timeout:85000});
   await page.locator('#softNerves').uncheck();
@@ -175,6 +184,18 @@ try{
   await page.locator('#softReturn').click();
   assert.equal(await page.locator('#time').inputValue(),'450');
   assert.equal(await page.locator('#viewport').getAttribute('data-soft-layers'),null);
+  await page.goto(base+'#single-forearm/v01/1?at=0');await ready(page);
+  if(!await page.locator('#softTissuePanel').evaluate(panel=>panel.open))await page.locator('#softTissuePanel summary').click();
+  await page.locator('#softMuscles').check();
+  await page.locator('#viewport[data-soft-mode="linked"]').waitFor({timeout:85000});
+  await page.locator('#end').click();
+  assert.ok(Number(await page.locator('#viewport').getAttribute('data-soft-displacement'))>.001);
+  await page.goto(base+'#spine/v01/1?at=0');await ready(page);
+  if(!await page.locator('#softTissuePanel').evaluate(panel=>panel.open))await page.locator('#softTissuePanel summary').click();
+  await page.locator('#softMuscles').check();
+  await page.locator('#viewport[data-soft-mode="linked"]').waitFor({timeout:85000});
+  await page.locator('#end').click();
+  assert.ok(Number(await page.locator('#viewport').getAttribute('data-soft-displacement'))>.001);
  }
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}

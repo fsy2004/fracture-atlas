@@ -17,10 +17,23 @@ const labels=[
  [/^Spinal cord$/i,'脊髓'],[/^Internal carotid artery(?:\.|$)/i,'颈内动脉']
 ];
 const identifier=name=>name.toLowerCase().replace(/[^a-z0-9]/g,'');
-function referenceName(bone,table){
+export function referenceName(bone,table){
  const side=/\bleft\b/i.test(bone)?'l':/\bright\b/i.test(bone)?'r':'';
  let text=bone.replace(/ FJ\d+$/,'').replace(/\b(?:left|right) /gi,'').toLowerCase();
  text=text.replace('navicular bone of foot','navicular bone');
+ if(text==='atlas')text='atlas (c1)';
+ if(text==='axis')text='axis (c2)';
+ if(text==='ethmoid')text='ethmoid bone';
+ if(text==='sesamoid bone of foot')text='sesamoid bones of foot';
+ if(text==='manubrium')text='manubrium of sternum';
+ if(text==='triquetral')text='triquetrum bone';
+ if(/^(scaphoid|lunate|pisiform|trapezium|trapezoid|capitate|hamate)$/.test(text))text+=' bone';
+ const column=text.match(/^(\w+) (cervical|thoracic|lumbar) vertebra$/);
+ if(column){
+  const ord=['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth','eleventh','twelfth'];
+  const number=ord.indexOf(column[1])+1;
+  if(number)text='vertebra '+column[2][0]+number;
+ }
  const match=text.match(/^(proximal|middle|distal) phalanx of (.*)$/);
  if(match){
   const digit=match[2],foot=digit.includes('toe');
@@ -106,7 +119,7 @@ export function prepareSoftTissues(){
   const [manifest,loader]=await Promise.all([readCatalogue(),loadDecoder()]);
   const skeleton=manifest.structures.bones;
   const name=bone?referenceName(bone,skeleton):null,reference=name?skeleton[name]:null;
-  const root=new T.Group(),tags=[],entries=[],storage=cache;
+  const root=new T.Group(),tags=[],entries=[],storage=cache;let pairedBone=null;
   const target=reference?bounds(reference.bounds):null;
   if(target&&section){
    const y=target.max.y-target.min.y;
@@ -117,12 +130,20 @@ export function prepareSoftTissues(){
   const centre=target?.getCenter(new T.Vector3());
   const tissuePoint=new T.Vector3();
   const selectedRegion=bone?regionLabels[regionFor(bone)]:null;
+ const focus=/hip bone/i.test(bone||'')?'lower':selectedRegion;
+ const relevant=(key,record)=>{
+  if(!local)return true;
+  if(!record||!local.intersectsBox(bounds(record.bounds)))return false;
+  if(focus==='lower'&&/ulnar|of hand|^median nerve|^radial nerve|brachial|carpal|metacarpal|pollicis|^cephalic vein|^basilic vein/i.test(key))return false;
+  if(focus==='upper'&&/femoral|sciatic|^tibial nerve|of foot|plantar|fibular|metatarsal|hallucis/i.test(key))return false;
+  return true;
+ };
   try{
    for(const layer of ['bones',...layers]){
     const dictionary=manifest.structures[layer];
     const chosen=new Set();
     if(local){
-     for(const object of Object.values(dictionary))if(local.intersectsBox(bounds(object.bounds)))chosen.add(object.region);
+     for(const [key,object] of Object.entries(dictionary))if(relevant(key,object)||key===name)chosen.add(object.region);
     }else for(const region of selectedRegion?[selectedRegion]:manifest.regions)chosen.add(region);
     if(!chosen.size&&selectedRegion)chosen.add(selectedRegion);
     for(const region of chosen){
@@ -133,7 +154,10 @@ export function prepareSoftTissues(){
      scene.traverse(node=>{
       if(!node.isMesh)return;
       const key=(node.userData.name||node.name).trim(),record=dictionary[key];
-      node.visible=!local||!record||local.intersectsBox(bounds(record.bounds));
+      node.userData.atlasLayer=layer;
+      // The modelled pair of hallux sesamoids serves as an intact reference.
+      if(layer==='bones'&&key===name&&!/^Sesamoid bones of foot/i.test(key))pairedBone=node;
+      node.visible=key===name||relevant(key,record);
       if(!node.userData.tissueMaterial){
        node.material.dispose();
        node.material=materialFor(layer,key);node.userData.tissueMaterial=true;
@@ -150,7 +174,7 @@ export function prepareSoftTissues(){
          const distance=tissuePoint.distanceToSquared(centre);
          if(distance<nearest){nearest=distance;point=tissuePoint.clone();}
         }
-        if(point)tags.push({text:label,point});
+        if(point)tags.push({text:label,point,layer});
        }
       }
      });
@@ -163,7 +187,7 @@ export function prepareSoftTissues(){
    if((bone||'').toLowerCase().includes('femur')&&section==='proximal')tags.sort((a,b)=>
     (primary.includes(a.text)?primary.indexOf(a.text):primary.length)-(primary.includes(b.text)?primary.indexOf(b.text):primary.length)
    );
-   return {root,frame,tags:tags.slice(0,5)};
+   return {root,frame,tags:tags.slice(0,5),pairedBone};
   }catch(error){root.clear();throw error;}
  }
  return {load,detach:entry=>{if(entry){entry.root.removeFromParent();entry.root.clear();}},clear(){

@@ -2,14 +2,14 @@ import * as T from './vendor/three.module.js';
 
 // Sample distance to the actual clipped cortical rim in section coordinates.
 // This is a display layer and keeps the collision solids unmodified.
-export function cutField(outline,anchor,normal){
- const positions=outline.attributes.position;if(positions.count<6)return null;
+export function cutField(outline,anchor,normal,count=outline.attributes.position.count){
+ const positions=outline.attributes.position;if(count<6)return null;
  const n=normal.clone().normalize();
  const u=new T.Vector3(Math.abs(n.x)<.8?1:0,Math.abs(n.x)<.8?0:1,0).cross(n).normalize();
  const v=n.clone().cross(u),p=new T.Vector3(),vertices=[];
  let minU=Infinity,maxU=-Infinity,minV=Infinity,maxV=-Infinity;
- const stride=Math.max(2,2*Math.ceil(positions.count/2400));
- for(let i=0;i<positions.count;i+=stride){
+ const stride=Math.max(2,2*Math.ceil(count/2400));
+ for(let i=0;i<count;i+=stride){
   const start=p.fromBufferAttribute(positions,i).sub(anchor);
   const x=start.dot(u),y=start.dot(v);
   const end=p.fromBufferAttribute(positions,i+1).sub(anchor);

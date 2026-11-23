@@ -228,4 +228,4 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 .soft-options{display:flex;flex-wrap:wrap;gap:8px 13px;font-size:13px;margin-bottom:7px}
 #softStatus{margin:0 0 7px}
 #softReturn{margin-bottom:8px}
-.tissues-active #motionReadout{display:none}
+.tissues-active:not(.tissues-linked) #motionReadout{display:none}
