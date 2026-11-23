@@ -9,9 +9,12 @@ function scan(path){
   scan(posix.normalize(posix.join(posix.dirname(path),dependency)));
  }
 }
-for(const module of ['app.js','contact-worker.js'])scan(module);
+const page=readFileSync(new URL('index.html',root),'utf8');
+const application=page.match(/<script type="module" src="\.\/([^"]+)"/)[1];
+const stylesheet=page.match(/<link rel="stylesheet" href="\.\/([^"]+)"/)[1];
+for(const module of [application,'contact-worker.js'])scan(module);
 const assets=[
- './','index.html','style.css','models/index.json','models/bones.bin',
+ './','index.html',stylesheet,'models/index.json','models/bones.bin',
  'models/detail.json?native-f32-v1','models/detail.bin.gz?native-f32-v1',
  'models/vhm/manifest.json','models/extended/manifest.json','models/extended/canal.json',
  ...[...modules].sort()

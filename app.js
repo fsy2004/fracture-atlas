@@ -8,7 +8,7 @@ import {ViewControls} from './view-controls.js';
 import { courses as fractures,levels } from './courses.js';
 import { section,atLevel,sliceMetrics,branchSection,shortShaftCut } from './geometry.js';
 
-import {boneName,teachingBone,regionFor,buildIndex} from './bone-index.js';
+import {boneName,teachingBone,regionFor,buildIndex} from './bone-index.js?v=eedd848';
 import {featuresFor,initialShape,shapeNames,motionNames,withShape,customPose} from './features.js';
 
 import {makeObservation,wristLandmarks} from './observation.js';
@@ -22,7 +22,7 @@ import {plateauSite,applyPlateauBed,followPlateauRim,plateauProfile} from './pla
 import {bartonSurface} from './measured-wrist.js';
 import {canalSampler} from './endosteum.js';
 import {digitalCut} from './digit-frame.js';
-import {specimenLibrary} from './specimen.js';
+import {specimenLibrary} from './specimen.js?v=eedd848';
 import {lunateAdjuncts} from './lunate-adjuncts.js';
 import {carpalAlignment} from './carpal-alignment.js';
 import {typeView} from './clinical-types.js';

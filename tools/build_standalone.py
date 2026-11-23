@@ -46,7 +46,7 @@ def build(output):
             return
         code = (ROOT / name).read_text(encoding="utf-8-sig")
         def resolve(match):
-            dep = posixpath.normpath(posixpath.join(posixpath.dirname(name), match[1]))
+            dep = posixpath.normpath(posixpath.join(posixpath.dirname(name), match[1].split('?')[0]))
             add(dep)
             return 'from "@atlas/' + dep + '"'
         code = re.sub(r"""from\s+['"](\.[^'"]+)['"]""", resolve, code)
@@ -63,8 +63,8 @@ def build(output):
     html = (ROOT / "index.html").read_text(encoding="utf-8-sig")
     html = re.sub(r'<link data-model-preload[^>]+>\n?', '', html)
     html = html.replace("</body>", '<script type="text/plain" id="contactWorkerSource">' + worker_code + '</script></body>')
-    html = html.replace('<link rel="stylesheet" href="./style.css">',
-                        "<style>" + (ROOT / "style.css").read_text(encoding="utf-8-sig") + "</style>")
+    html = re.sub(r'<link rel="stylesheet" href="\./style\.css(?:\?[^"]+)?">',
+                  lambda _: "<style>" + (ROOT / "style.css").read_text(encoding="utf-8-sig") + "</style>", html)
     asset_tags = []
     vhm=json.loads((ROOT / 'models/vhm/manifest.json').read_text(encoding='utf-8-sig'))
     names=["models/index.json","models/bones.bin","models/detail.json","models/detail.bin.gz","models/vhm/manifest.json"]
@@ -76,9 +76,9 @@ def build(output):
     for name in names:
         content = base64.b64encode((ROOT / name).read_bytes()).decode("ascii")
         asset_tags.append('<script type="application/octet-stream" id="'+name+'">'+content+'</script>')
-    html = html.replace('<script type="module" src="./app.js"></script>',
-                        ''.join(asset_tags)+'<script type="importmap">'+json.dumps({"imports": modules})+'</script>\n'
-                        '<script type="module">import "@atlas/app.js";</script>')
+    html = re.sub(r'<script type="module" src="\./app\.js(?:\?[^"]+)?"></script>',
+                  lambda _: ''.join(asset_tags)+'<script type="importmap">'+json.dumps({"imports": modules})+'</script>\n'
+                  '<script type="module">import "@atlas/app.js";</script>', html)
     for icon in ("wrist", "leg", "hip"):
         path = "art/" + icon + ".webp"
         html = html.replace('src="' + path + '"', 'src="' + data_uri("image/webp", (ROOT / path).read_bytes()) + '"')
