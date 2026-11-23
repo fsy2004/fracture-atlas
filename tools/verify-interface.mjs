@@ -162,5 +162,19 @@ try{
   assert.equal(await page.locator('#time').inputValue(),'1000');
   assert.match(await page.locator('#motionReadout').innerText(),words);
  }
+ if(!base.startsWith('file:')){
+  await page.goto(base+'#hip-dislocation/v01/1?at=450');await ready(page);
+  await page.locator('#softTissuePanel summary').click();
+  await page.locator('#softNerves').check();
+  await page.locator('#viewport[data-soft-layers="nerves"]').waitFor({timeout:85000});
+  await page.waitForFunction(()=>document.querySelector('#markLayer').textContent.includes('坐骨神经'));
+  await page.locator('#softVessels').check();
+  await page.locator('#viewport[data-soft-layers="vessels,nerves"]').waitFor({timeout:85000});
+  await page.locator('#softNerves').uncheck();
+  await page.locator('#viewport[data-soft-layers="vessels"]').waitFor({timeout:85000});
+  await page.locator('#softReturn').click();
+  assert.equal(await page.locator('#time').inputValue(),'450');
+  assert.equal(await page.locator('#viewport').getAttribute('data-soft-layers'),null);
+ }
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}

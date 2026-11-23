@@ -8,18 +8,54 @@ const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.ATLAS_PLAYWRIGHT||'playwright');
 const root=fileURLToPath(new URL('../',import.meta.url));
 const probe=`
+function vertebralFolds(mesh){
+ const geo=mesh.geometry,box=geo.boundingBox,tree=surfaceTree(geo);
+ const morph=geo.morphAttributes.position,weights=mesh.morphTargetInfluences;
+ const ray=new T.Ray(new T.Vector3(),new T.Vector3(0,1,0));
+ const position=geo.attributes.position,aa=new T.Vector3(),bb=new T.Vector3(),cc=new T.Vector3(),bary=new T.Vector3();
+ const displacement=(hit)=>{
+  const {a,b,c}=hit.face;aa.fromBufferAttribute(position,a);bb.fromBufferAttribute(position,b);cc.fromBufferAttribute(position,c);
+  T.Triangle.getBarycoord(hit.point,aa,bb,cc,bary);
+  return weights.reduce((sum,w,j)=>sum+w*(bary.x*morph[j].getY(a)+bary.y*morph[j].getY(b)+bary.z*morph[j].getY(c)),0);
+ };
+ let count=0,largest=0,samples=0;
+ for(let i=0;i<31;i++)for(let j=0;j<31;j++){
+  ray.origin.set(T.MathUtils.lerp(box.min.x,box.max.x,(i+.43)/31),box.min.y-.025,T.MathUtils.lerp(box.min.z,box.max.z,(j+.72)/31));
+  const hits=tree.raycast(ray,T.DoubleSide).sort((a,b)=>a.distance-b.distance);
+  for(let k=1;k<hits.length;k++){
+   const a=hits[k-1],b=hits[k];if(b.distance-a.distance<.00015)continue;
+   const thickness=b.point.y+displacement(b)-(a.point.y+displacement(a));
+   samples++;
+   if(thickness<-.00012){count++;largest=Math.max(largest,-thickness);}
+  }
+ }
+ return {name:mesh.userData.bone,folds:count,maximumFoldMM:largest*1000,verticalIntervals:samples};
+}
 window.inspectAtlasPose=async(steps)=>{
  while(loadingSpecimen||!mechanics){
   if(document.getElementById('status').textContent.includes('失败'))throw Error(document.getElementById('status').textContent);
   await new Promise(resolve=>setTimeout(resolve,25));
  }
- const states={contact:[],invalid:animated.some(i=>i.shell&&(!i.shell.geometry.attributes.position.count||!i.face.geometry.attributes.position.count))},options={checkBones:true,slack:.10,draw:false};
+ const states={contact:[],invalid:false,cutFaces:0,nontrivial:false},options={checkBones:true,slack:.10,draw:false};
+ for(const item of animated.filter(i=>i.shell)){
+  const face=item.face?.geometry.attributes.position;
+  if(!item.shell.geometry.attributes.position.count||!face?.count||face.count<3){states.invalid=true;continue;}
+  if(!face.array.every(Number.isFinite))states.invalid=true;
+  states.cutFaces++;
+ }
  for(let i=0;i<=steps;i++){
   const t=i/steps;rawPose(t);
   const collision=mechanics.report(t,options,true)?.bone;
   if(collision?.kind==='bone')states.contact.push([i,collision.name]);
   if(animated.some(x=>![...x.pivot.position.toArray(),...x.pivot.quaternion.toArray()].every(Number.isFinite)))states.invalid=true;
  }
+ const expected=wedges.length>0||animated.some(i=>i.moving||i.jointLabel);
+ const moves=animated.some(i=>i.pivot.position.distanceToSquared(i.anchor)>1e-9||Math.abs(i.pivot.quaternion.w)<.999998)
+  ||wedges.some(mesh=>mesh.morphTargetInfluences.some(w=>w>.001));
+ states.nontrivial=moves;
+ const vertebra=wedges.find(mesh=>/vertebra/i.test(mesh.userData.bone||''));
+ if(vertebra&&steps>=128){states.vertebral=vertebralFolds(vertebra);if(states.vertebral.folds)states.invalid=true;}
+ if(expected&&steps>=128&&!moves)states.invalid=true;
  return {...states,specimen:useSpecimen};
 };
 window.inspectStop=()=>{
@@ -47,7 +83,7 @@ try{
   const [{courses},{regionalCourses},{supplementalCourses},{joints}]=await Promise.all(['courses','regional-courses','supplemental','joints'].map(n=>import('./'+n+'.js')));
   const registry=await (await fetch('./models/index.json')).json(),ids=new Map();
   for(const e of registry)ids.set(ids.has(e.name)?e.name+' '+e.mesh:e.name,e.mesh);
-  const result={index:ids.size,fractureRoutes:0,fracturePoses:0,jointRoutes:0,jointPoses:0,specimenFractureRoutes:0,specimenJointRoutes:0,issues:[]};
+  const result={index:ids.size,fractureRoutes:0,fracturePoses:0,jointRoutes:0,jointPoses:0,specimenFractureRoutes:0,specimenJointRoutes:0,cutFaces:0,motionRoutes:0,vertebralRoutes:0,vertebralIntervals:0,issues:[]};
   for(const c of [...courses,...regionalCourses,...supplementalCourses,...joints]){
    if(scope&&scope!==c.id)continue;
    const kind=c.kind==='joint'?'joint':'fracture',steps=kind==='joint'?256:128;
@@ -56,10 +92,12 @@ try{
     for(const bone of new Set([key,left]))for(const level of c.levels?[0,1,2]:[1]){
      const route='#'+c.id+'/'+i+'/'+level+'?at=0&bone='+ids.get(bone);
      history.replaceState(null,'',route);dispatchEvent(new Event('hashchange'));
-     const {invalid,contact,specimen}=await window.inspectAtlasPose(steps);
+     const {invalid,contact,specimen,cutFaces,nontrivial,vertebral}=await window.inspectAtlasPose(steps);
+     result.cutFaces+=cutFaces;if(nontrivial)result.motionRoutes++;
+     if(vertebral){result.vertebralRoutes++;result.vertebralIntervals+=vertebral.verticalIntervals;}
      if(specimen)result[kind==='joint'?'specimenJointRoutes':'specimenFractureRoutes']++;
      result[kind+'Routes']++;result[kind+'Poses']+=steps+1;
-     if(invalid||contact.length)result.issues.push({route,bone,invalid,first:contact[0],count:contact.length});
+     if(invalid||contact.length)result.issues.push({route,bone,invalid,first:contact[0],count:contact.length,...(vertebral?{vertebral}: {})});
     }
    }
   }

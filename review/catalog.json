@@ -1,6 +1,11 @@
 [
   {
     "variantId": "v01",
+    "description": {
+      "site": "胫腓骨干 中 1/3",
+      "form": "横断骨折线",
+      "motion": "从正面观察，两根骨的骨折线位于同一高度；侧转模型可见断端成角。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 胫腓骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#tibia/v01/1",
@@ -18,6 +23,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胫腓骨干 中 1/3",
+      "form": "螺旋形骨折线",
+      "motion": "先看胫骨内侧低、外侧高的斜线，再转向后侧找纵裂。此例腓骨断面较高。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 胫腓骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#tibia/v02/1",
@@ -35,6 +45,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "股骨干",
+      "form": "横断骨折线",
+      "motion": "近段屈曲、外展和外旋，远段向内、向上并向后移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#femur/v01/1",
@@ -51,6 +66,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "股骨干",
+      "form": "横断骨折线",
+      "motion": "比较两侧断端，远段向内上，近段有屈曲外展倾向。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#femur/v02/1",
@@ -67,6 +87,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "股骨干",
+      "form": "短斜形骨折线",
+      "motion": "转至侧面，观察远段向后方移动。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#femur/v03/1",
@@ -83,6 +108,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "股骨颈",
+      "form": "斜向断面的教学例",
+      "motion": "股骨头留在髋臼内；观察骨干端短缩、外旋及两端成角。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨颈骨折",
     "cardScope": "教材部位要点",
     "route": "#neck/v01/1",
@@ -99,6 +129,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "股骨颈",
+      "form": "斜向断面的教学例",
+      "motion": "颈中断面两侧失去对线；旋转视角观察远段上移与外旋。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨颈骨折",
     "cardScope": "教材部位要点",
     "route": "#neck/v02/1",
@@ -115,6 +150,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "股骨颈",
+      "form": "斜向断面的教学例",
+      "motion": "断面接近转子区。本例选择较小的短缩和外旋。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨颈骨折",
     "cardScope": "教材部位要点",
     "route": "#neck/v03/1",
@@ -131,6 +171,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "髌骨",
+      "form": "横形骨折线",
+      "motion": "上下两块分离，观察近端向上牵移。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 髌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#patella/v01/1",
@@ -147,6 +192,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "髌骨",
+      "form": "多骨块断面",
+      "motion": "从前面观察相交的骨折线。此例示意多块形态，保留较小的块间移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 髌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#patella/v02/1",
@@ -163,6 +213,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "踝部",
+      "form": "多处骨折线",
+      "motion": "内踝斜断，外踝呈横形。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 踝部骨折",
     "cardScope": "教材部位要点",
     "route": "#ankle/v01/1",
@@ -180,6 +235,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "踝部",
+      "form": "多处骨折线",
+      "motion": "内踝横断，外踝呈斜形。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 踝部骨折",
     "cardScope": "教材部位要点",
     "route": "#ankle/v02/1",
@@ -197,6 +257,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "跖骨",
+      "form": "横形骨折线",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折",
     "cardScope": "教材部位要点",
     "route": "#metatarsal/v01/1",
@@ -213,6 +278,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "跖骨",
+      "form": "斜形骨折线",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折",
     "cardScope": "教材部位要点",
     "route": "#metatarsal/v02/1",
@@ -229,6 +299,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "跖骨",
+      "form": "多骨块断面",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折",
     "cardScope": "教材部位要点",
     "route": "#metatarsal/v03/1",
@@ -245,6 +320,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "锁骨",
+      "form": "短斜形骨折线",
+      "motion": "观察骨折线与锁骨两端的距离，此例只示意该位置的小幅分离。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 锁骨骨折",
     "cardScope": "教材部位要点",
     "route": "#clavicle/v01/1",
@@ -261,6 +341,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "锁骨",
+      "form": "短斜形骨折线",
+      "motion": "胸锁乳突肌牵拉内侧段向后上方；上肢重量与三角肌作用使外侧段向前下方。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 锁骨骨折",
     "cardScope": "教材部位要点",
     "route": "#clavicle/v02/1",
@@ -277,6 +362,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "锁骨",
+      "form": "短斜形骨折线",
+      "motion": "观察骨折线与锁骨两端的距离，此例只示意该位置的小幅分离。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 锁骨骨折",
     "cardScope": "教材部位要点",
     "route": "#clavicle/v03/1",
@@ -293,6 +383,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肱骨干",
+      "form": "横断骨折线",
+      "motion": "近端向前内侧，远端向外上方。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#humerus/v01/1",
@@ -309,6 +404,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肱骨干",
+      "form": "横断骨折线",
+      "motion": "近端向前外侧，远端上移并发生重叠。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#humerus/v02/1",
@@ -325,6 +425,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "肱骨干",
+      "form": "斜形骨折线",
+      "motion": "观察远段内旋及成角。具体移位随肘与前臂姿势而变。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨干骨折",
     "cardScope": "教材部位要点",
     "route": "#humerus/v03/1",
@@ -341,6 +446,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "桡骨远端",
+      "form": "横向断面的教学例",
+      "motion": "远端骨块向背侧及桡侧移动，侧位可见背倾。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
     "cardScope": "教材部位要点",
     "route": "#radius/v01/1",
@@ -357,6 +467,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "桡骨远端",
+      "form": "横向断面的教学例",
+      "motion": "与伸直型对照，远端骨块向掌侧及桡侧移动。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
     "cardScope": "教材部位要点",
     "route": "#radius/v02/1",
@@ -373,6 +488,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "桡骨远端",
+      "form": "背侧关节缘劈裂，断线进入桡腕关节面",
+      "motion": "关节缘楔形骨块及腕骨向背侧移位。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
     "cardScope": "教材部位要点",
     "route": "#radius/v03/1",
@@ -389,6 +509,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "桡骨远端",
+      "form": "掌侧关节缘劈裂，断线进入桡腕关节面",
+      "motion": "掌侧缘受到劈裂，腕骨随骨块向掌侧移动。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
     "cardScope": "教材部位要点",
     "route": "#radius/v04/1",
@@ -405,6 +530,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "尺桡骨干",
+      "form": "横断骨折线",
+      "motion": "在相近水平追踪两条横断线，再观察远侧骨段的侧移和成角。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺桡骨干双骨折",
     "cardScope": "教材部位要点",
     "route": "#forearm/v01/1",
@@ -422,6 +552,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "尺桡骨干",
+      "form": "斜形骨折线",
+      "motion": "比较两骨骨折线的高度与倾斜方向。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺桡骨干双骨折",
     "cardScope": "教材部位要点",
     "route": "#forearm/v02/1",
@@ -439,6 +574,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "尺桡骨干",
+      "form": "斜形骨折线",
+      "motion": "此例呈斜形骨折，拖动观察两段相对旋转。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺桡骨干双骨折",
     "cardScope": "教材部位要点",
     "route": "#forearm/v03/1",
@@ -456,6 +596,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肋骨",
+      "form": "横向断面的教学例",
+      "motion": "骨折端向内侧移动。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#rib/v01/1",
@@ -472,6 +617,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肋骨",
+      "form": "横向断面的教学例",
+      "motion": "观察断端向胸廓外方突出的方向。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#rib/v02/1",
@@ -488,6 +638,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "肋骨",
+      "form": "局部裂线",
+      "motion": "高亮线表示局部损伤位置，此例保持骨段对位。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#rib/v03/1",
@@ -504,6 +659,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胫骨髁",
+      "form": "内侧平台劈裂，断线进入负重关节面",
+      "motion": "自上方观察受累半侧平台，再侧转查看骨折线如何延入干骺端。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 胫骨髁骨折",
     "cardScope": "教材部位要点",
     "route": "#plateau/v01/1",
@@ -520,6 +680,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胫骨髁",
+      "form": "外侧平台劈裂，断线进入负重关节面",
+      "motion": "自上方观察受累半侧平台，再侧转查看骨折线如何延入干骺端。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 胫骨髁骨折",
     "cardScope": "教材部位要点",
     "route": "#plateau/v02/1",
@@ -536,6 +701,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "胫骨髁",
+      "form": "两侧平台劈裂，断线进入双髁关节面",
+      "motion": "从上方看内、外两侧平台，从正面看两髁与干骺端的关系。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 胫骨髁骨折",
     "cardScope": "教材部位要点",
     "route": "#plateau/v03/1",
@@ -552,6 +722,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "胫骨髁",
+      "form": "关节面局部压陷",
+      "motion": "上方看受累范围，斜侧面比较压低中心和周围平台的高度；外侧皮质缘保持连续。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 胫骨髁骨折（压陷形态为补充示例）",
     "cardScope": "教材通则与补充形态对照",
     "route": "#plateau/v04/1",
@@ -568,6 +743,11 @@
   },
   {
     "variantId": "v05",
+    "description": {
+      "site": "胫骨髁",
+      "form": "关节面劈裂伴压陷",
+      "motion": "先看外侧皮质的分离，再转到上方查看独立可调的中央压低区。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 胫骨髁骨折（压陷形态为补充示例）",
     "cardScope": "教材通则与补充形态对照",
     "route": "#plateau/v05/1",
@@ -584,6 +764,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "股骨髁上",
+      "form": "斜向断面的教学例",
+      "motion": "在侧位观察，骨折线从后上斜向前下，远端向后。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨髁上骨折",
     "cardScope": "教材部位要点",
     "route": "#distalfemur/v01/1",
@@ -600,6 +785,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "股骨髁上",
+      "form": "斜向断面的教学例",
+      "motion": "在侧位观察，骨折线从前上斜向后下，远端向前。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨髁上骨折",
     "cardScope": "教材部位要点",
     "route": "#distalfemur/v02/1",
@@ -616,6 +806,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "跟骨",
+      "form": "关节外骨折线",
+      "motion": "观察后方结节骨块与上方距跟关节面的关系。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跟骨骨折",
     "cardScope": "教材部位要点",
     "route": "#calcaneus/v01/1",
@@ -632,6 +827,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "跟骨",
+      "form": "距下关节面受累",
+      "motion": "从足外侧和上方追踪骨折线，确认其进入距跟接触面。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跟骨骨折",
     "cardScope": "教材部位要点",
     "route": "#calcaneus/v02/1",
@@ -648,6 +848,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "趾骨",
+      "form": "横形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#toes/v01/1",
@@ -664,6 +869,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "趾骨",
+      "form": "斜形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#toes/v02/1",
@@ -680,6 +890,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "趾骨",
+      "form": "纵向裂线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#toes/v03/1",
@@ -696,6 +911,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "趾骨",
+      "form": "多骨块断面",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#toes/v04/1",
@@ -712,6 +932,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肱骨髁上",
+      "form": "斜向断面的教学例",
+      "motion": "从侧面看远段向后，断线由前下走向后上。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨髁上骨折",
     "cardScope": "教材部位要点",
     "route": "#elbow/v01/1",
@@ -728,6 +953,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肱骨髁上",
+      "form": "斜向断面的教学例",
+      "motion": "远端向前，断线由后下斜向前上。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨髁上骨折",
     "cardScope": "教材部位要点",
     "route": "#elbow/v02/1",
@@ -744,6 +974,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "肱骨髁上",
+      "form": "髁上横行线连至髁间纵裂",
+      "motion": "观察横向髁上线及延伸至髁间的纵线，此例为 T 形示意。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨髁上骨折",
     "cardScope": "教材部位要点",
     "route": "#elbow/v03/1",
@@ -760,6 +995,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "手舟骨",
+      "form": "斜向断面的教学例",
+      "motion": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 手舟骨骨折",
     "cardScope": "教材部位要点",
     "route": "#scaphoid/v01/1",
@@ -776,6 +1016,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "手舟骨",
+      "form": "斜向断面的教学例",
+      "motion": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 手舟骨骨折",
     "cardScope": "教材部位要点",
     "route": "#scaphoid/v02/1",
@@ -792,6 +1037,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "手舟骨",
+      "form": "斜向断面的教学例",
+      "motion": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 手舟骨骨折",
     "cardScope": "教材部位要点",
     "route": "#scaphoid/v03/1",
@@ -808,6 +1058,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "尺骨鹰嘴",
+      "form": "斜向断面的教学例",
+      "motion": "被牵拉的鹰嘴骨块向近端移动，断端间隙增大。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺骨鹰嘴骨折",
     "cardScope": "教材部位要点",
     "route": "#olecranon/v01/1",
@@ -824,6 +1079,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "尺骨鹰嘴",
+      "form": "相交断线与骨片",
+      "motion": "观察近端多块骨折及较小移位。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺骨鹰嘴骨折",
     "cardScope": "教材部位要点",
     "route": "#olecranon/v02/1",
@@ -840,6 +1100,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "指骨",
+      "form": "横形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#finger/v01/1",
@@ -856,6 +1121,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "指骨",
+      "form": "斜形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#finger/v02/1",
@@ -872,6 +1142,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "指骨",
+      "form": "多骨块断面",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#finger/v03/1",
@@ -888,6 +1163,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "骨盆环",
+      "form": "近纵向断面的教学例",
+      "motion": "从上方看，伤侧半骨盆向中线内旋。此例以前环耻骨支骨折示意。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 骨盆骨折",
     "cardScope": "教材部位要点",
     "route": "#pelvis/v01/1",
@@ -904,6 +1184,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "骨盆环",
+      "form": "近纵向断面的教学例",
+      "motion": "以骶髂区为轴，观察前环逐渐张开。此例取耻骨支骨折伴外旋的形态。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 骨盆骨折",
     "cardScope": "教材部位要点",
     "route": "#pelvis/v02/1",
@@ -920,6 +1205,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "骨盆环",
+      "form": "近纵向断面的教学例",
+      "motion": "两侧髂嵴高度产生差异，伤侧向头侧移位。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 骨盆骨折",
     "cardScope": "教材部位要点",
     "route": "#pelvis/v03/1",
@@ -936,6 +1226,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸腰椎",
+      "form": "椎体前缘楔变",
+      "motion": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#spine/v01/1",
@@ -952,6 +1247,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸腰椎",
+      "form": "椎体偏侧楔变",
+      "motion": "正面观察第一腰椎左右侧高度差，压缩侧形成楔形。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#spine/v02/1",
@@ -968,6 +1268,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肱骨外科颈",
+      "form": "局部裂线",
+      "motion": "此例保留骨段对位，以高亮线标出受累区。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外科颈骨折",
     "cardScope": "教材部位要点",
     "route": "#shoulder/v01/1",
@@ -984,6 +1289,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肱骨外科颈",
+      "form": "断端嵌插",
+      "motion": "观察骨干端沿长轴嵌入近端。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外科颈骨折",
     "cardScope": "教材部位要点",
     "route": "#shoulder/v02/1",
@@ -1000,6 +1310,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "肱骨外科颈",
+      "form": "横向断面的教学例",
+      "motion": "外侧嵌插、内侧张开，可见向内侧成角。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外科颈骨折",
     "cardScope": "教材部位要点",
     "route": "#shoulder/v03/1",
@@ -1016,6 +1331,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "肱骨外科颈",
+      "form": "横向断面的教学例",
+      "motion": "内侧嵌插、外侧张开，可见向外侧成角。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外科颈骨折",
     "cardScope": "教材部位要点",
     "route": "#shoulder/v04/1",
@@ -1032,6 +1352,11 @@
   },
   {
     "variantId": "v05",
+    "description": {
+      "site": "肱骨外科颈",
+      "form": "横向断面的教学例",
+      "motion": "相对肩盂观察，肱骨头移向前下方。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外科颈骨折",
     "cardScope": "教材部位要点",
     "route": "#shoulder/v05/1",
@@ -1048,6 +1373,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肱骨外髁",
+      "form": "斜向断面的教学例",
+      "motion": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外髁骨折",
     "cardScope": "教材部位要点",
     "route": "#lateral-elbow/v01/1",
@@ -1064,6 +1394,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肱骨外髁",
+      "form": "斜向断面的教学例",
+      "motion": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外髁骨折",
     "cardScope": "教材部位要点",
     "route": "#lateral-elbow/v02/1",
@@ -1080,6 +1415,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "肱骨外髁",
+      "form": "斜向断面的教学例",
+      "motion": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨外髁骨折",
     "cardScope": "教材部位要点",
     "route": "#lateral-elbow/v03/1",
@@ -1096,6 +1436,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肱骨内上髁",
+      "form": "斜向断面的教学例",
+      "motion": "示意轻微分离，骨块仍紧邻附着处。 采用成年男性骨性标志示意。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨内上髁骨折",
     "cardScope": "教材部位要点",
     "route": "#medial-elbow/v01/1",
@@ -1112,6 +1457,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肱骨内上髁",
+      "form": "斜向断面的教学例",
+      "motion": "骨块向前下方移位并旋转，仍在关节间隙上方。 采用成年男性骨性标志示意。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨内上髁骨折",
     "cardScope": "教材部位要点",
     "route": "#medial-elbow/v02/1",
@@ -1128,6 +1478,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "肱骨内上髁",
+      "form": "斜向断面的教学例",
+      "motion": "骨块进入内侧肘关节间隙。 采用成年男性骨性标志示意。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨内上髁骨折",
     "cardScope": "教材部位要点",
     "route": "#medial-elbow/v03/1",
@@ -1144,6 +1499,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "肱骨内上髁",
+      "form": "斜向断面的教学例",
+      "motion": "内上髁骨块嵌入关节，前臂随肘关节向桡侧脱位。 采用成年男性骨性标志示意。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 肱骨内上髁骨折",
     "cardScope": "教材部位要点",
     "route": "#medial-elbow/v04/1",
@@ -1160,6 +1520,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "桡骨头",
+      "form": "横向断面的教学例",
+      "motion": "细线标示损伤部位，关节对位保留。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨头骨折",
     "cardScope": "教材部位要点",
     "route": "#radial-head/v01/1",
@@ -1176,6 +1541,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "桡骨头",
+      "form": "断端嵌插",
+      "motion": "观察桡骨头与颈部的嵌插。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨头骨折",
     "cardScope": "教材部位要点",
     "route": "#radial-head/v02/1",
@@ -1192,6 +1562,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "桡骨头",
+      "form": "斜向断面的教学例",
+      "motion": "观察骨折线进入桡骨头的关节面。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨头骨折",
     "cardScope": "教材部位要点",
     "route": "#radial-head/v03/1",
@@ -1208,6 +1583,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "桡骨头",
+      "form": "多骨块断面",
+      "motion": "多个骨块累及桡骨头，转至上方观察骨折线。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨头骨折",
     "cardScope": "教材部位要点",
     "route": "#radial-head/v04/1",
@@ -1224,6 +1604,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "尺骨上段合并桡骨头脱位",
+      "form": "斜向断面的教学例",
+      "motion": "桡骨头向前外侧脱位，观察尺骨上段斜形断面。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺骨上1/3骨折合并桡骨头脱位",
     "cardScope": "教材部位要点",
     "route": "#monteggia/v01/1",
@@ -1240,6 +1625,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "尺骨上段合并桡骨头脱位",
+      "form": "横向断面的教学例",
+      "motion": "桡骨头向后外侧脱位，尺骨近段可呈横断或短斜形。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺骨上1/3骨折合并桡骨头脱位",
     "cardScope": "教材部位要点",
     "route": "#monteggia/v02/1",
@@ -1256,6 +1646,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "尺骨上段合并桡骨头脱位",
+      "form": "横向断面的教学例",
+      "motion": "桡骨头向外侧脱位。教材常见于幼儿，本例只展示骨段方向。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺骨上1/3骨折合并桡骨头脱位",
     "cardScope": "教材部位要点",
     "route": "#monteggia/v03/1",
@@ -1272,6 +1667,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "尺桡骨干单骨",
+      "form": "横断骨折线",
+      "motion": "近段趋向旋后，远段趋向旋前。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺桡骨干单骨折",
     "cardScope": "教材部位要点",
     "route": "#single-forearm/v01/1",
@@ -1288,6 +1688,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "尺桡骨干单骨",
+      "form": "横断骨折线",
+      "motion": "近段接近中立位，远段发生旋前。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺桡骨干单骨折",
     "cardScope": "教材部位要点",
     "route": "#single-forearm/v02/1",
@@ -1304,6 +1709,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "尺桡骨干单骨",
+      "form": "横断骨折线",
+      "motion": "观察尺骨骨干断面，保留桡骨连续性。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 尺桡骨干单骨折",
     "cardScope": "教材部位要点",
     "route": "#single-forearm/v03/1",
@@ -1320,6 +1730,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "桡骨下段合并下尺桡关节脱位",
+      "form": "横向断面的教学例",
+      "motion": "桡骨下段横断、轻度成角，观察桡骨与尺骨头的相对位置。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨下1/3骨折合并尺桡远侧关节脱位",
     "cardScope": "教材部位要点",
     "route": "#galeazzi/v01/1",
@@ -1336,6 +1751,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "桡骨下段合并下尺桡关节脱位",
+      "form": "斜向断面的教学例",
+      "motion": "桡骨下段斜形断裂，远段短缩并向掌侧移位。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨下1/3骨折合并尺桡远侧关节脱位",
     "cardScope": "教材部位要点",
     "route": "#galeazzi/v02/1",
@@ -1352,6 +1772,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "桡骨下段合并下尺桡关节脱位",
+      "form": "多处骨折线",
+      "motion": "桡尺骨下段均骨折，同时伴下尺桡关节对位异常。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨下1/3骨折合并尺桡远侧关节脱位",
     "cardScope": "教材部位要点",
     "route": "#galeazzi/v03/1",
@@ -1369,6 +1794,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "掌骨",
+      "form": "横向断面的教学例",
+      "motion": "第一掌骨近端骨折，观察成角位置。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#metacarpal/v01/1",
@@ -1385,6 +1815,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "掌骨",
+      "form": "斜向断面的教学例",
+      "motion": "基底尺掌侧小骨块留在原处，掌骨干与大多角骨失去对位。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#metacarpal/v02/1",
@@ -1401,6 +1836,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "掌骨",
+      "form": "横向断面的教学例",
+      "motion": "以第五掌骨为例，掌骨头向掌侧屈转。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#metacarpal/v03/1",
@@ -1417,6 +1857,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "掌骨",
+      "form": "斜形骨折线",
+      "motion": "以第二掌骨为例，观察骨干斜线及侧移。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#metacarpal/v04/1",
@@ -1433,6 +1878,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "股骨转子区",
+      "form": "斜向断面的教学例",
+      "motion": "从大转子沿断线观察其向内下走行。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨转子间骨折",
     "cardScope": "教材部位要点",
     "route": "#trochanter/v01/1",
@@ -1449,6 +1899,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "股骨转子区",
+      "form": "斜向断面的教学例",
+      "motion": "从正面看断线由外下走向内上，近段外展。转到上方，观察近段绕股骨头外旋。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨转子间骨折",
     "cardScope": "教材部位要点",
     "route": "#trochanter/v02/1",
@@ -1465,6 +1920,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "股骨转子区",
+      "form": "横向断面的教学例",
+      "motion": "断面位于大小转子以下。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨转子间骨折",
     "cardScope": "教材部位要点",
     "route": "#trochanter/v03/1",
@@ -1481,6 +1941,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "股骨髁间",
+      "form": "T 形髁间骨折线",
+      "motion": "从正面追踪髁间纵行线，比较近侧两支的走向，再转到下方观察关节面。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨髁间骨折",
     "cardScope": "教材部位要点",
     "route": "#intercondylar/v01/1",
@@ -1497,6 +1962,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "股骨髁间",
+      "form": "Y 形髁间骨折线",
+      "motion": "从正面追踪髁间纵行线，比较近侧两支的走向，再转到下方观察关节面。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 股骨髁间骨折",
     "cardScope": "教材部位要点",
     "route": "#intercondylar/v02/1",
@@ -1513,6 +1983,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "距骨",
+      "form": "横向断面的教学例",
+      "motion": "在侧位观察分开距骨体与头颈区的骨折线。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 距骨骨折",
     "cardScope": "教材部位要点",
     "route": "#talus/v01/1",
@@ -1529,6 +2004,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "距骨",
+      "form": "斜向断面的教学例",
+      "motion": "转至后方观察距骨后缘的小骨块。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 距骨骨折",
     "cardScope": "教材部位要点",
     "route": "#talus/v02/1",
@@ -1545,6 +2025,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第4肋骨",
+      "form": "横向断面的教学例",
+      "motion": "骨折端向内侧移动。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-fourth/v01/1",
@@ -1561,6 +2046,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第4肋骨",
+      "form": "横向断面的教学例",
+      "motion": "观察断端向胸廓外方突出的方向。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-fourth/v02/1",
@@ -1577,6 +2067,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第4肋骨",
+      "form": "局部裂线",
+      "motion": "高亮线表示局部损伤位置，此例保持骨段对位。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-fourth/v03/1",
@@ -1593,6 +2088,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第5肋骨",
+      "form": "横向断面的教学例",
+      "motion": "骨折端向内侧移动。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-fifth/v01/1",
@@ -1609,6 +2109,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第5肋骨",
+      "form": "横向断面的教学例",
+      "motion": "观察断端向胸廓外方突出的方向。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-fifth/v02/1",
@@ -1625,6 +2130,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第5肋骨",
+      "form": "局部裂线",
+      "motion": "高亮线表示局部损伤位置，此例保持骨段对位。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-fifth/v03/1",
@@ -1641,6 +2151,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第7肋骨",
+      "form": "横向断面的教学例",
+      "motion": "骨折端向内侧移动。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-seventh/v01/1",
@@ -1657,6 +2172,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第7肋骨",
+      "form": "横向断面的教学例",
+      "motion": "观察断端向胸廓外方突出的方向。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-seventh/v02/1",
@@ -1673,6 +2193,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第7肋骨",
+      "form": "局部裂线",
+      "motion": "高亮线表示局部损伤位置，此例保持骨段对位。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-seventh/v03/1",
@@ -1689,6 +2214,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第8肋骨",
+      "form": "横向断面的教学例",
+      "motion": "骨折端向内侧移动。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-eighth/v01/1",
@@ -1705,6 +2235,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第8肋骨",
+      "form": "横向断面的教学例",
+      "motion": "观察断端向胸廓外方突出的方向。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-eighth/v02/1",
@@ -1721,6 +2256,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第8肋骨",
+      "form": "局部裂线",
+      "motion": "高亮线表示局部损伤位置，此例保持骨段对位。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-eighth/v03/1",
@@ -1737,6 +2277,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第9肋骨",
+      "form": "横向断面的教学例",
+      "motion": "骨折端向内侧移动。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-ninth/v01/1",
@@ -1753,6 +2298,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第9肋骨",
+      "form": "横向断面的教学例",
+      "motion": "观察断端向胸廓外方突出的方向。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-ninth/v02/1",
@@ -1769,6 +2319,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第9肋骨",
+      "form": "局部裂线",
+      "motion": "高亮线表示局部损伤位置，此例保持骨段对位。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 肋骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#rib-ninth/v03/1",
@@ -1785,6 +2340,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第3跖骨",
+      "form": "横形骨折线",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#metatarsal-third/v01/1",
@@ -1801,6 +2361,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第3跖骨",
+      "form": "斜形骨折线",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#metatarsal-third/v02/1",
@@ -1817,6 +2382,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第3跖骨",
+      "form": "多骨块断面",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#metatarsal-third/v03/1",
@@ -1833,6 +2403,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第4跖骨",
+      "form": "横形骨折线",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#metatarsal-fourth/v01/1",
@@ -1849,6 +2424,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第4跖骨",
+      "form": "斜形骨折线",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#metatarsal-fourth/v02/1",
@@ -1865,6 +2445,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第4跖骨",
+      "form": "多骨块断面",
+      "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#metatarsal-fourth/v03/1",
@@ -1881,6 +2466,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "中指近节指骨",
+      "form": "横形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-middle/v01/1",
@@ -1897,6 +2487,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "中指近节指骨",
+      "form": "斜形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-middle/v02/1",
@@ -1913,6 +2508,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "中指近节指骨",
+      "form": "多骨块断面",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-middle/v03/1",
@@ -1929,6 +2529,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "环指近节指骨",
+      "form": "横形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-ring/v01/1",
@@ -1945,6 +2550,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "环指近节指骨",
+      "form": "斜形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-ring/v02/1",
@@ -1961,6 +2571,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "环指近节指骨",
+      "form": "多骨块断面",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-ring/v03/1",
@@ -1977,6 +2592,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "小指近节指骨",
+      "form": "横形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-little/v01/1",
@@ -1993,6 +2613,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "小指近节指骨",
+      "form": "斜形骨折线",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-little/v02/1",
@@ -2009,6 +2634,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "小指近节指骨",
+      "form": "多骨块断面",
+      "motion": "对照骨折线走向与骨块数。"
+    },
     "cardReference": "第六章 第二节 上肢骨折 · 指骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#finger-little/v03/1",
@@ -2025,6 +2655,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第二趾近节趾骨",
+      "form": "横形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-second/v01/1",
@@ -2041,6 +2676,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第二趾近节趾骨",
+      "form": "斜形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-second/v02/1",
@@ -2057,6 +2697,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第二趾近节趾骨",
+      "form": "纵向裂线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-second/v03/1",
@@ -2073,6 +2718,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "第二趾近节趾骨",
+      "form": "多骨块断面",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-second/v04/1",
@@ -2089,6 +2739,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第三趾近节趾骨",
+      "form": "横形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-third/v01/1",
@@ -2105,6 +2760,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第三趾近节趾骨",
+      "form": "斜形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-third/v02/1",
@@ -2121,6 +2781,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第三趾近节趾骨",
+      "form": "纵向裂线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-third/v03/1",
@@ -2137,6 +2802,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "第三趾近节趾骨",
+      "form": "多骨块断面",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-third/v04/1",
@@ -2153,6 +2823,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第四趾近节趾骨",
+      "form": "横形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-fourth/v01/1",
@@ -2169,6 +2844,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第四趾近节趾骨",
+      "form": "斜形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-fourth/v02/1",
@@ -2185,6 +2865,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第四趾近节趾骨",
+      "form": "纵向裂线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-fourth/v03/1",
@@ -2201,6 +2886,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "第四趾近节趾骨",
+      "form": "多骨块断面",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-fourth/v04/1",
@@ -2217,6 +2907,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第五趾近节趾骨",
+      "form": "横形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-little/v01/1",
@@ -2233,6 +2928,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第五趾近节趾骨",
+      "form": "斜形骨折线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-little/v02/1",
@@ -2249,6 +2949,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "第五趾近节趾骨",
+      "form": "纵向裂线",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-little/v03/1",
@@ -2265,6 +2970,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "第五趾近节趾骨",
+      "form": "多骨块断面",
+      "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
+    },
     "cardReference": "第六章 第三节 下肢骨折 · 趾骨骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#toes-little/v04/1",
@@ -2281,6 +2991,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第十一胸椎",
+      "form": "椎体前缘楔变",
+      "motion": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#spine-t11/v01/1",
@@ -2297,6 +3012,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第十一胸椎",
+      "form": "椎体偏侧楔变",
+      "motion": "正面观察第十一胸椎左右侧高度差，压缩侧形成楔形。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#spine-t11/v02/1",
@@ -2313,6 +3033,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第十二胸椎",
+      "form": "椎体前缘楔变",
+      "motion": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#spine-t12/v01/1",
@@ -2329,6 +3054,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第十二胸椎",
+      "form": "椎体偏侧楔变",
+      "motion": "正面观察第十二胸椎左右侧高度差，压缩侧形成楔形。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#spine-t12/v02/1",
@@ -2345,6 +3075,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第二腰椎",
+      "form": "椎体前缘楔变",
+      "motion": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#spine-l2/v01/1",
@@ -2361,6 +3096,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第二腰椎",
+      "form": "椎体偏侧楔变",
+      "motion": "正面观察第二腰椎左右侧高度差，压缩侧形成楔形。"
+    },
     "cardReference": "第六章 第四节 躯干骨折 · 脊柱骨折（同类部位）",
     "cardScope": "教材部位要点",
     "route": "#spine-l2/v02/1",
@@ -2377,6 +3117,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第1肋骨",
+      "form": "横向断面的教学例",
+      "motion": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-1/v01/1",
@@ -2393,6 +3138,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第1肋骨",
+      "form": "横向断面的教学例",
+      "motion": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-1/v02/1",
@@ -2409,6 +3159,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第2肋骨",
+      "form": "横向断面的教学例",
+      "motion": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-2/v01/1",
@@ -2425,6 +3180,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第2肋骨",
+      "form": "横向断面的教学例",
+      "motion": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-2/v02/1",
@@ -2441,6 +3201,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第3肋骨",
+      "form": "横向断面的教学例",
+      "motion": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-3/v01/1",
@@ -2457,6 +3222,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第3肋骨",
+      "form": "横向断面的教学例",
+      "motion": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-3/v02/1",
@@ -2473,6 +3243,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第10肋骨",
+      "form": "横向断面的教学例",
+      "motion": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-10/v01/1",
@@ -2489,6 +3264,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第10肋骨",
+      "form": "横向断面的教学例",
+      "motion": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-10/v02/1",
@@ -2505,6 +3285,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第11肋骨",
+      "form": "横向断面的教学例",
+      "motion": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-11/v01/1",
@@ -2521,6 +3306,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第11肋骨",
+      "form": "横向断面的教学例",
+      "motion": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-11/v02/1",
@@ -2537,6 +3327,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第12肋骨",
+      "form": "横向断面的教学例",
+      "motion": "由胸壁外侧观察，再转向头端比较两段的内移程度。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-12/v01/1",
@@ -2553,6 +3348,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第12肋骨",
+      "form": "横向断面的教学例",
+      "motion": "比较肋弓轮廓，注意浮肋前端游离；方向为选取的形态示例。"
+    },
     "cardReference": "第六章第四节 · 肋骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-rib-12/v02/1",
@@ -2569,6 +3369,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颈3椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c3/v01/1",
@@ -2585,6 +3390,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "颈3椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c3/v02/1",
@@ -2601,6 +3411,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颈4椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c4/v01/1",
@@ -2617,6 +3432,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "颈4椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c4/v02/1",
@@ -2633,6 +3453,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颈5椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c5/v01/1",
@@ -2649,6 +3474,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "颈5椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c5/v02/1",
@@ -2665,6 +3495,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颈6椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c6/v01/1",
@@ -2681,6 +3516,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "颈6椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c6/v02/1",
@@ -2697,6 +3537,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颈7椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c7/v01/1",
@@ -2713,6 +3558,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "颈7椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-c7/v02/1",
@@ -2729,6 +3579,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸1椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t1/v01/1",
@@ -2745,6 +3600,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸1椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t1/v02/1",
@@ -2761,6 +3621,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸2椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t2/v01/1",
@@ -2777,6 +3642,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸2椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t2/v02/1",
@@ -2793,6 +3663,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸3椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t3/v01/1",
@@ -2809,6 +3684,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸3椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t3/v02/1",
@@ -2825,6 +3705,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸4椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t4/v01/1",
@@ -2841,6 +3726,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸4椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t4/v02/1",
@@ -2857,6 +3747,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸5椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t5/v01/1",
@@ -2873,6 +3768,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸5椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t5/v02/1",
@@ -2889,6 +3789,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸6椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t6/v01/1",
@@ -2905,6 +3810,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸6椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t6/v02/1",
@@ -2921,6 +3831,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸7椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t7/v01/1",
@@ -2937,6 +3852,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸7椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t7/v02/1",
@@ -2953,6 +3873,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸8椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t8/v01/1",
@@ -2969,6 +3894,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸8椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t8/v02/1",
@@ -2985,6 +3915,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸9椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t9/v01/1",
@@ -3001,6 +3936,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸9椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t9/v02/1",
@@ -3017,6 +3957,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸10椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t10/v01/1",
@@ -3033,6 +3978,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸10椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-t10/v02/1",
@@ -3049,6 +3999,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "腰3椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-l3/v01/1",
@@ -3065,6 +4020,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "腰3椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-l3/v02/1",
@@ -3081,6 +4041,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "腰4椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-l4/v01/1",
@@ -3097,6 +4062,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "腰4椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-l4/v02/1",
@@ -3113,6 +4083,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "腰5椎体",
+      "form": "椎体前缘楔变",
+      "motion": "比较上下终板和前、后缘高度。该示例仅呈现椎体形态。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-l5/v01/1",
@@ -3129,6 +4104,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "腰5椎体",
+      "form": "椎体偏侧楔变",
+      "motion": "从正面观察受累侧高度降低，再转至侧面。"
+    },
     "cardReference": "第六章第四节 · 脊柱骨折",
     "cardScope": "教材部位要点",
     "route": "#region-body-l5/v02/1",
@@ -3145,6 +4125,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "寰椎",
+      "form": "局部裂线",
+      "motion": "观察齿突前方的骨弓，本例保持侧块对位。"
+    },
     "cardReference": "第三章第五节 · 影像学检查",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-atlas/v01/1",
@@ -3161,6 +4146,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "寰椎",
+      "form": "局部裂线",
+      "motion": "从后方追踪后弓的单侧裂线。"
+    },
     "cardReference": "第三章第五节 · 影像学检查",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-atlas/v02/1",
@@ -3177,6 +4167,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "枢椎齿突",
+      "form": "横向断面的教学例",
+      "motion": "从前方确认小骨片与齿突主体的连续性。"
+    },
     "cardReference": "第三章第五节 · 影像学检查",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-axis/v01/1",
@@ -3193,6 +4188,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "枢椎齿突",
+      "form": "横向断面的教学例",
+      "motion": "对照齿突基底断面和寰椎环的位置。"
+    },
     "cardReference": "第三章第五节 · 影像学检查",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-axis/v02/1",
@@ -3209,6 +4209,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸骨体",
+      "form": "横向断面的教学例",
+      "motion": "侧面可见前后皮质错阶。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-sternal-body/v01/1",
@@ -3225,6 +4230,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "剑突",
+      "form": "横向断面的教学例",
+      "motion": "定位胸骨体下方较薄的剑突，观察近侧断面。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-xiphoid/v01/1",
@@ -3241,6 +4251,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胸骨柄",
+      "form": "横形骨折线",
+      "motion": "侧面比较上下骨片前后关系。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-manubrium/v01/1",
@@ -3257,6 +4272,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胸骨柄",
+      "form": "斜形骨折线",
+      "motion": "追踪断线走向及柄部与胸锁关节的空间关系。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-manubrium/v02/1",
@@ -3273,6 +4293,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "骶骨翼",
+      "form": "横向断面的教学例",
+      "motion": "以骶孔为参照，观察孔外骶翼的纵向断面。"
+    },
     "cardReference": "第六章第四节 · 骨盆骨折",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-sacrum/v01/1",
@@ -3289,6 +4314,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肩胛骨体",
+      "form": "斜向断面的教学例",
+      "motion": "旋转查看肩胛骨体的薄板状断面，关节盂位于上外侧。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-scapula/v01/1",
@@ -3305,6 +4335,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "示指末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-index-finger/v01/1",
@@ -3321,6 +4356,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "示指末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-index-finger/v02/1",
@@ -3337,6 +4377,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "示指中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-index-finger/v01/1",
@@ -3353,6 +4398,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "示指中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-index-finger/v02/1",
@@ -3369,6 +4419,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "中指末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-middle-finger/v01/1",
@@ -3385,6 +4440,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "中指末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-middle-finger/v02/1",
@@ -3401,6 +4461,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "中指中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-middle-finger/v01/1",
@@ -3417,6 +4482,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "中指中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-middle-finger/v02/1",
@@ -3433,6 +4503,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "环指末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-ring-finger/v01/1",
@@ -3449,6 +4524,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "环指末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-ring-finger/v02/1",
@@ -3465,6 +4545,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "环指中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-ring-finger/v01/1",
@@ -3481,6 +4566,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "环指中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-ring-finger/v02/1",
@@ -3497,6 +4587,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "小指末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-little-finger/v01/1",
@@ -3513,6 +4608,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "小指末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-little-finger/v02/1",
@@ -3529,6 +4629,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "小指中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-little-finger/v01/1",
@@ -3545,6 +4650,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "小指中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-little-finger/v02/1",
@@ -3561,6 +4671,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "拇指末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-thumb/v01/1",
@@ -3577,6 +4692,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "拇指末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-thumb/v02/1",
@@ -3593,6 +4713,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "拇指近节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-thumb/v01/1",
@@ -3609,6 +4734,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "拇指近节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第二节 · 指骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-thumb/v02/1",
@@ -3625,6 +4755,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "拇趾末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-big-toe/v01/1",
@@ -3641,6 +4776,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "拇趾末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-big-toe/v02/1",
@@ -3657,6 +4797,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第二趾末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-second-toe/v01/1",
@@ -3673,6 +4818,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第二趾末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-second-toe/v02/1",
@@ -3689,6 +4839,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第二趾中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-second-toe/v01/1",
@@ -3705,6 +4860,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第二趾中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-second-toe/v02/1",
@@ -3721,6 +4881,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第三趾末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-third-toe/v01/1",
@@ -3737,6 +4902,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第三趾末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-third-toe/v02/1",
@@ -3753,6 +4923,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第三趾中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-third-toe/v01/1",
@@ -3769,6 +4944,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第三趾中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-third-toe/v02/1",
@@ -3785,6 +4965,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第四趾末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-fourth-toe/v01/1",
@@ -3801,6 +4986,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第四趾末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-fourth-toe/v02/1",
@@ -3817,6 +5007,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第四趾中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-fourth-toe/v01/1",
@@ -3833,6 +5028,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第四趾中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-fourth-toe/v02/1",
@@ -3849,6 +5049,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第五趾末节",
+      "form": "横形骨折线",
+      "motion": "比较末端骨片与近侧断面的分离和侧移。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-little-toe/v01/1",
@@ -3865,6 +5070,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第五趾末节",
+      "form": "多骨块断面",
+      "motion": "从末端看多个小骨片，保留近侧基底。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-tip-little-toe/v02/1",
@@ -3881,6 +5091,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第五趾中节",
+      "form": "横形骨折线",
+      "motion": "顺着骨干比较两侧皮质是否连续。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-little-toe/v01/1",
@@ -3897,6 +5112,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第五趾中节",
+      "form": "斜形骨折线",
+      "motion": "从两个方向看斜线与骨片的相对位置。"
+    },
     "cardReference": "第六章第三节 · 趾骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-shaft-little-toe/v02/1",
@@ -3913,6 +5133,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第三掌骨干",
+      "form": "横形骨折线",
+      "motion": "从掌背面追踪皮质，从侧面观察成角。"
+    },
     "cardReference": "第六章第二节 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-palm-third/v01/1",
@@ -3929,6 +5154,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第三掌骨干",
+      "form": "斜形骨折线",
+      "motion": "比较相邻掌骨与伤骨的长轴。"
+    },
     "cardReference": "第六章第二节 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-palm-third/v02/1",
@@ -3945,6 +5175,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第四掌骨干",
+      "form": "横形骨折线",
+      "motion": "从掌背面追踪皮质，从侧面观察成角。"
+    },
     "cardReference": "第六章第二节 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-palm-fourth/v01/1",
@@ -3961,6 +5196,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第四掌骨干",
+      "form": "斜形骨折线",
+      "motion": "比较相邻掌骨与伤骨的长轴。"
+    },
     "cardReference": "第六章第二节 · 掌骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-palm-fourth/v02/1",
@@ -3977,6 +5217,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第一跖骨",
+      "form": "斜向断面的教学例",
+      "motion": "在足背方向看断线和跖骨排列。"
+    },
     "cardReference": "第六章第三节 · 跖骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-foot-first/v01/1",
@@ -3993,6 +5238,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第一跖骨",
+      "form": "斜向断面的教学例",
+      "motion": "沿跖骨追到近端，观察骨片与跗骨的位置。"
+    },
     "cardReference": "第六章第三节 · 跖骨骨折",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-foot-first/v02/1",
@@ -4009,6 +5259,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第五跖骨",
+      "form": "斜向断面的教学例",
+      "motion": "在足背方向看断线和跖骨排列。"
+    },
     "cardReference": "第六章第三节 · 跖骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-foot-fifth/v01/1",
@@ -4025,6 +5280,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "第五跖骨",
+      "form": "附着区撕脱",
+      "motion": "沿跖骨追到近端，观察骨片与跗骨的位置。"
+    },
     "cardReference": "第六章第三节 · 跖骨骨折",
     "cardScope": "教材部位要点",
     "route": "#region-foot-fifth/v02/1",
@@ -4041,6 +5301,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "三角骨背侧缘",
+      "form": "横向断面的教学例",
+      "motion": "取掌背方向辨认小的背侧边缘骨片。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-triquetrum/v01/1",
@@ -4057,6 +5322,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "月骨体",
+      "form": "横向断面的教学例",
+      "motion": "比较骨块与桡骨、头状骨之间的关节面。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-lunate/v01/1",
@@ -4073,6 +5343,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "豌豆骨",
+      "form": "横向断面的教学例",
+      "motion": "腕掌尺侧查看豌豆骨与三角骨的关系。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-pisiform/v01/1",
@@ -4089,6 +5364,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "钩骨体",
+      "form": "横向断面的教学例",
+      "motion": "从腕背观察体部断面与远侧掌骨基底的关系。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-hamate/v01/1",
@@ -4105,6 +5385,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "头状骨颈",
+      "form": "横向断面的教学例",
+      "motion": "从近侧头部向远侧体部追踪断裂的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-capitate/v01/1",
@@ -4121,6 +5406,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "大多角骨体",
+      "form": "横向断面的教学例",
+      "motion": "转至拇指掌腕关节端，观察纵向劈裂。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-trapezium/v01/1",
@@ -4137,6 +5427,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "小多角骨体",
+      "form": "横向断面的教学例",
+      "motion": "以第二掌骨基底为参照观察骨体斜断。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-trapezoid/v01/1",
@@ -4153,6 +5448,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "足舟骨体",
+      "form": "横向断面的教学例",
+      "motion": "观察近侧距舟与远侧舟楔关节面的关系。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-navicular/v01/1",
@@ -4169,6 +5469,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "骰骨体",
+      "form": "横向断面的教学例",
+      "motion": "比较外侧柱长度和跟骰、跖骰两端的方向。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuboid/v01/1",
@@ -4185,6 +5490,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "内侧楔骨",
+      "form": "斜向断面的教学例",
+      "motion": "以足舟骨为近侧参照，观察第一跖跗关节方向的楔骨断端。"
+    },
     "cardReference": "第七章第四节 · 跗跖关节脱位",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuneiform-medial/v01/1",
@@ -4201,6 +5511,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "中间楔骨",
+      "form": "斜向断面的教学例",
+      "motion": "以足舟骨为近侧参照，观察第二跖跗关节方向的楔骨断端。"
+    },
     "cardReference": "第七章第四节 · 跗跖关节脱位",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuneiform-intermediate/v01/1",
@@ -4217,6 +5532,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "外侧楔骨",
+      "form": "斜向断面的教学例",
+      "motion": "以足舟骨为近侧参照，观察第三跖跗关节方向的楔骨断端。"
+    },
     "cardReference": "第七章第四节 · 跗跖关节脱位",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuneiform-lateral/v01/1",
@@ -4233,6 +5553,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第一跖骨头内侧籽骨",
+      "form": "横向断面的教学例",
+      "motion": "从足底面查看该枚籽骨。正常分叶需另结合边缘形态判断。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-sesamoid-0/v01/1",
@@ -4249,6 +5574,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "第一跖骨头外侧籽骨",
+      "form": "横向断面的教学例",
+      "motion": "从足底面查看该枚籽骨。正常分叶需另结合边缘形态判断。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-sesamoid-1/v01/1",
@@ -4265,6 +5595,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "额骨鳞部",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-frontal/v01/1",
@@ -4281,6 +5616,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "额骨鳞部",
+      "form": "骨面局部凹陷",
+      "motion": "斜视外板轮廓，比较局部凹陷和周围正常曲面；骨膜和脑组织未建模。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-frontal/v02/1",
@@ -4297,6 +5637,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "顶骨",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-parietal/v01/1",
@@ -4313,6 +5658,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "顶骨",
+      "form": "骨面局部凹陷",
+      "motion": "斜视外板轮廓，比较局部凹陷和周围正常曲面；骨膜和脑组织未建模。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-parietal/v02/1",
@@ -4329,6 +5679,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "枕骨鳞部",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-occipital/v01/1",
@@ -4345,6 +5700,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "枕骨鳞部",
+      "form": "骨面局部凹陷",
+      "motion": "斜视外板轮廓，比较局部凹陷和周围正常曲面；骨膜和脑组织未建模。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-occipital/v02/1",
@@ -4361,6 +5721,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颞骨鳞部",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-temporal/v01/1",
@@ -4377,6 +5742,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "筛骨眶内侧壁",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-ethmoid/v01/1",
@@ -4393,6 +5763,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "蝶骨大翼区",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-sphenoid/v01/1",
@@ -4409,6 +5784,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "上颌骨前壁",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-maxilla/v01/1",
@@ -4425,6 +5805,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "腭骨水平板",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-palatine/v01/1",
@@ -4441,6 +5826,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "犁骨骨性鼻中隔",
+      "form": "局部裂线",
+      "motion": "单独转动目标骨，观察高亮裂线相对邻近骨缝和骨壁的位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-vomer/v01/1",
@@ -4457,6 +5847,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "鼻骨",
+      "form": "局部裂线",
+      "motion": "比较双侧鼻骨轮廓与鼻背中线。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-nasal/v01/1",
@@ -4473,6 +5868,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "鼻骨",
+      "form": "横向断面的教学例",
+      "motion": "从前方观察轮廓不对称，再侧转查看骨片的前后位置。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-nasal/v02/1",
@@ -4489,6 +5889,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颧骨",
+      "form": "横向断面的教学例",
+      "motion": "从头端观察颧弓局部内移，本例仅显示颧骨侧骨片。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-zygoma/v01/1",
@@ -4505,6 +5910,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "下颌骨",
+      "form": "横向断面的教学例",
+      "motion": "沿下缘观察连续性，比较断端的高度与侧移。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-mandible/v01/1",
@@ -4521,6 +5931,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "下颌骨",
+      "form": "斜向断面的教学例",
+      "motion": "髁头保留在下颌窝内，观察颈部断面与远段的轻度移位。"
+    },
     "cardReference": "第七章第二节 · 颞下颌关节脱位",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-mandible/v02/1",
@@ -4537,6 +5952,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "舌骨",
+      "form": "横向断面的教学例",
+      "motion": "从上方辨认 U 形骨体和两侧大角；本例为右侧。"
+    },
     "cardReference": "第六章第一节 · 骨折概论",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-hyoid/v01/1",
@@ -4553,6 +5973,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "髂骨翼",
+      "form": "横向断面的教学例",
+      "motion": "自前外侧看髂嵴下方的斜行断缘，转到内侧比较髂窝两侧的高度；髋臼与髋骨下部保留为参照。"
+    },
     "cardReference": "第六章第四节 · 骨盆骨折",
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-iliac-wing/v01/1",
@@ -4569,6 +5994,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肩关节脱位",
+      "form": "",
+      "motion": "固定肩胛骨，侧转观察肱骨头与盂面的前后关系。"
+    },
     "cardReference": "第七章第三节 · 肩关节脱位",
     "cardScope": "教材部位要点",
     "route": "#shoulder-dislocation/v01/1",
@@ -4588,6 +6018,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肩关节脱位",
+      "form": "",
+      "motion": "在侧位比较伤前轮廓与肱骨头终点。"
+    },
     "cardReference": "第七章第三节 · 肩关节脱位",
     "cardScope": "教材部位要点",
     "route": "#shoulder-dislocation/v02/1",
@@ -4607,6 +6042,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "肘关节脱位",
+      "form": "",
+      "motion": "以肱骨远端为参照，从侧位看鹰嘴和桡骨头的方向。"
+    },
     "cardReference": "第七章第三节 · 肘关节脱位",
     "cardScope": "教材部位要点",
     "route": "#elbow-dislocation/v01/1",
@@ -4626,6 +6066,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "肘关节脱位",
+      "form": "",
+      "motion": "从正面观察尺桡骨与肱骨两髁的横向错位。"
+    },
     "cardReference": "第七章第三节 · 肘关节脱位",
     "cardScope": "教材部位要点",
     "route": "#elbow-dislocation/v02/1",
@@ -4645,6 +6090,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "肘关节脱位",
+      "form": "",
+      "motion": "侧位对照鹰嘴与肱骨远端，注意运动的是前臂骨。"
+    },
     "cardReference": "第七章第三节 · 肘关节脱位",
     "cardScope": "教材部位要点",
     "route": "#elbow-dislocation/v03/1",
@@ -4664,6 +6114,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "髋关节脱位",
+      "form": "",
+      "motion": "切换右侧视角，观察股骨头与髋臼后缘的关系。"
+    },
     "cardReference": "第七章第四节 · 髋关节脱位",
     "cardScope": "教材部位要点",
     "route": "#hip-dislocation/v01/1",
@@ -4683,6 +6138,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "髋关节脱位",
+      "form": "",
+      "motion": "保留骨盆作为参照，在侧面比较股骨头伤前和伤后的位置。"
+    },
     "cardReference": "第七章第四节 · 髋关节脱位",
     "cardScope": "教材部位要点",
     "route": "#hip-dislocation/v02/1",
@@ -4702,6 +6162,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "颞下颌关节脱位",
+      "form": "",
+      "motion": "两侧下颌髁突向前越过关节结节。侧面看髁突与下颌窝，正面观察下颌是否保持对称。"
+    },
     "cardReference": "第七章第二节 · 颞下颌关节脱位",
     "cardScope": "教材部位要点",
     "route": "#tmj-dislocation/v01/1",
@@ -4721,6 +6186,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "腕骨脱位",
+      "form": "",
+      "motion": "从桡侧看月骨远侧凹面向掌侧转约 90°，头状骨随后向近端靠近桡骨远端。"
+    },
     "cardReference": "第七章第三节 · 月骨脱位",
     "cardScope": "教材部位要点",
     "route": "#lunate-dislocation/v01/1",
@@ -4739,6 +6209,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "腕骨脱位",
+      "form": "",
+      "motion": "在侧面跟踪桡骨月骨窝、月骨与头状骨。比较桡月和月头两处对位。"
+    },
     "cardReference": "第七章第三节 · 月骨脱位",
     "cardScope": "教材通则与补充形态对照",
     "route": "#lunate-dislocation/v02/1",
@@ -4758,6 +6233,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "掌指关节脱位",
+      "form": "",
+      "motion": "固定第一掌骨，观察拇指近节基底向手背侧越过掌骨头。"
+    },
     "cardReference": "第七章第三节 · 掌指关节及指间关节脱位",
     "cardScope": "教材部位要点",
     "route": "#mcp-dislocation/v01/1",
@@ -4776,6 +6256,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "指间关节脱位",
+      "form": "",
+      "motion": "以近节指骨滑车为参照，观察中节基底向手背侧移出。"
+    },
     "cardReference": "第七章第三节 · 掌指关节及指间关节脱位",
     "cardScope": "教材部位要点",
     "route": "#pip-dislocation/v01/1",
@@ -4794,6 +6279,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "指间关节脱位",
+      "form": "",
+      "motion": "从掌面观察中节基底向桡侧错开，转至侧面与背移对照。"
+    },
     "cardReference": "第七章第三节 · 掌指关节及指间关节脱位",
     "cardScope": "教材部位要点",
     "route": "#pip-dislocation/v02/1",
@@ -4812,6 +6302,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "胫股关节脱位",
+      "form": "",
+      "motion": "固定股骨髁，在侧面观察胫骨平台向前移出。"
+    },
     "cardReference": "第七章第四节 · 膝关节脱位",
     "cardScope": "教材部位要点",
     "route": "#knee-dislocation/v01/1",
@@ -4831,6 +6326,11 @@
   },
   {
     "variantId": "v02",
+    "description": {
+      "site": "胫股关节脱位",
+      "form": "",
+      "motion": "固定股骨髁，在侧面观察胫骨平台向后移出。"
+    },
     "cardReference": "第七章第四节 · 膝关节脱位",
     "cardScope": "教材部位要点",
     "route": "#knee-dislocation/v02/1",
@@ -4850,6 +6350,11 @@
   },
   {
     "variantId": "v03",
+    "description": {
+      "site": "胫股关节脱位",
+      "form": "",
+      "motion": "从正面看胫骨平台与股骨髁的内外侧边缘。"
+    },
     "cardReference": "第七章第四节 · 膝关节脱位",
     "cardScope": "教材部位要点",
     "route": "#knee-dislocation/v03/1",
@@ -4869,6 +6374,11 @@
   },
   {
     "variantId": "v04",
+    "description": {
+      "site": "胫股关节脱位",
+      "form": "",
+      "motion": "从正面看胫骨平台内移；腓骨和足与胫骨一起运动。"
+    },
     "cardReference": "第七章第四节 · 膝关节脱位",
     "cardScope": "教材部位要点",
     "route": "#knee-dislocation/v04/1",
@@ -4888,6 +6398,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "髌骨脱位",
+      "form": "",
+      "motion": "以股骨滑车沟为参照，从前方及轴向观察髌骨越过外髁。"
+    },
     "cardReference": "第七章第四节 · 髌骨脱位",
     "cardScope": "教材部位要点",
     "route": "#patella-dislocation/v01/1",
@@ -4907,6 +6422,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "跗跖关节脱位",
+      "form": "",
+      "motion": "五个跖骨基底向背外侧移动。对照第二跖骨与中间楔骨的内侧缘，再转侧面看背侧阶差。"
+    },
     "cardReference": "第七章第四节 · 跗跖关节脱位",
     "cardScope": "教材部位要点",
     "route": "#lisfranc-dislocation/v01/1",
@@ -4933,6 +6453,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "跖趾关节脱位",
+      "form": "",
+      "motion": "侧面观察拇趾近节基底移向第一跖骨头的足背侧。"
+    },
     "cardReference": "第七章第四节 · 跖趾关节及趾间关节脱位",
     "cardScope": "教材部位要点",
     "route": "#mtp-dislocation/v01/1",
@@ -4951,6 +6476,11 @@
   },
   {
     "variantId": "v01",
+    "description": {
+      "site": "趾间关节脱位",
+      "form": "",
+      "motion": "固定近节趾骨，从侧面看末节基底与滑车失去对合。"
+    },
     "cardReference": "第七章第四节 · 跖趾关节及趾间关节脱位",
     "cardScope": "教材部位要点",
     "route": "#toe-ip-dislocation/v01/1",

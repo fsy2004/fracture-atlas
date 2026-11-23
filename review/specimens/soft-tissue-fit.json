@@ -1,0 +1,322 @@
+{
+  "method": "Decoded reference and assembled bone surfaces, sampled up to about 2500 vertices per cloud, same-side structure correspondences, trimmed similarity alignment, then symmetric nearest-neighbor distances in millimetres.",
+  "bias": "Fit is a geometric comparison, not verification of a tissue attachment on a different donor. The viewer uses the atlas companion bones, not this fit to overlay other subjects.",
+  "results": {
+    "whole": {
+      "scale": 0.96864,
+      "rotation": [
+        [
+          0.9999999869285612,
+          0.00015077847330721413,
+          5.8384320635223e-05
+        ],
+        [
+          -0.00015078990848640218,
+          0.9999999694416979,
+          0.00019590560632499348
+        ],
+        [
+          -5.835478050286588e-05,
+          -0.00019591440753060274,
+          0.9999999791061319
+        ]
+      ],
+      "translation": [
+        -0.0003468682081373614,
+        -0.009287499090134377,
+        -0.002191635699950043
+      ],
+      "median_p95_mm": {
+        "Right hip bone": [
+          1.4,
+          5.79
+        ],
+        "Left clavicle": [
+          0.93,
+          3.07
+        ],
+        "Left calcaneus": [
+          2.59,
+          4.94
+        ],
+        "Left femur": [
+          1.85,
+          5.74
+        ],
+        "Left fibula": [
+          4.18,
+          6.98
+        ],
+        "Left humerus": [
+          1.24,
+          3.9
+        ],
+        "Left patella": [
+          1.68,
+          4.42
+        ],
+        "Left radius": [
+          1.31,
+          6.69
+        ],
+        "Left scapula": [
+          1.11,
+          3.62
+        ],
+        "Left talus": [
+          2.39,
+          4.15
+        ],
+        "Left tibia": [
+          2.53,
+          7.95
+        ],
+        "Left ulna": [
+          1.4,
+          6.53
+        ],
+        "Left hip bone": [
+          2.06,
+          5.68
+        ],
+        "Right radius": [
+          1.11,
+          6.79
+        ],
+        "Right calcaneus": [
+          2.88,
+          5.17
+        ],
+        "Right clavicle": [
+          0.8,
+          2.98
+        ],
+        "Right femur": [
+          1.99,
+          5.82
+        ],
+        "Right fibula": [
+          4.43,
+          7.51
+        ],
+        "Right humerus": [
+          1.22,
+          3.73
+        ],
+        "Right patella": [
+          2.05,
+          4.39
+        ],
+        "Right scapula": [
+          1.09,
+          3.39
+        ],
+        "Right talus": [
+          2.66,
+          4.4
+        ],
+        "Right tibia": [
+          2.7,
+          7.72
+        ],
+        "Right ulna": [
+          1.24,
+          6.44
+        ]
+      }
+    },
+    "hip": {
+      "scale": 0.97015,
+      "rotation": [
+        [
+          0.9999989889679147,
+          -0.001413812954869748,
+          -0.00015230258422445028
+        ],
+        [
+          0.001413856315992933,
+          0.999998959899715,
+          0.00028497334196422717
+        ],
+        [
+          0.00015189952681182563,
+          -0.0002851883878176823,
+          0.9999999477970573
+        ]
+      ],
+      "translation": [
+        -0.0013573691453609713,
+        -0.010452151320334613,
+        -0.0023901460234089303
+      ],
+      "median_p95_mm": {
+        "Right hip bone": [
+          1.46,
+          5.8
+        ],
+        "Left femur": [
+          1.95,
+          5.79
+        ],
+        "Left patella": [
+          1.88,
+          4.36
+        ],
+        "Left hip bone": [
+          1.84,
+          5.64
+        ],
+        "Right femur": [
+          1.78,
+          5.77
+        ],
+        "Right patella": [
+          1.73,
+          4.54
+        ]
+      }
+    },
+    "upper": {
+      "scale": 0.96806,
+      "rotation": [
+        [
+          0.9999999991309944,
+          -3.6023834749059206e-05,
+          -2.0983229773297965e-05
+        ],
+        [
+          3.59661805529177e-05,
+          0.9999962423055909,
+          -0.0027411824332733846
+        ],
+        [
+          2.108189882772867e-05,
+          0.002741181676204608,
+          0.9999962427322271
+        ]
+      ],
+      "translation": [
+        -0.0006880826700486312,
+        -0.008521784602784521,
+        0.0016098312564813977
+      ],
+      "median_p95_mm": {
+        "Left clavicle": [
+          0.92,
+          3.05
+        ],
+        "Left humerus": [
+          1.04,
+          3.89
+        ],
+        "Left radius": [
+          1.62,
+          7.08
+        ],
+        "Left scapula": [
+          1.11,
+          3.61
+        ],
+        "Left ulna": [
+          1.44,
+          6.5
+        ],
+        "Right radius": [
+          1.48,
+          7.15
+        ],
+        "Right clavicle": [
+          0.76,
+          2.99
+        ],
+        "Right humerus": [
+          1.03,
+          3.71
+        ],
+        "Right scapula": [
+          1.1,
+          3.42
+        ],
+        "Right ulna": [
+          1.31,
+          6.41
+        ]
+      }
+    },
+    "lower": {
+      "scale": 0.97012,
+      "rotation": [
+        [
+          0.9999999405260082,
+          0.00015621556956988507,
+          0.00030748118006941225
+        ],
+        [
+          -0.0001562162874793726,
+          0.9999999877955661,
+          2.3107928491394426e-06
+        ],
+        [
+          -0.0003074808153349536,
+          -2.358826280121652e-06,
+          0.999999952724991
+        ]
+      ],
+      "translation": [
+        -0.000635992660556857,
+        -0.009825592629953583,
+        -0.002120611153189695
+      ],
+      "median_p95_mm": {
+        "Left calcaneus": [
+          2.71,
+          4.91
+        ],
+        "Left femur": [
+          1.92,
+          5.81
+        ],
+        "Left fibula": [
+          4.26,
+          7.12
+        ],
+        "Left patella": [
+          1.77,
+          4.46
+        ],
+        "Left talus": [
+          2.46,
+          4.26
+        ],
+        "Left tibia": [
+          2.62,
+          7.94
+        ],
+        "Right calcaneus": [
+          2.73,
+          4.98
+        ],
+        "Right femur": [
+          1.8,
+          5.73
+        ],
+        "Right fibula": [
+          4.22,
+          7.23
+        ],
+        "Right patella": [
+          1.71,
+          4.51
+        ],
+        "Right talus": [
+          2.45,
+          4.24
+        ],
+        "Right tibia": [
+          2.52,
+          7.74
+        ]
+      }
+    }
+  }
+}

@@ -29,6 +29,9 @@
 
 VK 头部数据及其衍生骨面使用 CC BY-NC 4.0，适用于本项目的非商业教学用途。Halle 腭骨估计区使用 CC BY 4.0 的微 CT 与 CC BY-SA 2.1 Japan 的 BodyParts3D 形状先验，衍生区按 CC BY-SA 2.1 Japan 并列署名。其他数据按各自许可保留归属和修改记录。网页按需加载，离线单 HTML 内附许可归属。可用 `node tools/verify-specimen-library.mjs` 对实际分发文件及 201 个索引做校验。[补充模型清单](../../models/extended/manifest.json) · [VK 重建工具](../../tools/visible_korean/README.md)
 
-## 软组织来源核对
+## 全身软组织依据与配准
 
-可从髋部起步，用伤前几何显示臀中肌、髂腰肌等近端牵拉结构，以及股动脉、股静脉和坐骨神经的前后关系。已核对的[Visible Human Male 下肢数据](https://digitalcommons.du.edu/visiblehuman/2/)有 CC BY 4.0 的双侧肌肉，可核对骨、肌配准。BodyParts3D 的 4.0 索引也有左右侧臀中肌、髂肌、腰大肌和股动静脉候选。现有索引里的这些结构需要与每个场景实际使用的骨面版本配准；坐骨神经仍缺已核验的同体几何。软组织应先作为可独立开关的伤前参照，牵拉、压迫等动态关系需另外建模和验证。
+- 采用 [Z-Anatomy 男性模型](https://www.z-anatomy.com/) 的 [Anatria3D 原始发布网格](https://github.com/Nurkan1/Anatria-3D)，CC BY-SA 4.0。以固定提交获取骨骼配套表面、肌肉、血管和神经四组 GLB。按实际空间分成头颈、躯干、上肢和下肢。逐节点保留 Draco 压缩数据和姿位，未重新减面。只把重复出现于不同系统的同名节点归入按序确定的主系统。保留 335 个配套骨节点、1,388 个肌肉层节点、676 个血管层节点及 582 个神经层节点。计数包括同一结构的分部。参见模型目录中的 NOTICE、来源哈希和区域清单。
+- [配准核验](soft-tissue-fit.json)比较了 24 块同名、同侧骨面。整体拟合后，对称最近邻距离的第 95 百分位在各骨约 3～8 mm。这一差异会影响对神经、血管与具体伤骨间距的理解，因此软组织使用同集配套骨面，作为伤前空间对照。切回原损伤动画保留当前帧。三层可单独显隐。软件尚无组织牵拉、受压与撕裂的可信变形数据。
+- [Visible Human Male 下肢数据](https://digitalcommons.du.edu/visiblehuman/2/)有可核查的下肢肌群，适合做局部骨肌参考；覆盖范围、姿位和标注对象与全身血管神经图谱不同。[Human Reference Atlas](https://humanatlas.io/)可用于器官与血管坐标核对，数据按对象和性别发布。两者可作为后续对照来源。
+- 构建时向 `tools/build_soft_tissue_regions.py` 提供固定发布版本的四个原始 GLB、文件哈希清单及 NOTICE。源 Draco 三角面和材质分类依据由清单与资产测试验证。网页仅在软组织开关选中时下载对应资源。

@@ -222,3 +222,10 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
  #viewRail button{min-width:42px;padding-inline:3px;font-size:11px}
  #priorityTitle{margin-top:5px}
 }
+
+#softTissuePanel{margin:10px 0;padding:0 10px;border:1px solid var(--edge);border-radius:6px;background:#f8f9f1}
+#softTissuePanel summary{padding:9px 0;font-weight:600}
+.soft-options{display:flex;flex-wrap:wrap;gap:8px 13px;font-size:13px;margin-bottom:7px}
+#softStatus{margin:0 0 7px}
+#softReturn{margin-bottom:8px}
+.tissues-active #motionReadout{display:none}

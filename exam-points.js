@@ -95,6 +95,18 @@ export function examPoints(course,index,level=1){
  const points=[...(specific||note.points)];
  if(!specific&&note.supplement&&points[1].startsWith('本例'))points.reverse();
  if(course.id==='tibia')points.push(tibialLevels[identity][level]);
+ if(points.length<3&&course.id==='humerus'&&index===1)
+  points.push('软组织参照中可从后外侧找桡神经沟；肱骨干中下段交界骨折需关注桡神经。');
+ if(points.length<3&&course.id==='elbow'&&index===0)
+  points.push('在肘前对照肱动脉和正中神经，结合远侧髁块后移、近侧断端前缘的关系来定位风险。');
+ if(points.length<3&&course.id==='hip-dislocation'&&index===0)
+  points.push('在伤前对照中区分髋前方的股动静脉和髋后方的坐骨神经，观察股骨头后移时接近哪一侧。');
+ const wedge=course.variants[index].cuts[0].wedge;
+ if(wedge&&points.length<3){
+  points.push(wedge==='anterior'?'典型前缘楔形压缩应核对后壁连续性；后壁受累是与爆裂骨折鉴别的重要线索。':
+   '偏侧压缩时先比较同一椎体两侧终板间距，再检查后壁和椎体后方结构。');
+ }
+
  const regionalMatch=/^region-(?:rib-|body-[ctl]\d)/.test(course.id);
  return {points,extension:note.supplement||!(namedSites.has(family)||regionalMatch)};
 }
