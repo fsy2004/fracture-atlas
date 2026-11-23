@@ -1,5 +1,4 @@
 import {cutField} from './cut-field.js';
-import {setupOffline} from './offline.js';
 import {guidesFor,updateAnatomyPanel} from './anatomy-panel.js';
 import {canonicalCourse,variantIndex} from './variant-registry.js';
 import {showExamPoints} from './exam-points.js';
@@ -181,6 +180,7 @@ function clearScene(){
 }
 const specimen=specimenLibrary(async u=>await fetch(u));
 let atlasPalate=false,regionReference=false,loadingSpecimen=false,useSpecimen=false,viewSerial=0,baseDetail=false;
+let loadAssemblyDetail;
 const reflectedMeshes=new Map(),overviewMeshes=new Map();
 function lessonMesh(name){
  if(useSpecimen)return specimen.get(name,lessonOpen()&&/left/i.test(selected));
@@ -629,9 +629,11 @@ function assetsForLesson(){
 }
 function renderLesson(smooth=false,keepView=false,viewParams=null){
  if(!ready)return;
- const serial=++viewSerial,needed=assetsForLesson(),fetching=needed.length>0&&!specimen.ready(needed);
- const resume=playing,lesson=lessonOpen(),editAtRequest=viewEdits;
- if(fetching||lesson){
+ const serial=++viewSerial,lesson=lessonOpen(),resume=playing,editAtRequest=viewEdits;
+ const needed=selected&&!specimen.catalogueReady()?null:assetsForLesson();
+ const awaiting=Boolean(selected&&(needed===null||(needed.length?!specimen.ready(needed):!baseDetail)));
+ $('loadNotice').hidden=true;
+ if(awaiting||lesson){
   playing=false;loadingSpecimen=true;flight=null;host.dataset.pending='true';
   if(displayedBone!==selected||!lesson){
    clearScene();const g=boneData.get(selected);
@@ -645,13 +647,17 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
   $('centreBone').disabled=$('quickPlay').disabled=$('quickEdit').disabled=true;$('viewOptions').inert=true;
   $('captureFrame').disabled=true;$('lessonPanel').inert=true;document.querySelector('.player').inert=true;
   host.dataset.specimen='false';
-  $('status').textContent=fetching?'正在载入骨面…':'正在准备模型…';$('status').hidden=false;
-  // Paint the selection before the CPU-heavy cut. Rapid navigation only builds the last request.
+  $('status').textContent=awaiting?'正在载入精细骨面…':'正在准备模型…';$('status').hidden=false;
+  // The selected preview and index can be painted while the specimen loads.
   const paint=new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
-  const available=fetching?specimen.load(needed).then(()=>needed,error=>{
-   if(error.offlineMissing||!navigator.onLine||typeof DecompressionStream!=='function')return [];
-   throw error;
-  }):needed;
+  const available=(async()=>{
+   if(needed===null)await specimen.init();
+   if(serial!==viewSerial)return [];
+   const keys=needed??assetsForLesson();
+   if(keys.length)await specimen.load(keys);
+   else if(selected)await loadAssemblyDetail();
+   return keys;
+  })();
   Promise.all([paint,available]).then(([,loaded])=>{
    if(serial!==viewSerial)return;
    const changed=viewEdits!==editAtRequest;
@@ -663,9 +669,7 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
     scale=camera.position.distanceTo(controls.target)/preview.position.distanceTo(preview.target);
    }
    playing=resume&&!document.hidden;
-   if(!loaded.length&&needed.length)regionReference=false;
    finishLesson(changed?false:smooth,keepView,changed?null:viewParams,loaded);
-   if(!loaded.length&&needed.length)$('offlineState').textContent=navigator.onLine?'使用全身底模':'未缓存精细骨面，使用全身底模';
    if(changed){
     flight=null;automaticFit=false;camera.up.copy(up);
     if(selectedMesh&&!lessonOpen()){
@@ -678,7 +682,14 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
     }
     controls.update();dirty=true;
    }
-  }).catch(err=>{if(serial===viewSerial){$('status').textContent='模型准备失败，重新选择可重试。';console.error(err);}});
+  }).catch(err=>{
+   if(serial!==viewSerial)return;
+   console.warn('精细骨面载入失败',err);
+   regionReference=false;atlasPalate=false;playing=false;progress=0;variant=-1;shape='';motions=[];studyMode='overview';
+   finishLesson(false,viewEdits!==editAtRequest,null,[]);
+   $('loadNotice').textContent='精细骨面暂不可用，已显示预览。';
+   $('loadNotice').hidden=false;
+  });
   return;
  }
  finishLesson(smooth,keepView,viewParams,needed);
@@ -1260,7 +1271,7 @@ function setProgress(value){
  $('quickPlay').textContent=playing?'Ⅱ　暂停':progress>=1||poseLimit?.reason?'↻　重播':'▶　播放';
  $('play').textContent=playing?'Ⅱ 暂停':progress>=1||poseLimit?.reason?'↻ 重播':'▶ 播放';
 }
-const anatomyDirections=[['左侧','右侧'],['头侧','足侧'],['前侧','后侧']];
+const anatomyDirections=[['患者左侧','患者右侧'],['头侧','尾侧'],['腹侧','背侧']];
 const viewsByAxis=[['leftSide','side'],['top','inferior'],['front','rear']];
 function orientation(){
  dirty=true;
@@ -1307,7 +1318,9 @@ function frame(now){
  requestAnimationFrame(frame);
 }
 async function start(){
- renderer=new T.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+ const fullDpr=Math.min(devicePixelRatio,smallScreen.matches?1.5:2);
+ renderer=new T.WebGLRenderer({antialias:!smallScreen.matches,alpha:true,powerPreference:smallScreen.matches?'low-power':'default'});
+ renderer.setPixelRatio(fullDpr);
  host.append(renderer.domElement);
  renderer.domElement.addEventListener('webglcontextlost',event=>{
   event.preventDefault();contextLost=true;playing=false;controls?.cancel();
@@ -1331,7 +1344,8 @@ async function start(){
   }
   if(ready&&previousAspect>0&&camera.aspect>0){
    // Keep the student's sightline when opening a drawer, rotating the phone or resizing.
-   const fit=Math.min(1,previousAspect)/Math.min(1,camera.aspect);
+   const fit=selected?Math.min(1,previousAspect)/Math.min(1,camera.aspect):
+    Math.max(span,.65/camera.aspect)/Math.max(span,.65/previousAspect);
    if(Math.abs(fit-1)>.001){
     const offset=camera.position.clone().sub(controls.target).multiplyScalar(fit);
     camera.position.copy(controls.target).add(offset);
@@ -1341,30 +1355,41 @@ async function start(){
   }
  };
  new ResizeObserver(resize).observe(host);resize();
- const [index,bin,meta]=await Promise.all([...['models/index.json','models/bones.bin','models/detail.json'].map(async u=>{
-  const r=await fetch(assetURL(u));if(!r.ok)throw Error('无法加载 '+u);return u.endsWith('json')?r.json():r.arrayBuffer();
- }),specimen.init()]);
- const framesById=new Map(meta.entries.map(e=>[e.mesh,landmarkMap(e,meta.display_offset_mm)]));
+ async function getAsset(u){
+  const r=await fetch(assetURL(u));
+  if(!r.ok)throw Error('无法加载 '+u);
+  return u.endsWith('json')?r.json():r.arrayBuffer();
+ }
+ let previewMeta=null;
+ const metadata=getAsset('models/detail.json').then(value=>previewMeta=value,()=>null);
+ const [index,bin]=await Promise.all([getAsset('models/index.json'),getAsset('models/bones.bin')]);
+ const framesById=new Map(previewMeta?.entries.map(entry=>[entry.mesh,landmarkMap(entry,previewMeta.display_offset_mm)]));
  for(const m of index){
   const key=boneData.has(m.name)?m.name+' '+m.mesh:m.name;
-  const preview=materialize(m,bin);overviewMeshes.set(key,preview);alignPreview(preview,framesById.get(m.mesh));boneData.set(key,preview);meshByKey.set(key,m.mesh);keyByMesh.set(m.mesh,key);
+  const preview=materialize(m,bin),coordinateMap=framesById.get(m.mesh);
+  if(coordinateMap)alignPreview(preview,coordinateMap);
+  overviewMeshes.set(key,preview);boneData.set(key,preview);meshByKey.set(key,m.mesh);keyByMesh.set(m.mesh,key);
  }
- upgradeDetail().catch(err=>{
-  $('offlineState').textContent='精细骨面载入失败，使用预览骨面';host.dataset.ready='true';console.error(err);
- });
- async function upgradeDetail(){
-  const u='models/detail.bin.gz',res=await fetch(assetURL(u));
-  if(!res.ok)throw Error('精细骨面下载失败');
-  const bytes=await res.arrayBuffer();
-  const surfaces=await decodeSurfaces(meta,bytes);
+ let assemblyPending;
+ loadAssemblyDetail=()=>assemblyPending??=(async()=>{
+  const [manifest,bytes]=await Promise.all([
+   metadata.then(value=>value??getAsset('models/detail.json')),
+   getAsset('models/detail.bin.gz')
+  ]);
+  const surfaces=await decodeSurfaces(manifest,bytes);
   if(surfaces.size!==boneData.size)throw Error('精细模型清单不完整');
-  for(const g of reflectedMeshes.values())g.dispose();reflectedMeshes.clear();
-  for(const [mesh,g] of surfaces){const key=keyByMesh.get(mesh);boneData.set(key,g);}
-  baseDetail=true;host.dataset.ready='true';if(!useSpecimen&&!loadingSpecimen)renderLesson(false,true);
- }
- buildIndex(boneData.keys(),pickBone,key=>matches(key).length);ready=true;setupOffline(()=>specimen.files(assetsForLesson()));route();$('status').hidden=!loadingSpecimen;
+  for(const [mesh,g] of surfaces)boneData.set(keyByMesh.get(mesh),g);
+  baseDetail=true;
+ })().catch(error=>{assemblyPending=null;throw error;});
+ buildIndex(boneData.keys(),pickBone,key=>matches(key).length);
+ ready=true;host.dataset.ready='true';route();$('status').hidden=!loadingSpecimen;
+ // A prior release let the user save an offline web snapshot. Retire only
+ // this atlas registration and leave explicitly saved material in browser storage.
+ if(location.protocol!=='file:')navigator.serviceWorker?.getRegistration().then(registration=>{
+  const worker=registration?.active||registration?.waiting||registration?.installing;
+  if(worker?.scriptURL===new URL('./sw.js',location.href).href)return registration.unregister();
+ }).catch(()=>{});
  const ray=new T.Raycaster(),canvas=renderer.domElement;
- const fullDpr=Math.min(devicePixelRatio,2);
  function dragResolution(moving){const next=moving?Math.min(1.25,fullDpr):fullDpr;if(renderer.getPixelRatio()!==next){renderer.setPixelRatio(next);dirty=true;}}
  const impact=new T.Vector3(),pointer=new T.Vector2();let lowDetail=false,hoverRequest=0,lastHoverAt=0;
  function overviewLOD(low){

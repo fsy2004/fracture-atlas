@@ -51,14 +51,14 @@ try{
  await page.locator('#captureFrame').click();await page.locator('#frameStrip img').first().waitFor();
  await page.goto(base+'#skeleton');await ready(page);
  assert.equal(await page.locator('#examPoints').isVisible(),false);
- assert.equal(await page.locator('#catalog [data-bone]').count(),201);
- assert.equal(await page.locator('#catalog .bone-family').count(),4);
+ assert.equal(await page.locator('#indexPanel [data-bone]').count(),201);
+ assert.equal(await page.locator('#indexPanel .bone-family').count(),4);
  assert.equal(await page.locator('#launchpad').count(),0);
- assert.ok(await page.locator('#catalog .priority-star').count()>0);
+ assert.ok(await page.locator('#priorityList .priority-star').count()>0);
  await page.locator('#viewRail [data-view=rear]').click();
- assert.equal(await page.locator('#dirTR').innerText(),'右侧');
+ assert.equal(await page.locator('#dirTR').innerText(),'患者右侧');
  await page.locator('#viewRail [data-view=home]').click();
- assert.equal(await page.locator('#dirTR').innerText(),'左侧');
+ assert.equal(await page.locator('#dirTR').innerText(),'患者左侧');
  await page.locator('#search').fill('腭骨');await page.locator('[data-bone="Left palatine bone"]').click();await ready(page);
  assert.ok(await page.locator('#viewport').getAttribute('data-specimen')==='true');
  await page.locator('#advanced > summary').click();await page.locator('#viewOptions > summary').click();await page.locator('#anatomyExtent').selectOption('region');await ready(page);
@@ -87,7 +87,11 @@ try{
  await page.goto(base+'#elbow-dislocation/0/1?at=1000');await ready(page);await checkExam(page,/肘/);
  const mobile=await viewport({isMobile:true,hasTouch:true,deviceScaleFactor:2,viewport:{width:390,height:760}});
  await mobile.goto(base);await mobile.locator('#viewport[data-ready=true]').waitFor();
- await mobile.locator('#mobilePanel').tap();await mobile.locator('[data-bone="Right radius"]').tap();
+ await mobile.locator('#mobilePanel').tap();
+ assert.ok(await mobile.locator('#priorityTitle').isVisible());
+ const target=mobile.locator('#priorityList [data-bone="Right radius"]');
+ assert.ok(await target.isVisible());
+ await target.tap();
  await mobile.waitForFunction(()=>document.querySelector('#viewport').dataset.specimen==='true'&&document.querySelector('#status').hidden);
  assert.equal(await mobile.locator('aside').isVisible(),true);
  const scene=await mobile.locator('#viewport').boundingBox(),side=await mobile.locator('aside').boundingBox();
@@ -124,5 +128,22 @@ try{
  await page.goto(base+'#radius/v01/1?at=1000');await ready(page);
  await checkExam(page,/伸直型/);
  assert.equal(await page.getByRole('link',{name:'反馈',exact:true}).count(),0);
+ if(!base.startsWith('file:')){
+  const slow=await viewport({isMobile:true,hasTouch:true,deviceScaleFactor:3,viewport:{width:390,height:760},serviceWorkers:'block'});
+  let rejectOptional;
+  const gate=new Promise(resolve=>{rejectOptional=resolve;});
+  await slow.route(/models\/(?:detail\.(?:json|bin)|(?:vhm|extended)\/manifest\.json)/i,async route=>{
+   await gate;await route.abort();
+  });
+  try{
+   await slow.goto(base);await ready(slow);
+   assert.ok(await slow.locator('#viewport canvas').isVisible());
+  }finally{rejectOptional();}
+  await slow.locator('#mobilePanel').tap();
+  assert.ok(await slow.locator('#priorityTitle').isVisible());
+  await slow.locator('#priorityList [data-bone="Right radius"]').tap();await ready(slow);
+  assert.match(await slow.locator('#loadNotice').innerText(),/已显示预览/);
+  assert.equal(await slow.locator('#viewport').getAttribute('data-specimen'),'false');
+ }
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}

@@ -160,7 +160,6 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 #patternBox h4{margin:6px 0 3px;font-size:13px}
 #patternBox .hint{margin:0}
 #motionSettings,#viewOptions{margin-top:9px}
-.priority-key{display:inline-block;color:#73552a;font-size:11px;margin:0 0 5px 8px}
 .priority-star{color:#8a6028;margin-right:5px}
 .bone-family{margin:3px 0;padding:0;border:1px solid var(--edge);border-radius:6px;background:#eff4e9}
 .bone-family>summary{padding:7px 10px;color:var(--ink)}
@@ -206,4 +205,20 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
 #anatomyMarks dt{font-weight:600}
 #anatomyMarks dd{margin:2px 0 0;color:#405a50;line-height:1.65}
 
-#networkTools{display:flex;align-items:center;gap:7px;margin-top:12px;color:var(--muted);font-size:12px}
+
+#priorityBones{padding:0 0 7px;border-bottom:1px solid var(--edge)}
+#priorityTitle{font-size:13px;color:#654b29;margin:7px 0 5px}
+#priorityList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+#priorityList>.bone-row{padding:0 4px;border:1px solid #ddded2;border-radius:5px;background:#f0f2e9}
+#priorityList .bone-link{padding:5px 2px}
+#priorityList .bone-link strong{font-size:13px;white-space:nowrap}
+#priorityList .bone-link small{display:none}
+#priorityList button[data-bone]{padding:3px 5px}
+#priorityList>.bone-family{grid-column:1/-1;margin:0}
+#loadNotice:not([hidden]){padding:3px 6px;background:#f8f9eee8;border-radius:3px}
+#viewRail button{min-width:51px}
+@media(max-width:630px){
+ #catalog{max-height:none;overflow:visible}
+ #viewRail button{min-width:42px;padding-inline:3px;font-size:11px}
+ #priorityTitle{margin-top:5px}
+}

@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7ef"><title>骨折与脱位图谱</title><link rel="stylesheet" href="./style.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7ef"><title>骨折与脱位图谱</title><link rel="stylesheet" href="./style.css">
+<link data-model-preload rel="preload" href="./models/bones.bin" as="fetch" crossorigin="anonymous">
+<link data-model-preload rel="preload" href="./models/index.json" as="fetch" crossorigin="anonymous">
+<link data-model-preload rel="preload" href="./models/detail.json?native-f32-v1" as="fetch" crossorigin="anonymous"></head>
 <body>
 <header>
  <div class="identity"><span class="brand" aria-hidden="true">骨</span><h1>骨折与脱位图谱</h1></div>
@@ -9,14 +12,14 @@
 </header>
 <main>
 <section class="stage" aria-label="三维观察区"><div class="model-area">
- <div class="stage-title"><small id="crumb">成年男性 · 解剖总览</small><h2 id="heading">全身骨骼</h2><p id="description">点击骨骼，进入局部观察</p></div>
+ <div class="stage-title"><small id="crumb">成年男性 · 解剖总览</small><h2 id="heading">全身骨骼</h2><p id="description">点击骨骼，进入局部观察</p><p id="loadNotice" role="status" hidden></p></div>
  <div id="viewport" tabindex="0" aria-label="三维骨骼，拖动或使用方向键旋转"><div id="status" role="status" aria-live="polite">正在加载骨骼…</div><div id="labels" aria-hidden="true"></div><div id="markLayer" aria-hidden="true"></div><span id="tip" hidden></span></div>
  <div id="orientation" aria-label="屏幕解剖方位"><span id="dirTL" class="dir tl"></span><span id="dirTR" class="dir tr"></span><span id="dirBL" class="dir bl"></span><span id="dirBR" class="dir br"></span><span id="viewSummary" class="sr-only"></span></div>
  <nav id="viewRail" aria-label="解剖视角">
-  <button data-view="front" aria-label="从患者前方看" title="前视">前</button><button data-view="rear" aria-label="从患者后方看" title="后视">后</button>
-  <button data-view="leftSide" aria-label="从患者左侧看" title="左侧视">左</button><button data-view="side" aria-label="从患者右侧看" title="右侧视">右</button>
-  <button data-view="top" aria-label="从头侧看" title="上视">上</button><button data-view="inferior" aria-label="从足侧看" title="下视">下</button>
-  <button data-view="home" aria-label="复位视角" title="复位视角">复位</button>
+  <button data-view="front" title="从腹侧观察">前面观</button><button data-view="rear" title="从背侧观察">后面观</button>
+  <button data-view="leftSide" aria-label="患者左侧观">左侧观</button><button data-view="side" aria-label="患者右侧观">右侧观</button>
+  <button data-view="top" title="从头侧观察">头侧观</button><button data-view="inferior" title="从尾侧观察">尾侧观</button>
+  <button data-view="home" aria-label="重置解剖视角" title="重置解剖视角">重置</button>
  </nav>
  <div id="motionReadout" aria-label="当前主要移位"></div><div class="stage-foot"><button id="centreBone" type="button" hidden title="保持当前方向，将所选整骨居中">整骨居中</button><span id="gesture">左键拖动旋转 · 滚轮缩放</span></div>
  <button id="quickEdit" hidden>运动设置</button><button id="quickPlay" hidden aria-label="播放或暂停动画">播放</button></div>
@@ -24,7 +27,7 @@
 <aside id="panel" aria-label="骨骼导航与教学控制">
  <div class="panel-head"><div id="breadcrumb">全身骨骼</div><div class="head-actions"><button id="copyLink">复制链接</button><button id="expand">全屏</button><button id="foldPanel">收起</button></div></div>
  <div class="rail-scroll"><section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索骨名，如 胫骨" aria-label="搜索全身骨骼"></label>
- <div id="regions" class="tabs" aria-label="筛选解剖区域"></div><div id="count"></div><p class="priority-key">★ 重点骨</p><div id="catalog" aria-label="骨骼列表"></div></section>
+ <div id="regions" class="tabs" aria-label="筛选解剖区域"></div><section id="priorityBones" aria-labelledby="priorityTitle" hidden><h3 id="priorityTitle">重点骨</h3><div id="priorityList"></div></section><div id="count"></div><div id="catalog" aria-label="骨骼列表"></div></section>
 <section id="jointShortcuts"><details><summary>按关节查看脱位</summary><div id="jointLinks" class="pills"></div></details></section>
  <section id="bonePanel" hidden><h2 id="boneTitle"></h2><p id="boneNote" class="hint"></p>
  <p id="regionKey" class="hint" hidden>腭骨归属为估计。青色表示表面位置贴合扫描，浅黄色表示支持较弱，赭色表示推定分界。灰色为相邻骨壁。</p><label for="sites" id="siteLabel">部位与损伤</label><select id="sites"></select>
@@ -52,7 +55,6 @@
 <label><input type="checkbox" id="drawConstraints"> 显示接触点与纤维方向</label><p class="hint">限位按离散时刻的骨面与教学系带求解。余量为教学设定，红点提示两骨相交处。</p></details><div id="liveValues" aria-label="当前帧详细读数"></div><p id="motionStatus" class="hint"></p></section>
  <details id="viewOptions"><summary>细节与显示</summary><label id="extentRow" for="anatomyExtent" hidden>解剖范围<select id="anatomyExtent"></select></label><div id="studyTools" hidden><h3>空间观察</h3><div class="study-grid"><button data-study="overview">整体</button><button data-study="cut">隔离断面</button><button data-study="motion">运动参照</button><button data-study="facet">关节面</button></div><button id="signView" hidden>分型观察视角</button><p id="surfaceShare" hidden></p><button id="showRim" hidden>查看桡腕关节面</button><button id="viewSeam" hidden>看胫骨后侧纵裂</button><button id="nextPart" class="quiet" hidden></button><p id="inspectHelp"></p></div><button data-view="detail" hidden>放大断面</button>
  <div id="frameNavigation" hidden><div class="frame-tools"><button id="prevFrame" aria-label="上一帧">上一帧</button><button id="nextFrame" aria-label="下一帧">下一帧</button><button id="repeat" aria-pressed="false">循环播放</button></div><div id="steps" aria-label="分段观察"></div></div><div id="layers"><label><input id="trace" type="checkbox" checked> 伤前断缘与轨迹</label><label><input id="ghost" type="checkbox"> 伤前轮廓</label><label><input id="guides" type="checkbox" checked> 方向标记</label><label><input id="neighbors" type="checkbox" checked> 邻近骨骼</label><p id="layersAvailability" class="hint" hidden></p><label class="measure-row" id="opacityRow"><span>邻骨可见度</span><output id="opacityValue">55%</output><input type="range" id="opacity" min="10" max="100" value="55" step="5" aria-label="邻骨可见度"></label></div></details></details>
- <div id="networkTools"><button id="saveOffline" type="button">保存离线</button><span id="offlineState" role="status" aria-live="polite"></span></div>
  <small class="scope">分段播放用于观察方向，轨迹和数值为教学设定。</small>
 </div><div class="player">
  <div class="player-head"><strong id="phase">正常形态</strong><output id="frameTime" aria-label="动画时间">0.00 s</output><button id="speed">1×</button></div>

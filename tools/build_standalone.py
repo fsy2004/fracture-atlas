@@ -61,6 +61,7 @@ def build(output):
     add("app.js")
     worker_code = classic_contact_worker()
     html = (ROOT / "index.html").read_text(encoding="utf-8-sig")
+    html = re.sub(r'<link data-model-preload[^>]+>\n?', '', html)
     html = html.replace("</body>", '<script type="text/plain" id="contactWorkerSource">' + worker_code + '</script></body>')
     html = html.replace('<link rel="stylesheet" href="./style.css">',
                         "<style>" + (ROOT / "style.css").read_text(encoding="utf-8-sig") + "</style>")

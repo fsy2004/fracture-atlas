@@ -33,12 +33,24 @@ export function specimenLibrary(read){
   named.get(e.name).push(e);
  }
  function resolve(name){return named.get(name)?.find(e=>e.role!=='context');}
- let canals={},transforms={};
+ let directory,directoryReady=false,canalRequest,transforms={};
+ const sections=new Set(['Left femur','Right femur','Left tibia','Right tibia','Left fibula','Right fibula']);
+ const readJSON=async path=>{
+  const r=await read(path);if(!r.ok)throw Error('无法加载 '+path);return r.json();
+ };
+ function readCanals(){
+  return canalRequest??=readJSON('models/extended/canal.json').then(result=>result.bones)
+   .catch(error=>{canalRequest=null;throw error;});
+ }
  let elbowView=false,shoulderView=false;const elbowMeshes=new WeakMap(),shoulderMeshes=new WeakMap();
  async function load(key){
   if(native.has(key))return;
   if(!pending.has(key))pending.set(key,(async()=>{
-   const e=entries.get(key),res=await read(e.base+e.file);
+   const e=entries.get(key);
+   const [res,canals]=await Promise.all([
+    read(e.base+e.file),
+    e.base==='models/vhm/'&&sections.has(e.name)?readCanals().catch(()=>null):null
+   ]);
    if(!res.ok){
     const error=Error('无法读取标本 '+e.name);
     error.offlineMissing=res.headers.get('X-Atlas-Offline-Miss')==='1';
@@ -62,7 +74,7 @@ export function specimenLibrary(read){
    g.computeVertexNormals();g.computeBoundingBox();g.computeBoundingSphere();g.userData.specimen=true;
    if(e.head_center_m)g.userData.headCentre=new T.Vector3(...e.head_center_m);
    if(e.digit)g.userData.digit=e.digit;
-   if(e.base==='models/vhm/'&&canals[e.name])g.userData.endosteum={rows:canals[e.name],transform:transforms[e.group]};
+   if(canals?.[e.name])g.userData.endosteum={rows:canals[e.name],transform:transforms[e.group]};
    g.userData.group=e.group;native.set(key,g);
   })().finally(()=>pending.delete(key)));
   await pending.get(key);
@@ -76,14 +88,16 @@ export function specimenLibrary(read){
   return [];
  }
  return {
-  async init(){
-   const manifests=await Promise.all(['models/vhm/manifest.json','models/extended/manifest.json','models/extended/canal.json'].map(async path=>{
-    const r=await read(path);if(!r.ok)throw Error('标本目录载入失败');return r.json();
-   }));
-   canals=manifests[2].bones;transforms=manifests[0].groups;
-   for(const e of manifests[0].entries)register({...e,key:e.name,base:'models/vhm/',label:'VHM 男性标本'});
-   for(const e of manifests[1].entries)register({...e,base:'models/extended/',label:manifests[1].sources[e.collection].title});
+  init(){
+   return directory??=Promise.all(['models/vhm/manifest.json','models/extended/manifest.json'].map(readJSON))
+    .then(([vhm,extended])=>{
+     transforms=vhm.groups;
+     for(const e of vhm.entries)register({...e,key:e.name,base:'models/vhm/',label:'VHM 男性标本'});
+     for(const e of extended.entries)register({...e,base:'models/extended/',label:extended.sources[e.collection].title});
+     directoryReady=true;
+    }).catch(error=>{directory=null;throw error;});
   },
+  catalogueReady:()=>directoryReady,
   has:name=>!!resolve(name),isAddition:name=>resolve(name)?.base==='models/extended/',context:localContext,
   region:name=>{const r=regions[(name||'').toLowerCase().replace(/^(left|right) /,'')];return r&&entries.has(r[0])?r:null;},
   fromKey:key=>native.get(key),

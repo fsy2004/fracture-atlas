@@ -41,6 +41,7 @@ export function regionFor(name){
 }
 export function buildIndex(names,select,courseCount){
  const host=document.getElementById('catalog'),search=document.getElementById('search');
+ const priorityBox=document.getElementById('priorityBones'),priorityList=document.getElementById('priorityList');
  const groups=new Map(),tabs=document.getElementById('regions');
  for(const key of names){
   const label=boneName(key).replace(/^[左右]/,''),region=regionFor(key);
@@ -91,11 +92,12 @@ export function buildIndex(names,select,courseCount){
  let region='全部';
  const expanded=new Set();
  function draw(){
-  const q=search.value.trim().toLowerCase();host.replaceChildren();
+  const q=search.value.trim().toLowerCase();host.replaceChildren();priorityList.replaceChildren();
   let count=0;
   for(const group of layout){
    if(region!=='全部'&&region!==group.region)continue;
-   const target=group.rows?document.createElement('details'):host;
+   const container=rank(group.label)<100?priorityList:host;
+   const target=group.rows?document.createElement('details'):container;
    for(const row of group.rows||[group]){
     const keys=row.keys.filter(key=>{
      const alias=boneName(key).replace(/^胸椎/,'T').replace(/^腰椎/,'L').replace(/^颈椎/,'C');
@@ -107,9 +109,10 @@ export function buildIndex(names,select,courseCount){
     const summary=document.createElement('summary');summary.append(highlighted(group.label));target.prepend(summary);
     target.className='bone-family';target.open=Boolean(q)||expanded.has(group.label);
     target.ontoggle=()=>{if(!q){if(target.open)expanded.add(group.label);else expanded.delete(group.label);}};
-    host.append(target);
+    container.append(target);
    }
   }
+  priorityBox.hidden=priorityList.childElementCount===0;
   document.getElementById('count').textContent=count+' 个骨骼结构';
   if(!count){const msg=document.createElement('p');msg.className='empty';msg.textContent='该范围内没有匹配的骨名';host.append(msg);}
  }

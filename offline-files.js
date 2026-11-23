@@ -45,7 +45,6 @@ self.ATLAS_OFFLINE_FILES = [
  "mechanics.js",
  "motion-presets.js",
  "observation.js",
- "offline.js",
  "plateau.js",
  "regional-courses.js",
  "regional-notes.js",
