@@ -68,6 +68,10 @@ try{
  await page.locator('#whole').click();await ready(page);await page.locator('#search').fill('');
  await page.locator('[data-bone="Right femur"]').click();await ready(page);
  assert.equal(await page.locator('#examPoints').isVisible(),false);
+ await page.locator('#anatomyPanel summary').click();
+ assert.match(await page.locator('#anatomyMarks').innerText(),/大转子/);
+ await page.waitForFunction(()=>document.querySelector('#markLayer').textContent.includes('股骨头区'));
+ await page.locator('#anatomyPanel summary').click();
  // Copying an inverted anatomy view must round-trip through an ordinary shared URL.
  await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{value:{writeText:async()=>{}},configurable:true}));
  const area=await page.locator('#viewport').boundingBox(),x=area.x+area.width*.55,y=area.y+area.height*.2;
@@ -117,5 +121,8 @@ try{
  await page.goto(base+'#hip-dislocation/0/1?at=1000&q_travel=18');await ready(page);
  assert.ok(Number(await page.locator('#time').inputValue())<1000);
  assert.match(await page.locator('#contactState').textContent(),/已限位/);
+ await page.goto(base+'#radius/v01/1?at=1000');await ready(page);
+ await checkExam(page,/伸直型/);
+ assert.equal(await page.locator('.feedback-link').getAttribute('href'),'https://github.com/fsy2004/fracture-atlas/discussions');
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}

@@ -127,3 +127,10 @@
 如需从有权使用的源 STL 重建，运行 `python tools/fetch_vhm.py SOURCE` 下载固定版本，然后执行 `python tools/build_vhm.py --source SOURCE --baseline models/vhm/manifest.json --atlas models --out OUTPUT`。模型和相应许可均随离线 HTML 打包。
 
 用 `node tools/verify-specimen-library.mjs` 核对主要及配套网格的文件哈希、三角面索引、覆盖项与腭骨表面证据标记。Visible Korean 分侧重建、VHM 胸骨与骶骨分区，以及股骨、胫骨和腓骨的髓腔轮廓的工具分别在 `tools/visible_korean/`、`tools/reconstruct_vhm_regions.py` 和 `tools/derive_endosteal_contours.py`。腓骨髓腔只在当前断面能与同一供体的 CT 轮廓可靠匹配时显示。
+
+## 解剖、分型与反馈
+
+- 右栏“骨性标志与解剖”覆盖索引中的每个结构。骨面定位显示的是有依据的区位。文字所列的细小孔、沟和嵴可能超过当前模型的分辨率。按区域参照 [OpenStax 轴骨](https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system) 和 [附肢骨](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-introduction)，解剖名称参照 [FIPAT](https://ifaa.net/committees/anatomical-terminology-fipat/)。
+- 新链接用病种 ID 与分型 ID，例如 `#radius/v01/1`。旧数字链接照常解析。新增分型时在 `variant-registry.js` 末尾增加分型 ID，重命名时更新对应名称，沿用已有 ID 和旧序号。提交前运行 `node tools/build_review.mjs` 和 `node --test tests/*.test.mjs`。
+- 网页的“保存离线”保存应用、全身骨骼和打开时所选场景的精细骨面。切换到未缓存的骨骼时使用全身底模。离线单 HTML 含整个模型库。更改模块入口或基础资源 URL 后运行 `node tools/build_offline_files.mjs`。
+- 在 [GitHub Discussions](https://github.com/fsy2004/fracture-atlas/discussions) 讨论内容与功能，也可通过 [Issues](https://github.com/fsy2004/fracture-atlas/issues) 提交可以复现的问题。反馈时可用网页的“复制链接”保存分型、方向和当前姿态。

@@ -196,3 +196,15 @@ aside{background:#fbfbf4}.rail-scroll{padding-top:1px}
  body.panel-open main{grid-template-rows:minmax(138px,49fr) minmax(146px,51fr)}
  #viewRail{top:48%}
 }
+
+#anatomyPanel{border:1px solid var(--edge);border-radius:6px;background:#f6f8ef;margin:12px 0;padding:0 10px}
+#anatomyPanel summary{padding:8px 0;font-weight:600}
+#anatomySummary{font-size:13px;color:var(--muted);margin-bottom:8px}
+#anatomyGuideRow:not([hidden]){display:flex;align-items:center;gap:5px;font-size:12px;color:var(--jade)}
+#anatomyMarks{margin:5px 0 10px}
+#anatomyMarks div{border-top:1px solid #dce5da;padding:6px 0;font-size:13px}
+#anatomyMarks dt{font-weight:600}
+#anatomyMarks dd{margin:2px 0 0;color:#405a50;line-height:1.65}
+.feedback-link{display:inline-flex;align-items:center;color:var(--jade);padding:3px 5px;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+
+#networkTools{display:flex;align-items:center;gap:7px;margin-top:12px;color:var(--muted);font-size:12px}

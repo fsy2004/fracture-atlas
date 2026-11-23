@@ -22,7 +22,7 @@
  <button id="quickEdit" hidden>运动设置</button><button id="quickPlay" hidden aria-label="播放或暂停动画">播放</button></div>
 </section>
 <aside id="panel" aria-label="骨骼导航与教学控制">
- <div class="panel-head"><div id="breadcrumb">全身骨骼</div><div class="head-actions"><button id="copyLink">复制链接</button><button id="expand">全屏</button><button id="foldPanel">收起</button></div></div>
+ <div class="panel-head"><div id="breadcrumb">全身骨骼</div><div class="head-actions"><button id="copyLink">复制链接</button><button id="expand">全屏</button><button id="foldPanel">收起</button><a class="feedback-link" href="https://github.com/fsy2004/fracture-atlas/discussions" target="_blank" rel="noopener noreferrer">反馈</a></div></div>
  <div class="rail-scroll"><section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索骨名，如 胫骨" aria-label="搜索全身骨骼"></label>
  <div id="regions" class="tabs" aria-label="筛选解剖区域"></div><div id="count"></div><p class="priority-key">★ 重点骨</p><div id="catalog" aria-label="骨骼列表"></div></section>
 <section id="jointShortcuts"><details><summary>按关节查看脱位</summary><div id="jointLinks" class="pills"></div></details></section>
@@ -33,7 +33,13 @@
   <div id="levelbox"><h4>发生部位</h4><div id="levels" class="pills"></div><p id="fixedSite" class="hint"></p></div>
   <div id="featureBox"><div id="shapeRow"><h4>骨折线形态</h4><div id="shapes" class="pills"></div>
  </div><div id="moveRow"><h4>移位表现 <small>可组合</small></h4><div id="motions" class="pills"></div></div></div>
- </section></section>
+ </section>
+ <details id="anatomyPanel" hidden><summary>骨性标志与解剖</summary>
+  <p id="anatomySummary"></p>
+  <label id="anatomyGuideRow" hidden><input id="anatomyGuides" type="checkbox" checked> 标出模型区位</label>
+  <dl id="anatomyMarks"></dl>
+ </details>
+ </section>
  <section id="lessonPanel" hidden>
  <section id="examPoints" aria-labelledby="examTitle" hidden><h3 id="examTitle">考点</h3><p id="examCase"></p><ul id="examList"></ul></section>
  <section id="savedFrames" hidden><h3>已截取的帧</h3><button id="compareFrames" disabled>对照已截帧</button><div id="frameStrip"></div></section></section>
@@ -46,6 +52,7 @@
 <label><input type="checkbox" id="drawConstraints"> 显示接触点与纤维方向</label><p class="hint">限位按离散时刻的骨面与教学系带求解。余量为教学设定，红点提示两骨相交处。</p></details><div id="liveValues" aria-label="当前帧详细读数"></div><p id="motionStatus" class="hint"></p></section>
  <details id="viewOptions"><summary>细节与显示</summary><label id="extentRow" for="anatomyExtent" hidden>解剖范围<select id="anatomyExtent"></select></label><div id="studyTools" hidden><h3>空间观察</h3><div class="study-grid"><button data-study="overview">整体</button><button data-study="cut">隔离断面</button><button data-study="motion">运动参照</button><button data-study="facet">关节面</button></div><button id="signView" hidden>分型观察视角</button><p id="surfaceShare" hidden></p><button id="showRim" hidden>查看桡腕关节面</button><button id="viewSeam" hidden>看胫骨后侧纵裂</button><button id="nextPart" class="quiet" hidden></button><p id="inspectHelp"></p></div><button data-view="detail" hidden>放大断面</button>
  <div id="frameNavigation" hidden><div class="frame-tools"><button id="prevFrame" aria-label="上一帧">上一帧</button><button id="nextFrame" aria-label="下一帧">下一帧</button><button id="repeat" aria-pressed="false">循环播放</button></div><div id="steps" aria-label="分段观察"></div></div><div id="layers"><label><input id="trace" type="checkbox" checked> 伤前断缘与轨迹</label><label><input id="ghost" type="checkbox"> 伤前轮廓</label><label><input id="guides" type="checkbox" checked> 方向标记</label><label><input id="neighbors" type="checkbox" checked> 邻近骨骼</label><p id="layersAvailability" class="hint" hidden></p><label class="measure-row" id="opacityRow"><span>邻骨可见度</span><output id="opacityValue">55%</output><input type="range" id="opacity" min="10" max="100" value="55" step="5" aria-label="邻骨可见度"></label></div></details></details>
+ <div id="networkTools"><button id="saveOffline" type="button">保存离线</button><span id="offlineState" role="status" aria-live="polite"></span></div>
  <small class="scope">分段播放用于观察方向，轨迹和数值为教学设定。</small>
 </div><div class="player">
  <div class="player-head"><strong id="phase">正常形态</strong><output id="frameTime" aria-label="动画时间">0.00 s</output><button id="speed">1×</button></div>

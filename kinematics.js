@@ -45,11 +45,14 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  // Rough opposing cortices must disengage before a purely lateral or spinning target can move.
  // These paths were checked on both specimens at the authored shaft cuts.
  const guided=tagged[0]?.tuned==='shaft'&&!clinical.legacyMotion&&!clinical.selectedShape&&['femur','humerus','tibia'].includes(clinical.id);
+ const staged=tagged[0]?.tuned==='shaft'&&Boolean(tagged[0].cutNormal)&&!clinical.legacyMotion&&!guided;
+ const cutAxis=new T.Vector3();
+ const pairedTibia=staged&&clinical.id==='tibia';
  const helical=guided&&clinical.id==='tibia'&&clinical.variant===1;
  const guidedWrist=clinical.id==='radius'&&tagged[0]?.tuned==='wrist'&&!clinical.legacyMotion;
  const wristRelease=clinical.variant===0?2:5;
- const lateralSign=guided&&(clinical.id==='tibia'||clinical.variant===2)?-1:1;
- const clearWidths=guided?(lateralSign<0?1.45:1.18):1.03;
+ const lateralSign=(guided||pairedTibia)&&(clinical.id==='tibia'||clinical.variant===2)?-1:1;
+ const clearWidths=guided||staged?(lateralSign<0?1.45:1.24):1.03;
  function field(key,label,unit,base,max,step=1,min=0){
   const row=document.createElement('label');row.className='measure-row';
   const title=document.createElement('span'),read=document.createElement('output'),input=document.createElement('input');
@@ -139,16 +142,36 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    gap=fraction*clearance;
   }
   const opening=gap*(eased(p,.08,.20)-(val('shorten')?eased(p,.53,.8):val('separate')?lengthT:0));
+  const contactStage=staged&&[val('shorten'),val('side'),val('angle'),val('rotate')].some(x=>x>0);
+  const stagedSlide=contactStage?eased(p,.36,.77):shiftT;
+  const stagedTurn=contactStage?eased(p,.48,1):angleT;
+  const telescope=contactStage&&val('shorten')>0?eased(p,.73,1):lengthT;
   for(const i of items){
    const {pivot,anchor,shift,baseRotation:r}=i;
    if(i.tuned==='shaft'&&frame){
     // First clear the cortex laterally, then bring the distal end proximally.
     const clearance=val('shorten')>0?width*clearWidths:0;
-    translation.copy(frame.side).multiplyScalar(lateralSign*mm*(val('side')*shiftT+clearance*clearT))
-     .addScaledVector(frame.axis,mm*((val('shorten')-val('separate'))*lengthT-opening));
-    qa.setFromAxisAngle(frame.bend,val('angle')*angleT*rad);
-    qb.setFromAxisAngle(frame.axis,val('rotate')*angleT*rad);
-    if(!val('shorten')&&!val('separate')&&!val('side')){
+    // On a changed cut, open the two surfaces before introducing tangential
+    // displacement. Only retract that opening after the ends have cleared.
+    const across=contactStage?eased(p,.34,.70):clearT;
+    translation.copy(frame.side).multiplyScalar(lateralSign*mm*(val('side')*stagedSlide+clearance*across))
+     .addScaledVector(frame.axis,mm*(val('shorten')*telescope-val('separate')*lengthT-opening));
+    if(contactStage){
+     cutAxis.copy(pairedTibia?frame.axis:i.cutNormal||frame.axis);
+     if(cutAxis.dot(frame.axis)<0)cutAxis.negate();
+     const spiral=i.cutRise||0;
+     const relativeGap=pairedTibia&&val('rotate')>0?.53:val('angle')>0?.40:.27;
+     const amount=Math.max(width*relativeGap,spiral*(val('angle')>0?.80:.56)+width*.10);
+     const open=eased(p,.075,.34)*(val('shorten')>0?1-eased(p,.71,.97):1);
+     const planned=translation.dot(cutAxis);
+     const avoid=val('shorten')>0?open*(amount+Math.max(0,planned/mm)):
+      Math.max(0,amount*open+planned/mm);
+     translation.addScaledVector(cutAxis,-avoid*mm);
+     if(i.neighborClearance)translation.addScaledVector(i.neighborClearance,eased(p,.075,.40));
+    }
+    qa.setFromAxisAngle(frame.bend,val('angle')*stagedTurn*rad);
+    qb.setFromAxisAngle(frame.axis,val('rotate')*stagedTurn*rad);
+    if(!contactStage&&!val('shorten')&&!val('separate')&&!val('side')){
      translation.add(hingeArm).sub(rotatedArm.copy(hingeArm).applyQuaternion(qa));
     }
     pivot.quaternion.copy(qa).multiply(qb);
@@ -220,7 +243,8 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
     return {label:dorsal>=0?'背倾':'掌倾',num:format(Math.abs(dorsal)),unit:'°'};
    }
-   const t=['bearing','elevation'].includes(c.key)?1:c.key==='footRoll'?eased(p,.19,.76):c.key==='breadth'?1:c.key==='crush'?compressT:c.key==='jointTwist'?jointT:['spin','angle','rotate'].includes(c.key)?angleT:['shorten','separate'].includes(c.key)?lengthT:shiftT;
+   if(staged&&c.key==='shorten')return {label:'轴向缩短',num:format(Math.max(0,primary.pivot.position.clone().sub(primary.anchor).dot(frame.axis)/mm)),unit:'mm'};
+   const t=['bearing','elevation'].includes(c.key)?1:c.key==='footRoll'?eased(p,.19,.76):c.key==='breadth'?1:c.key==='crush'?compressT:c.key==='jointTwist'?jointT:['spin','angle','rotate'].includes(c.key)?stagedTurn:['shorten','separate'].includes(c.key)?lengthT:c.key==='side'?stagedSlide:shiftT;
    return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',bearing:'水平偏角',elevation:'仰俯偏角',spin:'转角',jointTwist:internal?'内旋':'外旋',crush:'局部压低',breadth:'分布拓宽',footRoll:clinical.ankleSign>0?'内翻':'外翻'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
   });
   if(primary?.posture){

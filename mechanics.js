@@ -91,7 +91,10 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
     return (opts.limitBones&&e.bone?.kind==='bone'?e.bone:null)||(opts.hold?e.lig:null);
    };
    if(pending&&requested!==pending.target)pending=null;
-   if(limit&&requested>=limit.time)return limit;
+   if(limit&&requested>=limit.time){
+    if(requested>limit.time)limit.target=requested;
+    return limit;
+   }
    if(pending||(requested!==lastTime&&requested>0)){
     // Resume the same ordered probes (including contact refinement) on a later
     // playback frame. A different request or parameter change discards this work.
@@ -104,7 +107,7 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
      if(state.refine){
       const mid=(state.safe+state.hi)/2;
       if(probe(mid))state.hi=mid;else state.safe=mid;
-      if(--state.refine===0){limit={time:state.safe,reason:state.reason};lastTime=state.safe;pending=null;return limit;}
+      if(--state.refine===0){limit={time:state.safe,target:state.target,reason:state.reason};lastTime=state.safe;pending=null;return limit;}
      }else{
       const t=state.times[state.cursor++],reason=probe(t);
       if(reason){
@@ -130,6 +133,7 @@ export function buildMechanics({group,world,items,wedges,nearBones,course,varian
    }
    return cached;
   },
+  showStop(point){if(point){helpers.visible=true;marker.visible=true;marker.position.copy(point);}},
   hide(){helpers.visible=false;},
   dispose(){cancelWarmup();helpers.removeFromParent();helpers.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});}
  };

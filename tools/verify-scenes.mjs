@@ -72,10 +72,23 @@ try{
    if(x.invalid||x.contact.length)result.issues.push({route,bone:name,invalid:x.invalid,first:x.contact[0],count:x.contact.length});
   }
   result.customStops=[];
-  for(const route of ['#hip-dislocation/0/1?at=0&q_travel=18','#radius/0/1?at=0&q_f0_dy=12','#tibia/1/2?at=0&move=rotate&q_rotate=35']){
+  for(const route of ['#hip-dislocation/0/1?at=0&q_travel=18','#radius/0/1?at=0&q_f0_dy=12']){
    history.replaceState(null,'',route);dispatchEvent(new Event('hashchange'));await window.inspectAtlasPose(1);
    const check=window.inspectStop();result.customStops.push({route,...check});
    if(!check.stopped||check.intersecting||check.reached>=1)result.issues.push({route,guard:check});
+  }
+  result.customMotions=[];
+  for(const route of [
+   '#tibia/v01/1?at=0&mv=2&shape=shortOblique&move=shorten',
+   '#tibia/v02/1?at=0&mv=2&shape=oblique&move=rotate',
+   '#femur/v01/1?at=0&mv=2&shape=oblique&move=rotate',
+   '#single-forearm/v01/1?at=0&mv=2&shape=oblique&move=rotate',
+   '#metacarpal/v04/1?at=0&mv=2&shape=spiral&move=angle',
+   '#finger/v02/1?at=0&mv=2&move=rotate'
+  ]){
+   history.replaceState(null,'',route);dispatchEvent(new Event('hashchange'));await window.inspectAtlasPose(1);
+   const check=window.inspectStop();result.customMotions.push({route,...check});
+   if(check.stopped||check.intersecting||check.reached<1)result.issues.push({route,custom:check});
   }
   return result;
  },process.argv[2]||null);

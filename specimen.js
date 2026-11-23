@@ -39,7 +39,11 @@ export function specimenLibrary(read){
   if(native.has(key))return;
   if(!pending.has(key))pending.set(key,(async()=>{
    const e=entries.get(key),res=await read(e.base+e.file);
-   if(!res.ok)throw Error('无法读取标本 '+e.name);
+   if(!res.ok){
+    const error=Error('无法读取标本 '+e.name);
+    error.offlineMissing=res.headers.get('X-Atlas-Offline-Miss')==='1';
+    throw error;
+   }
    const input=await res.arrayBuffer(),bytes=new Uint8Array(input);
    const raw=bytes[0]===31&&bytes[1]===139?await new Response(new Blob([input]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():input;
    if(raw.byteLength!==e.vertices*12+e.indices*4)throw Error('标本文件长度错误');
@@ -88,9 +92,12 @@ export function specimenLibrary(read){
    if(!v){const e=resolve(selected);return e?.role==='estimate'?[e.key,'halle-male-palate|Posterior hard palate region']:e?[e.key]:[];}
    const side=n=>/left/i.test(selected)?opposite(n):n;
    if((c.id==='hip-dislocation'||c.id==='trochanter')&&v===c.variants[1])return together(['Right femur','Right hip bone'].map(side));
+   if(c.id==='trochanter')return together(['Right femur'].map(side));
+   if(c.id==='elbow')return together(['Right humerus'].map(side));
+   if(c.id==='plateau'&&(v===c.variants[0]||v.depression))return together(['Right tibia','Right fibula'].map(side));
+   if(c.id==='shoulder'&&(v===c.variants[0]||v===c.variants[1]))return together(['Right humerus','Right scapula'].map(side));
    if(['pip-dislocation','mcp-dislocation','mtp-dislocation','toe-ip-dislocation'].includes(c.id))
     return together([...new Set([...v.cuts.map(s=>s.bone),...v.fixed,...(v.jointFollowers||[])])].map(side));
-   if(c.id==='plateau'&&v.depression)return together(['Right tibia','Right fibula'].map(side));
    if(c.id==='shoulder-dislocation')return together(['Right humerus','Right scapula','Right clavicle'].map(side));
    if(c.id==='elbow-dislocation')return together(['Right ulna','Right radius','Right humerus'].map(side));
    if(c.id==='region-mandible'&&v===c.variants[1])return together(['Mandible','Right temporal bone','Left temporal bone'].map(side));
@@ -107,6 +114,10 @@ export function specimenLibrary(read){
    const e=entries.get(keys[0]);if(!e)return '';
    return e.label+(e.paired_source?' · 切片分侧，深部缝界推定':e.relation==='CT-referenced anatomical region'?' · 融合区分界推定':e.relation==='CT-referenced exclusion of coccyx'?' · 骶尾界按断层定位':'');
   },group:keys=>entries.get(keys[0])?.group,
+  files:keys=>keys.flatMap(key=>{
+   const e=entries.get(key);
+   return e?[e.base+e.file,...(e.face_confidence?[e.base+e.face_confidence]:[])]:[];
+  }),
   load:keys=>Promise.all(keys.map(load)),ready:keys=>keys.every(k=>native.has(k)),
   trim(keys,course){
    elbowView=course?.id==='elbow-dislocation';shoulderView=course?.id==='shoulder-dislocation';

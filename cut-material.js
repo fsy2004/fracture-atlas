@@ -1,12 +1,20 @@
 // Stable specimen-space shading on the modelled fracture bed only. The fracture
 // silhouette, interlocking faces and contact tests all use the actual cut geometry.
 import * as T from './vendor/three.module.js';
-export function cutMaterial(color,grain){
+export function cutMaterial(color,grain,rim){
  const material=new T.MeshStandardMaterial({color,roughness:.96,side:T.DoubleSide});
+ const field={cutAtlas:{value:rim?.texture||null},cutOrigin:{value:rim?.origin||new T.Vector3()},
+  cutU:{value:rim?.u||new T.Vector3()},cutV:{value:rim?.v||new T.Vector3()},
+  cutRange:{value:rim?.range||new T.Vector4()},cutHasAtlas:{value:Number(Boolean(rim))}};
  material.onBeforeCompile=shader=>{
+  Object.assign(shader.uniforms,field);
   shader.vertexShader='varying vec3 cutCoord;\n'+shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\ncutCoord=position;');
   shader.fragmentShader=`
    varying vec3 cutCoord;
+   uniform sampler2D cutAtlas;
+   uniform vec3 cutOrigin,cutU,cutV;
+   uniform vec4 cutRange;
+   uniform float cutHasAtlas;
    float cutHash(vec3 p){p=fract(p*.1031);p+=dot(p,p.yxz+33.33);return fract((p.x+p.y)*p.z);}
    float grains(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
     return mix(mix(mix(cutHash(i),cutHash(i+vec3(1,0,0)),f.x),mix(cutHash(i+vec3(0,1,0)),cutHash(i+vec3(1,1,0)),f.x),f.y),
@@ -18,6 +26,12 @@ export function cutMaterial(color,grain){
     float pits=smoothstep(.40,.78,.72*broad+.28*fine);
     float grain=(fine-.5)*fineMask+(broad-.5)*.45-.30*pits;
     diffuseColor.rgb*=1.+grain*${grain.toFixed(2)};
+    if(cutHasAtlas>.5){
+     vec3 local=cutCoord-cutOrigin;
+     vec2 uv=(vec2(dot(local,cutU),dot(local,cutV))-cutRange.xy)*cutRange.zw;
+     float inner=texture2D(cutAtlas,uv).r;
+     diffuseColor.rgb*=mix(vec3(1.08,1.07,1.05),vec3(.91,.83,.73),smoothstep(.28,1.,inner));
+    }
   `).replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
     vec3 alongX=dFdx(vViewPosition),alongY=dFdy(vViewPosition);
     vec3 crossX=cross(alongY,normal),crossY=cross(normal,alongX);
