@@ -8,6 +8,7 @@ from skimage.filters import threshold_otsu
 import argparse
 parser=argparse.ArgumentParser()
 parser.add_argument('--source',type=Path,required=True,help='Folder containing the original male CT and both LOWER_EXTREMITY seg.nrrd masks.')
+parser.add_argument('--bones',nargs='+',choices=['FEMUR','TIBIA','FIBULA'],default=['FEMUR','TIBIA'],help='Anatomical structures present in both masks.')
 parser.add_argument('--out',type=Path,required=True);args=parser.parse_args()
 P=args.source;CT=P/'01_Male.nii.gz'
 rev='9cdfccfc74a42ea657c2adf055513e6371239f49';dirs=np.linspace(0,2*np.pi,96,endpoint=False);result={}
@@ -17,7 +18,7 @@ for side in ['RIGHT','LEFT']:
  ch,xn,yn,zn=sizes if len(sizes)==4 else [1]+sizes
  h=dict(l.split(':=',1)for l in hh if ':='in l);target={}
  for k,g in h.items():
-  if k.endswith('_Name') and g in ['FEMUR_'+side,'TIBIA_'+side]:
+  if k.endswith('_Name') and g in [name+'_'+side for name in args.bones]:
    pre=k[:-4];bb=list(map(int,h[pre+'Extent'].split()));target[g]=(int(h[pre+'Layer']),int(h[pre+'LabelValue']),bb)
  with gzip.GzipFile(fileobj=io.BytesIO(body))as ms,gzip.open(CT)as ct:
   tasks=sorted([(z,g,layer,val,bb)for g,(layer,val,bb)in target.items() for z in range(bb[4],bb[5],3)])

@@ -108,18 +108,18 @@ const depression = {
 
 const special = {
   atlas: [
-    extra(chapter.upperNeck, '读上颈椎时可同时比较寰椎两侧侧块及前弓与齿突的关系。', '从齿突前方向两侧追踪前弓，在环的前半部找细裂线。'),
-    extra(chapter.upperNeck, '读上颈椎时可同时比较寰椎两侧侧块及前弓与齿突的关系。', '从后方沿一侧侧块追向后弓，在环的后半部找裂线。'),
+    extra(chapter.upperNeck, '前弓位于齿突前方，判断前弓骨折时需辨清前寰齿间隙。', '从齿突前方向两侧追踪前弓，在环的前半部找细裂线。'),
+    extra(chapter.upperNeck, '后弓位于齿突后方，侧块后方细线需与正常骨轮廓区分。', '从后方沿一侧侧块追向后弓，在环的后半部找裂线。'),
   ],
   axis: [
-    extra(chapter.upperNeck, '上颈椎读片应检查齿突骨折线及两侧寰椎侧块是否对称。', '裂线在齿突尖端，尖端的小骨片与下方完整的齿突主体分开。'),
-    extra(chapter.upperNeck, '上颈椎读片应检查齿突骨折线及两侧寰椎侧块是否对称。', '断面在齿突与枢椎椎体交界，整个齿突位于断面上方。'),
+    extra(chapter.upperNeck, '在张口位定位齿突尖，与齿突主体和寰椎侧块对照。', '裂线在齿突尖端，尖端的小骨片与下方完整的齿突主体分开。'),
+    extra(chapter.upperNeck, '齿突基底部位于突起和枢椎椎体交界。结合侧位判断整个齿突的移位。', '断面在齿突与枢椎椎体交界，整个齿突位于断面上方。'),
   ],
   'sternal-body': [extra(chapter.general, displacement, '侧看胸骨体前、后缘，断端前后错开会形成骨皮质台阶。')],
   xiphoid: [extra(chapter.general, displacement, '从胸骨体向下找到剑突，定位剑突近端断缘并与体剑交界比较。')],
   manubrium: [
-    extra(chapter.general, displacement, '断线横跨胸骨柄，侧视可见上下两段前缘的阶差。'),
-    extra(chapter.general, displacement, '沿胸骨柄斜断线从一侧追到另一侧，对照两端与锁骨切迹的距离。'),
+    extra(chapter.general, '横行裂线的两侧断点处于相近高度。', '断线横跨胸骨柄，侧视可见上下两段前缘的阶差。'),
+    extra(chapter.general, '斜行裂线的两侧皮质断点高低不同。', '沿胸骨柄斜断线从一侧追到另一侧，对照两端与锁骨切迹的距离。'),
   ],
   sacrum: [extra(chapter.pelvis, '读骨盆损伤时应核对骶骨断线、骶孔及垂直移位。', '从前面定位骶孔，纵行断面位于孔外的骶翼。')],
   'iliac-wing': [extra(chapter.pelvis, '骨盆入口位可用于观察骨盆环的旋转及前后移位。', '从髂嵴向下追踪髂翼上部斜断线，再看其与下方髋臼的距离。')],

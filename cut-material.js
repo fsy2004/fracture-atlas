@@ -12,9 +12,19 @@ export function cutMaterial(color,grain){
     return mix(mix(mix(cutHash(i),cutHash(i+vec3(1,0,0)),f.x),mix(cutHash(i+vec3(0,1,0)),cutHash(i+vec3(1,1,0)),f.x),f.y),
     mix(mix(cutHash(i+vec3(0,0,1)),cutHash(i+vec3(1,0,1)),f.x),mix(cutHash(i+vec3(0,1,1)),cutHash(i+vec3(1,1,1)),f.x),f.y),f.z);}
   `+shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
-    float textureWeight=1.-smoothstep(.35,1.2,length(fwidth(cutCoord*1550.)));
-    float grain=(grains(cutCoord*1550.)-.5)*textureWeight+(grains(cutCoord*510.)-.5)*.55;
+    float fineMask=1.-smoothstep(.40,1.35,length(fwidth(cutCoord*1450.)));
+    float broad=grains(cutCoord*560.);
+    float fine=grains(cutCoord*1450.);
+    float pits=smoothstep(.40,.78,.72*broad+.28*fine);
+    float grain=(fine-.5)*fineMask+(broad-.5)*.45-.30*pits;
     diffuseColor.rgb*=1.+grain*${grain.toFixed(2)};
+  `).replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
+    vec3 alongX=dFdx(vViewPosition),alongY=dFdy(vViewPosition);
+    vec3 crossX=cross(alongY,normal),crossY=cross(normal,alongX);
+    float plane=dot(alongX,crossX);
+    float height=(broad+fine*fineMask*.28)*.00019;
+    vec3 slope=sign(plane)*(dFdx(height)*crossX+dFdy(height)*crossY);
+    if(abs(plane)>1e-12)normal=normalize(abs(plane)*normal+slope);
   `);
  };
  material.customProgramCacheKey=()=>'fracture-bed-'+grain;

@@ -228,13 +228,15 @@ function computeSection(geometry,normal,anchor,fold,spiralHeight,spiralAxis,exte
       const toWorld=q=>origin.clone().addScaledVector(axis,q.x).addScaledVector(up,q.y).addScaledVector(n,rise(q.x,q.y));
       const toFlat=q=>{const v=q.clone().sub(origin);return new T.Vector2(v.dot(axis),v.dot(up));};
       const measured=relief.ct?endostealLoop(flat,centre,toWorld,toFlat,relief.ct):null;
-      if(measured)centre.copy(measured.centre);
-      const inner=measured?.inner||flat.map(p=>p.clone().sub(centre).multiplyScalar(relief.canal).add(centre));
-      if(T.ShapeUtils.area(inner)<0)inner.reverse();
-      const lift=v=>origin.clone().addScaledVector(axis,v.x).addScaledVector(up,v.y).addScaledVector(n,rise(v.x,v.y));
-      const loop=inner.map(lift);
-      ring.holes.push({flat:inner,loop});
-      canals.push({loop,measured:Boolean(measured),centre:lift(centre),depth:Math.min(.0045,Math.sqrt(ring.area)*.13)});
+      if(measured||!relief.requireMeasured){
+       if(measured)centre.copy(measured.centre);
+       const inner=measured?.inner||flat.map(p=>p.clone().sub(centre).multiplyScalar(relief.canal).add(centre));
+       if(T.ShapeUtils.area(inner)<0)inner.reverse();
+       const lift=v=>origin.clone().addScaledVector(axis,v.x).addScaledVector(up,v.y).addScaledVector(n,rise(v.x,v.y));
+       const loop=inner.map(lift);
+       ring.holes.push({flat:inner,loop});
+       canals.push({loop,measured:Boolean(measured),centre:lift(centre),depth:Math.min(.0045,Math.sqrt(ring.area)*.13)});
+      }
      }
     }
     const vertices=[ring,...ring.holes].flatMap(r=>r.loop);

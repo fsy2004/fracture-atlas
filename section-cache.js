@@ -27,7 +27,7 @@ export function sourceVersion(g){
 export const nativeGeometry=g=>Boolean(g.userData.specimen||g.userData.landmarkMap);
 export function cutKey(g,normal,anchor,fold,height,axis,posterior,relief){
  return [sourceVersion(g),normal.join(','),anchor.join(','),fold,height,axis.join(','),posterior,
-  relief?.amplitude,relief?.spacing,relief?.seed,relief?.canal,id(relief?.ct)].join('|');
+  relief?.amplitude,relief?.spacing,relief?.seed,relief?.canal,relief?.requireMeasured,id(relief?.ct)].join('|');
 }
 function duplicate(parts){
  const copy=g=>{const c=g.clone();c.userData={...g.userData};return c;};

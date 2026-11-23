@@ -47,32 +47,68 @@ export function buildIndex(names,select,courseCount){
   if(!groups.has(label))groups.set(label,{label,region,keys:[]});
   groups.get(label).keys.push(key);
  }
- const priority=['胫骨','股骨','肱骨','桡骨','尺骨','腓骨','锁骨','髌骨','髋骨','手舟骨','跟骨'];
- const rank=x=>priority.includes(x.label)?priority.indexOf(x.label):100;
- const rows=[...groups.values()].sort((a,b)=>rank(a)-rank(b)||a.label.localeCompare(b.label,'zh-CN',{numeric:true}));
+ const priority=['桡骨','肱骨','锁骨','尺骨','股骨','胫骨','腓骨','髌骨','髋骨','椎骨'];
+ const rank=label=>priority.includes(label)?priority.indexOf(label):100;
+ const families=new Map();
+ const familyOf=label=>/掌骨/.test(label)?'掌骨':/指骨/.test(label)?'指骨':/椎|^寰椎$|^枢椎$/.test(label)?'椎骨':/肋骨/.test(label)?'肋骨':'';
+ for(const row of groups.values()){
+  const family=familyOf(row.label);
+  if(!family)continue;
+  if(!families.has(family))families.set(family,{label:family,region:row.region,rows:[]});
+  families.get(family).rows.push(row);
+ }
+ for(const group of families.values()){
+  group.rows.sort((a,b)=>{
+   const segment=label=>/^寰椎$/.test(label)?1:/^枢椎$/.test(label)?2:/^颈椎/.test(label)?3:/^胸椎/.test(label)?4:/^腰椎/.test(label)?5:6;
+   return segment(a.label)-segment(b.label)||a.label.localeCompare(b.label,'zh-CN',{numeric:true});
+  });
+ }
+ const layout=[...[...groups.values()].filter(row=>!familyOf(row.label)),...families.values()];
+ layout.sort((a,b)=>rank(a.label)-rank(b.label)||a.label.localeCompare(b.label,'zh-CN',{numeric:true}));
+ function highlighted(label){
+  const title=document.createElement('strong');title.textContent=label;
+  if(priority.includes(label)){
+   const star=document.createElement('span');star.className='priority-star';star.textContent='★';star.setAttribute('aria-label','重点骨');title.prepend(star);
+  }
+  return title;
+ }
+ function lineFor(row,keys){
+  const line=document.createElement('div');line.className='bone-row';
+  const primary=document.createElement('button');primary.className='bone-link';
+  const defaultKey=keys.find(k=>!(/left/i.test(k)))||keys[0];
+  primary.onclick=()=>select(defaultKey);primary.setAttribute('aria-label','放大'+boneName(defaultKey));
+  const meta=document.createElement('small'),n=courseCount(defaultKey);
+  meta.textContent=n?n+' 个骨伤专题':'解剖定位';
+  primary.append(highlighted(row.label),meta);line.append(primary);
+  for(const key of keys.sort((a,b)=>Number(/left/i.test(a))-Number(/left/i.test(b)))){
+   const button=document.createElement('button');const side=boneName(key).match(/^[左右]/)?.[0];
+   const piece=key.includes(' FJ')?'②':row.label.includes('籽骨')?'①':'';
+   button.textContent=(side||'查看')+piece;button.setAttribute('aria-label','查看'+boneName(key)+piece);
+   button.dataset.bone=key;button.onclick=()=>select(key);line.append(button);
+  }
+  return line;
+ }
  let region='全部';
+ const expanded=new Set();
  function draw(){
   const q=search.value.trim().toLowerCase();host.replaceChildren();
   let count=0;
-  for(const row of rows){
-   if(region!=='全部'&&region!==row.region)continue;
-   const keys=row.keys.filter(k=>(boneName(k)+' '+k).toLowerCase().includes(q));
-   if(!keys.length)continue;
-   const line=document.createElement('div');line.className='bone-row';
-   const primary=document.createElement('button');primary.className='bone-link';
-   const defaultKey=keys.find(k=>!(/left/i.test(k)))||keys[0];
-   primary.onclick=()=>select(defaultKey);primary.setAttribute('aria-label','放大'+boneName(defaultKey));
-   const title=document.createElement('strong');title.textContent=row.label;
-   const meta=document.createElement('small'),n=courseCount(defaultKey);
-   meta.textContent=n?n+' 个骨伤专题':'解剖定位';
-   primary.append(title,meta);line.append(primary);
-   for(const key of keys.sort((a,b)=>Number(/left/i.test(a))-Number(/left/i.test(b)))){
-    const button=document.createElement('button');const side=boneName(key).match(/^[左右]/)?.[0];
-    const piece=key.includes(' FJ')?'②':row.label.includes('籽骨')?'①':'';
-    button.textContent=(side||'查看')+piece;button.setAttribute('aria-label','查看'+boneName(key)+piece);
-    button.dataset.bone=key;button.onclick=()=>select(key);line.append(button);count++;
+  for(const group of layout){
+   if(region!=='全部'&&region!==group.region)continue;
+   const target=group.rows?document.createElement('details'):host;
+   for(const row of group.rows||[group]){
+    const keys=row.keys.filter(key=>{
+     const alias=boneName(key).replace(/^胸椎/,'T').replace(/^腰椎/,'L').replace(/^颈椎/,'C');
+     return (boneName(key)+' '+key+' '+alias+' '+group.label).toLowerCase().includes(q);
+    });
+    if(keys.length){target.append(lineFor(row,keys));count+=keys.length;}
    }
-   host.append(line);
+   if(group.rows&&target.childElementCount){
+    const summary=document.createElement('summary');summary.append(highlighted(group.label));target.prepend(summary);
+    target.className='bone-family';target.open=Boolean(q)||expanded.has(group.label);
+    target.ontoggle=()=>{if(!q){if(target.open)expanded.add(group.label);else expanded.delete(group.label);}};
+    host.append(target);
+   }
   }
   document.getElementById('count').textContent=count+' 个骨骼结构';
   if(!count){const msg=document.createElement('p');msg.className='empty';msg.textContent='该范围内没有匹配的骨名';host.append(msg);}

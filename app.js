@@ -39,15 +39,15 @@ const courses=[...fractures,...regionalCourses,...supplementalCourses,...joints]
 const ghostMaterial=new T.MeshBasicMaterial({color:0x569a96,transparent:true,opacity:.22,depthWrite:false});
 const editedMaterial=new T.MeshStandardMaterial({color:0xb75f36,roughness:.75,side:T.DoubleSide});
 const displacedMaterial=new T.MeshStandardMaterial({color:0xd8bea0,roughness:.75,side:T.DoubleSide});
-let profile=null,profileMarks=[],bedRims=[],alignment=null,timing=null,mechanics=null,poseLimit=null,impaction=null;
+let profile=null,profileMarks=[],fragmentMarks=[],bedRims=[],alignment=null,timing=null,mechanics=null,poseLimit=null,impaction=null;
 let fragmentRig=null,chosenFragment=null,repeating=false,holdUntil=0;
 let legacyMotion=false,quantities={},applyMotion=null,inspection=null,studyMode='overview',markName='',dirty=true;
 const markLayer=document.getElementById('markLayer');
 const markLabels=[];let viewWidth=1,viewHeight=1;
 function paintLabels(){
- if(!inspection&&!profileMarks.length){markLayer.hidden=true;return;}
+ if(!inspection&&!profileMarks.length&&!fragmentMarks.length){markLayer.hidden=true;return;}
  markLayer.hidden=false;
- const tags=[...(inspection?.tags||[]),...profileMarks], used=[];
+ const tags=[...(inspection?.tags||[]),...profileMarks,...fragmentMarks], used=[];
  while(markLabels.length<tags.length){
   const el=document.createElement('span');el.className='pin';markLayer.append(el);markLabels.push(el);
  }
@@ -108,7 +108,7 @@ function syncStudy(){
 
 const assetURL=u=>u.startsWith('models/detail')?u+'?native-f32-v1':u;
 const $=id=>document.getElementById(id), host=$('viewport');
-const boneData=new Map(), animated=[], annotations=[], nearBones=[], pieces=[],wedges=[];
+const boneData=new Map(), animated=[], annotations=[], nearBones=[],jointReferences=[], deformationGhosts=[],pieces=[],wedges=[];
 const world=new T.Scene(), group=new T.Group();world.add(group);
 const bone=new T.MeshStandardMaterial({color:0xe9e2c9,roughness:.84,side:T.DoubleSide});
 const accent=new T.MeshStandardMaterial({color:0x7bbdaa,roughness:.83,side:T.DoubleSide});
@@ -137,7 +137,7 @@ function jointView(){
 }
 function syncPlayer(){
  const open=lessonOpen();
- $('launchpad').hidden=Boolean(selected);$('frameNavigation').hidden=!open;
+ $('frameNavigation').hidden=!open;
  $('quickPlay').hidden=!open;
  $('quickEdit').hidden=!open||$('advanced').hidden;
 }
@@ -167,7 +167,8 @@ function clearScene(){
  profile?.dispose();profile=null;profileMarks=[];bedRims=[];alignment?.dispose();alignment=null;mechanics?.dispose();mechanics=null;timing=null;impaction=null;poseLimit=null;$('contactState').textContent='';
  fragmentRig?.dispose();fragmentRig=null;anklePose=null;inspection=null;dirty=true;syncStudy();applyMotion=null;$('liveValues').textContent='';$('motionReadout').textContent='';$('motionReadout').classList.remove('with-reference');hovered=null;$('tip').hidden=true;group.scale.x=1;
  group.traverse(o=>{if(o.userData.dispose)o.geometry?.dispose();if(o.isArrowHelper||o.type==='ArrowHelper')o.dispose?.();});
- group.clear();animated.length=annotations.length=nearBones.length=pieces.length=wedges.length=0;
+ group.traverse(o=>{if(o.userData.ownMaterial)o.material.dispose();});
+ group.clear();animated.length=annotations.length=nearBones.length=jointReferences.length=deformationGhosts.length=pieces.length=wedges.length=0;fragmentMarks=[];
 }
 const specimen=specimenLibrary(async u=>await fetch(u));
 let atlasPalate=false,regionReference=false,loadingSpecimen=false,useSpecimen=false,viewSerial=0,baseDetail=false;
@@ -196,8 +197,7 @@ function addPart(part,anchor,motion,material){
  for(const o of [shell,face,edge]){o.position.copy(anchor).negate();o.userData.dispose=true;pivot.add(o);}
  annotations.push(edge);pieces.push(shell);
  pivot.position.copy(anchor);group.add(pivot);
- const ghost=moving?new T.Mesh(part.geo,ghostMaterial):null;
- if(ghost){ghost.visible=false;group.add(ghost);}
+ const ghost=new T.Mesh(part.geo,ghostMaterial);ghost.visible=false;group.add(ghost);
  animated.push({pivot,anchor,ghost,shell,face,edge,name:markName,moving,tuned:motion.tuned,shift:vec(motion.shift).multiplyScalar(.001),turn:vec(motion.turn).multiplyScalar(Math.PI/180)});
  return pivot;
 }
@@ -229,30 +229,100 @@ function addWedge(g,kind){
  geo.morphAttributes.position=[new T.BufferAttribute(delta,3),new T.BufferAttribute(broad,3)];geo.morphTargetsRelative=true;
  const mesh=new T.Mesh(geo,bone);mesh.userData.bone=markName;mesh.userData.dispose=true;group.add(mesh);wedges.push(mesh);
 }
+// Shape-only teaching presets need a disengagement along the new fracture
+// surface. Authored clinical tracks and edited parameters still use contact limits.
+function shapePreset(spec,g,anchor){
+ if(!shape||shape==='wedgeFragment'||motions.length)return spec;
+ const normal=vec(spec.spiralHeight?spec.spiralAxis:spec.normal).normalize();
+ const paired=course.variants[variant].cuts.length>1;
+ // Tibia/fibula and radius/ulna open together along their shared long axis.
+ // Independent side motion would drive the two adjacent shafts into each other.
+ const axis=paired||course.id==='single-forearm'?new T.Vector3(0,1,0):normal;
+ if(axis.dot(normal)<0)axis.negate();
+ const lateral=shaftFrame(new T.Vector3(),normal,false).side;
+ const width=sliceMetrics(g,anchor,normal,lateral)?.width||.018;
+ const gap=paired?.0042:T.MathUtils.clamp(width*.22,.0024,.010);
+ const companionName=paired?course.variants[variant].cuts.find(cut=>cut.bone!==spec.bone)?.bone:course.id==='single-forearm'?(spec.bone.includes('radius')?'Right ulna':'Right radius'):null;
+ const companion=companionName?lessonMesh(companionName):null;
+ const away=new T.Vector3();
+ const nativeSpiral=course.id==='single-forearm'&&variant===1&&/\bleft\b/i.test(selected)&&shape==='spiral';
+ if(!paired&&companion&&!nativeSpiral){
+  const box=companion.boundingBox,frac=T.MathUtils.clamp((anchor.y-box.min.y)/(box.max.y-box.min.y),.06,.94);
+  away.copy(anchor).sub(vec(atLevel(companion,1,frac)));away.y=0;away.normalize().multiplyScalar(.0035);
+ }
+ const opening=sign=>({shift:axis.clone().multiplyScalar(sign*gap).add(away).multiplyScalar(1000).toArray(),turn:[0,0,0]});
+ const relief=spec.relief&&!spec.spiralHeight?{...spec.relief,amplitude:0}:spec.relief;
+ const prepared={...spec,relief,minus:opening(-1),plus:opening(1)};
+ if(spec.second){
+  const branchAxis=vec(spec.second).normalize();
+  // The split surfaces have a dedicated branch normal. For the proximal
+  // humerus, keep the preset opening on that normal to avoid shearing the two fragments.
+  if(!(course.id==='humerus'&&variant===0))branchAxis.addScaledVector(axis,-branchAxis.dot(axis)).normalize();
+  const spread=Math.max(.8,width*70);
+  const toward=companion?companion.boundingBox.getCenter(new T.Vector3()).sub(anchor).dot(branchAxis):0;
+  prepared.branches=[-1,1].map(sign=>({shift:branchAxis.clone().multiplyScalar(sign*toward>0?0:sign*spread).toArray(),turn:[0,0,0]}));
+ }
+ return prepared;
+}
 function addFracture(spec,anchor){
  const g=lessonMesh(spec.bone), pair=section(g,spec.normal,anchor.toArray(),spec.fold,spec.spiralHeight,spec.spiralAxis,Infinity,spec.posteriorSpiral,spec.relief);
  const pivot=spec.pivot?vec(spec.pivot):anchor;
+ const start=animated.length;
  addPart(pair[0],pivot,spec.minus,bone);
- if(!spec.second){addPart(pair[1],pivot,spec.plus,bone);return;}
+ if(!spec.second){
+  addPart(pair[1],pivot,spec.plus,bone);
+  nameFragmentEnds(animated.slice(start),spec,anchor);
+  return;
+ }
  // Recursively split one fragment, including its first cut face.
  const first=pair[1],halves=branchSection(first,spec.second,anchor.toArray());
  halves.forEach((half,i)=>{
   const branch=spec.branches?.[i]||{shift:[i?1:-1,0,0],turn:[0,0,0]};
   addPart(half,anchor,{shift:spec.plus.shift.map((v,k)=>v+branch.shift[k]),turn:spec.plus.turn.map((v,k)=>v+branch.turn[k]),tuned:spec.plus.tuned},bone);
  });
+ nameFragmentEnds(animated.slice(start),spec,anchor);
  for(const g of [first.geo,first.face,first.outline])g.dispose();
+}
+function nameFragmentEnds(items,spec,anchor){
+ const limb=/femur|tibia|fibula|humerus|ulna|radius|metacarpal|metatarsal|phalanx/i.test(spec.bone);
+ const lower=spec.axis===2?'近端':'远端',upper=spec.axis===2?'远端':'近端';
+ for(const item of items)if(!item.shell.geometry.boundingBox)item.shell.geometry.computeBoundingBox();
+ const order=[...items].sort((a,b)=>a.shell.geometry.boundingBox.getCenter(new T.Vector3()).getComponent(spec.axis)-b.shell.geometry.boundingBox.getCenter(new T.Vector3()).getComponent(spec.axis));
+ for(const [i,item] of order.entries()){
+  const centre=item.shell.geometry.boundingBox.getCenter(new T.Vector3());
+  item.segment=limb?(i===0?lower:i===order.length-1?upper:'中间骨块'):'骨块 '+(i+1);
+  item.guidePoint=anchor.clone().lerp(centre,.24);
+ }
+}
+function motionLabels(){
+ const parts=animated.filter(item=>item.guidePoint||item.jointLabel);
+ const distinctBones=new Set(parts.filter(item=>item.name).map(item=>item.name)).size;
+ const entries=parts.map(item=>{
+  const rest=item.guidePoint||item.anchor;
+  const point=rest.clone().sub(item.anchor).applyQuaternion(item.pivot.quaternion).add(item.pivot.position);
+  const v=point.clone().sub(rest);v.x*=group.scale.x;
+  const dirs=v.toArray().map((n,i)=>[Math.abs(n),anatomyDirections[i][Number(n<0)]]).sort((a,b)=>b[0]-a[0]);
+  const significant=dirs.filter(([n])=>n>=Math.max(.0007,dirs[0][0]*.50)).slice(0,2);
+  const boneLabel=distinctBones>1&&item.name?boneName(item.name).replace(/^[左右]/,''):'';
+  const label=boneLabel+(item.segment||item.jointLabel);
+  return {text:label+(significant.length?' · 向'+significant.map(([,name])=>name).join('、'):item.pivot.quaternion.angleTo(new T.Quaternion())>.02?' · 转动':''),point};
+ });
+ return entries;
 }
 function bonesFor(v){return [...v.cuts.map(c=>c.bone),...(v.fixed||[]),...(v.compareBones||[])];}
 function matches(key){return key?(byBone.get(teachingBone(key))||[]):[];}
+const smallScreen=matchMedia('(max-width:630px)');
+let lastLesson='';
 function setPanel(open){
  document.body.classList.toggle('panel-open',open);$('mobilePanel').setAttribute('aria-expanded',String(open));
 }
-function pickBone(key){
+function pickBone(key,{keepLesson=false,openPanel=smallScreen.matches}={}){
+ if(!keepLesson)lastLesson='';
  legacyMotion=false;
  atlasPalate=false;regionReference=false;
  $('compareTypes').checked=false;
  $('advanced').open=false;$('fragmentBox').open=false;
- setPanel(false);
+ setPanel(openPanel);
  studyMode='overview';
  quantities={};chosenFragment=null;holdUntil=0;
  $('viewOptions').open=false;
@@ -263,7 +333,7 @@ function pickVariant(i){
  legacyMotion=false;
  atlasPalate=false;regionReference=false;
  const locked=$('compareTypes').checked&&variant>=0;
- $('advanced').open=false;$('fragmentBox').open=false;setPanel(false);
+ $('advanced').open=false;$('fragmentBox').open=false;
  if(!locked){studyMode='overview';progress=0;}
  quantities={};chosenFragment=null;holdUntil=0;variant=i;shape='';motions=[];playing=!locked;
  updateURL(locked);renderLesson(!locked,locked);
@@ -374,10 +444,12 @@ function showControls(){
  syncExam();
  document.body.classList.toggle('in-lesson',lesson);document.body.classList.toggle('in-index',!local);
 
- $('centreBone').hidden=!local;$('whole').hidden=!local;$('indexPanel').hidden=local;$('bonePanel').hidden=!local;$('lessonPanel').hidden=!lesson;
+ $('centreBone').hidden=!local;$('back').hidden=!local;$('navBone').hidden=!local;$('navLesson').hidden=!local||(!lastLesson&&!lesson);
+ $('whole').setAttribute('aria-current',local?'false':'page');$('navBone').setAttribute('aria-current',local&&!lesson?'page':'false');
+ $('navLesson').setAttribute('aria-current',lesson?'page':'false');$('indexPanel').hidden=local;$('bonePanel').hidden=!local;$('lessonPanel').hidden=!lesson;
 
  document.querySelector('[data-view=detail]').textContent=course?.kind==='joint'?'关节特写':'放大断面';
- $('layers').hidden=!lesson;document.querySelector('[data-view=detail]').hidden=!lesson;
+ $('advanced').hidden=!local||(!lesson&&!specimen.region(selected));$('motionSettings').hidden=!lesson;$('layers').hidden=!lesson;document.querySelector('[data-view=detail]').hidden=!lesson;$('viewRail').hidden=false;
  $('labels').hidden=local;$('breadcrumb').textContent=local?regionFor(selected):'全身骨骼　/　索引';
  $('jointShortcuts').hidden=local;syncPlayer();
  $('mobilePanel').textContent=!local?'骨骼索引':lesson?'分型与考点':'选择分型';
@@ -397,7 +469,7 @@ function showControls(){
  $('boneNote').textContent=!has?'可旋转查看此骨的正常解剖，当前尚无对应损伤课程。':variant<0?'选择分型后自动播放。':'';
  $('boneNote').hidden=!$('boneNote').textContent;
  for(const id of ['sites','siteLabel','variants','system'])$(id).hidden=!has;
- $('levelbox').hidden=!course?.levels;
+ $('levelbox').hidden=!lesson;$('patternBox').hidden=!lesson;
  if(!has)return;
  $('sites').replaceChildren(...list.map(c=>new Option(c.name,c.id,false,c===course)));
  $('sites').disabled=list.length===1;$('sites').hidden=$('siteLabel').hidden=list.length===1;
@@ -417,6 +489,10 @@ function showControls(){
  buttons($('steps'),aligned?['伤前','断线出现','保持对位']:deform?['伤前','形变过程','终末形态']:isJoint?['对位','移出','终点']:['伤前','断缘显露','初次错开','终末姿态'],-1,i=>{playing=false;setProgress(stepTimes[i]);});
  const f=featuresFor(course,variant);
  $('featureBox').hidden=!f.shapes.length&&!f.motions.length;
+ $('patternBox').hidden=isJoint;
+ $('levels').hidden=!course.levels;$('fixedSite').hidden=Boolean(course.levels);
+ const namedLocation=/1\/3|骨折|转子|近端|远端|结节/.test(v.name);
+ $('fixedSite').textContent=course.name+(namedLocation?' · '+v.name:'');
  $('moveRow').querySelector('small').textContent=f.motions.length>1?'可组合':'可选';
  $('shapeRow').hidden=!f.shapes.length;$('moveRow').hidden=!f.motions.length||shape==='wedgeFragment';
  const shapeKeys=f.shapes,base=initialShape(course,variant),chosen=shape||base;
@@ -501,7 +577,8 @@ function setLessonTitle(){
  const mirror=/\bleft\b/i.test(selected);
  $('crumb').textContent=boneName(selected)+' / '+course.name+(mirror?' · 左侧骨面':'');
  $('heading').textContent=course.variants[variant].name;
- $('description').textContent=[shapeNames[shape],...motions.map(k=>motionNames[k])].filter(Boolean).join(' · ');
+ const shapeOnly=shape&&shape!=='wedgeFragment'&&!motions.length;
+ $('description').textContent=[shapeNames[shape],...(shapeOnly?['断端分离演示']:motions.map(k=>motionNames[k]))].filter(Boolean).join(' · ');
 }
 function motionCloseUp(smooth,defaults=false){
  if(!fragmentRig){aim('detail',smooth);return;}
@@ -619,6 +696,8 @@ function finishLesson(smooth,keepView,viewParams,needed){
   const digitPath=useSpecimen&&main.userData.digit?digitJointPath(course.id,variant,mirror):null;
   const a=digitPath?vec(main.userData.digit.proximal_m):elbow?vec([pivotXYZ[0]*(mirror?-1:1),pivotXYZ[1],pivotXYZ[2]]):vkJaw?nativeAnchor(main,[.502963,.949258,.081502]):v.nativePoint?nativeAnchor(main,v.nativePoint):main.userData.headCentre?.clone()||landmark(main,v.anchor);
   const pivot=new T.Group(),ghost=new T.Group();group.add(pivot,ghost);pivot.position.copy(a);ghost.visible=false;
+  const trajectory=new T.Line(new T.BufferGeometry().setFromPoints([a,a]),new T.LineDashedMaterial({color:0x267c6c,dashSize:.003,gapSize:.002}));
+  trajectory.userData.dispose=true;trajectory.userData.ownMaterial=true;group.add(trajectory);trajectory.frustumCulled=false;
   if(['shoulder-dislocation','hip-dislocation'].includes(course.id)){
    frame=shaftFrame(vec(atLevel(main,1,.26)),vec(atLevel(main,1,.71)),false);
   }
@@ -632,8 +711,8 @@ function finishLesson(smooth,keepView,viewParams,needed){
    if(!v.jointFollowers&&(regionFor(name)!==limb||/scapula|clavicle|humerus|hip bone/i.test(name)))continue;
    const linked=addBone(name,adjacent,pivot);linked.position.copy(a).negate();nearBones.push(linked);
   }
-  for(const name of v.fixed){if(useSpecimen&&course.id==='hip-dislocation'&&name==='Sacrum')continue;addBone(name,bone);}
-  animated.push({pivot,anchor:a,shift:vec(digitPath?.end||localPath?.end||v.shift).multiplyScalar(.001),turn:vec(digitPath?.turn||(vkJaw?[18,0,0]:v.turn)||[0,0,0]).multiplyScalar(Math.PI/180),posture:shoulder?localPath.pose:v.posture,axial:shoulder?localPath.axial:v.axial,waypoints:digitPath?digitPath.waypoints:localPath?(localPath.via?[localPath.via]:undefined):vkJaw?[[0,-5,5]]:v.waypoints,sharedClock:course.id==='lunate-dislocation'&&variant===0,ghost,jointAxis:shoulder?vec(shoulder.axial_in_template):frame?.axis});
+  for(const name of v.fixed){if(useSpecimen&&course.id==='hip-dislocation'&&name==='Sacrum')continue;const m=addBone(name,bone);if(m)jointReferences.push(m);}
+  animated.push({jointLabel:'活动骨端',trajectory,pivot,anchor:a,shift:vec(digitPath?.end||localPath?.end||v.shift).multiplyScalar(.001),turn:vec(digitPath?.turn||(vkJaw?[18,0,0]:v.turn)||[0,0,0]).multiplyScalar(Math.PI/180),posture:shoulder?localPath.pose:v.posture,axial:shoulder?localPath.axial:v.axial,waypoints:digitPath?digitPath.waypoints:localPath?(localPath.via?[localPath.via]:undefined):vkJaw?[[0,-5,5]]:v.waypoints,sharedClock:course.id==='lunate-dislocation'&&variant===0,ghost,jointAxis:shoulder?vec(shoulder.axial_in_template):frame?.axis});
   anchors.push(a);
  }
  for(const original of course.kind==='joint'?[]:v.cuts){
@@ -751,10 +830,15 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   if(surface==='spiral'&&!(course.id==='tibia'&&s.bone==='Right fibula')){
    const extent=g.boundingBox.getSize(new T.Vector3()).getComponent(s.axis);
    const low=vec(atLevel(g,s.axis,fraction-.07)),high=vec(atLevel(g,s.axis,fraction+.07));
-   s.spiralAxis=high.sub(low).normalize().toArray();
+   // The left middle radius follows its native oblique shaft in the validated preset.
+   const useForearmAxis=course.id==='single-forearm'&&!(mirror&&variant===1);
+   s.spiralAxis=shape&&!motions.length&&(v.cuts.length>1||useForearmAxis)?[0,1,0]:high.sub(low).normalize().toArray();
    s.posteriorSpiral=course.id==='tibia'&&s.bone==='Right tibia';
    if(s.posteriorSpiral)spiralDirection=vec(s.spiralAxis);
-   s.spiralHeight=extent*(s.bone==='Right fibula'?.055:.15);
+   // A single forearm shaft is narrow. Keep the changed helix within the local
+   // shaft before the raised connecting limb approaches the next epiphysis.
+   const pitch=shape&&!motions.length&&useForearmAxis?.085:s.bone==='Right fibula'?.055:.15;
+   s.spiralHeight=extent*pitch;
   }
   if(course.id==='tibia'&&surface==='spiral'&&s.bone==='Right fibula'){
    // Model a higher, short-oblique fibular break in its own shaft frame.
@@ -768,6 +852,10 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    if(['femur','humerus','tibia'].includes(course.id)&&s.bone!=='Right fibula'){
     if(g.userData.endosteum){const {rows,transform}=g.userData.endosteum;s.relief.ct=canalSampler(rows,transform,mirror);}
     s.relief.canal=course.id==='femur'&&variant===1?T.MathUtils.clamp(.011/width,.28,.52):.48;
+   }else if(s.bone==='Right fibula'&&g.userData.endosteum&&!(course.id==='tibia'&&variant===1&&level===2&&!mirror)){
+    // This native right distal oblique pair requires the external-only contact cap.
+    const {rows,transform}=g.userData.endosteum;
+    s.relief.ct=canalSampler(rows,transform,mirror);s.relief.canal=.35;s.relief.requireMeasured=true;
    }
    if(surface==='spiral')s.relief.amplitude*=.42;
   }
@@ -822,7 +910,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
      s.pivot=band.reduce((sum,p)=>sum.add(p),new T.Vector3()).divideScalar(band.length).toArray();
     }
    }
-   const start=animated.length;addFracture(s,a);
+   const start=animated.length;addFracture(shapePreset(s,g,a),a);
    if(plateauBed)for(const item of animated.slice(start)){
     item.shell.userData.plateauShell=true;wedges.push(applyPlateauBed(item.shell,plateauBed),applyPlateauBed(item.face,plateauBed));
     bedRims.push(followPlateauRim(item,plateauBed));
@@ -884,7 +972,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
  }
  span=v.span||course.span||Math.max(...bounds.getSize(new T.Vector3()).toArray())*1.12;
  if(course.kind==='joint')focus.copy(lesion);else if(v.focus)focus.copy(landmark(lessonMesh(v.cuts[0].bone),v.focus));else if(v.span||course.span)focus.copy(lesion);else bounds.getCenter(focus);
- $('neighbors').disabled=!nearBones.length;$('opacityRow').hidden=!nearBones.length;
+
  if(v.force){
   const direction=vec(v.force).normalize(),len=span*.20;
   const arrow=new T.ArrowHelper(direction,lesion.clone().addScaledVector(direction,-len*1.32),len,0xf6ba75,len*.28,len*.14);
@@ -926,6 +1014,22 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    for(const linked of animated)if(linked.follows===driver)linked.shift.add(offset);
   });
  }
+ for(const mesh of wedges){
+  const ref=new T.Mesh(mesh.geometry,ghostMaterial);
+  ref.position.copy(mesh.position);ref.quaternion.copy(mesh.quaternion);ref.visible=false;mesh.parent.add(ref);
+  deformationGhosts.push({mesh,ref});
+ }
+ const available={
+  trace:annotations.some(o=>!o.userData.force)||animated.some(i=>i.shell||i.jointLabel)||wedges.length>0,
+  ghost:animated.some(i=>i.moving||i.jointLabel)||wedges.length>0,
+  guides:animated.some(i=>i.guidePoint||i.jointLabel)||Boolean(v.force||v.twist||v.roll)||Boolean(v.depression),
+  neighbors:nearBones.length+jointReferences.length>0
+ };
+ for(const [id,has] of Object.entries(available))$(id).disabled=!has;
+ $('opacityRow').hidden=!nearBones.length;
+ const unavailable=Object.entries({trace:'断缘与轨迹',ghost:'伤前轮廓',guides:'方向标记',neighbors:'邻近骨骼'}).filter(([id])=>!available[id]).map(([,name])=>name);
+ $('layersAvailability').textContent=unavailable.length?'本例无可显示的'+unavailable.join('、')+'。':'';
+ $('layersAvailability').hidden=!unavailable.length;
  // Direction markers follow the fragment and use anatomical model coordinates.
  for(const item of animated){
   if(item.shift.length()<.001||item.pivot.children.every(o=>nearBones.includes(o)))continue;
@@ -1008,11 +1112,11 @@ function scenePose(requested,report=true){
  const exposed=animated.some(i=>i.shell&&(i.pivot.position.distanceToSquared(i.anchor)>1e-10||Math.abs(i.pivot.quaternion.w)<.9999999));
  for(const item of animated)if(item.shell){const changing=item.pivot.position.distanceToSquared(item.anchor)>1e-10||Math.abs(item.pivot.quaternion.w)<.9999999;const editing=$('fragmentBox').open&&fragmentRig?.active.members.includes(item);item.shell.material=editing&&report?editedMaterial:changing?displacedMaterial:bone;if(item.ghost)item.ghost.visible=$('ghost').checked&&changing;item.face.visible=exposed||observationMode==='cut'||observationMode==='facet';}
  for(const obj of annotations){
-  obj.visible=$('guides').checked&&(obj.userData.force?progress>.05&&progress<.63:obj.userData.displacement?progress>.44:progress>=.30);
+  obj.visible=obj.userData.force?$('guides').checked&&progress>.05&&progress<.63:obj.userData.displacement?$('guides').checked&&progress>.24:$('trace').checked&&progress>=.30;
   if(obj.userData.progressive){
    const u=T.MathUtils.clamp((progress-.12)/.10,0,1);
    obj.geometry.setDrawRange(0,2*Math.floor(obj.geometry.attributes.position.count*u/2));
-   obj.visible=$('guides').checked&&u>0;
+   obj.visible=$('trace').checked&&u>0;
   }
   if(obj.userData.displacement){
    const {item,offset}=obj.userData,delta=offset.clone().applyQuaternion(item.pivot.quaternion).add(item.pivot.position).sub(item.anchor).sub(offset),length=delta.length();
@@ -1020,14 +1124,27 @@ function scenePose(requested,report=true){
    if(obj.visible){obj.position.copy(item.anchor).add(offset);obj.setDirection(delta.normalize());obj.setLength(length,length*.26,length*.14);}
   }
  }
+ const layersVisible=observationMode!=='cut'&&observationMode!=='facet';
+ for(const mesh of jointReferences)mesh.visible=$('neighbors').checked;
+ for(const {mesh,ref} of deformationGhosts)ref.visible=$('ghost').checked&&layersVisible&&mesh.morphTargetInfluences?.some(weight=>weight>.001);
+ fragmentMarks=$('guides').checked&&layersVisible&&progress>.15?motionLabels():[];
+ for(const item of animated.filter(item=>item.trajectory)){
+  const trace=item.trajectory,points=trace.geometry.attributes.position;
+  trace.visible=layersVisible&&$('trace').checked&&item.pivot.position.distanceToSquared(item.anchor)>.00000025;
+  if(trace.visible){
+   points.setXYZ(1,item.pivot.position.x,item.pivot.position.y,item.pivot.position.z);
+   points.needsUpdate=true;trace.computeLineDistances();
+  }
+ }
  for(const obj of nearBones)obj.visible=$('neighbors').checked;
  inspection?.update(observationMode,progress,$('neighbors').checked);
+ if(inspection&&observationMode==='overview'&&(!$('guides').checked||fragmentMarks.length))inspection.tags.length=0;
  profileMarks=profile?.update($('guides').checked&&observationMode!=='cut')||[];
  const axisMarks=alignment?.update($('guides').checked&&$('neighbors').checked&&['motion','overview'].includes(observationMode)&&($('compareTypes').checked||observationMode==='motion'||course.id==='lunate-dislocation'));
  if(axisMarks?.length&&inspection){inspection.tags.length=0;inspection.tags.push(...axisMarks);}
  if(observationMode==='cut'||observationMode==='facet')for(const i of animated)if(i.ghost)i.ghost.visible=false;
  if(fragmentRig){
-  const marked=fragmentRig.display(injuryTime(progress,timing),!poseLimit?.reason&&!opts.hold&&$('trace').checked&&observationMode!=='cut'&&(report||progress>=1));
+  const marked=fragmentRig.display(injuryTime(progress,timing),$('trace').checked&&observationMode!=='cut'&&(report||progress>=1));
   if(report){
    $('motionReadout').classList.toggle('with-reference',marked.referenceVisible);
    if($('fragmentBox').open&&studyMode==='overview'&&inspection){
@@ -1072,27 +1189,39 @@ function setProgress(value){
  }
  if(course?.variants[variant]?.depression)$('phase').textContent=progress<.16?'平台对位':progress<.86?'关节面压低':'终末形态';
  if(poseLimit?.reason)$('phase').textContent=poseLimit.reason.kind==='band'?'韧带伸长限位':'骨面接触限位';
- $('quickPlay').textContent=playing?'Ⅱ　暂停':progress>=1?'↻　重播':'▶　播放';
- $('play').textContent=playing?'Ⅱ 暂停':progress>=1?'↻ 重播':'▶ 播放';
+ $('quickPlay').textContent=playing?'Ⅱ　暂停':progress>=1||poseLimit?.reason?'↻　重播':'▶　播放';
+ $('play').textContent=playing?'Ⅱ 暂停':progress>=1||poseLimit?.reason?'↻ 重播':'▶ 播放';
 }
+const anatomyDirections=[['左侧','右侧'],['头侧','足侧'],['前侧','后侧']];
+const viewsByAxis=[['leftSide','side'],['top','inferior'],['front','rear']];
 function orientation(){
  dirty=true;
- const d=camera.position.clone().sub(controls.target).normalize();
- const names=[['患者左侧','患者右侧'],['上方','下方'],['前方','后方']];
- const xyz=d.toArray(),major=xyz.map((v,i)=>[Math.abs(v),names[i][v>=0?0:1]]).sort((a,b)=>b[0]-a[0]);
- const screenRight=new T.Vector3(1,0,0).applyQuaternion(camera.quaternion).toArray();
- const axis=screenRight.map((n,i)=>[Math.abs(n),i]).sort((a,b)=>b[0]-a[0])[0][1];
- const sign=screenRight[axis]>0?0:1;
- const compass=Math.abs(screenRight[axis])>.90?'　← '+names[axis][1-sign]+'　'+names[axis][sign]+' →':'';
- const inverted=new T.Vector3(0,1,0).applyQuaternion(camera.quaternion).y<-.65;
- $('orientation').textContent='视向 · '+major.filter(x=>x[0]>.36).map(x=>x[1]).join(' / ')+compass+(inverted?'　头侧 ↓':'');
+ const direction=camera.position.clone().sub(controls.target).normalize().toArray();
+ const right=new T.Vector3(1,0,0).applyQuaternion(camera.quaternion).toArray();
+ const up=new T.Vector3(0,1,0).applyQuaternion(camera.quaternion).toArray();
+ let horizontal=0,vertical=1,projection=0;
+ for(let h=0;h<3;h++)for(let v=0;v<3;v++){
+  const agreement=Math.abs(right[h])+Math.abs(up[v]);
+  if(h!==v&&agreement>projection){projection=agreement;horizontal=h;vertical=v;}
+ }
+ const across=Number(right[horizontal]<0),upright=Number(up[vertical]<0);
+ const east=anatomyDirections[horizontal][across],west=anatomyDirections[horizontal][1-across];
+ const north=anatomyDirections[vertical][upright],south=anatomyDirections[vertical][1-upright];
+ for(const [name,label] of Object.entries({TL:north,TR:east,BL:west,BR:south})){
+  const marker=$('dir'+name);if(marker.textContent!==label)marker.textContent=label;
+ }
+ const normal=direction.map((v,i)=>[Math.abs(v),i,Number(v<0)]).sort((a,b)=>b[0]-a[0]);
+ $('viewSummary').textContent='视向 '+normal.filter(([weight])=>weight>.36).map(([,axis,sign])=>anatomyDirections[axis][sign]).join(' / ')+'；画面左侧 '+west+'，上方 '+north;
+ const [weight,axis,sign]=normal[0];
+ for(const btn of document.querySelectorAll('#viewRail [data-view]:not([data-view=home])'))btn.setAttribute('aria-pressed',String(weight>.995&&btn.dataset.view===viewsByAxis[axis][sign]));
 }
 function frame(now){
  if(playing&&course){
   if(holdUntil){if(now>=holdUntil){holdUntil=0;setProgress(0);}}
   else{
    setProgress(poseLimit?.unfinished?poseLimit.target:progress+(previous?Math.max(0,(now-previous)/1000):0)*speed/5);
-   if(progress===1){if(repeating)holdUntil=now+950;else{playing=false;setProgress(1);}}
+   if(poseLimit?.reason){playing=false;setProgress(progress);}
+   else if(progress===1){if(repeating)holdUntil=now+950;else{playing=false;setProgress(1);}}
   }
  }else holdUntil=0;
  if(flight){
@@ -1222,14 +1351,21 @@ $('compareTypes').onchange=()=>{
  const sameSource=Boolean(assetsForLesson().length)===useSpecimen;
  renderLesson(false,sameSource);updateURL(true);
 };
-$('play').onclick=()=>{previous=0;playing=!playing;setProgress(progress>=1?0:progress);};
+$('play').onclick=()=>{previous=0;playing=!playing;setProgress(progress>=1||poseLimit?.reason?0:progress);};
 $('prevFrame').onclick=()=>{playing=false;setProgress((Math.ceil(progress*300-1e-8)-1)/300);};
 $('nextFrame').onclick=()=>{playing=false;setProgress((Math.floor(progress*300+1e-8)+1)/300);};
 $('time').oninput=e=>{playing=false;setProgress(+e.target.value/1000);};
 $('speed').onclick=e=>{speed=speed===1?.5:speed===.5?.25:speed===.25?1.5:1;e.target.textContent=speed+'×';};
 for(const id of ['guides','neighbors','ghost','trace'])$(id).onchange=()=>setProgress(progress);
-for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>aim(b.dataset.view);
+for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>{if(ready&&!loadingSpecimen)aim(b.dataset.view);};
+function backToBone(){
+ if(!lessonOpen())return;
+ updateURL(true);lastLesson=location.hash;pickBone(selected,{keepLesson:true});
+}
 $('whole').onclick=()=>pickBone(null);
+$('back').onclick=()=>lessonOpen()?backToBone():pickBone(null);
+$('navBone').onclick=backToBone;
+$('navLesson').onclick=()=>{if(!lessonOpen()&&lastLesson)location.hash=lastLesson;};
 $('centreBone').onclick=()=>{
  if(!selected||loadingSpecimen)return;playing=false;
  const dir=camera.position.clone().sub(controls.target).normalize();
@@ -1264,7 +1400,7 @@ $('copyLink').onclick=async()=>{
 createFrameTray({
  pause:()=>{playing=false;flight=null;holdUntil=0;setProgress(progress);},
  render:()=>{camera.updateMatrixWorld();renderer.render(world,camera);return renderer.domElement;},
- describe:()=>[boneName(selected),course.variants[variant].name,$('frameTime').textContent,$('orientation').textContent,$('liveValues').textContent]
+ describe:()=>[boneName(selected),course.variants[variant].name,$('frameTime').textContent,$('viewSummary').textContent,$('liveValues').textContent]
 });
 $('quickPlay').onclick=()=>$('play').click();
 buttons($('jointLinks'),joints.map(c=>c.name),-1,i=>{
