@@ -1,7 +1,8 @@
 import {regionFor} from './bone-index.js?v=eedd848';
 import {decodeSurfaces} from './detail.js';
 
-export const detailRegions=['上肢','下肢','胸廓','脊柱','骨盆','头颈'];
+// Load high-traffic limb & pelvis regions before the heavier 7.25 MB thoracic cage.
+export const detailRegions=['上肢','下肢','骨盆','脊柱','头颈','胸廓'];
 
 export function detailRegionFor(name){
  const region=regionFor(name);
@@ -34,7 +35,7 @@ export function assembledSurfaces(getAsset,metadata,install){
   if(!pending.has(region))pending.set(region,(async()=>{
    const meta=await metadata(),directory=await regions(),part=directory[region];
    if(!part)throw Error('缺少精细骨面分区 '+region);
-   const data=await getAsset('models/'+part.file);
+   const data=await getAsset('models/'+part.file,{bytes:part.bytes,sha256:part.sha256});
    if(data.byteLength!==part.bytes)throw Error('精细骨面分区长度不匹配');
    const entries=meta.entries.filter(entry=>Object.hasOwn(part.offsets,entry.mesh))
     .map(entry=>({...entry,offset:part.offsets[entry.mesh]}));

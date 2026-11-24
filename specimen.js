@@ -48,7 +48,7 @@ export function specimenLibrary(read){
   if(!pending.has(key))pending.set(key,(async()=>{
    const e=entries.get(key);
    const [res,canals]=await Promise.all([
-    read(e.base+e.file),
+    read(e.base+e.file,{sha256:e.sha256}),
     e.base==='models/vhm/'&&sections.has(e.name)?readCanals().catch(()=>null):null
    ]);
    if(!res.ok){
@@ -62,7 +62,7 @@ export function specimenLibrary(read){
    const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(new Float32Array(raw,0,e.vertices*3),3));
    g.setIndex(new T.BufferAttribute(new Uint32Array(raw,e.vertices*12,e.indices),1));
    if(e.face_confidence){
-    const response=await read(e.base+e.face_confidence);if(!response.ok)throw Error('腭骨分区记录载入失败');
+    const response=await read(e.base+e.face_confidence,{sha256:e.face_confidence_sha256});if(!response.ok)throw Error('腭骨分区记录载入失败');
     const packed=await response.arrayBuffer();
     const flags=new Uint8Array(new Uint8Array(packed)[0]===31?await new Response(new Blob([packed]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():packed);
     if(flags.length!==e.triangles||e.oralTrace.mesh_sha256!==e.sha256||e.oralTrace.source_triangle_ids.some(i=>flags[i]!==0))throw Error('腭骨分区与局部观察点不匹配');

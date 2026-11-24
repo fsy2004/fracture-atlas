@@ -7,6 +7,7 @@ import {
  DEPTH_LABELS
 } from './soft-tissue-catalog.js?v=limb-soft4';
 import { classifyNodeRole } from './soft-tissue-clinical.js?v=limb-soft4';
+import { fetchVerifiedModel, prefetchModel } from './asset-mirror.js?v=mirror1';
 
 const base = './models/soft-tissue/';
 const bounds = v => new T.Box3(new T.Vector3(...v[0]), new T.Vector3(...v[1]));
@@ -159,9 +160,12 @@ export function prepareSoftTissues() {
 
  async function getPart(part, loader, signal, storage) {
   if (storage.has(part.file)) return storage.get(part.file);
-  const response = await fetch(base + part.file, { signal });
-  if (!response.ok) throw Error('软组织分区不可用 ' + part.file);
-  const data = await response.arrayBuffer();
+  const data = await fetchVerifiedModel('models/soft-tissue/' + part.file, {
+   originURL: base + part.file,
+   bytes: part.bytes,
+   sha256: part.sha256 || '',
+   signal
+  });
   if (data.byteLength !== part.bytes) throw Error('软组织分区长度不匹配');
   const { scene } = await loader.parseAsync(data, base);
   if (signal.aborted || storage !== cache) {
@@ -499,6 +503,23 @@ export function prepareSoftTissues() {
 
  return {
   load,
+  prefetch(bone) {
+   if (!bone || !isLimbBone(bone)) return;
+   const zones = zonesForBone(bone);
+   if (!zones.length) return;
+   readCatalogue().then(cat => {
+    for (const z of zones) {
+     const part = cat.parts?.find(p => p.zone === z);
+     if (part && !cache.has(part.file)) {
+      prefetchModel('models/soft-tissue/' + part.file, {
+       originURL: base + part.file,
+       bytes: part.bytes,
+       sha256: part.sha256 || ''
+      });
+     }
+    }
+   }).catch(() => {});
+  },
   detach: entry => {
    if (entry) entry.dispose?.();
   },

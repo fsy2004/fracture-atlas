@@ -1,4 +1,4 @@
-import {prepareSoftTissues} from './soft-tissue-view.js?v=limb-soft4';
+import {prepareSoftTissues} from './soft-tissue-view.js?v=mirror1';
 import {fitTissueSkeleton} from './tissue-registration.js';
 import {linkSoftTissues} from './tissue-motion.js?v=limb-soft4';
 import {isLimbBone} from './soft-tissue-catalog.js?v=limb-soft4';
@@ -6,8 +6,9 @@ import {clinicalSoftTissueFor} from './soft-tissue-clinical.js?v=limb-soft4';
 import {createSoftTissuePanel} from './soft-tissue-panel.js?v=limb-soft4';
 import {injuryDescription} from './injury-description.js';
 import {vertebralCompression} from './vertebral-compression.js';
-import {loadOverviewBytes} from './preview-mirror.js';
-import {assembledSurfaces,detailRegions,regionsForScene} from './assembly-detail.js';
+import {loadOverviewBytes} from './preview-mirror.js?v=mirror1';
+import {fetchVerifiedModel,activeMirrorLabel,mirrorsEnabled} from './asset-mirror.js?v=mirror1';
+import {assembledSurfaces,detailRegions,regionsForScene} from './assembly-detail.js?v=mirror1';
 import {motionGuide} from './motion-guides.js';
 import {cutField} from './cut-field.js?v=tissue-motion1';
 import {guidesFor,updateAnatomyPanel} from './anatomy-panel.js';
@@ -34,7 +35,7 @@ import {plateauSite,applyPlateauBed,followPlateauRim,plateauProfile} from './pla
 import {bartonSurface} from './measured-wrist.js';
 import {canalSampler} from './endosteum.js';
 import {digitalCut} from './digit-frame.js';
-import {specimenLibrary} from './specimen.js?v=eedd848';
+import {specimenLibrary} from './specimen.js?v=mirror1';
 import {lunateAdjuncts} from './lunate-adjuncts.js';
 import {carpalAlignment} from './carpal-alignment.js';
 import {typeView} from './clinical-types.js';
@@ -566,7 +567,15 @@ function clearScene(){
  });
  group.clear();animated.length=annotations.length=nearBones.length=jointReferences.length=deformationGhosts.length=pieces.length=wedges.length=0;fragmentMarks=[];anatomyGuides=[];
 }
-const specimen=specimenLibrary(async u=>await fetch(u));
+const specimen=specimenLibrary(async(u,meta)=>{
+ if(location.protocol==='file:'||u.endsWith('.json'))return await fetch(u);
+ try{
+  const buf=await fetchVerifiedModel(u,{originURL:u,sha256:meta?.sha256||'',bytes:meta?.bytes||0});
+  return new Response(buf,{status:200,headers:{'Content-Type':'application/octet-stream'}});
+ }catch{
+  return await fetch(u);
+ }
+});
 let atlasPalate=false,regionReference=false,loadingSpecimen=false,useSpecimen=false,viewSerial=0;
 let assemblyDetail;
 const reflectedMeshes=new Map(),overviewMeshes=new Map();
@@ -1016,7 +1025,7 @@ function assetsForLesson(){
  const currentGroup=specimen.group(names);
  return currentGroup&&relevant.every(option=>specimen.group(specimen.required(selected,course,option))===currentGroup)?names:[];
 }
-let detailTimer;
+let detailTimer,softPrefetchTimer;
 function scheduleFullDetail(serial){
  clearTimeout(detailTimer);
  if(location.protocol==='file:'||navigator.connection?.saveData||(smallScreen.matches&&(navigator.deviceMemory??4)<4))return;
@@ -1025,7 +1034,15 @@ function scheduleFullDetail(serial){
    if(viewSerial!==serial||selected||document.hidden)return;
    try{await assemblyDetail.load([region]);}catch{return;}
   }
- },2200);
+ },3200);
+}
+function scheduleSoftPrefetch(boneNameKey,serial){
+ clearTimeout(softPrefetchTimer);
+ if(!boneNameKey||!isLimbBone(boneNameKey)||location.protocol==='file:'||navigator.connection?.saveData)return;
+ softPrefetchTimer=setTimeout(()=>{
+  if(viewSerial!==serial||selected!==boneNameKey||document.hidden)return;
+  tissues.prefetch(boneNameKey);
+ },1400);
 }
 function renderLesson(smooth=false,keepView=false,viewParams=null){
  if(!ready)return;
@@ -1054,7 +1071,8 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
   $('centreBone').disabled=$('quickPlay').disabled=$('quickEdit').disabled=true;$('viewOptions').inert=true;
   $('captureFrame').disabled=true;$('lessonPanel').inert=true;document.querySelector('.player').inert=true;
   host.dataset.specimen='false';
-  $('status').textContent=awaiting?'正在载入精细骨面…':'正在准备模型…';$('status').hidden=false;
+  const mirrorHint=mirrorsEnabled()?(activeMirrorLabel()?'（'+activeMirrorLabel()+'）':'（多节点镜像加速中）'):'';
+  $('status').textContent=awaiting?'正在载入精细骨面'+mirrorHint+'…':'正在准备模型…';$('status').hidden=false;
   // The selected preview and index can be painted while the specimen loads.
   const paint=new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
   const available=(async()=>{
@@ -1129,6 +1147,7 @@ function finishLesson(smooth,keepView,viewParams,needed){
   if(!keepView||automaticFit&&selected)aim('home',false);
   if(selected&&viewParams)restoreView(viewParams);
   if(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
+  else if(selected)scheduleSoftPrefetch(selected,viewSerial);
   return;
  }
  const v=course.variants[variant],bounds=new T.Box3(),anchors=[];
@@ -1586,6 +1605,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
  }
  previous=0;setProgress(progress);if(viewParams)restoreView(viewParams);
  if(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
+ else if(selected)scheduleSoftPrefetch(selected,viewSerial);
 }
 function rawPose(t,report=false){
  const progress=injuryTime(t,timing);
@@ -1799,7 +1819,12 @@ async function start(){
   }
  };
  new ResizeObserver(resize).observe(host);resize();
- async function getAsset(u){
+ async function getAsset(u,meta){
+  if(!u.endsWith('json')&&location.protocol!=='file:'&&(meta?.sha256||meta?.bytes)){
+   try{
+    return await fetchVerifiedModel(u,{originURL:assetURL(u),bytes:meta.bytes||0,sha256:meta.sha256||''});
+   }catch{}
+  }
   const r=await fetch(assetURL(u));
   if(!r.ok)throw Error('无法加载 '+u);
   return u.endsWith('json')?r.json():r.arrayBuffer();
@@ -1829,6 +1854,8 @@ async function start(){
  assemblyDetail=assembledSurfaces(getAsset,readFullMetadata,installAssembly);
  buildIndex(boneData.keys(),pickBone,key=>matches(key).length);
  ready=true;host.dataset.ready='true';route();$('status').hidden=!loadingSpecimen;
+ // Pre-warm specimen manifests in background so the first bone click skips manifest latency.
+ if(location.protocol!=='file:'&&!selected)setTimeout(()=>{specimen.init().catch(()=>{});},600);
  // A prior release let the user save an offline web snapshot. Retire only
  // this atlas registration and leave explicitly saved material in browser storage.
  if(location.protocol!=='file:')navigator.serviceWorker?.getRegistration().then(registration=>{

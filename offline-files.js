@@ -20,6 +20,7 @@ self.ATLAS_OFFLINE_FILES = [
  "anatomy-panel.js",
  "app.js",
  "assembly-detail.js",
+ "asset-mirror.js",
  "bone-framing.js",
  "bone-index.js",
  "bone-material.js",
