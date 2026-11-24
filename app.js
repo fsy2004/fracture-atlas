@@ -1,6 +1,9 @@
-import {prepareSoftTissues} from './soft-tissue-view.js?v=tissue-motion1';
+import {prepareSoftTissues} from './soft-tissue-view.js?v=limb-soft4';
 import {fitTissueSkeleton} from './tissue-registration.js';
-import {linkSoftTissues} from './tissue-motion.js';
+import {linkSoftTissues} from './tissue-motion.js?v=limb-soft4';
+import {isLimbBone} from './soft-tissue-catalog.js?v=limb-soft4';
+import {clinicalSoftTissueFor} from './soft-tissue-clinical.js?v=limb-soft4';
+import {createSoftTissuePanel} from './soft-tissue-panel.js?v=limb-soft4';
 import {injuryDescription} from './injury-description.js';
 import {vertebralCompression} from './vertebral-compression.js';
 import {loadOverviewBytes} from './preview-mirror.js';
@@ -9,14 +12,14 @@ import {motionGuide} from './motion-guides.js';
 import {cutField} from './cut-field.js?v=tissue-motion1';
 import {guidesFor,updateAnatomyPanel} from './anatomy-panel.js';
 import {canonicalCourse,variantIndex} from './variant-registry.js';
-import {showExamPoints} from './exam-points.js?v=53fd6a9';
+import {showExamPoints} from './exam-points.js?v=limb-soft2';
 import {frameBone} from './bone-framing.js';
 import * as T from './vendor/three.module.js';
 import {ViewControls} from './view-controls.js';
 import { courses as fractures,levels } from './courses.js';
 import { section,atLevel,sliceMetrics,branchSection,shortShaftCut } from './geometry.js?v=tissue-motion1';
 
-import {boneName,teachingBone,regionFor,buildIndex} from './bone-index.js?v=eedd848';
+import {boneName,teachingBone,regionFor,buildIndex} from './bone-index.js?v=limb-soft2';
 import {featuresFor,initialShape,shapeNames,motionNames,withShape,customPose} from './features.js';
 
 import {makeObservation,wristLandmarks} from './observation.js';
@@ -57,25 +60,69 @@ const markLayer=document.getElementById('markLayer');
 const markLabels=[];let viewWidth=1,viewHeight=1;
 function paintLabels(){
  const locationMarks=$('anatomyPanel').open&&$('anatomyGuides').checked?anatomyGuides:[];
- const boneTags=tissueEntry&&!tissueEntry.motion?[]:[...(inspection?.tags||[]),...profileMarks,...fragmentMarks,...locationMarks];
- const tissueTags=tissueEntry?.tags||[];
- const tags=[...boneTags,...tissueTags],used=[];
+ const boneTags=tissueEntry&&!tissueEntry.aligned?[]:[...(inspection?.tags||[]),...profileMarks,...fragmentMarks,...locationMarks];
+ const tissueTags=[];
+ if(tissueEntry){
+  for(const tag of tissueEntry.tags){
+   const item=tissueEntry.items?.find(it=>it.key===tag.structureKey);
+   if(!item||item.mesh.visible)tissueTags.push(tag);
+  }
+  if(tissueEntry.selectedKey&&!tissueTags.some(t=>t.structureKey===tissueEntry.selectedKey)){
+   const sel=tissueEntry.items?.find(it=>it.key===tissueEntry.selectedKey&&it.mesh.visible);
+   if(sel){
+    const box=new T.Box3().setFromObject(sel.mesh);
+    tissueTags.unshift({
+     text:sel.info.zh,
+     point:box.getCenter(new T.Vector3()),
+     layer:sel.layer,
+     sublayer:sel.sublayer,
+     structureKey:sel.key,
+     selected:true
+    });
+   }
+  }
+ }
+ const tags=[...boneTags,...tissueTags.slice(0,boneTags.length?4:6)],placed=[];
  markLayer.hidden=!tags.length;
  while(markLabels.length<tags.length){
   const el=document.createElement('span');el.className='pin';markLayer.append(el);markLabels.push(el);
  }
  markLabels.forEach((el,i)=>{
   if(!tags[i]){el.hidden=true;return;}
-  const pt=tags[i].point.clone();if(i<boneTags.length)pt.x*=group.scale.x;pt.project(camera);
+  const tag=tags[i];
+  const pt=tag.point.clone();if(i<boneTags.length)pt.x*=group.scale.x;pt.project(camera);
   const x=(pt.x+1)*viewWidth/2,y=(1-pt.y)*viewHeight/2;
-  el.hidden=pt.z<0||pt.z>1||x<5||x>viewWidth-6||y<20||y>viewHeight-30;
+  el.hidden=pt.z<0||pt.z>1||x<10||x>viewWidth-10||y<28||y>viewHeight-56;
   if(el.hidden)return;
-  const left=x>viewWidth*.66;
-  const dy=used.some(t=>Math.abs(t-y)<28)?28:0;el.style.setProperty('--slope',(dy?(left?36:-36):0)+'deg');used.push(y+dy);
-  el.style.setProperty('--tag-y',dy+'px');el.classList.toggle('left',left);
-  el.style.left=x+'px';el.style.top=y+'px';if(el.textContent!==tags[i].text)el.textContent=tags[i].text;
+  const left=x>viewWidth*.48;
+  const estW=Math.max(76,Math.min(185,tag.text.length*13+24));
+  const boxX=left?x-32-estW:x+32;
+  let dy=0;
+  const collides=shift=>{
+   const ty=y+shift;
+   if(ty<28||ty>viewHeight-56)return true;
+   return placed.some(b=>Math.abs(b.y-ty)<26&&boxX<b.x+b.w+8&&boxX+estW+8>b.x);
+  };
+  if(collides(0)){
+   for(const step of [28,-28,56,-56,84,-84]){
+    if(!collides(step)){dy=step;break;}
+   }
+  }
+  placed.push({x:boxX,y:y+dy,w:estW});
+  el.style.setProperty('--slope',(dy?Math.max(-42,Math.min(42,(left?1:-1)*dy*.75)):0)+'deg');
+  el.style.setProperty('--tag-y',dy+'px');
+  const isTissue=Boolean(tag.structureKey);
+  const isSel=isTissue&&tissueEntry?.selectedKey===tag.structureKey;
+  el.className='pin'+(left?' left':'')+(isTissue?' pin-tissue pin-'+(tag.sublayer||tag.layer):'')+(isSel?' pin-selected':'');
+  el.dataset.structure=tag.structureKey||'';
+  el.style.left=x+'px';el.style.top=y+'px';
+  if(el.textContent!==tag.text)el.textContent=tag.text;
  });
 }
+markLayer.addEventListener('click',e=>{
+ const pin=e.target.closest?.('.pin-tissue');
+ if(pin?.dataset.structure)selectSoftStructure(pin.dataset.structure);
+});
 function setStudy(mode){
  studyMode=mode;syncStudy();syncPlayer();playing=false;
  if(mode==='facet')aim(course?.id==='radius'||course?.id==='intercondylar'||course?.id==='distalfemur'?'inferior':'top',true);
@@ -126,6 +173,125 @@ const world=new T.Scene(), group=new T.Group();world.add(group);
 const tissues=prepareSoftTissues();
 const tissueControls={muscles:'softMuscles',vessels:'softVessels',nerves:'softNerves'};
 let tissueEntry=null,tissueRequest=null,tissueReturn=null;
+let softFocusOnly=true,softMuscleOpacity=0.28,softShowArrows=true,softDepthLevel=1,softClipAxis='none',softClipFrac=0.5,lastTelemetryAt=0;
+const DEPTH_TEXT={1:'全部肌层',2:'已剥离浅层肌',3:'仅留深层肌',4:'隐藏肌层（仅脉神）'};
+const softClipPlane=new T.Plane(new T.Vector3(0,0,-1),0);
+
+function updateSoftClipPlane(){
+ $('softClipPosRow').hidden=softClipAxis==='none';
+ $('softClipVal').textContent=Math.round(softClipFrac*100)+'%';
+ if(!tissueEntry){return;}
+ if(softClipAxis==='none'){
+  tissueEntry.setClipPlane(null);
+  dirty=true;
+  return;
+ }
+ const box=new T.Box3().setFromObject(tissueEntry.root);
+ if(box.isEmpty()){tissueEntry.setClipPlane(null);return;}
+ const min=box.min,max=box.max;
+ if(softClipAxis==='ap'){
+  // Slice away anterior tissues progressively from front (+Z) toward back (-Z)
+  const z=T.MathUtils.lerp(max.z,min.z,softClipFrac);
+  softClipPlane.set(new T.Vector3(0,0,-1),z);
+ }else if(softClipAxis==='pa'){
+  // Slice away posterior tissues from back (-Z) toward front (+Z)
+  const z=T.MathUtils.lerp(min.z,max.z,softClipFrac);
+  softClipPlane.set(new T.Vector3(0,0,1),-z);
+ }else if(softClipAxis==='lat'){
+  const isLeft=/\bleft\b/i.test(selected||'');
+  const x=isLeft?T.MathUtils.lerp(max.x,min.x,softClipFrac):T.MathUtils.lerp(min.x,max.x,softClipFrac);
+  softClipPlane.set(new T.Vector3(isLeft?-1:1,0,0),isLeft?x:-x);
+ }else if(softClipAxis==='axial'){
+  const y=T.MathUtils.lerp(max.y,min.y,softClipFrac);
+  softClipPlane.set(new T.Vector3(0,-1,0),y);
+ }
+ tissueEntry.setClipPlane(softClipPlane);
+ dirty=true;
+}
+
+function syncSoftQuickBar(){
+ const anyActive=Object.values(tissueControls).some(id=>$(id).checked);
+ for(const btn of document.querySelectorAll('[data-soft-toggle]')){
+  const layer=btn.dataset.softToggle;
+  btn.setAttribute('aria-pressed',String(Boolean($(tissueControls[layer])?.checked)));
+ }
+ $('softDisplayTools').hidden=!anyActive;
+ $('softBarScope').disabled=!anyActive;
+ $('softBarScope').textContent=softFocusOnly?'仅相关':'周边全部';
+ $('softModeFocus').classList.toggle('active',softFocusOnly);
+ $('softModeFocus').setAttribute('aria-pressed',String(softFocusOnly));
+ $('softModeAll').classList.toggle('active',!softFocusOnly);
+ $('softModeAll').setAttribute('aria-pressed',String(!softFocusOnly));
+ $('softBarResetIso').hidden=!tissueEntry?.isolatedKey;
+}
+
+function selectSoftStructure(key){
+ if(!tissueEntry)return;
+ tissueEntry.highlight(key,'select');
+ if(key){
+  const item=tissueEntry.items.find(it=>it.key===key);
+  if(item&&!item.mesh.visible){
+   item.enabled=true;
+   if(tissueEntry.isolatedKey&&tissueEntry.isolatedKey!==key)tissueEntry.isolatedKey=null;
+   item.mesh.visible=true;
+  }
+  if(!$('softTissuePanel').open)$('softTissuePanel').open=true;
+ }
+ softPanel.refreshSelection();
+ syncSoftQuickBar();
+ dirty=true;
+}
+
+function hoverSoftStructure(key){
+ if(!tissueEntry)return;
+ if(tissueEntry.hoveredKey===key)return;
+ tissueEntry.highlight(key,'hover');
+ dirty=true;
+}
+
+function isolateSoftStructure(key){
+ if(!tissueEntry)return;
+ tissueEntry.isolatedKey=key;
+ tissueEntry.applyVisibility();
+ if(key)tissueEntry.highlight(key,'select');
+ softPanel.refreshSelection();
+ syncSoftQuickBar();
+ dirty=true;
+}
+
+function toggleSoftItem(key,visible){
+ if(!tissueEntry)return;
+ const item=tissueEntry.items.find(it=>it.key===key);
+ if(!item)return;
+ item.enabled=visible;
+ if(tissueEntry.isolatedKey===key&&!visible)tissueEntry.isolatedKey=null;
+ if(visible&&softFocusOnly&&!item.isClinical)item.mesh.visible=true;
+ else tissueEntry.applyVisibility();
+ softPanel.refreshSelection();
+ syncSoftQuickBar();
+ dirty=true;
+}
+
+async function focusClinicalPattern(layer,pattern){
+ if(!selected||!isLimbBone(selected))return;
+ const boxId=tissueControls[layer];
+ if(boxId&&!$(boxId).checked){
+  $(boxId).checked=true;
+  await showTissues();
+ }
+ if(!tissueEntry)return;
+ const match=tissueEntry.items.find(it=>it.layer===layer&&pattern.test(it.key));
+ if(match)selectSoftStructure(match.key);
+}
+
+const softPanel=createSoftTissuePanel({
+ select:selectSoftStructure,
+ hover:hoverSoftStructure,
+ isolate:isolateSoftStructure,
+ toggleItem:toggleSoftItem,
+ focusPattern:focusClinicalPattern
+});
+
 function fitTissues(direction){
  const frame=tissueEntry.frame, centre=frame.getCenter(new T.Vector3()),size=frame.getSize(new T.Vector3());
  const height=Math.max(size.y,size.z*.64,size.x/camera.aspect);
@@ -137,6 +303,7 @@ function leaveTissues(restore=true){
  if(!tissueEntry)return;
  tissueEntry.motion?.dispose();
  tissues.detach(tissueEntry);tissueEntry=null;group.visible=true;
+ softPanel.setEntry(null);
  document.body.classList.remove('tissues-active','tissues-linked');
  delete host.dataset.softLayers;delete host.dataset.softMode;delete host.dataset.softDisplacement;
  if(tissueReturn)$('description').textContent=tissueReturn.description;
@@ -147,77 +314,193 @@ function leaveTissues(restore=true){
   controls.update();
  }
  tissueReturn=null;
+ syncSoftQuickBar();
  syncPlayer();dirty=true;
 }
-function closeTissues(restore=true){
+function closeTissues(restore=true,clearCache=false){
  tissueRequest?.abort();tissueRequest=null;
- leaveTissues(restore);tissues.clear();
+ leaveTissues(restore);
+ if(clearCache)tissues.clear();
  for(const id of Object.values(tissueControls))$(id).checked=false;
  $('softStatus').hidden=true;
+ syncSoftQuickBar();
 }
 function tissueSection(key){
  if(!lessonOpen())return '';
  if(/femur/i.test(key)&&['hip-dislocation','neck','trochanter'].includes(course.id))return 'proximal';
+ if(/femur/i.test(key)&&['distalfemur','intercondylar','knee-dislocation','patella-dislocation'].includes(course.id))return 'distal';
  if(/humerus/i.test(key)&&['shoulder','shoulder-dislocation'].includes(course.id))return 'proximal';
  if(/humerus/i.test(key)&&['elbow','elbow-dislocation','lateral-elbow','medial-elbow'].includes(course.id))return 'distal';
- if(/ulna|radius/i.test(key)&&['elbow-dislocation','olecranon','radial-head'].includes(course.id))return 'proximal';
- if(/radius/i.test(key)&&course.id==='radius')return 'distal';
+ if(/ulna|radius/i.test(key)&&['elbow-dislocation','olecranon','radial-head','monteggia'].includes(course.id))return 'proximal';
+ if(/radius/i.test(key)&&['radius','galeazzi'].includes(course.id))return 'distal';
+ if(/tibia|fibula/i.test(key)&&['plateau','knee-dislocation'].includes(course.id))return 'proximal';
+ if(/tibia|fibula/i.test(key)&&course.id==='ankle')return 'distal';
  return '';
 }
-function updateLinkedTissues(){
- if(tissueEntry?.motion)host.dataset.softDisplacement=String(tissueEntry.motion.update());
+function updateLinkedTissues(forceTelemetry=false){
+ if(!tissueEntry?.motion)return;
+ host.dataset.softDisplacement=String(tissueEntry.motion.update());
+ host.dataset.softDamageGrade=String(tissueEntry.motion.telemetry.maxGrade||0);
+ const now=performance.now();
+ if(forceTelemetry||!playing||now-lastTelemetryAt>90){
+  lastTelemetryAt=now;
+  softPanel.updateTelemetry(tissueEntry.motion.telemetry);
+ }
 }
 async function showTissues(){
  const layers=Object.keys(tissueControls).filter(layer=>$(tissueControls[layer]).checked);
+ syncSoftQuickBar();
  if(!layers.length){closeTissues();return;}
- if(!ready||loadingSpecimen){
-  closeTissues();$('softStatus').textContent='请等当前骨面加载完成。';$('softStatus').hidden=false;return;
+ if(!selected||!isLimbBone(selected)){
+  closeTissues();
+  $('softStatus').textContent='当前软组织图谱专注四肢骨骼；请先点击上肢或下肢骨骼。';
+  $('softStatus').hidden=false;
+  return;
  }
- tissueRequest?.abort();leaveTissues();
+ if(!ready||loadingSpecimen){
+  $('softStatus').textContent='请等当前骨面加载完成…';$('softStatus').hidden=false;return;
+ }
+ tissueRequest?.abort();leaveTissues(false);
  const request=new AbortController(),current=viewSerial;
- tissueRequest=request;$('softStatus').textContent='正在载入软组织…';$('softStatus').hidden=false;
+ tissueRequest=request;$('softStatus').textContent='正在载入四肢高精度软组织…';$('softStatus').hidden=false;
  const v=lessonOpen()?course.variants[variant]:null;
  const affected=v?(v.cuts.find(cut=>cut.bone===teachingBone(selected))||v.cuts[0]).bone:null;
  const patientBone=affected&&/\bleft\b/i.test(selected)?
   affected.replace(/\bright\b/ig,value=>value==='Right'?'Left':'left'):affected||selected;
+ const clinical=clinicalSoftTissueFor(lessonOpen()?course:null,variant,level,patientBone);
  try{
-  const reference=await tissues.load(layers,patientBone,request.signal,tissueSection(patientBone));
+  const reference=await tissues.load(layers,patientBone,request.signal,{
+   section:tissueSection(patientBone),
+   courseId:lessonOpen()?course.id:'',
+   clinical,
+   focusOnly:softFocusOnly,
+   muscleOpacity:softMuscleOpacity,
+   depthLevel:softDepthLevel,
+   clipPlane:softClipAxis==='none'?null:softClipPlane
+  });
   if(request.signal.aborted||current!==viewSerial){tissues.detach(reference);return;}
   tissueReturn={description:$('description').textContent};
-  const drivers=animated.filter(item=>item.jointLabel||item.shell).sort((a,b)=>
-   Number(Boolean(b.moving||b.jointLabel))-Number(Boolean(a.moving||a.jointLabel)));
-  const target=affected?lessonMesh(affected):null;
   group.updateMatrixWorld(true);
-  const actor=drivers.find(item=>item.name===affected)||drivers[0];
-  const focus=(actor?.cutReference||actor?.anchor)?.clone().applyMatrix4(group.matrixWorld);
-  const match=v?fitTissueSkeleton(reference.pairedBone,target,group.matrixWorld,focus):null;
-  const motion=match?.accepted?linkSoftTissues(reference,match,group,drivers,wedges):null;
-  const dynamic=motion&&(wedges.length||drivers.some(item=>item.moving||item.jointLabel));
-  if(!motion){
+  let motion=null,aligned=false;
+  if(v){
+   const drivers=animated.filter(item=>item.jointLabel||item.shell).sort((a,b)=>
+    Number(Boolean(b.moving||b.jointLabel))-Number(Boolean(a.moving||a.jointLabel)));
+   const target=affected?lessonMesh(affected):null;
+   const actor=drivers.find(item=>item.name===affected)||drivers[0];
+   const focusPt=(actor?.cutReference||actor?.anchor)?.clone().applyMatrix4(group.matrixWorld);
+   const match=fitTissueSkeleton(reference.pairedBone,target,group.matrixWorld,focusPt);
+   if(match?.accepted){
+    motion=linkSoftTissues(reference,match,group,drivers,wedges,{showArrows:softShowArrows});
+    aligned=Boolean(motion);
+   }
+  }else if(selectedMesh){
+   // Single-bone zoomed view: register limb soft tissues directly onto the zoomed high-detail bone!
+   const match=fitTissueSkeleton(reference.pairedBone,selectedMesh.geometry,group.matrixWorld,null);
+   if(match?.accepted){
+    reference.root.applyMatrix4(match.matrix);
+    reference.root.updateMatrixWorld(true);
+    for(const t of reference.tags)t.point.applyMatrix4(match.matrix);
+    reference.root.traverse(node=>{if(node.isMesh&&node.userData.atlasLayer==='bones')node.visible=false;});
+    aligned=true;
+   }
+  }
+  if(!motion)reference.applyStaticCalibers();
+  const dynamic=Boolean(motion&&(wedges.length||animated.some(item=>item.moving||item.jointLabel)));
+  if(!aligned){
    Object.assign(tissueReturn,{position:camera.position.clone(),up:camera.up.clone(),target:controls.target.clone()});
    playing=false;if(lessonOpen())setProgress(progress);
   }
-  tissueEntry={...reference,motion};world.add(reference.root);
-  group.visible=Boolean(motion);if(!motion){flight=null;automaticFit=false;}
-  $('description').textContent=dynamic?'软组织随骨段运动':motion?'局部软组织位置':'伤前软组织参照';
+  tissueEntry={...reference,motion,aligned};world.add(reference.root);
+  if(softClipAxis!=='none')updateSoftClipPlane();
+  group.visible=aligned;if(!aligned){flight=null;automaticFit=false;}
+  $('description').textContent=dynamic?'四肢软组织随骨段联动 · 点击结构查名称':aligned?'四肢局部软组织 · 悬停或点击查名称':'配套骨面与伤前软组织';
   document.body.classList.add('tissues-active');
-  document.body.classList.toggle('tissues-linked',Boolean(motion));
-  host.dataset.softLayers=layers.join(',');host.dataset.softMode=motion?'linked':'reference';
-  document.querySelector('.player').inert=!motion;
-  $('copyLink').disabled=!motion;$('softReturn').hidden=false;
-  $('softStatus').textContent=dynamic?'局部软组织随骨段移动 · 教学模拟':motion?'已显示当前部位软组织':'配套骨面与伤前软组织';
+  document.body.classList.toggle('tissues-linked',aligned);
+  host.dataset.softLayers=layers.join(',');host.dataset.softMode=motion?'linked':aligned?'aligned':'reference';
+  document.querySelector('.player').inert=lessonOpen()&&!aligned;
+  $('copyLink').disabled=!aligned;$('softReturn').hidden=false;
+  const shownCount=reference.items.filter(it=>it.mesh.visible).length;
+  $('softStatus').textContent=(dynamic?'已联动显示 ':aligned?'已配准显示 ':'伤前参照显示 ')+shownCount+' 项四肢软组织（悬停或点击查名称）';
   $('labels').hidden=true;$('tip').hidden=true;
+  softPanel.setEntry(tissueEntry);
+  syncSoftQuickBar();
   syncPlayer();
-  if(motion){updateLinkedTissues();dirty=true;}
+  if(motion){updateLinkedTissues(true);dirty=true;}
+  else if(aligned){dirty=true;}
   else fitTissues(camera.position.clone().sub(controls.target));
  }catch(error){
   if(request.signal.aborted)return;
-  closeTissues();$('softStatus').textContent='当前软组织载入失败，可重新选择。';$('softStatus').hidden=false;
+  closeTissues();$('softStatus').textContent=error?.message||'当前软组织载入失败，可重新选择。';$('softStatus').hidden=false;
   console.warn(error);
  }
 }
 for(const id of Object.values(tissueControls))$(id).onchange=showTissues;
 $('softReturn').onclick=()=>closeTissues();
+$('softAllOn').onclick=()=>{
+ for(const id of Object.values(tissueControls))$(id).checked=true;
+ showTissues();
+};
+for(const btn of document.querySelectorAll('[data-soft-toggle]')){
+ btn.onclick=()=>{
+  const id=tissueControls[btn.dataset.softToggle];
+  if(!id)return;
+  $(id).checked=!$(id).checked;
+  showTissues();
+ };
+}
+function setSoftFocusMode(focusOnly){
+ softFocusOnly=focusOnly;
+ if(tissueEntry){
+  tissueEntry.focusOnly=focusOnly;
+  tissueEntry.isolatedKey=null;
+  tissueEntry.applyVisibility();
+  softPanel.refreshSelection();
+  dirty=true;
+ }
+ syncSoftQuickBar();
+}
+$('softModeFocus').onclick=()=>setSoftFocusMode(true);
+$('softModeAll').onclick=()=>setSoftFocusMode(false);
+$('softBarScope').onclick=()=>setSoftFocusMode(!softFocusOnly);
+$('softBarResetIso').onclick=()=>isolateSoftStructure(null);
+$('softMuscleOpacity').oninput=e=>{
+ softMuscleOpacity=Number(e.target.value)/100;
+ $('softOpacityVal').textContent=e.target.value+'%';
+ if(tissueEntry){tissueEntry.setMuscleOpacity(softMuscleOpacity);dirty=true;}
+};
+$('softShowArrows').onchange=e=>{
+ softShowArrows=e.target.checked;
+ tissueEntry?.motion?.setArrowsVisible(softShowArrows);
+ dirty=true;
+};
+$('softDepthSlider').oninput=e=>{
+ softDepthLevel=Number(e.target.value);
+ $('softDepthVal').textContent=DEPTH_TEXT[softDepthLevel]||'全部肌层';
+ if(tissueEntry){
+  tissueEntry.setDepthLevel(softDepthLevel);
+  softPanel.refreshSelection();
+  updateLinkedTissues(true);
+  dirty=true;
+ }
+};
+$('softClipAxis').onchange=e=>{
+ softClipAxis=e.target.value;
+ updateSoftClipPlane();
+};
+$('softClipPos').oninput=e=>{
+ softClipFrac=Number(e.target.value)/100;
+ updateSoftClipPlane();
+};
+for(const btn of document.querySelectorAll('[data-severity]')){
+ btn.onclick=()=>{
+  const factor=Number(btn.dataset.severity);
+  for(const b of document.querySelectorAll('[data-severity]'))b.classList.toggle('active',b===btn);
+  if(applyMotion?.setSeverityScale){
+   applyMotion.setSeverityScale(factor);
+   updateLinkedTissues(true);
+  }
+ };
+}
 
 const bone=new T.MeshStandardMaterial({color:0xe9e2c9,roughness:.84,side:T.DoubleSide});
 const accent=new T.MeshStandardMaterial({color:0x7bbdaa,roughness:.83,side:T.DoubleSide});
@@ -246,7 +529,7 @@ function jointView(){
  return 'side';
 }
 function syncPlayer(){
- const open=lessonOpen()&&(!tissueEntry||Boolean(tissueEntry.motion));
+ const open=lessonOpen()&&(!tissueEntry||Boolean(tissueEntry.aligned));
  $('frameNavigation').hidden=!open;
  $('quickPlay').hidden=!open;
  $('quickEdit').hidden=!open||$('advanced').hidden;
@@ -551,11 +834,16 @@ function restoreView(params){
 }
 function syncExam(){
  const customized=Boolean(shape||motions.length||Object.keys(quantities).length);
+ if(!Object.keys(quantities).length){
+  for(const b of document.querySelectorAll('[data-severity]'))b.classList.toggle('active',b.dataset.severity==='1');
+ }
  showExamPoints(lessonOpen()?course:null,variant,level,customized);
 }
 function showControls(){
  const local=Boolean(selected),lesson=Boolean(course&&variant>=0);
  syncExam();
+ softPanel.updateClinical({selectedBone:selected,course:lesson?course:null,variant,level,motions});
+ syncSoftQuickBar();
  document.body.classList.toggle('in-lesson',lesson);document.body.classList.toggle('in-index',!local);
 
  $('centreBone').hidden=!local;$('back').hidden=!local;$('navBone').hidden=!local;$('navLesson').hidden=!local||(!lastLesson&&!lesson);
@@ -671,7 +959,7 @@ function aim(view='home',smooth=false){
  const localJoint=lessonOpen()&&course.kind==='joint'&&course.variants[variant].nativePoint&&['front','top','side','leftSide'].includes(view);
  const target=view==='detail'||view==='rearDetail'||view==='plateauDetail'||localJoint?fractureFocus:focus;
  const dir={inferior:[0,-1,.001],detail:[-.6,.17,1],rear:[0,0,-1],rearDetail:[0,.02,-1],plateauDetail:[-.32,1,.45],front:[0,0,1],side:[-1,0,0],leftSide:[1,0,0],top:[0,1,.001],home:selected?[-.36,.12,1]:[0,0,1]}[view];
- if(tissueEntry&&!tissueEntry.motion){fitTissues(vec(dir));return;}
+ if(tissueEntry&&!tissueEntry.aligned){fitTissues(vec(dir));return;}
  if(selected&&!lessonOpen()&&selectedMesh){
   centreMesh(vec(dir));return;
  }
@@ -740,7 +1028,11 @@ function scheduleFullDetail(serial){
 }
 function renderLesson(smooth=false,keepView=false,viewParams=null){
  if(!ready)return;
- if(tissueEntry||tissueRequest)closeTissues();
+ const keepTissues=Boolean(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked));
+ if(tissueEntry||tissueRequest){
+  if(keepTissues){tissueRequest?.abort();tissueRequest=null;leaveTissues(false);}
+  else closeTissues(false);
+ }
  $('softStatus').hidden=true;
  const serial=++viewSerial,lesson=lessonOpen(),resume=playing,editAtRequest=viewEdits;
  const needed=selected&&!specimen.catalogueReady()?null:assetsForLesson();
@@ -835,6 +1127,7 @@ function finishLesson(smooth,keepView,viewParams,needed){
   }
   if(!keepView||automaticFit&&selected)aim('home',false);
   if(selected&&viewParams)restoreView(viewParams);
+  if(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
   return;
  }
  const v=course.variants[variant],bounds=new T.Box3(),anchors=[];
@@ -1291,6 +1584,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   else aim(v.depression?'plateauDetail':course.kind==='joint'?jointView():'detail',smooth);
  }
  previous=0;setProgress(progress);if(viewParams)restoreView(viewParams);
+ if(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
 }
 function rawPose(t,report=false){
  const progress=injuryTime(t,timing);
@@ -1453,6 +1747,7 @@ function frame(now){
 async function start(){
  const fullDpr=Math.min(devicePixelRatio,smallScreen.matches?1.5:2);
  renderer=new T.WebGLRenderer({antialias:!smallScreen.matches,alpha:true,powerPreference:smallScreen.matches?'low-power':'default'});
+ renderer.localClippingEnabled=true;
  renderer.setPixelRatio(fullDpr);
  host.append(renderer.domElement);
  renderer.domElement.addEventListener('webglcontextlost',event=>{
@@ -1557,21 +1852,71 @@ async function start(){
   }
   return result;
  }
+ function hitSoftTissue(e){
+  if(!tissueEntry?.items?.length)return null;
+  const box=host.getBoundingClientRect();
+  pointer.set(2*(e.clientX-box.left)/box.width-1,1-2*(e.clientY-box.top)/box.height);
+  ray.setFromCamera(pointer,camera);
+  const candidates=[],worldBox=new T.Box3();
+  for(const item of tissueEntry.items){
+   if(!item.mesh.visible)continue;
+   const localBox=item.mesh.geometry?.boundingBox;
+   if(!localBox)continue;
+   worldBox.copy(localBox).applyMatrix4(item.mesh.matrixWorld);
+   // Pad slightly for shader-displaced meshes near fractures
+   worldBox.expandByScalar(.03);
+   if(ray.ray.intersectBox(worldBox,impact)){
+    candidates.push({item,entry:worldBox.containsPoint(ray.ray.origin)?0:ray.ray.origin.distanceTo(impact)});
+   }
+  }
+  candidates.sort((a,b)=>a.entry-b.entry);
+  let nearest=Infinity,best=null;
+  const hits=[];
+  for(const {item,entry} of candidates){
+   if(entry>nearest)break;
+   hits.length=0;item.mesh.raycast(ray,hits);
+   for(const h of hits)if(h.distance<nearest){nearest=h.distance;best=item;}
+  }
+  return best;
+ }
  function clearHover(){
   if(hoverRequest){cancelAnimationFrame(hoverRequest);hoverRequest=0;}
   if(hovered){hovered.material=bone;hovered=null;dirty=true;}
+  if(tissueEntry?.hoveredKey)hoverSoftStructure(null);
   $('tip').hidden=true;canvas.style.cursor='grab';
  }
  controls.addEventListener('start',clearHover);
  controls.addEventListener('drag',()=>{dragResolution(true);if(!selected)overviewLOD(true);});
  controls.addEventListener('end',()=>{dragResolution(false);overviewLOD(false);});
  controls.addEventListener('tap',e=>{
-  if(!selected&&!tissueEntry){const name=hit(e.originalEvent)?.userData.bone;if(name)pickBone(name);}
+  if(tissueEntry){
+   const item=hitSoftTissue(e.originalEvent);
+   selectSoftStructure(item?item.key:null);
+   return;
+  }
+  if(!selected){const name=hit(e.originalEvent)?.userData.bone;if(name)pickBone(name);}
  });
  host.addEventListener('pointerleave',clearHover);
  host.addEventListener('pointermove',e=>{
-  if(tissueEntry||selected||controls.interacting)return;
-  if(e.pointerType==='touch'||hoverRequest||performance.now()-lastHoverAt<40)return;
+  if(controls.interacting)return;
+  if(e.pointerType==='touch'||hoverRequest||performance.now()-lastHoverAt<32)return;
+  if(tissueEntry){
+   hoverRequest=requestAnimationFrame(()=>{
+    hoverRequest=0;if(!tissueEntry||controls.interacting)return;lastHoverAt=performance.now();
+    const item=hitSoftTissue(e);
+    if(!item){hoverSoftStructure(null);$('tip').hidden=true;canvas.style.cursor='grab';return;}
+    hoverSoftStructure(item.key);
+    canvas.style.cursor='pointer';
+    const tip=$('tip'),box=host.getBoundingClientRect();
+    const roleTag=item.role?(item.role.role==='deforming'?' · '+item.role.action:' · '+(item.role.severity==='high'?'高危受累':'留意风险')):'';
+    tip.textContent=item.info.zh+' ('+item.info.en+')'+roleTag;
+    tip.hidden=false;
+    tip.style.left=Math.max(4,Math.min(box.width-tip.offsetWidth-4,e.clientX-box.left+14))+'px';
+    tip.style.top=Math.max(4,e.clientY-box.top-30)+'px';
+   });
+   return;
+  }
+  if(selected)return;
   hoverRequest=requestAnimationFrame(()=>{
    hoverRequest=0;if(tissueEntry||selected||controls.interacting)return;lastHoverAt=performance.now();
    const next=hit(e);if(!next){clearHover();return;}
@@ -1613,7 +1958,7 @@ $('back').onclick=()=>lessonOpen()?backToBone():pickBone(null);
 $('navBone').onclick=backToBone;
 $('navLesson').onclick=()=>{if(!lessonOpen()&&lastLesson)location.hash=lastLesson;};
 $('centreBone').onclick=()=>{
- if(tissueEntry&&!tissueEntry.motion){aim('home');return;}
+ if(tissueEntry&&!tissueEntry.aligned){aim('home');return;}
  if(!selected||loadingSpecimen)return;playing=false;
  const dir=camera.position.clone().sub(controls.target).normalize();
  if(selectedMesh&&!lessonOpen()){centreMesh(dir);return;}

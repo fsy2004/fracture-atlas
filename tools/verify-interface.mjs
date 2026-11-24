@@ -190,12 +190,14 @@ try{
   await page.locator('#viewport[data-soft-mode="linked"]').waitFor({timeout:85000});
   await page.locator('#end').click();
   assert.ok(Number(await page.locator('#viewport').getAttribute('data-soft-displacement'))>.001);
-  await page.goto(base+'#spine/v01/1?at=0');await ready(page);
+  await page.goto(base+'#femur/v01/1?at=0');await ready(page);
   if(!await page.locator('#softTissuePanel').evaluate(panel=>panel.open))await page.locator('#softTissuePanel summary').click();
   await page.locator('#softMuscles').check();
   await page.locator('#viewport[data-soft-mode="linked"]').waitFor({timeout:85000});
   await page.locator('#end').click();
-  assert.ok(Number(await page.locator('#viewport').getAttribute('data-soft-displacement'))>.001);
+  assert.ok(Number(await page.locator('#viewport').getAttribute('data-soft-displacement'))>.005);
+  await page.goto(base+'#spine/v01/1?at=0');await ready(page);
+  assert.equal(await page.locator('#softBar').isVisible(),false);
  }
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}

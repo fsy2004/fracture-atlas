@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7ef"><title>骨折与脱位图谱</title><link rel="stylesheet" href="./style.css?v=tissue-motion1">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7ef"><title>骨折与脱位图谱</title><link rel="stylesheet" href="./style.css?v=limb-soft4">
 <link data-model-preload rel="preload" href="./models/bones.bin" as="fetch" crossorigin="anonymous">
 <link data-model-preload rel="preload" href="./models/index.json" as="fetch" crossorigin="anonymous">
 <link data-model-preload rel="preload" href="./models/detail.json?native-f32-v1" as="fetch" crossorigin="anonymous"></head>
@@ -13,7 +13,7 @@
 <main>
 <section class="stage" aria-label="三维观察区"><div class="model-area">
  <div class="stage-title"><small id="crumb">成年男性 · 解剖总览</small><h2 id="heading">全身骨骼</h2><p id="description">点击骨骼，进入局部观察</p><p id="loadNotice" role="status" hidden></p></div>
- <div id="viewport" tabindex="0" aria-label="三维骨骼，拖动或使用方向键旋转"><div id="status" role="status" aria-live="polite">正在加载骨骼…</div><div id="labels" aria-hidden="true"></div><div id="markLayer" aria-hidden="true"></div><span id="tip" hidden></span></div>
+ <div id="viewport" tabindex="0" aria-label="三维骨骼，拖动或使用方向键旋转"><div id="status" role="status" aria-live="polite">正在加载骨骼…</div><div id="labels" aria-hidden="true"></div><div id="markLayer"></div><span id="tip" hidden></span></div>
  <div id="orientation" aria-label="屏幕解剖方位"><span id="dirTL" class="dir tl"></span><span id="dirTR" class="dir tr"></span><span id="dirBL" class="dir bl"></span><span id="dirBR" class="dir br"></span><span id="viewSummary" class="sr-only"></span></div>
  <nav id="viewRail" aria-label="解剖视角">
   <button data-view="front" title="从患者前方观察">前面观</button><button data-view="rear" title="从患者后方观察">后面观</button>
@@ -21,12 +21,19 @@
   <button data-view="top" title="从患者头端向下观察">上面观</button><button data-view="inferior" title="从患者足端向上观察">下面观</button>
   <button data-view="home" aria-label="重置解剖视角" title="重置解剖视角">重置</button>
  </nav>
+ <div id="softBar" class="soft-bar" role="toolbar" aria-label="四肢软组织快捷开关" hidden>
+  <button type="button" data-soft-toggle="muscles" aria-pressed="false"><i class="tissue-dot dot-muscle"></i>肌肉</button>
+  <button type="button" data-soft-toggle="vessels" aria-pressed="false"><i class="tissue-dot dot-artery"></i>血管</button>
+  <button type="button" data-soft-toggle="nerves" aria-pressed="false"><i class="tissue-dot dot-nerve"></i>神经</button>
+  <button type="button" id="softBarScope" disabled title="切换仅显示临床相关结构或周边全部结构">仅相关</button>
+  <button type="button" id="softBarResetIso" hidden>恢复全部</button>
+ </div>
  <div id="motionReadout" aria-label="当前主要移位"></div><div class="stage-foot"><button id="centreBone" type="button" hidden title="保持当前方向，将所选整骨居中">整骨居中</button><span id="gesture">左键拖动旋转 · 滚轮缩放</span></div>
  <button id="quickEdit" hidden>运动设置</button><button id="quickPlay" hidden aria-label="播放或暂停动画">播放</button></div>
 </section>
 <aside id="panel" aria-label="骨骼导航与教学控制">
  <div class="panel-head"><div id="breadcrumb">全身骨骼</div><div class="head-actions"><button id="copyLink">复制链接</button><button id="expand">全屏</button><button id="foldPanel">收起</button></div></div>
- <div class="rail-scroll"><section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索骨名，如 胫骨" aria-label="搜索全身骨骼"></label>
+ <div class="rail-scroll"><section id="indexPanel"><h2>骨骼索引</h2><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜骨名、分型或神经，如 胫骨 / 桡神经 / Colles" aria-label="搜索全身骨骼或骨伤关键词"></label>
  <div id="regions" class="tabs" aria-label="筛选解剖区域"></div><section id="priorityBones" aria-labelledby="priorityTitle" hidden><h3 id="priorityTitle">重点骨</h3><div id="priorityList"></div></section><div id="count"></div><div id="catalog" aria-label="骨骼列表"></div></section>
 <section id="jointShortcuts"><details><summary>按关节查看脱位</summary><div id="jointLinks" class="pills"></div></details></section>
  <section id="bonePanel" hidden><h2 id="boneTitle"></h2><p id="boneNote" class="hint"></p>
@@ -46,19 +53,55 @@
  <section id="lessonPanel" hidden>
  <section id="examPoints" aria-labelledby="examTitle" hidden><h3 id="examTitle">考点</h3><p id="examCase"></p><ul id="examList"></ul></section>
  <section id="savedFrames" hidden><h3>已截取的帧</h3><button id="compareFrames" disabled>对照已截帧</button><div id="frameStrip"></div></section></section>
- <details id="softTissuePanel"><summary>软组织</summary>
-  <div class="soft-options" role="group" aria-label="软组织显示">
-   <label><input id="softMuscles" type="checkbox"> 肌肉</label>
-   <label><input id="softVessels" type="checkbox"> 血管</label>
-   <label><input id="softNerves" type="checkbox"> 神经</label>
+ <details id="softTissuePanel" hidden><summary>软组织 · 肌肉 / 血管 / 神经</summary>
+  <p id="softScopeNote" class="hint" hidden></p>
+  <div id="softControlsWrap">
+   <div class="soft-options" role="group" aria-label="软组织显示">
+    <label class="soft-chk chk-muscle"><input id="softMuscles" type="checkbox"><i class="tissue-dot dot-muscle"></i>肌肉</label>
+    <label class="soft-chk chk-vessel"><input id="softVessels" type="checkbox"><i class="tissue-dot dot-artery"></i>血管</label>
+    <label class="soft-chk chk-nerve"><input id="softNerves" type="checkbox"><i class="tissue-dot dot-nerve"></i>神经</label>
+    <button id="softAllOn" type="button" class="soft-mini">全显</button>
+   </div>
+   <div id="softDisplayTools" class="soft-display-tools" hidden>
+    <div class="soft-mode-row">
+     <button id="softModeFocus" type="button" class="active" aria-pressed="true">仅看牵拉肌与高危脉神</button>
+     <button id="softModeAll" type="button" aria-pressed="false">显示周边全部</button>
+    </div>
+    <label class="measure-row"><span>肌群分层剥离</span><output id="softDepthVal">全部肌层</output><input id="softDepthSlider" type="range" min="1" max="4" step="1" value="1" aria-label="肌群分层剥离"></label>
+    <div class="soft-clip-box">
+     <div class="soft-clip-head"><span>切面剖视（剖开软组织观深层）</span><select id="softClipAxis" aria-label="剖切方向"><option value="none">关闭剖视</option><option value="ap">前 → 后剖切</option><option value="pa">后 → 前剖切</option><option value="lat">外 → 内剖切</option><option value="axial">上 → 下横切</option></select></div>
+     <label id="softClipPosRow" class="measure-row" hidden><span>剖切深度</span><output id="softClipVal">50%</output><input id="softClipPos" type="range" min="5" max="95" step="1" value="50" aria-label="剖切深度"></label>
+    </div>
+    <label class="measure-row"><span>周边肌层透明度</span><output id="softOpacityVal">28%</output><input id="softMuscleOpacity" type="range" min="15" max="95" step="5" value="28"></label>
+    <label class="soft-inline-opt"><input id="softShowArrows" type="checkbox" checked> 显示 3D 肌力牵拉箭头</label>
+   </div>
+   <div id="softSeverityBox" class="soft-severity-box" hidden>
+    <div class="sev-head"><span>损伤幅度实时演算</span><small>对比轻重程度对软组织的破坏</small></div>
+    <div class="sev-pills" role="group" aria-label="损伤幅度预设">
+     <button type="button" data-severity="0.25">轻度移位</button>
+     <button type="button" data-severity="1" class="active">典型移位</button>
+     <button type="button" data-severity="1.6">重度致伤</button>
+    </div>
+   </div>
+   <p id="softStatus" class="hint" role="status" hidden></p>
+   <button id="softReturn" type="button" hidden>返回骨骼视图</button>
+   <div id="softDamageBox" class="soft-damage-box" hidden></div>
+   <div id="softLiveTelemetry" class="soft-telemetry" hidden></div>
+   <div id="softSelectedCard" class="soft-selected-card" hidden></div>
+   <div id="softImpactBox" class="soft-impact-box" hidden></div>
+   <div id="softStructureWrap" class="soft-structure-wrap" hidden>
+    <h4 class="soft-subhead">当前建模结构名录 <small>悬停或点选定位</small></h4>
+    <label class="search soft-search"><span aria-hidden="true">⌕</span><input id="softSearch" type="search" placeholder="筛选肌肉、血管、神经名" aria-label="筛选软组织结构"></label>
+    <div id="softFilterTabs" class="tabs soft-tabs"></div>
+    <div id="softStructureCount" class="soft-count"></div>
+    <div id="softStructureList" class="soft-structure-list"></div>
+   </div>
   </div>
-  <p id="softStatus" class="hint" role="status" hidden></p>
-  <button id="softReturn" type="button" hidden>返回骨骼视图</button>
  </details>
  <details id="advanced" hidden><summary>高级设置</summary>
  <section id="motionSettings" aria-labelledby="motionSettingsTitle" hidden><h3 id="motionSettingsTitle">参数调整</h3><label id="planeRow" class="measure-row" hidden><span>断面相对横断面倾角（演示）</span><output id="planeValue"></output><input id="plane" type="range" step="1"></label>
- <div id="quantBox"><h3>终点参数 <small>教学设定值</small></h3><div id="quantRows"></div></div>
- <details id="fragmentBox" hidden><summary>逐骨块调参</summary><label for="fragmentPick">活动骨块</label><select id="fragmentPick"></select><p class="hint">在分型轨迹的基础上，沿患者坐标轴追加平移和旋转。零值保留原轨迹，增量范围用于运动探索。</p><div id="fragmentRows"></div><button id="restoreFragment">还原全部骨块</button></details><details id="mechanicsBox"><summary>骨面接触与韧带约束</summary>
+ <div id="quantBox"><h3>终点参数 <small>调节幅度实时演算软组织损伤</small></h3><div id="quantRows"></div></div>
+ <details id="fragmentBox" hidden><summary>逐骨块调参</summary><label for="fragmentPick">活动骨块</label><select id="fragmentPick"></select><p class="hint">在分型轨迹的基础上，沿患者坐标轴追加平移和旋转。启用软组织时实时演算骨端撞击与撕裂风险。</p><div id="fragmentRows"></div><button id="restoreFragment">还原全部骨块</button></details><details id="mechanicsBox"><summary>骨面接触与韧带约束</summary>
 <p class="hint">检测到新骨面交叠时，播放停在接触前。</p>
 <div id="bandControls" hidden><label for="bandRule">韧带纤维束示意</label><select id="bandRule"><option value="released">自由运动 · 观察附着点间距</option><option value="held">限制纤维束的几何伸长</option></select><label class="measure-row">系带松弛余量 <output id="slackValue">10%</output><input id="slack" type="range" min="0" max="35" step="1" value="10"></label><small id="bandNames"></small></div>
 <label><input type="checkbox" id="drawConstraints"> 显示接触点与纤维方向</label><p class="hint">限位按离散时刻的骨面与教学系带求解。余量为教学设定，红点提示两骨相交处。</p></details><div id="liveValues" aria-label="当前帧详细读数"></div><p id="motionStatus" class="hint"></p></section>
@@ -71,4 +114,4 @@
  <div class="pair"><button id="normal">伤前</button><button id="play" class="primary">播放</button><button id="end">伤后</button></div>
  <div class="motion-actions"><button id="zoomMotion">断端特写</button><button id="captureFrame">截取当前帧</button></div>
  <p id="contactState" role="status"></p></div>
- </aside></main><dialog id="frameDialog"><form method="dialog"><button autofocus>返回模型</button><a id="saveFrame" download>保存 PNG</a><button id="removeFrame" type="button">移除这帧</button></form><div id="frameSheet" hidden></div><img id="framePreview" alt="截取的模型姿态"><p id="frameCaption"></p></dialog><script type="module" src="./app.js?v=tissue-motion1"></script></body></html>
+ </aside></main><dialog id="frameDialog"><form method="dialog"><button autofocus>返回模型</button><a id="saveFrame" download>保存 PNG</a><button id="removeFrame" type="button">移除这帧</button></form><div id="frameSheet" hidden></div><img id="framePreview" alt="截取的模型姿态"><p id="frameCaption"></p></dialog><script type="module" src="./app.js?v=limb-soft4"></script></body></html>

@@ -60,9 +60,10 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   input.min=min;input.max=Math.max(step,Math.ceil(max));input.step=step;
   const initial=limit(Number.isFinite(values[key])?values[key]:base,min,+input.max);
   input.value=initial;
-  const c={key,unit,value:values[key]===undefined?base:initial,read,base};
+  const c={key,unit,value:values[key]===undefined?base:initial,read,base,input,min,max:+input.max,step};
   const paint=()=>{read.textContent=format(c.value)+' '+unit;};
   paint();
+  c.paint=paint;
   input.oninput=()=>{c.value=+input.value;values[key]=c.value;paint();onEdit();};
   row.append(title,read,input);host.append(row);controls.push(c);
  }
@@ -91,8 +92,8 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    field(key,tagged[0].tuned==='wrist'&&!guidedWrist?'附加缩短':names[key],angular?'°':'mm',Math.round(defaults[key]*10)/10,angular?angleLimit:Math.min(60,Math.max(8,width*1.6)),angular?1:.5);
   }
  }else{
-  if(maxTravel>.02)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',targets.travel,Math.max(maxTravel*1.75,targets.travel),.5);
-  if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',targets.spin,Math.min(180,Math.max(maxSpin*1.75,targets.spin*1.3)),1);
+  if(maxTravel>.02)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',targets.travel,Math.max(maxTravel*1.9,targets.travel*1.65),.5);
+  if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',targets.spin,Math.min(180,Math.max(maxSpin*1.85,targets.spin*1.5)),1);
  }
  let maxDepth=0;
  function blendedDepth(blend){
@@ -278,5 +279,21 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  }
  const identity=new T.Quaternion();
  apply.footRoll=()=>val('footRoll',12);
+ apply.setSeverityScale=factor=>{
+  const scalable=new Set(['travel','spin','shorten','separate','side','angle','rotate','tilt','jointTwist','crush']);
+  let touched=false;
+  for(const c of controls){
+   if(!scalable.has(c.key))continue;
+   const next=factor===1?c.base:limit(Math.round((c.base*factor)/c.step)*c.step,c.min,c.max);
+   c.value=next;
+   c.input.value=next;
+   if(factor===1)delete values[c.key];
+   else values[c.key]=next;
+   c.paint();
+   touched=true;
+  }
+  if(touched)onEdit();
+  return touched;
+ };
  return apply;
 }

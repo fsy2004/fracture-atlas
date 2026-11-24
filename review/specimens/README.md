@@ -29,9 +29,9 @@
 
 VK 头部数据及其衍生骨面使用 CC BY-NC 4.0，适用于本项目的非商业教学用途。Halle 腭骨估计区使用 CC BY 4.0 的微 CT 与 CC BY-SA 2.1 Japan 的 BodyParts3D 形状先验，衍生区按 CC BY-SA 2.1 Japan 并列署名。其他数据按各自许可保留归属和修改记录。网页按需加载，离线单 HTML 内附许可归属。可用 `node tools/verify-specimen-library.mjs` 对实际分发文件及 201 个索引做校验。[补充模型清单](../../models/extended/manifest.json) · [VK 重建工具](../../tools/visible_korean/README.md)
 
-## 全身软组织依据与配准
+## 四肢软组织依据与配准
 
-- 采用 [Z-Anatomy 男性模型](https://www.z-anatomy.com/) 的 [Anatria3D 原始发布网格](https://github.com/Nurkan1/Anatria-3D)，CC BY-SA 4.0。以固定提交获取骨骼配套表面、肌肉、血管和神经四组 GLB。按实际空间分成头颈、躯干、上肢和下肢。逐节点保留 Draco 压缩数据和姿位，未重新减面。只把重复出现于不同系统的同名节点归入按序确定的主系统。保留 335 个配套骨节点、1,388 个肌肉层节点、676 个血管层节点及 582 个神经层节点。计数包括同一结构的分部。参见模型目录中的 NOTICE、来源哈希和区域清单。
-- [配准核验](soft-tissue-fit.json)比较了 24 块同名、同侧骨面。整体拟合后，对称最近邻距离的第 95 百分位在各骨约 3～8 mm。损伤视图针对当前骨面重新配准，双向检查健康骨面的中位及第 90 百分位误差。通过后，用骨块当前的空间变换和距骨段的连续权重驱动局部组织网格及标签。椎体场景的压缩驱动取自当前骨面形变。未达到配准标准时使用配套骨面显示伤前关系。三层可单独显隐。组织形变幅值用于空间示教，未做受压、撕裂或损伤概率的生物力学标定。
-- [Visible Human Male 下肢数据](https://digitalcommons.du.edu/visiblehuman/2/)有可核查的下肢肌群，适合做局部骨肌参考；覆盖范围、姿位和标注对象与全身血管神经图谱不同。[Human Reference Atlas](https://humanatlas.io/)可用于器官与血管坐标核对，数据按对象和性别发布。两者可作为后续对照来源。
-- 构建时向 `tools/build_soft_tissue_regions.py` 提供固定发布版本的四个原始 GLB、文件哈希清单及 NOTICE。源 Draco 三角面和材质分类依据由清单与资产测试验证。网页仅在软组织开关选中时下载对应资源。
+- 采用 [Z-Anatomy 男性模型](https://www.z-anatomy.com/) 的 [Anatria3D 原始发布网格](https://github.com/Nurkan1/Anatria-3D)，CC BY-SA 4.0。以固定提交获取骨骼配套表面、肌肉、血管和神经四组 GLB。按四肢骨伤教学范围筛选并剔除起止点贴片（`.o`/`.e`）、滑囊及大片深筋膜，同时提取每块肌肉的三维起止点质心写入清单，按六个临床亚区（肩带与上臂、肘与前臂、腕与手、髋与大腿、膝与小腿、踝与足）无减面重新打包。保留 128 个四肢配套骨节点、248 个独立肌肉本体节点、220 个血管节点及 166 个神经节点（合计约 6.12 MB），并全部配备标准中英文解剖词典与逐项点选/独显能力。参见模型目录中的 NOTICE、来源哈希和区域清单。
+- [配准核验](soft-tissue-fit.json)比较了 24 块同名、同侧骨面。整体拟合后，对称最近邻距离的第 95 百分位在各骨约 3～8 mm。单骨放大及损伤视图针对当前四肢骨面重新配准，双向检查健康骨面的中位及第 90 百分位误差。通过后，肌肉依起止点在近/远骨段及固定骨之间轴向形变并计算实时长度变化百分比，同步显示 3D 肌力牵拉箭头；血管与神经按断端/脱位骨头局部包络形变并实时提示受累偏移。三层与逐块结构均可单独显隐，支持「仅看牵拉肌与高危脉神」与「显示周边全部」切换。
+- [Visible Human Male 下肢数据](https://digitalcommons.du.edu/visiblehuman/2/)有可核查的下肢肌群，适合做局部骨肌参考；[Human Reference Atlas](https://humanatlas.io/)可用于器官与血管坐标核对。两者可作为后续对照来源。
+- 构建时向 `tools/build_soft_tissue_regions.py` 提供固定发布版本的四个原始 GLB、文件哈希清单及 NOTICE。源 Draco 三角面、零贴片/筋膜污染及 100% 中文词典覆盖由清单与 `tests/soft-tissue-assets.test.mjs` 自动验证。网页仅在选中四肢骨骼并启用软组织开关时按亚区按需下载对应资源。
