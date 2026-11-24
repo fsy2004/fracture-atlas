@@ -13,13 +13,24 @@ import {nativeAnchor} from '../surface-lessons.js';
 
 const load=name=>fs.readFileSync(new URL('../models/'+name,import.meta.url));
 const index=JSON.parse(load('index.json')),details=JSON.parse(load('detail.json'));
-const compressed=load('detail.bin.gz');
-const meshes=await decodeSurfaces(details,compressed.buffer.slice(compressed.byteOffset,compressed.byteOffset+compressed.byteLength));
+const regionDirectory=JSON.parse(load('detail-regions.json'));
+const meshes=new Map(),regionRaw=new Map();
+for(const [regionName,part] of Object.entries(regionDirectory)){
+ const compressed=load(part.file);
+ assert.equal(compressed.length,part.bytes,regionName);
+ assert.equal(createHash('sha256').update(compressed).digest('hex'),part.sha256,regionName);
+ const raw=gunzipSync(compressed);
+ regionRaw.set(regionName,{part,raw});
+ const entries=details.entries
+  .filter(entry=>Object.hasOwn(part.offsets,entry.mesh))
+  .map(entry=>({...entry,offset:part.offsets[entry.mesh]}));
+ const decoded=await decodeSurfaces({...details,entries},compressed.buffer.slice(compressed.byteOffset,compressed.byteOffset+compressed.byteLength));
+ for(const [id,geo] of decoded)meshes.set(id,geo);
+}
 test('every indexed male bone resolves to its verified higher-resolution surface',()=>{
- assert.equal(createHash('sha256').update(gunzipSync(compressed)).digest('hex'),details.buffer_sha256);
  assert.equal(meshes.size,index.length);
  for(const bone of index){
-  const mesh=meshes.get(bone.mesh);assert.ok(mesh, bone.name);
+  const mesh=meshes.get(bone.mesh);assert.ok(mesh,bone.name);
   assert.ok(mesh.attributes.position.array.every(Number.isFinite),bone.name);
   assert.ok(mesh.index.array.every(i=>i<mesh.attributes.position.count),bone.name);
  }
@@ -45,16 +56,18 @@ for(const side of ['Right','Left'])test(side+' native wrist preserves its intend
 });
 
 test('all native meshes share one world transform and retain the released source coordinates',()=>{
- const packed=gunzipSync(compressed);
- for(const m of details.entries){
-  const g=meshes.get(m.mesh),attr=g.attributes.position;
-  const file=packed.subarray(m.offset,m.offset+m.vertices*12);
-  assert.equal(createHash('sha256').update(file).digest('hex'),m.native_xyz_sha256);
-  const raw=new Float32Array(file.buffer,file.byteOffset,file.length/4);
-  for(let j=0;j<raw.length;j++)assert.ok(Math.abs(attr.array[j]*1000-raw[j]-details.display_offset_mm[j%3])<.00015);
-  if(m.head_fit){
-   assert.ok(m.head_fit.fitted_vertices>100&&m.head_fit.patch_rms_mm<1.5);
-   assert.ok(m.head_fit.radius_mm>15&&m.head_fit.radius_mm<32);
+ for(const {part,raw:packed} of regionRaw.values()){
+  for(const [meshId,offset] of Object.entries(part.offsets)){
+   const m=details.entries.find(e=>e.mesh===meshId);
+   const g=meshes.get(m.mesh),attr=g.attributes.position;
+   const file=packed.subarray(offset,offset+m.vertices*12);
+   assert.equal(createHash('sha256').update(file).digest('hex'),m.native_xyz_sha256);
+   const raw=new Float32Array(file.buffer,file.byteOffset,file.length/4);
+   for(let j=0;j<raw.length;j++)assert.ok(Math.abs(attr.array[j]*1000-raw[j]-details.display_offset_mm[j%3])<.00015);
+   if(m.head_fit){
+    assert.ok(m.head_fit.fitted_vertices>100&&m.head_fit.patch_rms_mm<1.5);
+    assert.ok(m.head_fit.radius_mm>15&&m.head_fit.radius_mm<32);
+   }
   }
  }
 });

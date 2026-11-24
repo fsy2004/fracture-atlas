@@ -112,7 +112,7 @@ canvas{display:block;touch-action:none}
 /* Stage overlays */
 .stage-title,.stage-foot,#labels,#tip,#status{position:absolute;pointer-events:none;z-index:1}
 #markLayer{position:absolute;pointer-events:none;z-index:2}
-.stage-title{top:clamp(24px,4vh,44px);left:4.2%;max-width:58%}
+.stage-title{top:48px;left:clamp(22px,3.2vw,42px);max-width:58%}
 .stage-title small{font-size:12px;color:#426a5b;letter-spacing:.11em;font-weight:500}
 .stage-title h2{font:600 clamp(27px,3.6vw,54px)/1.22 var(--serif);letter-spacing:.04em;margin:6px 0;color:#1d3930}
 .in-lesson .stage-title h2{font-size:clamp(24px,3.1vw,44px)}

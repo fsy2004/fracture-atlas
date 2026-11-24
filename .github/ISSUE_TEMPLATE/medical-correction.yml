@@ -1,0 +1,30 @@
+name: 医学知识与考点纠错
+description: 反馈骨折分型、解剖名称、肌肉牵拉移位机制、血管神经损伤或教材考点错误
+title: "[医学纠错] "
+labels: ["medical", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢帮助完善《中医骨伤科学》3D 骨骼与软组织图谱！请尽量标明具体骨骼、分型及参考教材或文献依据。
+  - type: input
+    id: target
+    attributes:
+      label: 涉及的骨骼 / 分型 / 软组织名称
+      placeholder: 例如：右股骨干骨折 · 上 1/3 骨折 / 桡神经 / 臀中肌
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: 当前页面内容与问题描述
+      placeholder: 请描述页面中不准确或需要补充的表述、移位方向、受累血管神经或考点。
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建议修改内容与参考依据
+      placeholder: 例如：《中医骨伤科学》（十四五规划教材）第 X 章 / 临床指南 / 解剖学依据
+    validations:
+      required: false

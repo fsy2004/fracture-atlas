@@ -2,20 +2,24 @@ import {readFileSync,writeFileSync} from 'node:fs';
 import {posix} from 'node:path';
 const root=new URL('../',import.meta.url),modules=new Set();
 function scan(path){
- if(modules.has(path))return;
- modules.add(path);
- const input=readFileSync(new URL(path,root),'utf8');
+ const clean=path.split('?')[0];
+ if(modules.has(clean))return;
+ modules.add(clean);
+ const input=readFileSync(new URL(clean,root),'utf8');
  for(const [,dependency] of input.matchAll(/\b(?:from|import)\s+['"](\.[^'"]+)['"]/g)){
-  scan(posix.normalize(posix.join(posix.dirname(path),dependency)));
+  scan(posix.normalize(posix.join(posix.dirname(clean),dependency)));
  }
 }
 const page=readFileSync(new URL('index.html',root),'utf8');
 const application=page.match(/<script type="module" src="\.\/([^"]+)"/)[1];
 const stylesheet=page.match(/<link rel="stylesheet" href="\.\/([^"]+)"/)[1];
+const detailRegions=JSON.parse(readFileSync(new URL('models/detail-regions.json',root),'utf8'));
+const regionFiles=Object.values(detailRegions).map(part=>'models/'+part.file+'?native-f32-v1').sort();
 for(const module of [application,'contact-worker.js'])scan(module);
 const assets=[
  './','index.html',stylesheet,'models/index.json','models/bones.bin',
- 'models/detail.json?native-f32-v1','models/detail.bin.gz?native-f32-v1',
+ 'models/detail.json?native-f32-v1','models/detail-regions.json?native-f32-v1',
+ ...regionFiles,
  'models/vhm/manifest.json','models/extended/manifest.json','models/extended/canal.json',
  ...[...modules].sort()
 ];

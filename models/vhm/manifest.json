@@ -278,10 +278,10 @@
       "triangles": 217404,
       "previous_triangles": 12990,
       "packed_bytes": 2135602,
-      "packed_raw_sha256": "0a843493f03b9bd8063c2043007daca43be4857568af6ffc8973c762bb11b8be",
+      "packed_raw_sha256": "984e2892f361adb6287f0a49b997f1457b404a5f9ea350ec24871152f7bbb3ab",
       "stl_sha256": "a69956bf5caa6fb04529c64e8ea507ff9ee77c0d51d1fae3de60661410d55661",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/FEMUR_RIGHT.stl",
-      "sha256": "76d8fd6c8718ed6adb3c60e62e61e82aa02872c052bd63bb37d3cf931b4515aa",
+      "sha256": "7cfce9dbaef20aca8af0012f198b3286dc4d0a80c9328f230d887626362dfd8a",
       "bounds_m": [
         [
           -0.16501717269420624,
@@ -302,7 +302,10 @@
         -0.02764894340786456
       ],
       "head_fit_rms_mm": 0.33,
-      "head_radius_mm": 25.56
+      "head_radius_mm": 25.56,
+      "original_vertices": 108704,
+      "original_triangles": 217404,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right tibia",
@@ -314,10 +317,10 @@
       "triangles": 153136,
       "previous_triangles": 6850,
       "packed_bytes": 1479608,
-      "packed_raw_sha256": "a5138d7c89d8ae3c371cfd8d1ef75b51b3d170e6f559f131e6bbf677843f4faf",
+      "packed_raw_sha256": "c74d8fda054e67a5732f5bdd135bc2e371274906a4801d1ec05d14bd7c425e89",
       "stl_sha256": "a88be4d8cb5ca0e6b9d285af788636ba5d9f3ae96cba37575330a35a2dd4d500",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/TIBIA_RIGHT.stl",
-      "sha256": "846e990957b2058c0926a2d4479fda146c6e49fb47a536f366b4fe24e55bafb6",
+      "sha256": "33d0904f7bf755d6a668753dcd308564f7e66b632d6f573036c41bd9bdb8a0bd",
       "bounds_m": [
         [
           -0.1225072592496872,
@@ -331,7 +334,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 5.74,
-      "donor_to_atlas_surface_sample_p95_mm": 62.11
+      "donor_to_atlas_surface_sample_p95_mm": 62.11,
+      "original_vertices": 76570,
+      "original_triangles": 153136,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right fibula",
@@ -343,10 +349,10 @@
       "triangles": 57344,
       "previous_triangles": 4622,
       "packed_bytes": 538701,
-      "packed_raw_sha256": "8e0bdc22b7ebc4ac76517c9618272b2b78063272f7ed9aee99475036306c73a9",
+      "packed_raw_sha256": "7db8e2773dbfa19f21ef9137231bf7cd5234f9ffc0c9940526ab0bc86b04acc6",
       "stl_sha256": "49212545569f7170636a7abc81a5807abf11e50c5f158e097419067ab5949f08",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/FIBULA_RIGHT.stl",
-      "sha256": "5e6fa95719da7b280c1f7452de704f288823252974485694fe4745f9b13e173e",
+      "sha256": "c269dacc6255e3f0a62bf055adafacc2156660ea54a17fefa8e4b5774d58045d",
       "bounds_m": [
         [
           -0.13518476486206055,
@@ -360,7 +366,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 6.17,
-      "donor_to_atlas_surface_sample_p95_mm": 56.1
+      "donor_to_atlas_surface_sample_p95_mm": 56.1,
+      "original_vertices": 28674,
+      "original_triangles": 57344,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right patella",
@@ -372,10 +381,10 @@
       "triangles": 14984,
       "previous_triangles": 1334,
       "packed_bytes": 141275,
-      "packed_raw_sha256": "503a70f46b2a69b0c70d0d43ff80501ce7b74896db592eeba90dde0da67693f3",
+      "packed_raw_sha256": "64ef3eb92e2368dc64501059007386753ef193db4f29ace27c48ffe047d00c23",
       "stl_sha256": "78bdfb420100a05b8adb7e7e856d29b2170b326265b3d9f70a9ec78510eef9ad",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/PATELLA_RIGHT.stl",
-      "sha256": "f72371b8428eb0d09e66b32c6773835ab2ab20cea08e57f5071a73c14cb3fcba",
+      "sha256": "24fc00df53653b1e45c753f87cfb502edccc87c2eecade3caf6fcfc3c1d6fe85",
       "bounds_m": [
         [
           -0.10134205222129822,
@@ -389,7 +398,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 13.5,
-      "donor_to_atlas_surface_sample_p95_mm": 24.57
+      "donor_to_atlas_surface_sample_p95_mm": 24.57,
+      "original_vertices": 7494,
+      "original_triangles": 14984,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right hip bone",
@@ -401,10 +413,10 @@
       "triangles": 201832,
       "previous_triangles": 9716,
       "packed_bytes": 1958296,
-      "packed_raw_sha256": "1a61f5bd627346f9faba30245c3eb6d8937d9c1d34482a3c3cb19ab6d830e1a1",
+      "packed_raw_sha256": "64456f1080a2a237e060bf8f900dc45996e100bb6232b7fde0b68db95caa42a7",
       "stl_sha256": "9f4d7253b0aad2ab861f09c963f19db5c91f74ebb0df56d2a08aade56dd2473d",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_RIGHT/HIP_RIGHT.stl",
-      "sha256": "db5f21b59d31a80a1476d1dae01c3bb165f6a463681bbb7b642d4c9f30d20381",
+      "sha256": "2be23bd4cd3779ebf9063d79767455180a49214ceee3744ef1273fbac2c27d9a",
       "bounds_m": [
         [
           -0.15608006715774536,
@@ -418,7 +430,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 23.61,
-      "donor_to_atlas_surface_sample_p95_mm": 48.28
+      "donor_to_atlas_surface_sample_p95_mm": 48.28,
+      "original_vertices": 100916,
+      "original_triangles": 201832,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right clavicle",
@@ -430,10 +445,10 @@
       "triangles": 30644,
       "previous_triangles": 5112,
       "packed_bytes": 281114,
-      "packed_raw_sha256": "f976e3fa98805134010895d3b411c178d8ab75af56d217a07b59d811d7a06bbb",
+      "packed_raw_sha256": "551ccd7798aa5c076bab60706c37fff188159dd8b8cf723416a73b4e995f54be",
       "stl_sha256": "6c3a31562cf72df4d6aafd6d2c78a049aa83a5606ff0ad10468b30ac8eb7df6f",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_RIGHT/CLAVICLE_RIGHT.stl",
-      "sha256": "bd17276423ced12e0c654208e96790c60e49c853a2734ad37c63c32fdb25e78e",
+      "sha256": "06b613b1f15dbf3bd3ebc0d3222c4bf39eda9dfcb9654639f3d604206e17bba1",
       "bounds_m": [
         [
           -0.15359580516815186,
@@ -447,7 +462,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.85,
-      "donor_to_atlas_surface_sample_p95_mm": 10.54
+      "donor_to_atlas_surface_sample_p95_mm": 10.54,
+      "original_vertices": 15324,
+      "original_triangles": 30644,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right scapula",
@@ -459,10 +477,10 @@
       "triangles": 132668,
       "previous_triangles": 113256,
       "packed_bytes": 1268175,
-      "packed_raw_sha256": "523642e1b2b75d675f4e6bec88d55b602720557fbae04c4e026d361f7eb8dc98",
+      "packed_raw_sha256": "ccdfb31e8dc7250b5e3261bb01c171e2d4b3d1caad2f54ffacde51fdb4a212e8",
       "stl_sha256": "a251d9cdd21539feb91322408886035eea647c509e6d8bd2ae96a3f0be8d0e80",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_RIGHT/SCAPULA_RIGHT.stl",
-      "sha256": "26741e03870034757b0f2221600611cdfdaa30e300a232d1993c21ee01d2350a",
+      "sha256": "70718d0392ca3f86544ccfecf0e06dd473f2967c3fdf5a7bef841842b2d3d934",
       "bounds_m": [
         [
           -0.1826147735118866,
@@ -476,7 +494,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.41,
-      "donor_to_atlas_surface_sample_p95_mm": 14.44
+      "donor_to_atlas_surface_sample_p95_mm": 14.44,
+      "original_vertices": 66336,
+      "original_triangles": 132668,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left femur",
@@ -488,10 +509,10 @@
       "triangles": 218824,
       "previous_triangles": 13202,
       "packed_bytes": 2159317,
-      "packed_raw_sha256": "fd45e57f4859f50d931e1552a946d4d0c48a5d996d2e63def59f99f8c76f537e",
+      "packed_raw_sha256": "d3b93706b208de4687805578e81421f8a37ab270f82cd260b926974188f5a073",
       "stl_sha256": "b20aaef389d7548e17646ce91416bc8537d51bd6b7da22dda2fc77175f073902",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/FEMUR_LEFT.stl",
-      "sha256": "184d5d283db9001a6314b15fa43f444e4fd4f89b85666462db5af1935cf7c6ee",
+      "sha256": "0d5b1eafe07dfd6fea705d156db75b995020a6fec789e65e35e58431af100a53",
       "bounds_m": [
         [
           0.026372713968157768,
@@ -512,7 +533,10 @@
         -0.025913081381153485
       ],
       "head_fit_rms_mm": 0.29,
-      "head_radius_mm": 25.82
+      "head_radius_mm": 25.82,
+      "original_vertices": 109414,
+      "original_triangles": 218824,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left tibia",
@@ -524,10 +548,10 @@
       "triangles": 155956,
       "previous_triangles": 6822,
       "packed_bytes": 1526869,
-      "packed_raw_sha256": "584b814f20dfb43f8411f4c75bc79430cf763fdf8d3a54a3a5890ea147156ed6",
+      "packed_raw_sha256": "9e65509a56a4e6e26f905b7e1dee39fa137637df877569ec2015870dff05e6d4",
       "stl_sha256": "91edad75ac19c9b6a6a6b6dd091b4b3f0203d6fad2518ec1386ecf56cea1f98e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/TIBIA_LEFT.stl",
-      "sha256": "f55ae09a4d4d733d6acd1cb07610174507c754c5529224eea4da65bb00220f69",
+      "sha256": "38eeedd36aeb3a4a91a703b3253f794392d601a17fc1fdcd7a5f395c71a51308",
       "bounds_m": [
         [
           0.037052251398563385,
@@ -541,7 +565,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 6.14,
-      "donor_to_atlas_surface_sample_p95_mm": 65.38
+      "donor_to_atlas_surface_sample_p95_mm": 65.38,
+      "original_vertices": 77980,
+      "original_triangles": 155956,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left fibula",
@@ -553,10 +580,10 @@
       "triangles": 59108,
       "previous_triangles": 4544,
       "packed_bytes": 565046,
-      "packed_raw_sha256": "1675a663e691f038f31c276a522dde636fa59cdb503743897dc2254d90f6a302",
+      "packed_raw_sha256": "8a4e204a5a015550161548ed2898da6367698fcfdc65f215910522bec974a81b",
       "stl_sha256": "29ef584e6b747b23b23fe00f744cfa0b04087c0323c3f28d66e6ecaddb2a0041",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/FIBULA_LEFT.stl",
-      "sha256": "c1c84271788836c5923c2b3316e3ffd24f3e8995f4e9c1207015a77dc77bc631",
+      "sha256": "da4de7cf6b57b3462f0a1bab2b83ff93c52a7ee15b7527fa00aebc872e6cfbff",
       "bounds_m": [
         [
           0.08932821452617645,
@@ -570,7 +597,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 6.26,
-      "donor_to_atlas_surface_sample_p95_mm": 55.29
+      "donor_to_atlas_surface_sample_p95_mm": 55.29,
+      "original_vertices": 29556,
+      "original_triangles": 59108,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left patella",
@@ -582,10 +612,10 @@
       "triangles": 14636,
       "previous_triangles": 1338,
       "packed_bytes": 137027,
-      "packed_raw_sha256": "72e5d9e5b0112164454733230afb17a3c6a5e3283b4d56d137c25d0e401f3eea",
+      "packed_raw_sha256": "ff3253a716af9f22e263244abd76de17d551f6041b5f0c9160817e2b328c3d88",
       "stl_sha256": "60ee654432ece9a38269d3b90a96816ee48ce39dc7bdedc2ba424e5a72ad6461",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/PATELLA_LEFT.stl",
-      "sha256": "ad602faf8766d28d2d2bf8102ad4ab870e7828c68a9fad77f8801d9e5c3e551b",
+      "sha256": "aa9f8ec36ae9cae8bdd6a6e57d783f276ffb4acf102052842d037c040b9e7536",
       "bounds_m": [
         [
           0.052063699811697006,
@@ -599,7 +629,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 11.84,
-      "donor_to_atlas_surface_sample_p95_mm": 23.46
+      "donor_to_atlas_surface_sample_p95_mm": 23.46,
+      "original_vertices": 7320,
+      "original_triangles": 14636,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left clavicle",
@@ -611,10 +644,10 @@
       "triangles": 31300,
       "previous_triangles": 5140,
       "packed_bytes": 284656,
-      "packed_raw_sha256": "16bad7308b3b4597c67e1bdda4e47324fac43c57ed3eda0b34eff0c88b8cf051",
+      "packed_raw_sha256": "2210ef462726c5e9214a701bcff7c80c07fa20c12778cc57e2ee23d73da3633d",
       "stl_sha256": "0eb2e02ed6bed3228a5d962c3a9cb48c572bb13ffdc6394d74dfdf6495712cf1",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_LEFT/CLAVICLE_LEFT.stl",
-      "sha256": "2abfdc84dc9a855031f094c1f97ff19c028ce29816422d495a78c0e08f5bc3c0",
+      "sha256": "9e5417bb2384d72108bc53875d4a7b8fcfc67b97965b24dd871d219cd0946df7",
       "bounds_m": [
         [
           0.00905895046889782,
@@ -628,7 +661,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.23,
-      "donor_to_atlas_surface_sample_p95_mm": 13.24
+      "donor_to_atlas_surface_sample_p95_mm": 13.24,
+      "original_vertices": 15652,
+      "original_triangles": 31300,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left scapula",
@@ -640,10 +676,10 @@
       "triangles": 131868,
       "previous_triangles": 121816,
       "packed_bytes": 1287394,
-      "packed_raw_sha256": "7679ca7309e0ffa8a4503db1ea7db87731b7d0c3313251523c68171152fe966c",
+      "packed_raw_sha256": "f80d01bc56a12071688140f6af11f6a7388e888c1255d88b5241236482c97215",
       "stl_sha256": "f4f0d2abf99c2c1414fa9753ec9365b3fa59f53479d5cb9e46b8f0dadc4f4d61",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/UPPER_EXTREMITY_LEFT/SCAPULA_LEFT.stl",
-      "sha256": "b8203c43cee1356eb5014b2ef870b842a947dbb7f0335ef6c701a03a6815b732",
+      "sha256": "858f77c6b28c4bd2f52094cee7b39ba83a1c80a4f0b8dadc1d177b9020820a8e",
       "bounds_m": [
         [
           0.054847728461027145,
@@ -657,7 +693,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.13,
-      "donor_to_atlas_surface_sample_p95_mm": 16.02
+      "donor_to_atlas_surface_sample_p95_mm": 16.02,
+      "original_vertices": 65936,
+      "original_triangles": 131868,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left calcaneus",
@@ -669,10 +708,10 @@
       "triangles": 37620,
       "previous_triangles": 5652,
       "packed_bytes": 361577,
-      "packed_raw_sha256": "c9286e3cdae0bd5595953975a54c6ae130dfbbbbaaa439a4c7294d80514e00f9",
+      "packed_raw_sha256": "af166f06b29a72cabbc9bed5a42cd661b9cc75df45ed9ca468050b1ca4a66615",
       "stl_sha256": "d5c031f6f1f0fec47ccaaa1a07cfbb2b5167178eedf5d03a9e28ab58182f1df2",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/CALCANEUS_LEFT.stl",
-      "sha256": "5cbdad06b68581e6efd4092804b51839ee4e826c631d07f5e8b87e74b607125d",
+      "sha256": "d6b249a97b0afe913f9beaff8a49c916caed23b0764163ac7b98e896b3d67a10",
       "bounds_m": [
         [
           0.0526144839823246,
@@ -686,7 +725,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 53.59,
-      "donor_to_atlas_surface_sample_p95_mm": 72.85
+      "donor_to_atlas_surface_sample_p95_mm": 72.85,
+      "original_vertices": 18812,
+      "original_triangles": 37620,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left cuboid bone",
@@ -698,10 +740,10 @@
       "triangles": 11000,
       "previous_triangles": 3804,
       "packed_bytes": 104375,
-      "packed_raw_sha256": "dc9e09874537e3c9bf04be2e851c9985e7096dab38bc412a0cc85a7c7233ee21",
+      "packed_raw_sha256": "501235b9ba6d2862f832fde67a3a9a362e0ac2edbbee275e5b710c9c5f8b12a6",
       "stl_sha256": "4b21d73057241923177f162e74fa899f2183878d8e5eacd674dae03a4e770f0c",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/CUBOID_LEFT.stl",
-      "sha256": "dce6bf7abd2e52332c27bec80b146f30e0b028f464dd2727bffe86fa3ad200b5",
+      "sha256": "9ccfd14a9d41ebacc5419a54ab32a511ef5ec2d085f81fb93a4adf75def028f9",
       "bounds_m": [
         [
           0.058279044926166534,
@@ -715,7 +757,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 93.82,
-      "donor_to_atlas_surface_sample_p95_mm": 107.57
+      "donor_to_atlas_surface_sample_p95_mm": 107.57,
+      "original_vertices": 5502,
+      "original_triangles": 11000,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left intermediate cuneiform bone",
@@ -727,10 +772,10 @@
       "triangles": 4864,
       "previous_triangles": 2106,
       "packed_bytes": 45837,
-      "packed_raw_sha256": "7cc04681dce90261dd415bd98604739c28149d0116565adc4b66f13581cd4dd0",
+      "packed_raw_sha256": "ca2d6bb881f9654908f889c7259d3ae651f825d0328953d85f33213209957e78",
       "stl_sha256": "c4c0a173439179edf31f303177554c5b0f0069b9f9ffbb3d88cbe0e715d96b87",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/INTERMEDIATE_CUNEIFORM_LEFT.stl",
-      "sha256": "3084a68bd62268010ee58e5033bcdf1a44301625a52f8e097f77ed79de6b1933",
+      "sha256": "7db5f948da4f956ee8facaec9f1144252752d81686bff4b9cc90e85ae79775b9",
       "bounds_m": [
         [
           0.04858837276697159,
@@ -744,7 +789,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 96.89,
-      "donor_to_atlas_surface_sample_p95_mm": 106.3
+      "donor_to_atlas_surface_sample_p95_mm": 106.3,
+      "original_vertices": 2434,
+      "original_triangles": 4864,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left lateral cuneiform bone",
@@ -756,10 +804,10 @@
       "triangles": 6668,
       "previous_triangles": 2968,
       "packed_bytes": 63126,
-      "packed_raw_sha256": "1b8c679f03f484831c75c35761772615b756b7ae054c9dee7ee9c0db99d80dd4",
+      "packed_raw_sha256": "6ad0e565e61ed1aabb4c2250a644b42f87f139b42ab83aa697429dc0f8095c68",
       "stl_sha256": "c8439fc735d77c4b050914f2567a17c2efc7eedaf02673d7070d77f83fbac0be",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/LATERAL_CUNEIFORM_LEFT.stl",
-      "sha256": "d0e9ea3d591d0bf0e9726f109d13f24207420c2f301a8a02152cc20269d56a11",
+      "sha256": "d54b19dd6de6eda989f6707e6c386cf1e206da2e37333cb9a91d78b8cc986892",
       "bounds_m": [
         [
           0.051451072096824646,
@@ -773,7 +821,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 99.52,
-      "donor_to_atlas_surface_sample_p95_mm": 109.83
+      "donor_to_atlas_surface_sample_p95_mm": 109.83,
+      "original_vertices": 3336,
+      "original_triangles": 6668,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left medial cuneiform bone",
@@ -785,10 +836,10 @@
       "triangles": 9308,
       "previous_triangles": 4210,
       "packed_bytes": 89389,
-      "packed_raw_sha256": "0aafac56b6d446a434f24a08add55168e32541ac45e3dc8dcb9fc83321440e70",
+      "packed_raw_sha256": "d3d68ae5832a4073785354bbec12a4ebc80095e131bb334e8ed2b931a688002f",
       "stl_sha256": "e4ec5526df626569ae8b82b9bcec2c8d84b310a5ae37219e87a5ef6d71ddf948",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/MEDIAL_CUNEIFORM_LEFT.stl",
-      "sha256": "596ca02ec860b3f5500b7dbaf4539e863b522587227ef6b81f2578e6109371d4",
+      "sha256": "f4b4c29502683c4d03e8d3df9d8f556eafd6e68e0c0ff9690f31366309a5190e",
       "bounds_m": [
         [
           0.029372887685894966,
@@ -802,7 +853,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 87.51,
-      "donor_to_atlas_surface_sample_p95_mm": 100.47
+      "donor_to_atlas_surface_sample_p95_mm": 100.47,
+      "original_vertices": 4656,
+      "original_triangles": 9308,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left first metatarsal bone",
@@ -814,10 +868,10 @@
       "triangles": 15876,
       "previous_triangles": 4860,
       "packed_bytes": 151181,
-      "packed_raw_sha256": "bf716a8b510403506c8f4dde5033070701fa3f6848d9b37a5c9f7e499c5d53b0",
+      "packed_raw_sha256": "cb634281110061d96b6e65e3c8475e04997519d5989450d1fa3528cc1f23173d",
       "stl_sha256": "4810097881282d5d194d256df2a8140c764ed65fad0a9f4047ee5393d607974c",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_1_LEFT.stl",
-      "sha256": "e0abbb07b325d370db0cc70eab6a6930b8492abc93122c5f80dcc92d4a617b5d",
+      "sha256": "d5eaa7fb5ac3ab779d4d954ef7eadda7ff5d1d391455cf1c151777f4da4e930d",
       "bounds_m": [
         [
           -0.014776443131268024,
@@ -831,7 +885,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 109.31,
-      "donor_to_atlas_surface_sample_p95_mm": 133.59
+      "donor_to_atlas_surface_sample_p95_mm": 133.59,
+      "original_vertices": 7940,
+      "original_triangles": 15876,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left second metatarsal bone",
@@ -843,10 +900,10 @@
       "triangles": 11468,
       "previous_triangles": 3388,
       "packed_bytes": 106691,
-      "packed_raw_sha256": "c770d47c8ac0fc94c6eafffe1c36fa3f483f8a75bdf55c2c6b428c17d6084730",
+      "packed_raw_sha256": "2116e601cf17dd22d78736fdd6e349d7f65fa022fac9d24eed7104a837f4a790",
       "stl_sha256": "d6d603a3321d2fcaba9a2a8fb9f09816f0811b060f21a055e5e3367a45e16ace",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_2_LEFT.stl",
-      "sha256": "03fbbc00ebee223531d8ed2e42357527691729783c8cb26d4a283d7475b7d5f0",
+      "sha256": "4a022dd5e912169975a7619622b0e32b95b2e4d3d0a1b23254b170cafbdcace7",
       "bounds_m": [
         [
           0.006200387142598629,
@@ -860,7 +917,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 113.07,
-      "donor_to_atlas_surface_sample_p95_mm": 147.41
+      "donor_to_atlas_surface_sample_p95_mm": 147.41,
+      "original_vertices": 5736,
+      "original_triangles": 11468,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left third metatarsal bone",
@@ -872,10 +932,10 @@
       "triangles": 10712,
       "previous_triangles": 3228,
       "packed_bytes": 100455,
-      "packed_raw_sha256": "a85aece161406d8199d2f13d86cb506a2e77a187fd6709ab160166f0d53ac46b",
+      "packed_raw_sha256": "fe380d8ffdc5dfdcda249fa69c3e9d661f197ded226b4b04dd886d9cae4c2eb4",
       "stl_sha256": "3dfe5f99c8703b3edc24b26ece4df322d2194ac612a9a97f2624af450988e677",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_3_LEFT.stl",
-      "sha256": "9b619978e14ecd1e5166279076f7fb055d42e3f47479ba27a819fe90660e1e57",
+      "sha256": "593cc5ef943fe5528c884fb00d114e47dbbbb8fafd14d4dedfc32c8a04963ec8",
       "bounds_m": [
         [
           0.019192423671483994,
@@ -889,7 +949,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 121.97,
-      "donor_to_atlas_surface_sample_p95_mm": 153.7
+      "donor_to_atlas_surface_sample_p95_mm": 153.7,
+      "original_vertices": 5358,
+      "original_triangles": 10712,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left fourth metatarsal bone",
@@ -901,10 +964,10 @@
       "triangles": 10436,
       "previous_triangles": 3118,
       "packed_bytes": 99335,
-      "packed_raw_sha256": "a3527072eb7cb9fe05636204e7d10c9c48f98a394bd5ce0c4f49157dfa39d59b",
+      "packed_raw_sha256": "f7cba93793b117d0e83123f515ef1be7775d8a3c802bab92deccdf4e1b080839",
       "stl_sha256": "c17afa641d8c3d5aa2a7cbcba0ce0d12862fb1a75340c8ae8db4d9015ca28961",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_4_LEFT.stl",
-      "sha256": "e820034083313a762a88afb8f876b196a8c825abaa11943bb15b12a5e7211e5a",
+      "sha256": "b6614862fcb23c06e752428940a17184adb624298ff13b9e314b7cced02e4675",
       "bounds_m": [
         [
           0.03380756452679634,
@@ -918,7 +981,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 125.12,
-      "donor_to_atlas_surface_sample_p95_mm": 154.18
+      "donor_to_atlas_surface_sample_p95_mm": 154.18,
+      "original_vertices": 5220,
+      "original_triangles": 10436,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left fifth metatarsal bone",
@@ -930,10 +996,10 @@
       "triangles": 10636,
       "previous_triangles": 3688,
       "packed_bytes": 101607,
-      "packed_raw_sha256": "15537f5fce343404f1a6e8b806100c7e245f94c3444d1503e503434d301ec3bd",
+      "packed_raw_sha256": "3eea86d57c921424dc59713b0e999410d207006756a0779199f56b7b75a37a96",
       "stl_sha256": "5683ce2e75d235735d5dd822afc57ab31d2fc452e84c9d74827384b0620e945c",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/METATARSAL_5_LEFT.stl",
-      "sha256": "b65479144ac270fcfce969cf72b99d80a2948e70ba6dbbeb3a7f59e9bd536a87",
+      "sha256": "b6343bf0a774c897792254da0ffa4f367844bf9c2281dfcaee44a4532ddcec0b",
       "bounds_m": [
         [
           0.05251016095280647,
@@ -947,7 +1013,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 124.29,
-      "donor_to_atlas_surface_sample_p95_mm": 149.45
+      "donor_to_atlas_surface_sample_p95_mm": 149.45,
+      "original_vertices": 5320,
+      "original_triangles": 10636,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Navicular bone of left foot",
@@ -959,10 +1028,10 @@
       "triangles": 10528,
       "previous_triangles": 3096,
       "packed_bytes": 100483,
-      "packed_raw_sha256": "688ec8c3d0a9edb8797c62779fd439c139a8156f4daf2623c6816b168b8c588e",
+      "packed_raw_sha256": "3e1c8ad8c6e68bb85b9d0709419323d4b3bc32cede81429c5b7389ebf19210ca",
       "stl_sha256": "10a85c7823c37fc81a715d0a2194185108f649897ed735fde6c81c4348e0193d",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/NAVICULAR_LEFT.stl",
-      "sha256": "9c736de071f93d8f897584827dd8f3fdd2b3132675b5c3723424d07e2fd0d157",
+      "sha256": "89a253572451ce429f7baaf57816fca39a38301da7abd4fcd87a86b1caf240e9",
       "bounds_m": [
         [
           0.03917757049202919,
@@ -976,7 +1045,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 83.43,
-      "donor_to_atlas_surface_sample_p95_mm": 93.21
+      "donor_to_atlas_surface_sample_p95_mm": 93.21,
+      "original_vertices": 5266,
+      "original_triangles": 10528,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left talus",
@@ -988,10 +1060,10 @@
       "triangles": 24772,
       "previous_triangles": 5924,
       "packed_bytes": 239090,
-      "packed_raw_sha256": "47faa523e6a0ef4b580f8be994ee3b67a28c881b6ce5c20a3fec1beb559c6634",
+      "packed_raw_sha256": "17cb52d40040cc9d7e252013f46968cf587abf122c2dc5bc1a63bd636e629233",
       "stl_sha256": "14a82c161a41c912329cc4af77f98b24ec5f29e0bc63ac314acaa51a9cc4b48f",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_LEFT/TALUS_LEFT.stl",
-      "sha256": "1cb6c46d1f899587910666221e70392f12d7e76c8c40f797a8f09c41c8f2161b",
+      "sha256": "69ad639324ab7a082571e7d9b4797000c3c26d27d31daa18c079418a8aaa9209",
       "bounds_m": [
         [
           0.05614972114562988,
@@ -1005,7 +1077,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 64.38,
-      "donor_to_atlas_surface_sample_p95_mm": 84.03
+      "donor_to_atlas_surface_sample_p95_mm": 84.03,
+      "original_vertices": 12388,
+      "original_triangles": 24772,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right calcaneus",
@@ -1017,10 +1092,10 @@
       "triangles": 37552,
       "previous_triangles": 5448,
       "packed_bytes": 353470,
-      "packed_raw_sha256": "0eaef4eafe72b183edbc437ff6d5263fa6cc6166f88c8c176892f360fdaea6af",
+      "packed_raw_sha256": "2032a91b74382b600329e525e340cc55a3996aa24057ff78d6943bfb5e93f4c4",
       "stl_sha256": "c49cd1a34d877bee9c0a70fe50e3c396bb3e019d78fd001fce13d4823588afb1",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/CALCANEUS_RIGHT.stl",
-      "sha256": "248a81316af1359474461cbebe062b6846891d8af88a021185ae28c1570828c8",
+      "sha256": "48a588ab48ecf3dbc2309e708d71bb5c840a374bb647d9638352ac0bcd7c20c0",
       "bounds_m": [
         [
           -0.09949832409620285,
@@ -1034,7 +1109,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 49.87,
-      "donor_to_atlas_surface_sample_p95_mm": 69.26
+      "donor_to_atlas_surface_sample_p95_mm": 69.26,
+      "original_vertices": 18778,
+      "original_triangles": 37552,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right cuboid bone",
@@ -1046,10 +1124,10 @@
       "triangles": 10848,
       "previous_triangles": 3634,
       "packed_bytes": 101167,
-      "packed_raw_sha256": "ecac2626327bb39be043d1c7b21444f61c2674305bb202f7739810af92f9a79d",
+      "packed_raw_sha256": "86730090decca78e5516c1a6d5d49f1f68d31518183f5917da78327abca843f0",
       "stl_sha256": "02130047b92b5d404c0fb33acc8fbb9dca4414c6996829d0727f239f2e712852",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/CUBOID_RIGHT.stl",
-      "sha256": "fa40cb2c62a694c838da01cbcd0a70056846d8a27e52e12f5421dc082ea7e941",
+      "sha256": "81e194781f5a0ef4af78c4a67516e6fada8ea58a62e6bed629387564c55a4177",
       "bounds_m": [
         [
           -0.0930846780538559,
@@ -1063,7 +1141,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 90.29,
-      "donor_to_atlas_surface_sample_p95_mm": 104.26
+      "donor_to_atlas_surface_sample_p95_mm": 104.26,
+      "original_vertices": 5426,
+      "original_triangles": 10848,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right intermediate cuneiform bone",
@@ -1075,10 +1156,10 @@
       "triangles": 4640,
       "previous_triangles": 1948,
       "packed_bytes": 43504,
-      "packed_raw_sha256": "1ea104c7fcc1c5bf7a0eb6e18f4c38cfa8f4cc3e8c28cc99a9ca3e59bcaf61aa",
+      "packed_raw_sha256": "cebae95301cb22a629a7580805a218d902cd4fbfb2122f96cb117179eceb54f0",
       "stl_sha256": "872e04754d514d3366cbaab437fd2641c941fdd882278d01334ead7aa225c730",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/INTERMEDIATE_CUNEIFORM_RIGHT.stl",
-      "sha256": "7050fac48071bfac93b6fc18314039030a4cb9d88495b07d818b01659c0025dd",
+      "sha256": "4ebac47b7575728a3eb9f2de85ecab48b169f2072df8dcc4204c1064915d60e2",
       "bounds_m": [
         [
           -0.07382547110319138,
@@ -1092,7 +1173,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 96.02,
-      "donor_to_atlas_surface_sample_p95_mm": 105.6
+      "donor_to_atlas_surface_sample_p95_mm": 105.6,
+      "original_vertices": 2322,
+      "original_triangles": 4640,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right lateral cuneiform bone",
@@ -1104,10 +1188,10 @@
       "triangles": 6492,
       "previous_triangles": 2702,
       "packed_bytes": 60179,
-      "packed_raw_sha256": "291faf2fc265b06f494e3c8dc3c49f00380c77abf03df92c3550364a666c1ea7",
+      "packed_raw_sha256": "5ead180946b76474007e7aca1d4c364c0660edd5e64c1dcc33dd1712fa4ba054",
       "stl_sha256": "97b2bbadb60b0424ced950babdb67454d2538683dfe796e3dc960d6114251a12",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/LATERAL_CUNEIFORM_RIGHT.stl",
-      "sha256": "9b6b6761055d715ecd90f9e6600b149e7408b56e2991c6cb15065cc18ad24ad3",
+      "sha256": "0d8eeb3e5dd3201e9b9bbe265eb8edd359d4396211fba13b5e2756e848de7181",
       "bounds_m": [
         [
           -0.08375535905361176,
@@ -1121,7 +1205,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 97.24,
-      "donor_to_atlas_surface_sample_p95_mm": 107.78
+      "donor_to_atlas_surface_sample_p95_mm": 107.78,
+      "original_vertices": 3248,
+      "original_triangles": 6492,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right medial cuneiform bone",
@@ -1133,10 +1220,10 @@
       "triangles": 9284,
       "previous_triangles": 4114,
       "packed_bytes": 87194,
-      "packed_raw_sha256": "24cc6f8d673aa5ea24b51e6f784485741c36cf3f33d1b47f5f817b2306016b97",
+      "packed_raw_sha256": "e7ea77dc29f50541f919513a01eb1f5ce49b090cad30abb75ace25618090eee2",
       "stl_sha256": "a35f3ef514c473e17c41c9541f5ecf7c426b6a8b9c6d7e51aecdbaf828deb658",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/MEDIAL_CUNEIFORM_RIGHT.stl",
-      "sha256": "2be11893bb149e196ed94ee35871f0c2e62f1a6b3fca5aa1cb82f9b57b1d934a",
+      "sha256": "bb2f51bd1e8d678d6d5f3a389b1856b6f45c6fe16385a4bca5cd75be62174e0f",
       "bounds_m": [
         [
           -0.057903729379177094,
@@ -1150,7 +1237,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 87.3,
-      "donor_to_atlas_surface_sample_p95_mm": 100.03
+      "donor_to_atlas_surface_sample_p95_mm": 100.03,
+      "original_vertices": 4644,
+      "original_triangles": 9284,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right first metatarsal bone",
@@ -1162,10 +1252,10 @@
       "triangles": 15872,
       "previous_triangles": 4886,
       "packed_bytes": 150595,
-      "packed_raw_sha256": "c15190096231352a53d77ba7738a612b6b3e4166371926fdaa22a60fa04f577b",
+      "packed_raw_sha256": "684fbc76b28dea228cfddf5f13e54e5ac074b1f502f2dd3e788a1144bb56a87b",
       "stl_sha256": "863a2284c372af701e6f7cafa5186f300727e5528620c1d488138e578ba54d00",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_1_RIGHT.stl",
-      "sha256": "328f6712495861ce37189d36b06ca394a812553f85c26af85ece42a2785946ab",
+      "sha256": "540cbe89553ce955e214b48445f14de073e7876db31c8c8a6ff1f231527a0db2",
       "bounds_m": [
         [
           -0.04977918043732643,
@@ -1179,7 +1269,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 110.32,
-      "donor_to_atlas_surface_sample_p95_mm": 134.04
+      "donor_to_atlas_surface_sample_p95_mm": 134.04,
+      "original_vertices": 7938,
+      "original_triangles": 15872,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right second metatarsal bone",
@@ -1191,10 +1284,10 @@
       "triangles": 10604,
       "previous_triangles": 3258,
       "packed_bytes": 98425,
-      "packed_raw_sha256": "82b4b7e4ed9c8182b9e7c7d45a6fc0b50dc90463ae674a432ad5aff440b24de4",
+      "packed_raw_sha256": "8ef4cc37530bc5193863cbc24aa21a3951f3d744576f2fca2aafa7f342021315",
       "stl_sha256": "5b0e2194c30124dcf6f89514e250055cdc312547357b63255d14c914e385e118",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_2_RIGHT.stl",
-      "sha256": "23450c63b804c75d1ea5c61a39d60140cd1c7d2c82c537b3e30b563db20298b5",
+      "sha256": "1db43540bbe0caa76d7852041a193a7819e69e7927da69b11c25c1b81f5d68a0",
       "bounds_m": [
         [
           -0.06897236406803131,
@@ -1208,7 +1301,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 113.09,
-      "donor_to_atlas_surface_sample_p95_mm": 146.97
+      "donor_to_atlas_surface_sample_p95_mm": 146.97,
+      "original_vertices": 5304,
+      "original_triangles": 10604,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right third metatarsal bone",
@@ -1220,10 +1316,10 @@
       "triangles": 10220,
       "previous_triangles": 3030,
       "packed_bytes": 95482,
-      "packed_raw_sha256": "4dbbf00cfaaf1bd47f22a63c60e95fac0f9710507693d518aa52208ee49cb38f",
+      "packed_raw_sha256": "20fcad8e468bc0db34034b01f9f196728755d82d41c135ed672a1bacb0eb0a85",
       "stl_sha256": "9523028eafe68602b6dc20d7144e95dcf93265379efb42a3af93bd32ac1ed9bf",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_3_RIGHT.stl",
-      "sha256": "3d1db6dd134eae7e7a16c3dddfab33968d0cecd9f8a9733e885ed8fbc5c8ebce",
+      "sha256": "b18032f6c2ef589f1cae75a65715ce91467ca1462397abb1f15f20959e4cce82",
       "bounds_m": [
         [
           -0.07535595446825027,
@@ -1237,7 +1333,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 122.12,
-      "donor_to_atlas_surface_sample_p95_mm": 153.13
+      "donor_to_atlas_surface_sample_p95_mm": 153.13,
+      "original_vertices": 5112,
+      "original_triangles": 10220,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right fourth metatarsal bone",
@@ -1249,10 +1348,10 @@
       "triangles": 9856,
       "previous_triangles": 2918,
       "packed_bytes": 93066,
-      "packed_raw_sha256": "d2a8a7a4d61aae1e7de78846364f45faa3082ab5ff712303b3b24c80f04d87f3",
+      "packed_raw_sha256": "859bb8df55c84371bf1cb5a3649fd0bd355ad0d3e7960e8074a1efe24204b1cf",
       "stl_sha256": "c9b2f01bcf7785524717a1db39dd345cc2c2b3cfd948e94922088d796a6245f4",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_4_RIGHT.stl",
-      "sha256": "cd3960bfc059ee257d2b58f9af8f4269faa2ec3536ba629782a03e05ba887a6d",
+      "sha256": "be00c22548adeaa222c6fa8efcdfaa9cd238dd12c7b727b75a445e1fadd74aff",
       "bounds_m": [
         [
           -0.08323381096124649,
@@ -1266,7 +1365,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 125.58,
-      "donor_to_atlas_surface_sample_p95_mm": 153.51
+      "donor_to_atlas_surface_sample_p95_mm": 153.51,
+      "original_vertices": 4930,
+      "original_triangles": 9856,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right fifth metatarsal bone",
@@ -1278,10 +1380,10 @@
       "triangles": 10832,
       "previous_triangles": 3432,
       "packed_bytes": 102310,
-      "packed_raw_sha256": "9285a77b574ad7688b4ac23a5423889cfee885475f6157c13b7fc5399ba24695",
+      "packed_raw_sha256": "685a8a1a2251ec17740bbf6d1a97dac38e6b36b9520f54fc655376910fae3c53",
       "stl_sha256": "6bb41c453926405ec6d07e13953654aeae2d48bb673f39b19e7bae0b1fdacd7a",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/METATARSAL_5_RIGHT.stl",
-      "sha256": "39411fc8625683a0ef304c8d304f52603c548e2c11565690298e7a99e5454364",
+      "sha256": "1e139629239e703143fa3b9601250ddc4e39d3b2a2931bf53e46af5cb7da1073",
       "bounds_m": [
         [
           -0.09012524783611298,
@@ -1295,7 +1397,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 122.14,
-      "donor_to_atlas_surface_sample_p95_mm": 149.98
+      "donor_to_atlas_surface_sample_p95_mm": 149.98,
+      "original_vertices": 5418,
+      "original_triangles": 10832,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Navicular bone of right foot",
@@ -1307,10 +1412,10 @@
       "triangles": 9996,
       "previous_triangles": 3022,
       "packed_bytes": 94090,
-      "packed_raw_sha256": "3b62fa356eb1f0fecaad8bba1eff2b3b426fb5b3a0feb621fd987c437d0ba227",
+      "packed_raw_sha256": "483b67786606f3ec768e86dde34719cb6445eabf1d4410be6fd766c261084a25",
       "stl_sha256": "e2f5b3d43e52b4e3ff21e0e3935a020d0af4375ab4205c72aa0c8134dff33bc2",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/NAVICULAR_RIGHT.stl",
-      "sha256": "9cb8c37e4a2776e2c99725566752214d6a074dae3c977f1f3df4098dc94bb0b0",
+      "sha256": "5bfc94b53fbfd0acdfa98edc674feb1fe6f978460b6917656a5e9b4099ac3cfb",
       "bounds_m": [
         [
           -0.08240126073360443,
@@ -1324,7 +1429,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 82.03,
-      "donor_to_atlas_surface_sample_p95_mm": 91.22
+      "donor_to_atlas_surface_sample_p95_mm": 91.22,
+      "original_vertices": 5000,
+      "original_triangles": 9996,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right talus",
@@ -1336,10 +1444,10 @@
       "triangles": 24408,
       "previous_triangles": 5962,
       "packed_bytes": 233000,
-      "packed_raw_sha256": "081c94f86c56fa2d79eb8e6ffc723da33b889282d86e14ae4e87b5afdaa4f72b",
+      "packed_raw_sha256": "1c2531779b8a47313c90cfb5936326857d0e5c2ef5286e7b0a4198749820ff71",
       "stl_sha256": "94c4b4b16c430b06d9832b09d295810179a37880b33515d71a15c1ac7322dff3",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/FOOT_RIGHT/TALUS_RIGHT.stl",
-      "sha256": "8aaf52afa5d72320004c500b04bf29c9ae45f63c09e07bcdbfaeb2254df351c9",
+      "sha256": "410c363a2ee46db102534ee76862f1cced161756d1f3b25e0d78a9fc510f55c2",
       "bounds_m": [
         [
           -0.10182129591703415,
@@ -1353,7 +1461,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 61.44,
-      "donor_to_atlas_surface_sample_p95_mm": 81.46
+      "donor_to_atlas_surface_sample_p95_mm": 81.46,
+      "original_vertices": 12206,
+      "original_triangles": 24408,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left capitate",
@@ -1365,10 +1476,10 @@
       "triangles": 4892,
       "previous_triangles": 1278,
       "packed_bytes": 45235,
-      "packed_raw_sha256": "0cc8383572fa2040f2dd25b9a23ca070103e99d6c7dc0935db95a5bd81718884",
+      "packed_raw_sha256": "a6580c25f4ad84dcf0707c36405d73d0a90dbacbdc8fb98be3242840fbe81680",
       "stl_sha256": "65ae6c8c2e09258afe9b09ca437cc3bdf532763b2e6b74d5ebf98a4270ce5c25",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/CAPITATE_LEFT.stl",
-      "sha256": "d6fb27bf5176194a7350abdffb72610dda9771361d36a24337a3d967477426cc",
+      "sha256": "561002a3f0a34e935ec68864f647be05e8de620a9dd5821a39350e12c87be27f",
       "bounds_m": [
         [
           0.24519848823547363,
@@ -1382,7 +1493,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.74,
-      "donor_to_atlas_surface_sample_p95_mm": 3.9
+      "donor_to_atlas_surface_sample_p95_mm": 3.9,
+      "original_vertices": 2448,
+      "original_triangles": 4892,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left hamate",
@@ -1394,10 +1508,10 @@
       "triangles": 4372,
       "previous_triangles": 1130,
       "packed_bytes": 40787,
-      "packed_raw_sha256": "a973338adf457fab2aaa329f23f56b77ff9815f72efedc42a5924cab6e643f42",
+      "packed_raw_sha256": "fb064e4b8f387859196a783a1a7ab655a4b0531c8d591183a2552b22acc0cdec",
       "stl_sha256": "a1e2c234c3e3b6b5e98730b1aa10084a374216af0fb8c0ba07101765d6f2f2da",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/HAMATE_LEFT.stl",
-      "sha256": "eeacc8e4da2830c009960a2b7be6070463e39de042e38fde920b0da92439e135",
+      "sha256": "7d72390b63a500f3ae3886fd31bf66980141069aa1406c28365640de58fd0ac8",
       "bounds_m": [
         [
           0.23096701502799988,
@@ -1411,22 +1525,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.7,
-      "donor_to_atlas_surface_sample_p95_mm": 7.23
+      "donor_to_atlas_surface_sample_p95_mm": 7.23,
+      "original_vertices": 2188,
+      "original_triangles": 4372,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left lunate",
       "mesh": "FJ3268",
       "group": "left-hand",
       "file": "left-lunate.bin.gz",
-      "vertices": 1604,
-      "indices": 9612,
-      "triangles": 3204,
+      "vertices": 6410,
+      "indices": 38448,
+      "triangles": 12816,
       "previous_triangles": 866,
       "packed_bytes": 29107,
-      "packed_raw_sha256": "2f218c917d6af969edb123c7f57a01d898bd58fafa8b668acd6a854dab9754de",
+      "packed_raw_sha256": "64fa3c9dadf4af971c4aba736ccf78a4a9bb4a8238169fa648e45e86c7adbf32",
       "stl_sha256": "946154f276c122ef4c25a8d3526bd470cebcb82cf3292469bd10135f4edebc9f",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/LUNATE_LEFT.stl",
-      "sha256": "c42aabb8dffe5a6300e4753deeb5d8e5011242b39b21d4530a0f9e5ab70f7cf5",
+      "sha256": "0856323fad545213ae7dc21383e04cdcc01e435bf129673187b5c4d188649e5e",
       "bounds_m": [
         [
           0.23508048057556152,
@@ -1440,7 +1557,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.07,
-      "donor_to_atlas_surface_sample_p95_mm": 5.89
+      "donor_to_atlas_surface_sample_p95_mm": 5.89,
+      "original_vertices": 1604,
+      "original_triangles": 3204,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Left first metacarpal bone",
@@ -1452,10 +1572,10 @@
       "triangles": 7548,
       "previous_triangles": 2480,
       "packed_bytes": 68907,
-      "packed_raw_sha256": "87b42db1840045168d74d6f1b9a1f761b44d66f514ef1377e9968418b0b44eef",
+      "packed_raw_sha256": "fb9ec37d6dcae7f5470d85270b265d53ccbe508195152528f4d6154ae7324a57",
       "stl_sha256": "129996139f84f6036abc0f0620c8e9bbe091c04ef5606439eb95064602d0a03e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_1_LEFT.stl",
-      "sha256": "19ae83ebcf57ae1706a1eafe6cf3134cfb8843e616dcd9b3f3d6b94511d6763a",
+      "sha256": "62012850d5feaaaffcfe2c17d40bbc49f2c03e9c48c2e8077ae081d173b3500e",
       "bounds_m": [
         [
           0.2762121856212616,
@@ -1469,7 +1589,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.5,
-      "donor_to_atlas_surface_sample_p95_mm": 5.59
+      "donor_to_atlas_surface_sample_p95_mm": 5.59,
+      "original_vertices": 3776,
+      "original_triangles": 7548,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left second metacarpal bone",
@@ -1481,10 +1604,10 @@
       "triangles": 10332,
       "previous_triangles": 3264,
       "packed_bytes": 93145,
-      "packed_raw_sha256": "e1b0b7831a31ea7716bd8618bece7aee9324c7521d7a0c3baa0cb5977727f22b",
+      "packed_raw_sha256": "47393aa3f87452ecc140ba2f4809f7ee2c4855a6fc21beff2d8ab22fb5a9ca1a",
       "stl_sha256": "6ab41b0c1303a6e770e599f103af9fcc7320c62b02b3ea21624285a0e680bf85",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_2_LEFT.stl",
-      "sha256": "aaac5e6b0fc08382ef73fe732b09a469b2e94b12242f807431ac80ecef270db0",
+      "sha256": "4af0f9a1ecb26260b5189875e77be9aa0dc1c4bdfc458000e0e5ab70de30f062",
       "bounds_m": [
         [
           0.2626068890094757,
@@ -1498,7 +1621,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.11,
-      "donor_to_atlas_surface_sample_p95_mm": 8.12
+      "donor_to_atlas_surface_sample_p95_mm": 8.12,
+      "original_vertices": 5168,
+      "original_triangles": 10332,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left third metacarpal bone",
@@ -1510,10 +1636,10 @@
       "triangles": 10012,
       "previous_triangles": 3040,
       "packed_bytes": 90615,
-      "packed_raw_sha256": "04e6085f0758f8f4c2a732d31188b2d3bea88f8f8b991368468481ef37381bb4",
+      "packed_raw_sha256": "819840c53fac35dd183cefac596829efa994fb61788643e7499815bfd2409977",
       "stl_sha256": "9486e05b73fa42cfd675ba707092bf8ba91247d95616bbfda7052c233b034c9e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_3_LEFT.stl",
-      "sha256": "83f857b5303c6a76403f6f8734f5d85d5d4ecbaec9e1c43c967c18d6f7af2cae",
+      "sha256": "8b6c3d90566d2bb5148fa80e03d97dc1b20ebec224c211e51544c6b5b1a07a0b",
       "bounds_m": [
         [
           0.2516300082206726,
@@ -1527,7 +1653,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.2,
-      "donor_to_atlas_surface_sample_p95_mm": 5.9
+      "donor_to_atlas_surface_sample_p95_mm": 5.9,
+      "original_vertices": 5008,
+      "original_triangles": 10012,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left fourth metacarpal bone",
@@ -1539,10 +1668,10 @@
       "triangles": 7152,
       "previous_triangles": 2270,
       "packed_bytes": 64973,
-      "packed_raw_sha256": "c4a54719dee0dff63fdb42db5082fdb2bf86ddb3fcaf41a2502339800e415114",
+      "packed_raw_sha256": "8dc7b76f3cf28d7168c6794d39f61e7e794c6eee4030d964cde674a6d08fb35a",
       "stl_sha256": "43dce1674409bfd1c986060c13b25a09efb6c1149f3f13ab3f31c5f919e365cf",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_4_LEFT.stl",
-      "sha256": "47832f7a9ebb3c63a0b2c76bbc742f9f6a01077a03530af87b11141cb9f2283c",
+      "sha256": "f6cb011d0294f98f08742dc89aa9d7c6df164e89be8d9bb8ba9374b781db592a",
       "bounds_m": [
         [
           0.23818807303905487,
@@ -1556,7 +1685,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.66,
-      "donor_to_atlas_surface_sample_p95_mm": 3.69
+      "donor_to_atlas_surface_sample_p95_mm": 3.69,
+      "original_vertices": 3578,
+      "original_triangles": 7152,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left fifth metacarpal bone",
@@ -1568,10 +1700,10 @@
       "triangles": 6200,
       "previous_triangles": 2146,
       "packed_bytes": 56115,
-      "packed_raw_sha256": "ffc34f2ae204decbf517e28bb8db9fdd948b241b424b6cb6b2281717f7f42b60",
+      "packed_raw_sha256": "a4f26ce357f75c701d09ecc5c06fee2b5caa16bcb1e4b54a5db8b78b93ed4a19",
       "stl_sha256": "b31206039dad93e62a38889cd0366fb4583512f5515b8841bb1c820bf601c2e3",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/METACARPAL_5_LEFT.stl",
-      "sha256": "2faa69cae9b899837daf102241bd29cf1c28b705b7909d51138da0133448c635",
+      "sha256": "f06b74ff641afbd975735891aae033c84e83d97cfd1d0312b2c84fd1ef2d8fc0",
       "bounds_m": [
         [
           0.2234918624162674,
@@ -1585,22 +1717,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.76,
-      "donor_to_atlas_surface_sample_p95_mm": 6.85
+      "donor_to_atlas_surface_sample_p95_mm": 6.85,
+      "original_vertices": 3102,
+      "original_triangles": 6200,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left pisiform",
       "mesh": "FJ3276",
       "group": "left-hand",
       "file": "left-pisiform.bin.gz",
-      "vertices": 936,
-      "indices": 5604,
-      "triangles": 1868,
+      "vertices": 3738,
+      "indices": 22416,
+      "triangles": 7472,
       "previous_triangles": 396,
       "packed_bytes": 17722,
-      "packed_raw_sha256": "8403224788efece5176a14b06345789f074759d595eeadbff40d41aa2d66ee28",
+      "packed_raw_sha256": "65740513ea3f1af0a21a5a44aa381f3f2f6284926903724165d956ec1710018c",
       "stl_sha256": "01c8aa3e66379c286f28cb0abcc5604f7ab9386e8a189f42df36d419ffef65c2",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/PISIFORM_LEFT.stl",
-      "sha256": "568b6a85b9300f228804492aaf0394456a8df1df2b3b751a27073a0bb204cb87",
+      "sha256": "97f0c96a935385fd3e4d68da07f15cc46c4400caccb09f5a482bd4172f21c9eb",
       "bounds_m": [
         [
           0.22442181408405304,
@@ -1614,7 +1749,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.26,
-      "donor_to_atlas_surface_sample_p95_mm": 8.17
+      "donor_to_atlas_surface_sample_p95_mm": 8.17,
+      "original_vertices": 936,
+      "original_triangles": 1868,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Left scaphoid",
@@ -1626,10 +1764,10 @@
       "triangles": 4156,
       "previous_triangles": 1070,
       "packed_bytes": 38202,
-      "packed_raw_sha256": "a151ae9b4674e2fb5ecd547e08e23b1560a0bdea18d86216f98ab61513e82747",
+      "packed_raw_sha256": "69ce9659f1a2112c6c54486b77588a55c696f6800f23fe94e13a989be299fb1f",
       "stl_sha256": "3bb2b96b7ae2309beab7207eaa9d51a17dcdd3863e7e5dfa69da9105e57a9223",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/SCAPHOID_LEFT.stl",
-      "sha256": "203b1f078d1a65915d42190a6bb0295329462465ee2bf94cb017c6f925148a8e",
+      "sha256": "a907bf01db4e4d90d9ac332c20dd886a1924f00c263e2d68e5adc6d2a9796fc3",
       "bounds_m": [
         [
           0.25170454382896423,
@@ -1643,22 +1781,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.44,
-      "donor_to_atlas_surface_sample_p95_mm": 6.26
+      "donor_to_atlas_surface_sample_p95_mm": 6.26,
+      "original_vertices": 2080,
+      "original_triangles": 4156,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left trapezium",
       "mesh": "FJ3283",
       "group": "left-hand",
       "file": "left-trapezium.bin.gz",
-      "vertices": 1708,
-      "indices": 10236,
-      "triangles": 3412,
+      "vertices": 6826,
+      "indices": 40944,
+      "triangles": 13648,
       "previous_triangles": 1058,
       "packed_bytes": 31242,
-      "packed_raw_sha256": "3e52c09052127f15f0e9022cc1a508b6e27c43e7641159dc54bd24f63917c956",
+      "packed_raw_sha256": "61321028cfe8675659e006c15022711f192303d5e7dbef5ac791eec5a7bfb39c",
       "stl_sha256": "c4f4c8e64417dc278e71f8d41bf5b2dc09fe044edf3f6785cd1e885f91d8d732",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRAPEZIUM_LEFT.stl",
-      "sha256": "a18151a88bfb9ea941c88834530d879175548901df54626fd7672e4970fd0194",
+      "sha256": "d1250a770e97cdeb0c93cc150f9f2c97dfa0d7a1a4d3007d7cbe2b932fa4741f",
       "bounds_m": [
         [
           0.2654963731765747,
@@ -1672,22 +1813,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.75,
-      "donor_to_atlas_surface_sample_p95_mm": 5.66
+      "donor_to_atlas_surface_sample_p95_mm": 5.66,
+      "original_vertices": 1708,
+      "original_triangles": 3412,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Left trapezoid",
       "mesh": "FJ3284",
       "group": "left-hand",
       "file": "left-trapezoid.bin.gz",
-      "vertices": 1200,
-      "indices": 7188,
-      "triangles": 2396,
+      "vertices": 4794,
+      "indices": 28752,
+      "triangles": 9584,
       "previous_triangles": 612,
       "packed_bytes": 22344,
-      "packed_raw_sha256": "1d852190bd425b5c7a1f1d4695b64fd127af487e924a6b615c63ffc885dbedd9",
+      "packed_raw_sha256": "edeb39805f0b7cc3e070e7321e5ba0f45f9605ad9eb96c6b3a150d76e0270687",
       "stl_sha256": "3de9eb5b35d79741812edca14c21375b408359b1d56b586ce1daee3612c5b19a",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRAPEZOID_LEFT.stl",
-      "sha256": "9fa0e4cc7556f00c54f764c46e4df709fb2335696ff92775d19e68c5ec2ba7c8",
+      "sha256": "21046c6ed898075f6caba6174e550f65961fdd0a3dc1653fb18c0d63a76948b4",
       "bounds_m": [
         [
           0.2616746425628662,
@@ -1701,22 +1845,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.64,
-      "donor_to_atlas_surface_sample_p95_mm": 2.74
+      "donor_to_atlas_surface_sample_p95_mm": 2.74,
+      "original_vertices": 1200,
+      "original_triangles": 2396,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Left triquetral",
       "mesh": "FJ3285",
       "group": "left-hand",
       "file": "left-triquetral.bin.gz",
-      "vertices": 1412,
-      "indices": 8460,
-      "triangles": 2820,
+      "vertices": 5642,
+      "indices": 33840,
+      "triangles": 11280,
       "previous_triangles": 698,
       "packed_bytes": 26100,
-      "packed_raw_sha256": "8d9cd71c297e1ccad772b8a87302d8dc330d1e46b39c31af433474fd75c78154",
+      "packed_raw_sha256": "a09bb0da55a0901816f720f4823ecb1ee5f8a1efe91918ecd3daac88b58162a6",
       "stl_sha256": "b05b3a50fdc6a355f1455f62953585ad9a221ced1e2da877d497bcf4082e80f2",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_LEFT/TRIQUETRUM_LEFT.stl",
-      "sha256": "056d1c79e6106ee05c2e9bab82964cf8069bae2da50c3edc779017e239194729",
+      "sha256": "a109e6cc7314482a39594517860153c6c99509f9fe705bf40e6f163fc7a96d3a",
       "bounds_m": [
         [
           0.22593241930007935,
@@ -1730,7 +1877,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.97,
-      "donor_to_atlas_surface_sample_p95_mm": 6.11
+      "donor_to_atlas_surface_sample_p95_mm": 6.11,
+      "original_vertices": 1412,
+      "original_triangles": 2820,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Right capitate",
@@ -1742,10 +1892,10 @@
       "triangles": 4892,
       "previous_triangles": 1284,
       "packed_bytes": 45321,
-      "packed_raw_sha256": "e76723d4d3e7863eda5f64edeb17319c65b0b1202bf96d346b7c38ad921614b8",
+      "packed_raw_sha256": "ae2efddd35784cbb3a278c3469a8e0b1d6605db995edd3d4d1938652a52bcd8a",
       "stl_sha256": "2650e40efdcac7aa66615fe2d34bef83360be245664d11d3a45d6319363c8a77",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/CAPITATE_RIGHT.stl",
-      "sha256": "e75910425d1447e637df74616c9639be0cc06392d9a6bdc67008ece5180ce49e",
+      "sha256": "a3ac8d69d58a07490113154384ad0180d746034a1f982546fc651fafd8f28fb4",
       "bounds_m": [
         [
           -0.26441484689712524,
@@ -1759,7 +1909,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.75,
-      "donor_to_atlas_surface_sample_p95_mm": 3.87
+      "donor_to_atlas_surface_sample_p95_mm": 3.87,
+      "original_vertices": 2448,
+      "original_triangles": 4892,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right hamate",
@@ -1771,10 +1924,10 @@
       "triangles": 4600,
       "previous_triangles": 1150,
       "packed_bytes": 42648,
-      "packed_raw_sha256": "b82d495b00d14cd2533557be84bd33b7a89b8f1ae84f52512529a09697ae3aa3",
+      "packed_raw_sha256": "6e6c90bcc46d0070e0f30027911f4108b21343cef382130d788e64a581dc55e9",
       "stl_sha256": "ccf22374f8b48f599588c89d740aeb250d18d10329e6ee5ce34fce5263292bf1",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/HAMATE_RIGHT.stl",
-      "sha256": "5aa4d3b949ebe4097f4ddcc439ef0891c682e95dcb8fca6af6eddfaa92e69bfe",
+      "sha256": "25c5f01a5a14879196e440f27ad48b1f25bc49b081408ff9e6642d4fedfb98bc",
       "bounds_m": [
         [
           -0.25066864490509033,
@@ -1788,22 +1941,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.24,
-      "donor_to_atlas_surface_sample_p95_mm": 8.13
+      "donor_to_atlas_surface_sample_p95_mm": 8.13,
+      "original_vertices": 2302,
+      "original_triangles": 4600,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right lunate",
       "mesh": "FJ3374",
       "group": "right-hand",
       "file": "right-lunate.bin.gz",
-      "vertices": 1612,
-      "indices": 9660,
-      "triangles": 3220,
+      "vertices": 6442,
+      "indices": 38640,
+      "triangles": 12880,
       "previous_triangles": 864,
       "packed_bytes": 29365,
-      "packed_raw_sha256": "5d575cd1efa2a29ecab6748de32a440b8582a22cc2f8910d5ddb6b63e0dbdcf6",
+      "packed_raw_sha256": "6d5d7978e3a32612b3590dc36910236b387d53ffc43366866fc06f588139facf",
       "stl_sha256": "4ea402d943fe43baf8d032f24877b6b3e514f6faab042b82e54f2a5306b9fd46",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/LUNATE_RIGHT.stl",
-      "sha256": "2e828f56dcb2b870d079fe16189be774311e0c326ea58c97af60235a7c35c6d4",
+      "sha256": "1ed2a83ff3de35fb7e361e3b84808e1171ba5f07c01e555348fb3aa907a25676",
       "bounds_m": [
         [
           -0.2547014057636261,
@@ -1817,7 +1973,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.15,
-      "donor_to_atlas_surface_sample_p95_mm": 6.04
+      "donor_to_atlas_surface_sample_p95_mm": 6.04,
+      "original_vertices": 1612,
+      "original_triangles": 3220,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Right first metacarpal bone",
@@ -1829,10 +1988,10 @@
       "triangles": 7752,
       "previous_triangles": 2434,
       "packed_bytes": 71430,
-      "packed_raw_sha256": "5f280979fcb3188acf42c6862f3823a26bded0febc389dce24dc8eba885acff8",
+      "packed_raw_sha256": "018b75e8123b164aebfdc8579c5f181666ec66008fb0acb8f5e24824872f7af2",
       "stl_sha256": "112e35cd0a7515a7591eb45f3420924012008b42448972ab3487204ca71d9a99",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_1_RIGHT.stl",
-      "sha256": "4f0c923967c0eba96a97d1017dc8e1cc943a785a3341a85cb38f1986ad41f843",
+      "sha256": "f874cd21963cf7b359e100d12e4c42ac82cb5c2d158413dc4d05a231c5a18d83",
       "bounds_m": [
         [
           -0.3187994956970215,
@@ -1846,7 +2005,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.21,
-      "donor_to_atlas_surface_sample_p95_mm": 7.81
+      "donor_to_atlas_surface_sample_p95_mm": 7.81,
+      "original_vertices": 3878,
+      "original_triangles": 7752,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right second metacarpal bone",
@@ -1858,10 +2020,10 @@
       "triangles": 10540,
       "previous_triangles": 3218,
       "packed_bytes": 96225,
-      "packed_raw_sha256": "f6acae65706b016208e3bdea00506cdfab5f1b3ba44da06917269636b276e121",
+      "packed_raw_sha256": "0581810f5dffbba1d9c062ac03b5135260cea011db0d8d9ca4f1a0b34e64d3c4",
       "stl_sha256": "f58f6eb4745e85799adac75aa97721670ff6d9d989b30d6fb8ffbbb36637ccc8",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_2_RIGHT.stl",
-      "sha256": "81336d2b161a2a8e431cdec716796e7b078128997dfcffb17e498659de193a83",
+      "sha256": "4b9a39f61c6d826b8352f220921db4905f388f3dd34a152921fcbec624df9820",
       "bounds_m": [
         [
           -0.29744839668273926,
@@ -1875,7 +2037,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.44,
-      "donor_to_atlas_surface_sample_p95_mm": 6.95
+      "donor_to_atlas_surface_sample_p95_mm": 6.95,
+      "original_vertices": 5272,
+      "original_triangles": 10540,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right third metacarpal bone",
@@ -1887,10 +2052,10 @@
       "triangles": 10376,
       "previous_triangles": 3018,
       "packed_bytes": 94627,
-      "packed_raw_sha256": "f33b4e3c040de087a0cec038074ebdcffeb2528fb744fd5223a69ce159b511f6",
+      "packed_raw_sha256": "85979ef3928a85ad3971a08dd239922463bc0e2dfd3ec86045472c1ba4a1f155",
       "stl_sha256": "3b8cbdf527ca1b3efc287b8994559819bd7b70e89c8af811d2173313717832c0",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_3_RIGHT.stl",
-      "sha256": "85142ee2087b62fafc6947751e06dacd17c2c6f35921c8f01063c545e377fccc",
+      "sha256": "1062232e192a76aad246bcbaf33575bd031f6833f96cd4ab7f2bf0be6bd1fec9",
       "bounds_m": [
         [
           -0.275304913520813,
@@ -1904,7 +2069,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.56,
-      "donor_to_atlas_surface_sample_p95_mm": 7.24
+      "donor_to_atlas_surface_sample_p95_mm": 7.24,
+      "original_vertices": 5190,
+      "original_triangles": 10376,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right fourth metacarpal bone",
@@ -1916,10 +2084,10 @@
       "triangles": 7424,
       "previous_triangles": 2306,
       "packed_bytes": 67970,
-      "packed_raw_sha256": "c38ecf084eec71404e56314d3fcc8839677c80791f534aae32f614f69f5903a2",
+      "packed_raw_sha256": "df6b8a724e08aabdc491bc057c3b8712f88fffff1f02e40a079248711a53a19b",
       "stl_sha256": "82a3abd6b0d2a8e482953c3ac6e64d3d2efb86c7470ac73eeba5eda946e11467",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_4_RIGHT.stl",
-      "sha256": "564e1d93b9e775ca9bbfcb5fa77cbe1cd9f2670b4f30bcea2350ae61c503b26b",
+      "sha256": "2eb881dadd13f39d791c71113ca5fca18c9e5f43056d2b827dc27ae8f08feaa1",
       "bounds_m": [
         [
           -0.2555943727493286,
@@ -1933,7 +2101,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.47,
-      "donor_to_atlas_surface_sample_p95_mm": 3.46
+      "donor_to_atlas_surface_sample_p95_mm": 3.46,
+      "original_vertices": 3714,
+      "original_triangles": 7424,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right fifth metacarpal bone",
@@ -1945,10 +2116,10 @@
       "triangles": 6520,
       "previous_triangles": 2178,
       "packed_bytes": 59663,
-      "packed_raw_sha256": "ec251e6f0c503c515ad49f51982bb3309d42f54ec41ca79332a79b9875bcbd2b",
+      "packed_raw_sha256": "26f46bbe056e0d516d159e3c59635f37496a30fd8193a1aff48b415a71dd6709",
       "stl_sha256": "3a37954d8a08f5f0071341b4b23552c91878e1a0dd6daac4af223ca0d76fdc83",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/METACARPAL_5_RIGHT.stl",
-      "sha256": "8ac2816a2227d0ad67069ed51c9aa5846b21e00eb5d3f8db0be90a91d9b7c905",
+      "sha256": "9af90491f5ee15a2c609f4e8f6f55b4dac94104791ee2c25772c20ee992e164a",
       "bounds_m": [
         [
           -0.24323777854442596,
@@ -1962,22 +2133,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.98,
-      "donor_to_atlas_surface_sample_p95_mm": 6.45
+      "donor_to_atlas_surface_sample_p95_mm": 6.45,
+      "original_vertices": 3262,
+      "original_triangles": 6520,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right pisiform",
       "mesh": "FJ3382",
       "group": "right-hand",
       "file": "right-pisiform.bin.gz",
-      "vertices": 896,
-      "indices": 5364,
-      "triangles": 1788,
+      "vertices": 3578,
+      "indices": 21456,
+      "triangles": 7152,
       "previous_triangles": 396,
       "packed_bytes": 16930,
-      "packed_raw_sha256": "d6d46b6c54e461cb6afb3d13008162d9dee26b1b2c79b9c5a6342cdc6315ed04",
+      "packed_raw_sha256": "353cf354a3acd4816198e48db6476327e8adba01551adddd210dcdd35646d0e9",
       "stl_sha256": "1844bb2aba692abbacb0e456164e9e4e3516803828602552ce94f1a29d2c9609",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/PISIFORM_RIGHT.stl",
-      "sha256": "86f6b594950f8b99b1fb015b3482a392c6cb59cbdbcbcbe70ac4cc3d4eb8ecaf",
+      "sha256": "e03a4eade69eced7cee9e129189dc65e7c145a7fa6b9c57648fdad48dc917781",
       "bounds_m": [
         [
           -0.23914292454719543,
@@ -1991,7 +2165,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.96,
-      "donor_to_atlas_surface_sample_p95_mm": 9.41
+      "donor_to_atlas_surface_sample_p95_mm": 9.41,
+      "original_vertices": 896,
+      "original_triangles": 1788,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Right scaphoid",
@@ -2003,10 +2180,10 @@
       "triangles": 4244,
       "previous_triangles": 1074,
       "packed_bytes": 39152,
-      "packed_raw_sha256": "ad8b5e09cf19d53ffdc774ef268fec29c24e3ce7fa02aea9cfa131ddb0a8dbba",
+      "packed_raw_sha256": "53d26a1ab493fc8678a0ce8eab8841cd019817fd1e1beb75cf73165c8e53f2eb",
       "stl_sha256": "d0ec9ad0e9df14356958a4d6f6c38ed2f0460830e35e006bc16b0324953a4563",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/SCAPHOID_RIGHT.stl",
-      "sha256": "87e0f71528320282bea76925ff53451c3f5f4a1d0f25cd9facf3b822f4eb27f0",
+      "sha256": "2a8a6d1d91ef9292f3ce3108abcd0a3569cbcc7931ebbaa8012e1b82d4c65097",
       "bounds_m": [
         [
           -0.2726829946041107,
@@ -2020,22 +2197,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.43,
-      "donor_to_atlas_surface_sample_p95_mm": 6.76
+      "donor_to_atlas_surface_sample_p95_mm": 6.76,
+      "original_vertices": 2124,
+      "original_triangles": 4244,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right trapezium",
       "mesh": "FJ3388",
       "group": "right-hand",
       "file": "right-trapezium.bin.gz",
-      "vertices": 1708,
-      "indices": 10236,
-      "triangles": 3412,
+      "vertices": 6826,
+      "indices": 40944,
+      "triangles": 13648,
       "previous_triangles": 1026,
       "packed_bytes": 31252,
-      "packed_raw_sha256": "34c50ab7adb558db169e536a84aa4e41621a321a8f01dffccab2197e0a405aea",
+      "packed_raw_sha256": "a788b97320fdd26b35fab1d06ce4322dce28c1965594e2b03dfd6ad92ef7d5e8",
       "stl_sha256": "21f2c94d55a692a8bae4f00aff5bac98232a211734bbf221172378242589850e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRAPEZIUM_RIGHT.stl",
-      "sha256": "f632f256ab75a54941c7376cc19c72651c84210212c04a2df4285396e838ae10",
+      "sha256": "6a05b95f22d52adbfab05f8b08dd770de2886af4220634b044924096fdc4e9f4",
       "bounds_m": [
         [
           -0.2840971052646637,
@@ -2049,22 +2229,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.9,
-      "donor_to_atlas_surface_sample_p95_mm": 6.05
+      "donor_to_atlas_surface_sample_p95_mm": 6.05,
+      "original_vertices": 1708,
+      "original_triangles": 3412,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Right trapezoid",
       "mesh": "FJ3389",
       "group": "right-hand",
       "file": "right-trapezoid.bin.gz",
-      "vertices": 1090,
-      "indices": 6528,
-      "triangles": 2176,
+      "vertices": 4354,
+      "indices": 26112,
+      "triangles": 8704,
       "previous_triangles": 616,
       "packed_bytes": 20403,
-      "packed_raw_sha256": "e04e473aae75dc83df7b00c391a7a15dba650e17915f5e099933fa9b1682cb3f",
+      "packed_raw_sha256": "d89f5aa7344d428f21223af4ac34a1b7221ba6fcd1eb34bbbf2a749e2f229dee",
       "stl_sha256": "ee4768262ab550cc2b3af240aa944921319a0fb3931225b72da84fd24125095d",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRAPEZOID_RIGHT.stl",
-      "sha256": "7b7e8737981106f4795c2885d56937167df116dfe71af98127d18092b0ea3700",
+      "sha256": "d8e79c7448f12958b1e54af021d9d3cd6bfa8f973908ab737bc6ec41172a2e46",
       "bounds_m": [
         [
           -0.2762899398803711,
@@ -2078,22 +2261,25 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.26,
-      "donor_to_atlas_surface_sample_p95_mm": 2.34
+      "donor_to_atlas_surface_sample_p95_mm": 2.34,
+      "original_vertices": 1090,
+      "original_triangles": 2176,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Right triquetral",
       "mesh": "FJ3390",
       "group": "right-hand",
       "file": "right-triquetral.bin.gz",
-      "vertices": 1386,
-      "indices": 8304,
-      "triangles": 2768,
+      "vertices": 5538,
+      "indices": 33216,
+      "triangles": 11072,
       "previous_triangles": 704,
       "packed_bytes": 25576,
-      "packed_raw_sha256": "afe142f4cd93b721e82ceb4df820ae9ffef1a38f7124ce80973e8b85e8143ab8",
+      "packed_raw_sha256": "ee2acb4357ed2c375b55758d487ba17705f977ee93e54fbe1ff32c50d8230163",
       "stl_sha256": "7e6ad450ada5f027347b9e5726113941730cd981615f0cc0d183e063748ace82",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/HAND_RIGHT/TRIQUETRUM_RIGHT.stl",
-      "sha256": "3903b6bf447bd15104280647be6f340127bc7ce504a1e25b15ae769c06d01daa",
+      "sha256": "f0d5d5b8de70830954be8ac7539b23269c3b1f930d3b04f922c1feda98ca847f",
       "bounds_m": [
         [
           -0.24361585080623627,
@@ -2107,7 +2293,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.01,
-      "donor_to_atlas_surface_sample_p95_mm": 6.13
+      "donor_to_atlas_surface_sample_p95_mm": 6.13,
+      "original_vertices": 1386,
+      "original_triangles": 2768,
+      "refinement": "loop-subdiv-1x"
     },
     {
       "name": "Left hip bone",
@@ -2119,10 +2308,10 @@
       "triangles": 204172,
       "previous_triangles": 9470,
       "packed_bytes": 2013495,
-      "packed_raw_sha256": "1243ea0978d25d21ccf4c138dad5db49d7daa6eb23e66d021b8493379e679eaa",
+      "packed_raw_sha256": "8fc0323b85599c887ba79aeb3ec8ece4af25dee21bc7649ea0a9e4c043a5a1b0",
       "stl_sha256": "91f9995e457846aeaa1791cbcb7cc4b7d3657f5f4da677a3454fa8da2f4b5d18",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/LOWER_EXTREMITY_LEFT/HIP_LEFT.stl",
-      "sha256": "ed3bb13b5af06550e536571b242e2e7e8884107cf84b8afbcde43ba4dee8bf70",
+      "sha256": "e548ddb1ed1701a3a0b36de2adc73861e790481e0a0df4d8cf00be6b6ab8557e",
       "bounds_m": [
         [
           -0.006815433502197266,
@@ -2136,7 +2325,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 23.66,
-      "donor_to_atlas_surface_sample_p95_mm": 51.64
+      "donor_to_atlas_surface_sample_p95_mm": 51.64,
+      "original_vertices": 102086,
+      "original_triangles": 204172,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Mandible",
@@ -2148,10 +2340,10 @@
       "triangles": 70072,
       "previous_triangles": 21658,
       "packed_bytes": 665334,
-      "packed_raw_sha256": "49f32326c23ffec41f074cda7752b3a0dc1e2be121d28cecc68a803d93dfdfcd",
+      "packed_raw_sha256": "36bf8881cd7c6cc331e751c992764a2554a08e8ac84a22ee8adcca839dff4c9c",
       "stl_sha256": "8095c784bf179f4daf4d979952840a12dfc2f150c5ae2901e2a682214e373e6f",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SKULL/SKULL_MANDIBLE.stl",
-      "sha256": "14e9d1963d303d94a96463f24183577493c25dc9a1d5aeb9779762341785ba29",
+      "sha256": "63afeab81167e370e2c83c616669fdfbe727992ab561ee6ce85ecfe21e465e03",
       "bounds_m": [
         [
           -0.0569310300052166,
@@ -2165,7 +2357,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 5.9,
-      "donor_to_atlas_surface_sample_p95_mm": 25.39
+      "donor_to_atlas_surface_sample_p95_mm": 25.39,
+      "original_vertices": 35038,
+      "original_triangles": 70072,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Atlas",
@@ -2177,10 +2372,10 @@
       "triangles": 18952,
       "previous_triangles": 6172,
       "packed_bytes": 177048,
-      "packed_raw_sha256": "bd4df65a1a427a610ea72227e55541e79b5b886efdc60168498ef1aaa533225a",
+      "packed_raw_sha256": "92bb969f3e421dfc3e3fab9c84055c59ed39babe19a0cf74d01fa1d8d1012a64",
       "stl_sha256": "0f55b03c2a9159fd4807b7cdd84bc4e74df93fce3f8d15c94843990dc6c8cae5",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C1.stl",
-      "sha256": "bc9db07b65014c619d60b97ed8b8c81c385918285c6c778dde1b4c814078138d",
+      "sha256": "d3c39d7d736f8755227828097d4d0cd61bb180c974f21a4d3fdf8f250676107d",
       "bounds_m": [
         [
           -0.03785547986626625,
@@ -2194,7 +2389,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 15.84,
-      "donor_to_atlas_surface_sample_p95_mm": 22.11
+      "donor_to_atlas_surface_sample_p95_mm": 22.11,
+      "original_vertices": 9468,
+      "original_triangles": 18952,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Axis",
@@ -2206,10 +2404,10 @@
       "triangles": 20364,
       "previous_triangles": 6870,
       "packed_bytes": 193775,
-      "packed_raw_sha256": "4b99f46690d89a736a4d3458f2764065c229c0308d2ecebdfb1d894773be7b53",
+      "packed_raw_sha256": "8c7ee48288893940ae3da3ced8b8f454435d6bb52c2d2dda6ec694fded11a8ad",
       "stl_sha256": "360673ba138168e09d92610c845a228537ed4fef72a2346871fb838983badadc",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C2.stl",
-      "sha256": "b1eddabe17ffd0fb63d1880b63989fe1853cc9e784c8b8f773d03d92c349c30b",
+      "sha256": "afb776bdbffb147c1c71bd57b1f862e4337da26f735c78c1777f6d20a993d105",
       "bounds_m": [
         [
           -0.028607333078980446,
@@ -2223,7 +2421,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 9.29,
-      "donor_to_atlas_surface_sample_p95_mm": 17.61
+      "donor_to_atlas_surface_sample_p95_mm": 17.61,
+      "original_vertices": 10178,
+      "original_triangles": 20364,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Third cervical vertebra",
@@ -2235,10 +2436,10 @@
       "triangles": 16588,
       "previous_triangles": 5278,
       "packed_bytes": 155717,
-      "packed_raw_sha256": "0429a5e0cd8f57e927e2e412d67ddede6f74c2908d77be265da48446e0553954",
+      "packed_raw_sha256": "adfc2ba36924a06a2a4813a36745164520a90270fe5f8cb8bc034a95f88b7e95",
       "stl_sha256": "f15f2a0cb536d1a3c4121ed18cc4248126b11fe616f92cfa1cfb26670391f0a3",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C3.stl",
-      "sha256": "506827d6002b9c2247dd3b2d7a9b91872a6086cc4cb139c5642066af93fddfb1",
+      "sha256": "ca1aecbb57964b97880f04ff61e793d4fa4a244d598782b547e4ba7344626aa1",
       "bounds_m": [
         [
           -0.028857238590717316,
@@ -2252,7 +2453,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 9.53,
-      "donor_to_atlas_surface_sample_p95_mm": 17.08
+      "donor_to_atlas_surface_sample_p95_mm": 17.08,
+      "original_vertices": 8290,
+      "original_triangles": 16588,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Fourth cervical vertebra",
@@ -2264,10 +2468,10 @@
       "triangles": 17092,
       "previous_triangles": 4224,
       "packed_bytes": 161146,
-      "packed_raw_sha256": "3c5cd6956a3852006e1ef99834431fb765c6de63d07f99430de412d20e581ae2",
+      "packed_raw_sha256": "0bf625b3082d56e59e3c03c329f82d6380a52060ba0567458afb16b550f4bd7e",
       "stl_sha256": "052a3e0724df3ec0fce93ec12f32bcc8141b511b6cffdb0f52a8492240e36b7e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C4.stl",
-      "sha256": "e5dc43974422f5bfe0ae454f865798ad8cf00a194e02977adf2cadf60cf72c13",
+      "sha256": "ce89304852e4f695ea5e720774e1ed044a541b1baeb6a2fa7fd2f839dfe22f64",
       "bounds_m": [
         [
           -0.027279537171125412,
@@ -2281,7 +2485,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 5.94,
-      "donor_to_atlas_surface_sample_p95_mm": 13.17
+      "donor_to_atlas_surface_sample_p95_mm": 13.17,
+      "original_vertices": 8542,
+      "original_triangles": 17092,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Fifth cervical vertebra",
@@ -2293,10 +2500,10 @@
       "triangles": 17044,
       "previous_triangles": 4754,
       "packed_bytes": 161055,
-      "packed_raw_sha256": "ab2e5f6a067d9b4a654aeaa170c0e60559908426614be6876c2173fa46ee83cb",
+      "packed_raw_sha256": "5ea9432c72811c59cc74cb6f9137b80fb567ace91f75f22e407dc7c5aa9e6e66",
       "stl_sha256": "07bdff0a29c96966bfe0ce49deb38bcbc439fae0a79d0e215820bbcce4bc2a7a",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C5.stl",
-      "sha256": "e3d9a4806e5f3b7ac688497dd8abeb974ed36ed7cb8de165fe657d9c503b5103",
+      "sha256": "c25c96ecb7517252b1c74fa097db31a264b7572545ca48dff39ef4392bdb80a6",
       "bounds_m": [
         [
           -0.02631327509880066,
@@ -2310,7 +2517,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.61,
-      "donor_to_atlas_surface_sample_p95_mm": 10.61
+      "donor_to_atlas_surface_sample_p95_mm": 10.61,
+      "original_vertices": 8518,
+      "original_triangles": 17044,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Sixth cervical vertebra",
@@ -2322,10 +2532,10 @@
       "triangles": 20056,
       "previous_triangles": 6350,
       "packed_bytes": 190517,
-      "packed_raw_sha256": "2c44007bed8fb66b6f71e90a4079babcdaaee129914b4c90ef504cdfa3ef151d",
+      "packed_raw_sha256": "1f2e9645c302e02015b0e7b4d99d79701940f9a8df72999a61eb28b5d44271c7",
       "stl_sha256": "98d1d8cbae5bbe6d985dbfa057b2cded3966925d16f2d5f9021146e496a070ea",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C6.stl",
-      "sha256": "1f30cb63c6b4d66f57df930808e4ed0cea275c1b5b40de0b86e395b7db68b925",
+      "sha256": "c15d7a7afe94d3a25153318d29e4a76855c3e6ab0ce06b24f054dffa2ffb6e4f",
       "bounds_m": [
         [
           -0.031117625534534454,
@@ -2339,7 +2549,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.31,
-      "donor_to_atlas_surface_sample_p95_mm": 10.53
+      "donor_to_atlas_surface_sample_p95_mm": 10.53,
+      "original_vertices": 10022,
+      "original_triangles": 20056,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Seventh cervical vertebra",
@@ -2351,10 +2564,10 @@
       "triangles": 22172,
       "previous_triangles": 5222,
       "packed_bytes": 210495,
-      "packed_raw_sha256": "0681d6c4bde8dc10ed12524155a3e081bffb7f98b6fc3dfb05f86eb740d83a77",
+      "packed_raw_sha256": "048b1492d81f7114036de2804869354b2058283edfa9e1777775c8bed9209f44",
       "stl_sha256": "cc4a61dd5a80ae55c4c9c547247d051740a01576b496e713f42b20a415f91868",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_C7.stl",
-      "sha256": "e62fc8c5623cdd919c7f3e0f264d066b4b1cc307e2fe48601242a029c66e1437",
+      "sha256": "bf308c0f4744017bf957ba0083d2cf43edd005d7fe303678a5f057b3e3eb7aff",
       "bounds_m": [
         [
           -0.03829894959926605,
@@ -2368,7 +2581,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.7,
-      "donor_to_atlas_surface_sample_p95_mm": 7.15
+      "donor_to_atlas_surface_sample_p95_mm": 7.15,
+      "original_vertices": 11082,
+      "original_triangles": 22172,
+      "refinement": "taubin-8x"
     },
     {
       "name": "First lumbar vertebra",
@@ -2380,10 +2596,10 @@
       "triangles": 43848,
       "previous_triangles": 12946,
       "packed_bytes": 420518,
-      "packed_raw_sha256": "d77bab60b1a4b0395ae086e5498b073f6af0daf8ac05f86780fc1b712bf8d37a",
+      "packed_raw_sha256": "d6e04e3e39f82d1e111f93f2a4aa86579b3bf0215012340bb972ba7610a1574d",
       "stl_sha256": "a2a2a0092ba872998dc0ccdb828a7c4549212a13c1d7e589a438a37dc1ed38e8",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L1.stl",
-      "sha256": "9b2b09bc6277608c5c3f80c28e6640f034dca8f5c0af904287fa58412ba34d0f",
+      "sha256": "4b7aac48d49dd3c0356ceb2c8dc16c11bf1daa44459fea7d8afe20bd8ebc19a5",
       "bounds_m": [
         [
           -0.03816376253962517,
@@ -2397,7 +2613,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.37,
-      "donor_to_atlas_surface_sample_p95_mm": 9.86
+      "donor_to_atlas_surface_sample_p95_mm": 9.86,
+      "original_vertices": 21924,
+      "original_triangles": 43848,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Second lumbar vertebra",
@@ -2409,10 +2628,10 @@
       "triangles": 48056,
       "previous_triangles": 6946,
       "packed_bytes": 461127,
-      "packed_raw_sha256": "9e6b24503896886f14850a98a74acc8aa71e4d687bb3641de2e3034355e60f5e",
+      "packed_raw_sha256": "7dc4a2c2c50f86d6f0869acad9a118db4b7c90a7e0df7d1028e2a13e429419b3",
       "stl_sha256": "6f755ad863f15a9d39e074296e3f5cd596de4aa831d7e72087ce2dc4c00b708c",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L2.stl",
-      "sha256": "123220e601c6161360643bac8bd74514817a5487a95c88ab2bb1155893112bf0",
+      "sha256": "19982b4ed4994b70fca77b2172e3385dbbb1ba78c52e4b943ab6a38c04fe7a0b",
       "bounds_m": [
         [
           -0.044984906911849976,
@@ -2426,7 +2645,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.73,
-      "donor_to_atlas_surface_sample_p95_mm": 10.43
+      "donor_to_atlas_surface_sample_p95_mm": 10.43,
+      "original_vertices": 24028,
+      "original_triangles": 48056,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Third lumbar vertebra",
@@ -2438,10 +2660,10 @@
       "triangles": 52156,
       "previous_triangles": 14750,
       "packed_bytes": 504418,
-      "packed_raw_sha256": "6270195f2f20346ecfef6cc38cf78a3f638a5864e06908acf2788c1b41b3e892",
+      "packed_raw_sha256": "6b05acbafc1a01529098f41a408fa6e4df39acd6e220e61fef7d051e6c569ce0",
       "stl_sha256": "43bed3cb8d4289c74af2fbdf44f5b057e9505ae88abea713897c9af27a85b420",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L3.stl",
-      "sha256": "e16bd4426445ea41f7a7865bf927905d8ae8ae81e73b0e2bd61341f1c40d1c3e",
+      "sha256": "84f7d9c16fc55b11004ac0ea227cbec87e0900e2c39151cdcb0242c2a0026e55",
       "bounds_m": [
         [
           -0.047801245003938675,
@@ -2455,7 +2677,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 5.52,
-      "donor_to_atlas_surface_sample_p95_mm": 18.59
+      "donor_to_atlas_surface_sample_p95_mm": 18.59,
+      "original_vertices": 26078,
+      "original_triangles": 52156,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Fourth lumbar vertebra",
@@ -2467,10 +2692,10 @@
       "triangles": 51748,
       "previous_triangles": 15426,
       "packed_bytes": 501187,
-      "packed_raw_sha256": "7f14db6f59efe3185d957cea7d07be18e445d09c89c9cfceafae39e03ac6fba5",
+      "packed_raw_sha256": "548b13e3634b6e7d50fe1c7e2b210e94b5d977a0d85153c186a452746aacf137",
       "stl_sha256": "03e8d57856d875dfd0cab8d25b807da76eb837ea6399fdf4b39eed584c1e346a",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L4.stl",
-      "sha256": "2b1635c88dc73b15f759b8e28b277d3a248955867ba31af7f4091ed32968aa29",
+      "sha256": "ff5b87d67d5d1ccfca3b80ff544b140dfb750d18300150266b0ebf713d65839b",
       "bounds_m": [
         [
           -0.048308778554201126,
@@ -2484,7 +2709,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 10.88,
-      "donor_to_atlas_surface_sample_p95_mm": 26.53
+      "donor_to_atlas_surface_sample_p95_mm": 26.53,
+      "original_vertices": 25874,
+      "original_triangles": 51748,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Fifth lumbar vertebra",
@@ -2496,10 +2724,10 @@
       "triangles": 50720,
       "previous_triangles": 17282,
       "packed_bytes": 492598,
-      "packed_raw_sha256": "e9557996abb88bdd6d2cb0c0b2d1d390fb916d10b1fb978bda696d46e699d6d5",
+      "packed_raw_sha256": "a78ac1228b99ce6da822fc3b216932e43f0f632ab6be4f221f266548f2867ed1",
       "stl_sha256": "f9375582f3ca7f2efe85cdf238db890edfd4e8151776969e35985ea50edc23a2",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_L5.stl",
-      "sha256": "d1844f46a108bb0036a3dd47a0f56fc010ae161d54032eeaa90ee3ea9f0eae12",
+      "sha256": "da9ee73a530006bb08831d8da032e4a40bda98585f8395278f574084abda1555",
       "bounds_m": [
         [
           -0.051038745790719986,
@@ -2513,7 +2741,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 14.48,
-      "donor_to_atlas_surface_sample_p95_mm": 31.26
+      "donor_to_atlas_surface_sample_p95_mm": 31.26,
+      "original_vertices": 25360,
+      "original_triangles": 50720,
+      "refinement": "taubin-8x"
     },
     {
       "name": "First thoracic vertebra",
@@ -2525,10 +2756,10 @@
       "triangles": 25452,
       "previous_triangles": 5614,
       "packed_bytes": 241683,
-      "packed_raw_sha256": "b1e019711c8bdfa78885ea4a1a287183c53502fadaa9aa4fbbe88267d45dd35d",
+      "packed_raw_sha256": "766d1172c01ed4f8ba1e4a796a1dfda2f9a5cf5cd59c4ba24709858406e08011",
       "stl_sha256": "e7944312b8887dfbc515e67a945cb3cd53315316d11d0245a074a64f632d9ea0",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T1.stl",
-      "sha256": "279c4f2f54d3b1b589c69e9879e0c9e58bddea1eb1752d1574715c3ec0a385e2",
+      "sha256": "c03adf7e1bff18592ad67792e0dafe0f31d5022c72269a0d7dc3a20c1a9862c1",
       "bounds_m": [
         [
           -0.043488509953022,
@@ -2542,7 +2773,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.77,
-      "donor_to_atlas_surface_sample_p95_mm": 4.31
+      "donor_to_atlas_surface_sample_p95_mm": 4.31,
+      "original_vertices": 12726,
+      "original_triangles": 25452,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Tenth thoracic vertebra",
@@ -2554,10 +2788,10 @@
       "triangles": 34008,
       "previous_triangles": 11928,
       "packed_bytes": 324723,
-      "packed_raw_sha256": "05ed0690d2df16a4ec74b22621e6fa9388faf69bee1f34f87da3945afd58478b",
+      "packed_raw_sha256": "497bc6dd7763b07c9fdba2f12a60566b4e36531cb754c4f5cc34438a0d12d09e",
       "stl_sha256": "5b694c9016d6e2cdca47b1e3116935586a09f7a4b610f8abbb75c869a3ea27be",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T10.stl",
-      "sha256": "70245a1d752c5a32666b96d666a453becba9015a17c1caf4f3989eb769b23d62",
+      "sha256": "f12e8e49dc2278f6a02db402b967f8be2c876eb40487d5c0e86337cd624ead47",
       "bounds_m": [
         [
           -0.03289373964071274,
@@ -2571,7 +2805,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.48,
-      "donor_to_atlas_surface_sample_p95_mm": 12.97
+      "donor_to_atlas_surface_sample_p95_mm": 12.97,
+      "original_vertices": 17004,
+      "original_triangles": 34008,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Eleventh thoracic vertebra",
@@ -2583,10 +2820,10 @@
       "triangles": 34240,
       "previous_triangles": 5652,
       "packed_bytes": 327643,
-      "packed_raw_sha256": "3a3da5c4e58d15da1be63b93d70e08cb589db2fd66b2326edd89d74778350f3e",
+      "packed_raw_sha256": "1fc2e35805189c34c5d9c40be5bf0511eb864b45664414b2e0ab4fc0d67ff5b2",
       "stl_sha256": "7705b5cada87bca94399d856638de09587d0af5f1f30707294c5c0d1be9d0df7",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T11.stl",
-      "sha256": "8978d39ed6d2c75f38e8a8e3956330024c73ccc25670b63acfd27b95e66aa306",
+      "sha256": "77b09dbbda3e24e79ad3ffc654879389ba7d3731a824e749425b517bc539b125",
       "bounds_m": [
         [
           -0.031504351645708084,
@@ -2600,7 +2837,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.8,
-      "donor_to_atlas_surface_sample_p95_mm": 11.26
+      "donor_to_atlas_surface_sample_p95_mm": 11.26,
+      "original_vertices": 17120,
+      "original_triangles": 34240,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Twelfth thoracic vertebra",
@@ -2612,10 +2852,10 @@
       "triangles": 35896,
       "previous_triangles": 6038,
       "packed_bytes": 343958,
-      "packed_raw_sha256": "95c136acce54352f7eadf1b53dc2ff58f633f21c270c4ffecdc23e7d19e18deb",
+      "packed_raw_sha256": "d745c5558e969817baf60844c1f75c54dbda04f745f865a3255c25c2a319dd95",
       "stl_sha256": "0fc17af8cfe98b7ec2947ae459b44d3e619ad4dc76b0fd0d05f1362ca56bcfee",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T12.stl",
-      "sha256": "00a810f945385aafff4293b069b5a33bd26d38976f47e26772c0692f7b9c4dbe",
+      "sha256": "dfcd5af736b5d6dfbd9e1586a3cd2d44a6de901fde3f77ae7943ab16799258b4",
       "bounds_m": [
         [
           -0.026230089366436005,
@@ -2629,7 +2869,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.69,
-      "donor_to_atlas_surface_sample_p95_mm": 9.71
+      "donor_to_atlas_surface_sample_p95_mm": 9.71,
+      "original_vertices": 17948,
+      "original_triangles": 35896,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Second thoracic vertebra",
@@ -2641,10 +2884,10 @@
       "triangles": 24172,
       "previous_triangles": 8360,
       "packed_bytes": 229563,
-      "packed_raw_sha256": "0d9c485bba61454ba29e38008f119f7997eee08547dc70353478aeafab39d72a",
+      "packed_raw_sha256": "b5e6e5ed06293f4feaf0d437f5d2bf811c98c8ea1486cc06ae2d745eed91e577",
       "stl_sha256": "6b0b49cfea0f9a4ef2b3e4aca27c2840a208b1fc19d9d860397b33998d04568a",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T2.stl",
-      "sha256": "0c6346bd04855298ae6dc0cd1312034782db30a2053a5b22c6aebe9482152c8b",
+      "sha256": "6bd4672856e3d978c954ba3feec57c00ec1254173dff0bed21cd9eebf10fe241",
       "bounds_m": [
         [
           -0.040182143449783325,
@@ -2658,7 +2901,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 1.56,
-      "donor_to_atlas_surface_sample_p95_mm": 5.63
+      "donor_to_atlas_surface_sample_p95_mm": 5.63,
+      "original_vertices": 12086,
+      "original_triangles": 24172,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Third thoracic vertebra",
@@ -2670,10 +2916,10 @@
       "triangles": 25884,
       "previous_triangles": 8910,
       "packed_bytes": 246740,
-      "packed_raw_sha256": "f578a9efd99b31511aa3016dab7f867bbdf2e508e9e7c827c7b4690a0b64e832",
+      "packed_raw_sha256": "d0e06f6be7aef5ab49833de63682a14c69cac05b7cec255e385f3fde35b8c13b",
       "stl_sha256": "377077d6ec88629030da4f4ebce13dd2f8f9f3945452d61b0cc3219da2cb76e1",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T3.stl",
-      "sha256": "7e48c0ad7bf5b4b106b5477a00874559ad90a534438795f36f3e8e7e662e743e",
+      "sha256": "e52eaa7adfccd807761f65ce865d9e687fe9905c2bc6cfa0af6faa69637e49f8",
       "bounds_m": [
         [
           -0.03749594837427139,
@@ -2687,7 +2933,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 2.31,
-      "donor_to_atlas_surface_sample_p95_mm": 6.74
+      "donor_to_atlas_surface_sample_p95_mm": 6.74,
+      "original_vertices": 12942,
+      "original_triangles": 25884,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Fourth thoracic vertebra",
@@ -2699,10 +2948,10 @@
       "triangles": 26520,
       "previous_triangles": 8930,
       "packed_bytes": 252538,
-      "packed_raw_sha256": "7059f3c57ebe4727a2a8a463f039688cade6b708269096b8a2f8d846733cb3fa",
+      "packed_raw_sha256": "5f189835ad0efc4a3f3fc32c88df3fe3f3552e11a61a571bb9a78b4460cf77e3",
       "stl_sha256": "5c8c8aaba967786adf9868949a37eb3e568c76ac30863deb3504efcf136c49b5",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T4.stl",
-      "sha256": "296c3e5f28940b127676110945f431d4faecb7947f01b36acd4dbed9b349fc60",
+      "sha256": "46806421cb67827ca23cf30835b530f6813f8c892ff7036f2421cc8719fcc8f2",
       "bounds_m": [
         [
           -0.03654780983924866,
@@ -2716,7 +2965,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.14,
-      "donor_to_atlas_surface_sample_p95_mm": 8.4
+      "donor_to_atlas_surface_sample_p95_mm": 8.4,
+      "original_vertices": 13260,
+      "original_triangles": 26520,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Fifth thoracic vertebra",
@@ -2728,10 +2980,10 @@
       "triangles": 27196,
       "previous_triangles": 9834,
       "packed_bytes": 258579,
-      "packed_raw_sha256": "1fe63b9e3e96152b48a585472de8f923a0cbb912b14d2b86e2ecf940ca94841d",
+      "packed_raw_sha256": "a53be7eb18248d6c6159040647b57edd8d1e4f5c402f67e3a6040a42f27d6955",
       "stl_sha256": "7e3b1ea5fd484a8f7b732f33781764e6ad8041b1496a1720fa8cfd4d1f17aa29",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T5.stl",
-      "sha256": "69d7fd5c1e635f9e5e760b4adb56bb6bc39c26a07a49f1870a4544dfcf2e02f2",
+      "sha256": "2a35b87e0b5292f6416d21ee4b7e982df1028d5f51fbfe33f8be0d0eceefd513",
       "bounds_m": [
         [
           -0.039180561900138855,
@@ -2745,7 +2997,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.47,
-      "donor_to_atlas_surface_sample_p95_mm": 8.73
+      "donor_to_atlas_surface_sample_p95_mm": 8.73,
+      "original_vertices": 13598,
+      "original_triangles": 27196,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Sixth thoracic vertebra",
@@ -2757,10 +3012,10 @@
       "triangles": 28288,
       "previous_triangles": 4896,
       "packed_bytes": 268820,
-      "packed_raw_sha256": "99ac7579b99cedb230e22da386c27ce9039cd3b85ffa17219aff038570cf254c",
+      "packed_raw_sha256": "767d19a06062b0535f05cc2d0d2152acafb5536a21012c7b2c17fc48112b060d",
       "stl_sha256": "c314395bea3dedcde83ca4c62ba0475c9451d8a97f98bd7035c3d858f2cefb43",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T6.stl",
-      "sha256": "3dad7f81d3932574e5ab78409ba900bacb40ffbfec1f7a106536844dc3b90991",
+      "sha256": "62e77b242d4a143ba7adcc9481ac4192b4a9c2346dce28155317ed99b16abc2f",
       "bounds_m": [
         [
           -0.03844953328371048,
@@ -2774,7 +3029,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.96,
-      "donor_to_atlas_surface_sample_p95_mm": 9.54
+      "donor_to_atlas_surface_sample_p95_mm": 9.54,
+      "original_vertices": 14144,
+      "original_triangles": 28288,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Seventh thoracic vertebra",
@@ -2786,10 +3044,10 @@
       "triangles": 29992,
       "previous_triangles": 10740,
       "packed_bytes": 285237,
-      "packed_raw_sha256": "4055a80a695d6c254dd1d267b103f9025a4b797de8acb63b02b7eb74d593916f",
+      "packed_raw_sha256": "3772d31bae6ac71b222836a4bc69766947c29b44a17a5c45ad9a60224b261c83",
       "stl_sha256": "41f1bc71df9ef1edc498026e14b9b80db38aed74bed83a406043a52c22e04d34",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T7.stl",
-      "sha256": "3735a32c6ec223c9c150b53e1a126b1267a82cfffde037f226f36f125429c879",
+      "sha256": "d764ce8c217907cfc4a2ee7c53eecfaf051cf77f78f5f5697ca0ce63b49cf2bc",
       "bounds_m": [
         [
           -0.03728276491165161,
@@ -2803,7 +3061,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.78,
-      "donor_to_atlas_surface_sample_p95_mm": 12.18
+      "donor_to_atlas_surface_sample_p95_mm": 12.18,
+      "original_vertices": 14996,
+      "original_triangles": 29992,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Eighth thoracic vertebra",
@@ -2815,10 +3076,10 @@
       "triangles": 31200,
       "previous_triangles": 5206,
       "packed_bytes": 296131,
-      "packed_raw_sha256": "66801e64260b4d9664ca589e6d63c476403644cb02bb726dac851b1fbda0fc79",
+      "packed_raw_sha256": "452c9bac5e40fdf8ac04c25abd12e03edfd14cbbacc94c83d2db1030a4fd4873",
       "stl_sha256": "52a5b7dc1a6202c8d7ac845e50af4bf0418af684d2f25674a625247369882240",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T8.stl",
-      "sha256": "7524c7a6e7ce5267213189ac21700cf15461737cda610dba9c76778870b6ccd2",
+      "sha256": "a6b0a1fea263ca1dc3399776701a58104db4862576441aa920f5b0ace76a72e0",
       "bounds_m": [
         [
           -0.0359211340546608,
@@ -2832,7 +3093,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.46,
-      "donor_to_atlas_surface_sample_p95_mm": 12.12
+      "donor_to_atlas_surface_sample_p95_mm": 12.12,
+      "original_vertices": 15600,
+      "original_triangles": 31200,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Ninth thoracic vertebra",
@@ -2844,10 +3108,10 @@
       "triangles": 32152,
       "previous_triangles": 11286,
       "packed_bytes": 306282,
-      "packed_raw_sha256": "bc47448fcfbb278769438c75c035c6bc0914c1d1d606909fbead6db377ded3d6",
+      "packed_raw_sha256": "68b728780565b06687d44742bb9d9b39fab1cf3383b370ba110d137bb2fdb727",
       "stl_sha256": "112e245e6c2927e7b96c705db9b336c84ac4211fe583f21e9083d0ac10075e2e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/SPINAL_COLUMN/VERTEBRA_T9.stl",
-      "sha256": "c03b41ace410adfc47ac4e1a8f73a903b198ba9672ace21bf08505fe0189f926",
+      "sha256": "2adc41af79c2afb0ca677bc810cc122ae7caba8fa2e773ef83f3ae328d2451bb",
       "bounds_m": [
         [
           -0.034466326236724854,
@@ -2861,7 +3125,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.24,
-      "donor_to_atlas_surface_sample_p95_mm": 10.81
+      "donor_to_atlas_surface_sample_p95_mm": 10.81,
+      "original_vertices": 16076,
+      "original_triangles": 32152,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left tenth rib",
@@ -2873,10 +3140,10 @@
       "triangles": 29920,
       "previous_triangles": 31758,
       "packed_bytes": 272680,
-      "packed_raw_sha256": "d7eacb9a5f30f24ec8b1fce88230a8fb42dd0b687a150bf0e906a8417c0f2bbf",
+      "packed_raw_sha256": "fcb035122268927937150c0cfcef0291636387a76d927c244031a6d7d01c2baf",
       "stl_sha256": "6c286e6506848c0192ed7e80140440393e221982284f7eafaebc76ab5f5cb59e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_10_LEFT.stl",
-      "sha256": "c9c9032a5bee9cd55012c79a8ffd29bdec2e63b510ed4ead9d4c6079166e5ce4",
+      "sha256": "b82431ed8429436c3d93baf134fb94c090716935e6f5b96e4726c28c7b5e5d7e",
       "bounds_m": [
         [
           0.025077445432543755,
@@ -2890,7 +3157,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 13.51,
-      "donor_to_atlas_surface_sample_p95_mm": 19.78
+      "donor_to_atlas_surface_sample_p95_mm": 19.78,
+      "original_vertices": 14962,
+      "original_triangles": 29920,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right tenth rib",
@@ -2902,10 +3172,10 @@
       "triangles": 29068,
       "previous_triangles": 31010,
       "packed_bytes": 259407,
-      "packed_raw_sha256": "2f157fdbe151372d4cbd7794ae846ba73712d8caa51e5917640e82c71e30ca25",
+      "packed_raw_sha256": "b7164902bf44351a0dc59f816e4e4f93d356fd467a2e6d71bc17c8236d71e103",
       "stl_sha256": "31b272b801da2cc497eb520ee249224fe046f35fb18e043307ff3a07e924771a",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_10_RIGHT.stl",
-      "sha256": "9ac2b1a74f8f6aa9250effd669c14c0e1146ddd8bf1630ed651fe3cbf72453e8",
+      "sha256": "89365e68983e43575de9765eaa535fdcfe4701a5dc209cfe856537645b51208f",
       "bounds_m": [
         [
           -0.14545156061649323,
@@ -2919,7 +3189,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 13.95,
-      "donor_to_atlas_surface_sample_p95_mm": 20.83
+      "donor_to_atlas_surface_sample_p95_mm": 20.83,
+      "original_vertices": 14536,
+      "original_triangles": 29068,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left eleventh rib",
@@ -2931,10 +3204,10 @@
       "triangles": 18576,
       "previous_triangles": 22826,
       "packed_bytes": 167879,
-      "packed_raw_sha256": "0b0284b791f37ca0f2f54fd67f8ab960f8583954ca1769ab038b19b7601c91aa",
+      "packed_raw_sha256": "9abdc442f8e504d85be3ccf27138c2dc05243393cf919b684867ada785c11d5b",
       "stl_sha256": "95254079b4f7ce7c933fd564e4652aa3d01aef9bd02190dccffba39ed3a113f4",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_11_LEFT.stl",
-      "sha256": "670cd21be367a2c58e3cf848be214c90fd302d5a938eb47852b80c716419e52c",
+      "sha256": "a39e037349611d38d0e550841bdc368d9367fbb3c827061988774d58b831fa85",
       "bounds_m": [
         [
           0.038600608706474304,
@@ -2948,7 +3221,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 12.21,
-      "donor_to_atlas_surface_sample_p95_mm": 17.43
+      "donor_to_atlas_surface_sample_p95_mm": 17.43,
+      "original_vertices": 9290,
+      "original_triangles": 18576,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right eleventh rib",
@@ -2960,10 +3236,10 @@
       "triangles": 21684,
       "previous_triangles": 22428,
       "packed_bytes": 191198,
-      "packed_raw_sha256": "534f9e3ad3fefd7f5a3e94ed145acc94699d89b9d555357ad19d510d2b08ee13",
+      "packed_raw_sha256": "aec842b2d7caee9559736ac5a1f26df1b08096eb5c3cd4492b33418d263f8866",
       "stl_sha256": "6a3cfd4874edbb9133294bec4bf5e6dbf5fc0bb933e2e66971251a5fe565a46b",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_11_RIGHT.stl",
-      "sha256": "5abf45a2744cb51f57b318cd15d7abd70e6043e31fda8de273080965f817b993",
+      "sha256": "f13792a09c9e0525fc9f1d2f220a7b251a39a9e222a9ff4b7959fabbe3f02a93",
       "bounds_m": [
         [
           -0.13668955862522125,
@@ -2977,7 +3253,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 15.28,
-      "donor_to_atlas_surface_sample_p95_mm": 21.25
+      "donor_to_atlas_surface_sample_p95_mm": 21.25,
+      "original_vertices": 10844,
+      "original_triangles": 21684,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left twelfth rib",
@@ -2989,10 +3268,10 @@
       "triangles": 9120,
       "previous_triangles": 13726,
       "packed_bytes": 81571,
-      "packed_raw_sha256": "636de0df9f16e140bae6d2e742923608ad3e11bb05a22fa060af44edf41f19d5",
+      "packed_raw_sha256": "283cac55c64bc0ffb75e52f28ed9319eb1499948d42c0c72180fbb81d5926fa9",
       "stl_sha256": "945a54e9f21a5b81c2e434e28a9e73cd20c058e5fb66b5554fd7fe4ea39abfb1",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_12_LEFT.stl",
-      "sha256": "230b244dec1fc10d4fe8d68ee80107a5ffcd5a268a0fd35cc618b3b1c39fa029",
+      "sha256": "8e62521ce2d2f612e62a01a70371561fa70a1b90eb85addddc20e312fc97653b",
       "bounds_m": [
         [
           0.023529238998889923,
@@ -3006,7 +3285,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.36,
-      "donor_to_atlas_surface_sample_p95_mm": 12.76
+      "donor_to_atlas_surface_sample_p95_mm": 12.76,
+      "original_vertices": 4562,
+      "original_triangles": 9120,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right twelfth rib",
@@ -3018,10 +3300,10 @@
       "triangles": 12448,
       "previous_triangles": 13262,
       "packed_bytes": 109920,
-      "packed_raw_sha256": "3d51ee0cf16b5d297881143c666dfd44a7a8d3b85d4418c9e9891c3e52e75bdd",
+      "packed_raw_sha256": "d2edcdc1b443254ecdc38632ce7fc22f239bbbece88f35f4b7cb8882dd425ac9",
       "stl_sha256": "a649ce233fe57a2fe26b7d33d6c76ada69d68d9a33f578ef9c78323b5b046597",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_12_RIGHT.stl",
-      "sha256": "2cf45094e7aed9699e85fc39d942da420776c97bdc20f3892f00dca61df11e30",
+      "sha256": "43fdba163d8551007f2cac7459db92c272168fc863a676b963ff3c67f2c6f080",
       "bounds_m": [
         [
           -0.1075439602136612,
@@ -3035,7 +3317,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 7.51,
-      "donor_to_atlas_surface_sample_p95_mm": 21.31
+      "donor_to_atlas_surface_sample_p95_mm": 21.31,
+      "original_vertices": 6226,
+      "original_triangles": 12448,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left first rib",
@@ -3047,10 +3332,10 @@
       "triangles": 15352,
       "previous_triangles": 15464,
       "packed_bytes": 142384,
-      "packed_raw_sha256": "fa404bd3934e215007d6bbb533cc69113671cfa81409439d6f067fb6c9650d3e",
+      "packed_raw_sha256": "f4199336d5478c6660b69ce5d0ab6164780c340d4a55d2d13dc8152694c290b7",
       "stl_sha256": "17d9e4af28a4eaf780d0bb14ea6a8d006158d521fd05e0b0bf4795c8d8d8e404",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_1_LEFT.stl",
-      "sha256": "5761f15cb6ffa7ad2f1e334174e11be62511081f297aa8fbae07d985c92c5309",
+      "sha256": "cc9f35b3e133979ac01f4ad0fc5243c48bd77f035e7a68a8af3d16eceb63d13c",
       "bounds_m": [
         [
           0.02557852864265442,
@@ -3064,7 +3349,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.59,
-      "donor_to_atlas_surface_sample_p95_mm": 10.31
+      "donor_to_atlas_surface_sample_p95_mm": 10.31,
+      "original_vertices": 7678,
+      "original_triangles": 15352,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Right first rib",
@@ -3076,10 +3364,10 @@
       "triangles": 17676,
       "previous_triangles": 14194,
       "packed_bytes": 164358,
-      "packed_raw_sha256": "9855f910acc8c6048c479fc9b235069e9ff6fc3638e87cf2caa1590cbdd6f4f3",
+      "packed_raw_sha256": "541c492bde7cccc5287d8e2ceb26678b16843ed1fe9e720f2dac83f897b4f203",
       "stl_sha256": "59db69c5b35228d357bd415fc393bf6cf6cbe3f0525302e2a28a6fe957533356",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_1_RIGHT.stl",
-      "sha256": "1f4c983375189eb41869be632f7f34eec57ce1667e672a533c64f0e70a572a02",
+      "sha256": "970c5eb5cdd5514dcbab4455247f896633ab19ff85478c6f0585245b38bf47e0",
       "bounds_m": [
         [
           -0.07648417353630066,
@@ -3093,7 +3381,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 5.89,
-      "donor_to_atlas_surface_sample_p95_mm": 13.19
+      "donor_to_atlas_surface_sample_p95_mm": 13.19,
+      "original_vertices": 8838,
+      "original_triangles": 17676,
+      "refinement": "taubin-3x"
     },
     {
       "name": "Left second rib",
@@ -3105,10 +3396,10 @@
       "triangles": 22276,
       "previous_triangles": 25304,
       "packed_bytes": 203761,
-      "packed_raw_sha256": "d36347f7f3d4a4b0721c7aaad82e82bbdb8514a7aeb5e520ed6d5d47d85b40ef",
+      "packed_raw_sha256": "64cafca7ebe5ffe05536d79a6a307cfc260c03f80d1eb8b1cda97a8e7cf4df19",
       "stl_sha256": "c42f066176e9dd808971dd2d7f8b1ac09daef62429f0448eb4151ec6b20b70f0",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_2_LEFT.stl",
-      "sha256": "e2f67fc46a22c3a1fb77850a556c8c8b56abb087aa91795e6a73a2abe68335c2",
+      "sha256": "067e0c2389b0162d82ba2ed7605f7e05d60de57a89771007d03b84a95d16730e",
       "bounds_m": [
         [
           0.025371037423610687,
@@ -3122,7 +3413,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 8.61,
-      "donor_to_atlas_surface_sample_p95_mm": 16.17
+      "donor_to_atlas_surface_sample_p95_mm": 16.17,
+      "original_vertices": 11140,
+      "original_triangles": 22276,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right second rib",
@@ -3134,10 +3428,10 @@
       "triangles": 22704,
       "previous_triangles": 23694,
       "packed_bytes": 206744,
-      "packed_raw_sha256": "5c2654854296c16737c35eb8ac7744f09cbfb7a17c0662b370ca04d27cb1088b",
+      "packed_raw_sha256": "998aa5a88873a4d440e98bdccbd750833446c06f56ed1272390dd1d8aabe32cb",
       "stl_sha256": "6aee7b437c23c38a269107466ff8766b762dedc725df17bff60f3eed7cd3608e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_2_RIGHT.stl",
-      "sha256": "4acea23ba0721c247da7b4a40adf52e6012d8c593f81d1b0ea893e9d52a4846c",
+      "sha256": "f31fe673072a1529e35f5c30588859847caf61f57679dd6dd8baca262fc331d9",
       "bounds_m": [
         [
           -0.10361815989017487,
@@ -3151,7 +3445,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 7.3,
-      "donor_to_atlas_surface_sample_p95_mm": 18.47
+      "donor_to_atlas_surface_sample_p95_mm": 18.47,
+      "original_vertices": 11354,
+      "original_triangles": 22704,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left third rib",
@@ -3163,10 +3460,10 @@
       "triangles": 28320,
       "previous_triangles": 31212,
       "packed_bytes": 257829,
-      "packed_raw_sha256": "4c27f659565084e6714bc403a19410aa514eb96f103f2f8ac4f2a02862334091",
+      "packed_raw_sha256": "1fa0207b9aba748135a40d639f2d4a4577b8def2ecdf749b9521260ae63e7397",
       "stl_sha256": "761f5773ca58aeb67ab7d3da872feb07b361c98e033b163c01bf59aa3250c3c8",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_3_LEFT.stl",
-      "sha256": "3ff71686321c98b939f17623bac750b9965fffcee7b51b7ecaf8bdfee157a7ca",
+      "sha256": "a06b492deeb00130e21c421d950f2e9d9848ff1bc40d3577fd05dacfc84c6214",
       "bounds_m": [
         [
           0.02416989952325821,
@@ -3180,7 +3477,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 9.38,
-      "donor_to_atlas_surface_sample_p95_mm": 21.01
+      "donor_to_atlas_surface_sample_p95_mm": 21.01,
+      "original_vertices": 14162,
+      "original_triangles": 28320,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right third rib",
@@ -3192,10 +3492,10 @@
       "triangles": 29060,
       "previous_triangles": 30860,
       "packed_bytes": 265216,
-      "packed_raw_sha256": "3914c18e099d14a637d8c07884552ac165bdb0ecefbd3dcb32fb10bcd7f8f6aa",
+      "packed_raw_sha256": "91e211cd07a19e90317c401269aa96c8a3fb787d47bed9bc209364bf1fda8753",
       "stl_sha256": "e792eee7e4fe1ea7615e66b920687c48698f3b08f2c5a7875bfe31866ef33af4",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_3_RIGHT.stl",
-      "sha256": "c848b95718dc5d2140957b1dc516b0985068a9b95d05bcd9990a834b54bf66b7",
+      "sha256": "a3a71dc52720ead9d42eb5a050ede4ac8f02cbe76f13787b3d29bbc1ba3c3897",
       "bounds_m": [
         [
           -0.12035967409610748,
@@ -3209,7 +3509,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 11.33,
-      "donor_to_atlas_surface_sample_p95_mm": 18.38
+      "donor_to_atlas_surface_sample_p95_mm": 18.38,
+      "original_vertices": 14532,
+      "original_triangles": 29060,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left fourth rib",
@@ -3221,10 +3524,10 @@
       "triangles": 31768,
       "previous_triangles": 37922,
       "packed_bytes": 289943,
-      "packed_raw_sha256": "97b004cd8eaf65fc325b7b49b9f86da614b869572a61993b0cb3c300369ad521",
+      "packed_raw_sha256": "51cbbd3ee9874547a3b60e3efcee6261ed0eced6906c1a1606569377dd0949db",
       "stl_sha256": "60b4adedd0259fe0ba1430d0d879cb25fa51e45b657492fbd98185f98f2a8029",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_4_LEFT.stl",
-      "sha256": "1cd9065dd932ad432d7bbb22ea60da86c666e7b451b09da32b419590ac6739b7",
+      "sha256": "07bbadd929685c63e060c06d3b8c34032e60cdbb263c9db057ef03f3e10ee9c6",
       "bounds_m": [
         [
           0.023669445887207985,
@@ -3238,7 +3541,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 6.03,
-      "donor_to_atlas_surface_sample_p95_mm": 16.27
+      "donor_to_atlas_surface_sample_p95_mm": 16.27,
+      "original_vertices": 15886,
+      "original_triangles": 31768,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right fourth rib",
@@ -3250,10 +3556,10 @@
       "triangles": 33168,
       "previous_triangles": 38488,
       "packed_bytes": 303289,
-      "packed_raw_sha256": "60b379bbfc1c427f11aa62d3dd886e18b57eed98a389907c3cf503a6ac276b3f",
+      "packed_raw_sha256": "aff4f8468017a53808884202e4e3c9294f3bb6894415f4b69e1ab782da8fe3dc",
       "stl_sha256": "e1f9cd76e92f1cd4e96dd3000556313502b440c33150ec0ca32c3302e6238881",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_4_RIGHT.stl",
-      "sha256": "831cb52bfd62dd186fc7f21050142c5354439fd1f07afcc280190e22a108e61e",
+      "sha256": "c2749ab8c8374e98be272c86954533b6825e5a62136f488eaec6b3d681a9a6a7",
       "bounds_m": [
         [
           -0.12731559574604034,
@@ -3267,7 +3573,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 7.41,
-      "donor_to_atlas_surface_sample_p95_mm": 14.28
+      "donor_to_atlas_surface_sample_p95_mm": 14.28,
+      "original_vertices": 16586,
+      "original_triangles": 33168,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left fifth rib",
@@ -3279,10 +3588,10 @@
       "triangles": 35584,
       "previous_triangles": 41568,
       "packed_bytes": 325444,
-      "packed_raw_sha256": "32ea5956fcd4e10ecf45ab7a660ed80012263af6433d3ad5a7db7559f987defd",
+      "packed_raw_sha256": "2e1ee24a7f1f24136e47b16d2ce328422b393a9cf431fea6cda5b522a2aa6023",
       "stl_sha256": "4fc83da9ec74553a115a0e46ad8cb07fe3f6ba7ce2a6a205ec61707a8972640b",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_5_LEFT.stl",
-      "sha256": "92cec2b034530bc3f7d06ad50ab1d0e32a8d421067cff9988373efd908107242",
+      "sha256": "e9a60a0f28af11b498b070de7d8387ff5ba682582b24153b6ddd273ea43aa934",
       "bounds_m": [
         [
           0.027942104265093803,
@@ -3296,7 +3605,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 5.03,
-      "donor_to_atlas_surface_sample_p95_mm": 14.89
+      "donor_to_atlas_surface_sample_p95_mm": 14.89,
+      "original_vertices": 17794,
+      "original_triangles": 35584,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right fifth rib",
@@ -3308,10 +3620,10 @@
       "triangles": 35284,
       "previous_triangles": 41634,
       "packed_bytes": 322865,
-      "packed_raw_sha256": "0c1a4cd838cc1c9b937faf6c7d527851598fc807870d715c96ac8a1178320df7",
+      "packed_raw_sha256": "39ba5c910a785494335de8aad40756bd46be5d30dd66c88fee658f254483ebc1",
       "stl_sha256": "34c3ab7fc0dc08992cfe124ac15ba6fb053746969bd291e194bcd6c228f18dde",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_5_RIGHT.stl",
-      "sha256": "d52274d755d0ac5ea858c62d8e90741a3b817ed4babeae6515fc4ae37eae064d",
+      "sha256": "dc661a08179e665a1f11f241ed98d86ad3ed9cb6d2ec69073c3b64724b503ce5",
       "bounds_m": [
         [
           -0.12999597191810608,
@@ -3325,7 +3637,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 3.7,
-      "donor_to_atlas_surface_sample_p95_mm": 12.9
+      "donor_to_atlas_surface_sample_p95_mm": 12.9,
+      "original_vertices": 17644,
+      "original_triangles": 35284,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left sixth rib",
@@ -3337,10 +3652,10 @@
       "triangles": 37260,
       "previous_triangles": 44434,
       "packed_bytes": 341807,
-      "packed_raw_sha256": "cfa1e36345be06bb256f049677627041a17ef8341a800a11b3c8c44514364941",
+      "packed_raw_sha256": "7eeb3f5a209f1dced24ca214faf06fbed986dce98398bebc8ec684710038c575",
       "stl_sha256": "4163929db2807dd575a390718e82615ca9ec9da77cb7f197ff7561c37ff4257d",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_6_LEFT.stl",
-      "sha256": "fb37224305fc2730c1e5555898820ad2b6e5d3956bdc38b5eb472dccf007e3a7",
+      "sha256": "2784f9be2da6ed40bd29afabe34dabbae1d2b07a2ca585293d0824f8a1fb9127",
       "bounds_m": [
         [
           0.02643856778740883,
@@ -3354,7 +3669,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 7.05,
-      "donor_to_atlas_surface_sample_p95_mm": 15.21
+      "donor_to_atlas_surface_sample_p95_mm": 15.21,
+      "original_vertices": 18632,
+      "original_triangles": 37260,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right sixth rib",
@@ -3366,10 +3684,10 @@
       "triangles": 37984,
       "previous_triangles": 44634,
       "packed_bytes": 346995,
-      "packed_raw_sha256": "9d9fb9494acd229ff60c34208e230fc19223bf2deaa0b8203aeffa3744045c9b",
+      "packed_raw_sha256": "13c06c81abc855232810d4a436c4a129b43210dc381a5f8b71f827d190fd1ee9",
       "stl_sha256": "c888a6e2f5f17561fed9d16de8b403f21d3a171e414647887d8e6bd2e596a8c1",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_6_RIGHT.stl",
-      "sha256": "72d2bfb7e8ce74f279d27883cc2f1317aa08f93b27e18f64a017d16c0081e292",
+      "sha256": "284200a043a73208345e54d91c2ca945573c7e14db56d604bf88d35fb90fc6ae",
       "bounds_m": [
         [
           -0.13620349764823914,
@@ -3383,7 +3701,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 4.33,
-      "donor_to_atlas_surface_sample_p95_mm": 9.74
+      "donor_to_atlas_surface_sample_p95_mm": 9.74,
+      "original_vertices": 18994,
+      "original_triangles": 37984,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left seventh rib",
@@ -3395,10 +3716,10 @@
       "triangles": 38764,
       "previous_triangles": 44062,
       "packed_bytes": 354740,
-      "packed_raw_sha256": "5abd294c1c8007e35354bfb5611dbae9811f189642ed0ab8ec383e14ca11a091",
+      "packed_raw_sha256": "7f08234e11739533acbb0b31b2fd157a5cb10998fd482689e5a5dfe0fda89b0f",
       "stl_sha256": "28f5ce8f9ebf1df97f34538b178aee0c5fe9f626859ceb6949cd919b218ba8ba",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_7_LEFT.stl",
-      "sha256": "e4c542b5f082678bebcb64406f4e72093d7b6a3eb37e08e2a039c33383046d98",
+      "sha256": "6473ec56392a7a17f6b69b146bc951bfab386398d97b47342a578cddc8c18765",
       "bounds_m": [
         [
           0.022837365046143532,
@@ -3412,7 +3733,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 9.51,
-      "donor_to_atlas_surface_sample_p95_mm": 18.94
+      "donor_to_atlas_surface_sample_p95_mm": 18.94,
+      "original_vertices": 19384,
+      "original_triangles": 38764,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right seventh rib",
@@ -3424,10 +3748,10 @@
       "triangles": 38640,
       "previous_triangles": 43146,
       "packed_bytes": 353043,
-      "packed_raw_sha256": "a4906a56fb866044f96183f99dc3d0354825744bcf796a44cbd628aedb1eafec",
+      "packed_raw_sha256": "c1ed46c77965f119f15fb9073f77199412d1b829b7e28d436edff3cf5d1e94ff",
       "stl_sha256": "0ef09a0a2cd649a6a83661ff521b7df8fbd4755777a44b97817dc4b75af8cbf2",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_7_RIGHT.stl",
-      "sha256": "7090def481473fac48dd7c13f280a60734bdf60f2d28a84333d4a585609b6c0a",
+      "sha256": "39603a3fe7ecf0e80dbfb8e07cc0f9ada438fb25fece4f7612c94e135c11fc90",
       "bounds_m": [
         [
           -0.1370159387588501,
@@ -3441,7 +3765,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 7.71,
-      "donor_to_atlas_surface_sample_p95_mm": 16.02
+      "donor_to_atlas_surface_sample_p95_mm": 16.02,
+      "original_vertices": 19322,
+      "original_triangles": 38640,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left eighth rib",
@@ -3453,10 +3780,10 @@
       "triangles": 35444,
       "previous_triangles": 37134,
       "packed_bytes": 322232,
-      "packed_raw_sha256": "abc55bb39555b27290f609f024be2a8ab6273fd82e69ef3dfeca7d50edf1dff4",
+      "packed_raw_sha256": "5f87aeb2666b3f3cef4733b65d90cb3505b4ffba4e4c640a35764e393dc8d3b1",
       "stl_sha256": "0155e5600c7277d35a7611bab0853e3b1a550ca0252ebfe431feca4c24e20efd",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_8_LEFT.stl",
-      "sha256": "2834055c358e489aa1535a46c7bf68ea108fa62c3dd3c0b8c6f94164b016c28a",
+      "sha256": "6556bf6288f3c5aa6d89dcc072b3d1b832cf8b41f805c4715ac97840e8deb854",
       "bounds_m": [
         [
           0.026889121159911156,
@@ -3470,7 +3797,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 14.24,
-      "donor_to_atlas_surface_sample_p95_mm": 22.39
+      "donor_to_atlas_surface_sample_p95_mm": 22.39,
+      "original_vertices": 17724,
+      "original_triangles": 35444,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right eighth rib",
@@ -3482,10 +3812,10 @@
       "triangles": 36268,
       "previous_triangles": 36646,
       "packed_bytes": 328499,
-      "packed_raw_sha256": "0e10c37298cbd63c10d23ff355c0575751d4e02b70342076f86826c3a2879012",
+      "packed_raw_sha256": "48fc67cd38bfce8bceb4bda8dfa563a67ff1c85e5515cab1d5b54016887ae305",
       "stl_sha256": "ad51b2aff2095fc9ce2fc98c537914c6e4b4eba6b577099038d53eeb3e50578b",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_8_RIGHT.stl",
-      "sha256": "cbebd47d186265151948fe39d34f531ca137b64692a13a7bae087baf6c47e846",
+      "sha256": "39a891455500cd594680612260fb4ece3196a123fb2d934dcef4efacf6cc8749",
       "bounds_m": [
         [
           -0.1454492211341858,
@@ -3499,7 +3829,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 13.84,
-      "donor_to_atlas_surface_sample_p95_mm": 21.21
+      "donor_to_atlas_surface_sample_p95_mm": 21.21,
+      "original_vertices": 18136,
+      "original_triangles": 36268,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Left ninth rib",
@@ -3511,10 +3844,10 @@
       "triangles": 33968,
       "previous_triangles": 36020,
       "packed_bytes": 310919,
-      "packed_raw_sha256": "9e5066b1f97d19c796bcb11adddf7cfab65f35dd221389670ba1f3c5a9b1360e",
+      "packed_raw_sha256": "ba18594e216af0b71f32aae684da615c9a54441d3f562b8b17449d221a409e52",
       "stl_sha256": "0d61cd26a6a116fbaa69194f8ddabe57364dd619f47e39f37e99d38558341d0e",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_9_LEFT.stl",
-      "sha256": "e82a2cfd524b58433d2496026322e2163f3e95373de88284fc29124e5d2e0dc0",
+      "sha256": "5fb3e1a75974914a5c05d56b85f84941c964f89dc3645c1fce4531d36bfcff9b",
       "bounds_m": [
         [
           0.027777375653386116,
@@ -3528,7 +3861,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 15.64,
-      "donor_to_atlas_surface_sample_p95_mm": 26.32
+      "donor_to_atlas_surface_sample_p95_mm": 26.32,
+      "original_vertices": 16986,
+      "original_triangles": 33968,
+      "refinement": "taubin-8x"
     },
     {
       "name": "Right ninth rib",
@@ -3540,10 +3876,10 @@
       "triangles": 37004,
       "previous_triangles": 34278,
       "packed_bytes": 335993,
-      "packed_raw_sha256": "c53734725013b2e4ef2325d37e096b7bcfaedbc54299a6e84b2466b816dd3427",
+      "packed_raw_sha256": "15594a75608b8cee4196774de20bd145518336197938eece4cac8dd8dd2e53f6",
       "stl_sha256": "ee6a120a38005009bea00c362f33875c7b0a24fcfbc36aad1206e90aa2e9b494",
       "stl_path": "visible_human_3d_models/CT/Mesh/01_Male/THORAX/RIB_9_RIGHT.stl",
-      "sha256": "bf793047126b3a8d887edc4798e2135bfa909a61a2cba7a639560b8354fa6f27",
+      "sha256": "684eb37f126d459fb4648b6457a3397a3e4e78adf6119d1f3b3db1c703cba056",
       "bounds_m": [
         [
           -0.14683885872364044,
@@ -3557,7 +3893,10 @@
         ]
       ],
       "donor_to_atlas_surface_sample_median_mm": 16.72,
-      "donor_to_atlas_surface_sample_p95_mm": 43.17
+      "donor_to_atlas_surface_sample_p95_mm": 43.17,
+      "original_vertices": 18504,
+      "original_triangles": 37004,
+      "refinement": "taubin-8x"
     }
   ]
 }

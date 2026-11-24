@@ -1,0 +1,19 @@
+name: 功能与教学内容建议
+description: 提出新的交互工具、骨折脱位专题、手法复位演示或 UI 体验改进建议
+title: "[建议] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: 希望新增或改进的功能
+      placeholder: 请简述你希望在图谱中看到的交互、模型、动画或教学功能。
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 教学或学习使用场景
+      placeholder: 例如：课堂投影讲解、考前复习自测、临床手法复位推演等
+    validations:
+      required: false

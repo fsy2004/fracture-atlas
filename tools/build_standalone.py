@@ -67,7 +67,9 @@ def build(output):
                   lambda _: "<style>" + (ROOT / "style.css").read_text(encoding="utf-8-sig") + "</style>", html)
     asset_tags = []
     vhm=json.loads((ROOT / 'models/vhm/manifest.json').read_text(encoding='utf-8-sig'))
-    names=["models/index.json","models/bones.bin","models/detail.json","models/detail.bin.gz","models/vhm/manifest.json"]
+    detail_regions=json.loads((ROOT / 'models/detail-regions.json').read_text(encoding='utf-8-sig'))
+    names=["models/index.json","models/bones.bin","models/detail.json","models/detail-regions.json","models/vhm/manifest.json"]
+    names.extend("models/"+part["file"] for part in detail_regions.values())
     names.extend("models/vhm/"+entry["file"] for entry in vhm["entries"])
     extra=json.loads((ROOT/'models/extended/manifest.json').read_text(encoding='utf-8-sig'))
     names.extend(['models/extended/manifest.json','models/extended/canal.json'])

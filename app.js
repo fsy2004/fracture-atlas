@@ -25,7 +25,8 @@ import {featuresFor,initialShape,shapeNames,motionNames,withShape,customPose} fr
 import {makeObservation,wristLandmarks} from './observation.js';
 import {decodeSurfaces,alignPreview,landmarkMap,landmark,planeNormal,inReflectedFrame} from './detail.js';
 import {orderRim,injuryTime} from './injury-timing.js';
-import {cutMaterial} from './cut-material.js';
+import {cutMaterial} from './cut-material.js?v=pbr-bone1';
+import {createStudioEnvironment,createCorticalBoneMaterial} from './bone-material.js?v=pbr-bone1';
 import {fractureProfile} from './fracture-surface.js';
 import {digitJointPath} from './digit-joints.js';
 import {elbowStudy,shoulderStudy} from './elbow-specimen.js';
@@ -51,8 +52,8 @@ import {fragmentEditor,isFragmentKey,hasEdits,clearEdits} from './fragment-motio
 import {buildKinematics,shaftFrame} from './kinematics.js';
 const courses=[...fractures,...regionalCourses,...supplementalCourses,...joints].map(canonicalCourse);
 const ghostMaterial=new T.MeshBasicMaterial({color:0x569a96,transparent:true,opacity:.22,depthWrite:false});
-const editedMaterial=new T.MeshStandardMaterial({color:0xb75f36,roughness:.75,side:T.DoubleSide});
-const displacedMaterial=new T.MeshStandardMaterial({color:0xd8bea0,roughness:.75,side:T.DoubleSide});
+const editedMaterial=createCorticalBoneMaterial({color:0xb85e36,roughness:.58,clearcoat:.14,cavityStrength:.22,cacheKey:'cortical-edited-v1'});
+const displacedMaterial=createCorticalBoneMaterial({color:0xd8bea0,roughness:.56,clearcoat:.15,cavityStrength:.24,cacheKey:'cortical-displaced-v1'});
 let profile=null,profileMarks=[],fragmentMarks=[],anatomyGuides=[],bedRims=[],alignment=null,timing=null,mechanics=null,poseLimit=null,impaction=null;
 let fragmentRig=null,chosenFragment=null,repeating=false,holdUntil=0;
 let legacyMotion=false,quantities={},applyMotion=null,inspection=null,studyMode='overview',markName='',dirty=true;
@@ -502,9 +503,9 @@ for(const btn of document.querySelectorAll('[data-severity]')){
  };
 }
 
-const bone=new T.MeshStandardMaterial({color:0xe9e2c9,roughness:.84,side:T.DoubleSide});
-const accent=new T.MeshStandardMaterial({color:0x7bbdaa,roughness:.83,side:T.DoubleSide});
-const adjacent=new T.MeshStandardMaterial({color:0x658783,roughness:1,side:T.DoubleSide,transparent:true,opacity:.55,depthWrite:false});
+const bone=createCorticalBoneMaterial({color:0xe8dcc2,roughness:.56,clearcoat:.16,clearcoatRoughness:.50,sheen:.14,cavityStrength:.25,cacheKey:'cortical-bone-v1'});
+const accent=createCorticalBoneMaterial({color:0x7eb39f,roughness:.58,clearcoat:.14,cavityStrength:.20,cacheKey:'cortical-accent-v1'});
+const adjacent=new T.MeshPhysicalMaterial({color:0x668984,roughness:.78,metalness:0,clearcoat:.06,side:T.FrontSide,transparent:true,opacity:.50,depthWrite:false});
 const palateMaterials=[new T.MeshStandardMaterial({color:0x89b9ac,roughness:.9,side:T.DoubleSide}),new T.MeshStandardMaterial({color:0xdcc798,roughness:.9,side:T.DoubleSide}),new T.MeshStandardMaterial({color:0xc78064,roughness:.9,side:T.DoubleSide})];
 const palateSurround=new T.MeshStandardMaterial({color:0xa1aba1,transparent:true,opacity:.125,depthWrite:false,roughness:1,side:T.FrontSide});
 const cap=cutMaterial(0xd6bf9e,.32);
@@ -1745,25 +1746,40 @@ function frame(now){
  requestAnimationFrame(frame);
 }
 async function start(){
- const fullDpr=Math.min(devicePixelRatio,smallScreen.matches?1.5:2);
- renderer=new T.WebGLRenderer({antialias:!smallScreen.matches,alpha:true,powerPreference:smallScreen.matches?'low-power':'default'});
+ const fullDpr=Math.min(devicePixelRatio,smallScreen.matches?1.75:2);
+ renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:smallScreen.matches?'low-power':'high-performance'});
  renderer.localClippingEnabled=true;
+ renderer.toneMapping=T.ACESFilmicToneMapping;
+ renderer.toneMappingExposure=1.05;
+ renderer.outputColorSpace=T.SRGBColorSpace;
  renderer.setPixelRatio(fullDpr);
  host.append(renderer.domElement);
+ let studioEnv=createStudioEnvironment(renderer);
+ world.environment=studioEnv.texture;
+ world.environmentIntensity=0.58;
  renderer.domElement.addEventListener('webglcontextlost',event=>{
   event.preventDefault();contextLost=true;playing=false;controls?.cancel();
+  studioEnv?.dispose();studioEnv=null;world.environment=null;
   $('status').hidden=false;$('status').textContent='三维显示已暂时中断，等待浏览器恢复…';
  });
  renderer.domElement.addEventListener('webglcontextrestored',()=>{
-  contextLost=false;dirty=true;
+  contextLost=false;
+  studioEnv=createStudioEnvironment(renderer);
+  world.environment=studioEnv.texture;
+  dirty=true;
   if(!loadingSpecimen&&ready)$('status').hidden=true;
   if(lessonOpen())setProgress(progress);
  });
  camera=new T.PerspectiveCamera(38,1,.001,30);controls=new ViewControls(camera,host,()=>Boolean(selected));
  controls.addEventListener('start',()=>{flight=null;automaticFit=false;});controls.addEventListener('change',orientation);
  controls.addEventListener('input',()=>{viewEdits++;});
- bone.color.set(0xe4d6bb);accent.color.set(0x81ae9c);world.add(new T.HemisphereLight(0xfffcf4,0x625c53,.92));
- for(const [pos,intensity] of [[[2,3,3],2.25],[[-3,1,-3],.95]]){const l=new T.DirectionalLight(0xfff3dc,intensity);l.position.set(...pos);world.add(l);}
+ bone.color.set(0xe7dbc0);accent.color.set(0x7eb39f);
+ world.add(new T.HemisphereLight(0xfffaf0,0x55504a,.74));
+ for(const [pos,color,intensity] of [
+  [[2.4,3.2,2.8],0xfff4e0,1.88],
+  [[-2.8,1.2,1.9],0xdbe8f6,.72],
+  [[-1.4,2.1,-3.2],0xfff5e4,.96]
+ ]){const l=new T.DirectionalLight(color,intensity);l.position.set(...pos);world.add(l);}
  const resize=()=>{
   const w=host.clientWidth,h=host.clientHeight,previousAspect=camera.aspect;viewWidth=w;viewHeight=h;
   dirty=true;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
@@ -1810,13 +1826,7 @@ async function start(){
    dirty=true;
   }
  }
- if(location.protocol==='file:'){
-  let allSurfaces;
-  assemblyDetail={ready:()=>Boolean(allSurfaces),load:()=>allSurfaces??=(async()=>{
-   const [manifest,bytes]=await Promise.all([readFullMetadata(),getAsset('models/detail.bin.gz')]);
-   installAssembly(await decodeSurfaces(manifest,bytes));
-  })().catch(error=>{allSurfaces=null;throw error;})};
- }else assemblyDetail=assembledSurfaces(getAsset,readFullMetadata,installAssembly);
+ assemblyDetail=assembledSurfaces(getAsset,readFullMetadata,installAssembly);
  buildIndex(boneData.keys(),pickBone,key=>matches(key).length);
  ready=true;host.dataset.ready='true';route();$('status').hidden=!loadingSpecimen;
  // A prior release let the user save an offline web snapshot. Retire only
@@ -1826,7 +1836,7 @@ async function start(){
   if(worker?.scriptURL===new URL('./sw.js',location.href).href)return registration.unregister();
  }).catch(()=>{});
  const ray=new T.Raycaster(),canvas=renderer.domElement;
- function dragResolution(moving){const next=moving?Math.min(1.25,fullDpr):fullDpr;if(renderer.getPixelRatio()!==next){renderer.setPixelRatio(next);dirty=true;}}
+ function dragResolution(moving){const next=moving?Math.min(1.5,fullDpr):fullDpr;if(renderer.getPixelRatio()!==next){renderer.setPixelRatio(next);dirty=true;}}
  const impact=new T.Vector3(),pointer=new T.Vector2();let lowDetail=false,hoverRequest=0,lastHoverAt=0;
  function overviewLOD(low){
   if(selected||lowDetail===low)return;lowDetail=low;

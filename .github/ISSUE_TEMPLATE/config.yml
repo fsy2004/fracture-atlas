@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 教学交流与想法讨论（GitHub Discussions）
+    url: https://github.com/fsy2004/fracture-atlas/discussions
+    about: 适合开放式讨论、病例教学案例分享、整体优化建议或提问
