@@ -1,4 +1,4 @@
-import {prepareSoftTissues} from './soft-tissue-view.js?v=mirror1';
+import {prepareSoftTissues} from './soft-tissue-view.js?v=mirror2';
 import {fitTissueSkeleton} from './tissue-registration.js';
 import {linkSoftTissues} from './tissue-motion.js?v=limb-soft4';
 import {isLimbBone} from './soft-tissue-catalog.js?v=limb-soft4';
@@ -6,8 +6,8 @@ import {clinicalSoftTissueFor} from './soft-tissue-clinical.js?v=limb-soft4';
 import {createSoftTissuePanel} from './soft-tissue-panel.js?v=limb-soft4';
 import {injuryDescription} from './injury-description.js';
 import {vertebralCompression} from './vertebral-compression.js';
-import {loadOverviewBytes} from './preview-mirror.js?v=mirror1';
-import {fetchVerifiedModel,activeMirrorLabel,mirrorsEnabled} from './asset-mirror.js?v=mirror1';
+import {loadOverviewBytes} from './preview-mirror.js?v=mirror2';
+import {fetchVerifiedModel,activeMirrorLabel,mirrorsEnabled} from './asset-mirror.js?v=mirror2';
 import {assembledSurfaces,detailRegions,regionsForScene} from './assembly-detail.js?v=mirror1';
 import {motionGuide} from './motion-guides.js';
 import {cutField} from './cut-field.js?v=tissue-motion1';

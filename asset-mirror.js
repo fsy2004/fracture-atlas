@@ -8,14 +8,16 @@
 //   browser disk caching so revisits load in <10 ms.
 
 const CACHE_NAME = 'fracture-atlas-models-v2';
-const STATS_KEY = 'atlas_mirror_stats_v1';
+const STATS_KEY = 'atlas_mirror_stats_v2';
 const GITHUB_PAGES_ORIGIN = 'https://fsy2004.github.io';
+const CF_PAGES_ORIGIN = 'https://fracture-atlas-13k.pages.dev';
 const REPO_SLUG = 'fsy2004/fracture-atlas';
 
 // Ordered mirror candidates (all verified CORS: *). Origin is always kept as a
 // guaranteed fresh authoritative fallback.
 const MIRROR_SOURCES = [
  { id: 'origin', label: '主站直连', base: null },
+ { id: 'cfpages', label: 'Cloudflare 镜像', base: `${CF_PAGES_ORIGIN}/` },
  { id: 'jsdmirror', label: 'JSDMirror 加速', base: `https://cdn.jsdmirror.com/gh/${REPO_SLUG}@main/` },
  { id: 'onmicrosoft', label: 'OnMicrosoft 加速', base: `https://jsd.onmicrosoft.cn/gh/${REPO_SLUG}@main/` },
  { id: 'fastly', label: 'Fastly CDN', base: `https://fastly.jsdelivr.net/gh/${REPO_SLUG}@main/` },
@@ -58,7 +60,9 @@ export function mirrorsEnabled() {
  if (typeof location === 'undefined') return false;
  if (location.protocol === 'file:') return false;
  if (new URLSearchParams(location.search).get('mirror') === 'off') return false;
- return location.origin === GITHUB_PAGES_ORIGIN && location.pathname.startsWith('/fracture-atlas/');
+ if (location.origin === GITHUB_PAGES_ORIGIN && location.pathname.startsWith('/fracture-atlas/')) return true;
+ if (location.origin === CF_PAGES_ORIGIN || location.hostname.endsWith('.fracture-atlas-13k.pages.dev')) return true;
+ return false;
 }
 
 export function activeMirrorLabel() {
@@ -104,15 +108,18 @@ async function verifyBytes(buffer, { bytes, sha256 } = {}) {
 }
 
 function rankedSources() {
- // Default preference prioritizes China-friendly mirror + origin + Fastly
- const defaultOrder = { jsdmirror: 900, origin: 1050, fastly: 1150, onmicrosoft: 1200, jsdelivr: 1300, gcore: 1450 };
- return [...MIRROR_SOURCES].sort((a, b) => {
-  const sa = sourceStats.get(a.id);
-  const sb = sourceStats.get(b.id);
-  const scoreA = (sa ? sa.ewma : defaultOrder[a.id] ?? 2000) + (sa?.fails || 0) * 8000;
-  const scoreB = (sb ? sb.ewma : defaultOrder[b.id] ?? 2000) + (sb?.fails || 0) * 8000;
-  return scoreA - scoreB;
- });
+ // Default preference prioritizes Cloudflare Pages + China-friendly mirror + origin
+ const defaultOrder = { cfpages: 820, jsdmirror: 900, origin: 960, fastly: 1120, onmicrosoft: 1180, jsdelivr: 1300, gcore: 1450 };
+ const currentOrigin = typeof location !== 'undefined' ? location.origin : '';
+ return MIRROR_SOURCES
+  .filter(s => !s.base || !currentOrigin || !s.base.startsWith(currentOrigin + '/'))
+  .sort((a, b) => {
+   const sa = sourceStats.get(a.id);
+   const sb = sourceStats.get(b.id);
+   const scoreA = (sa ? sa.ewma : defaultOrder[a.id] ?? 2000) + (sa?.fails || 0) * 8000;
+   const scoreB = (sb ? sb.ewma : defaultOrder[b.id] ?? 2000) + (sb?.fails || 0) * 8000;
+   return scoreA - scoreB;
+  });
 }
 
 function recordSuccess(source, elapsedMs, byteLength) {
