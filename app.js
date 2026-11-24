@@ -2,7 +2,7 @@ import {prepareSoftTissues} from './soft-tissue-view.js?v=mobile-ui1';
 import {fitTissueSkeleton} from './tissue-registration.js';
 import {linkSoftTissues} from './tissue-motion.js?v=limb-soft4';
 import {isLimbBone} from './soft-tissue-catalog.js?v=limb-soft4';
-import {clinicalSoftTissueFor} from './soft-tissue-clinical.js?v=limb-soft4';
+import {clinicalSoftTissueFor} from './soft-tissue-clinical.js?v=sci-fix1';
 import {createSoftTissuePanel} from './soft-tissue-panel.js?v=limb-soft4';
 import {injuryDescription} from './injury-description.js';
 import {vertebralCompression} from './vertebral-compression.js';
@@ -693,12 +693,16 @@ function addFracture(spec,anchor){
 }
 function nameFragmentEnds(items,spec,anchor){
  const limb=/femur|tibia|fibula|humerus|ulna|radius|metacarpal|metatarsal|phalanx/i.test(spec.bone);
+ const rib=/\brib\b/i.test(spec.bone),clav=/\bclavicle\b/i.test(spec.bone);
  const lower=spec.axis===2?'近端':'远端',upper=spec.axis===2?'远端':'近端';
  for(const item of items)if(!item.shell.geometry.boundingBox)item.shell.geometry.computeBoundingBox();
  const order=[...items].sort((a,b)=>a.shell.geometry.boundingBox.getCenter(new T.Vector3()).getComponent(spec.axis)-b.shell.geometry.boundingBox.getCenter(new T.Vector3()).getComponent(spec.axis));
  for(const [i,item] of order.entries()){
   const centre=item.shell.geometry.boundingBox.getCenter(new T.Vector3());
-  item.segment=limb?(i===0?lower:i===order.length-1?upper:'中间骨块'):'骨块 '+(i+1);
+  item.segment=limb?(i===0?lower:i===order.length-1?upper:'中间骨块')
+   :rib&&order.length===2?(i===0?'后端（脊柱侧）':'前端（胸骨侧）')
+   :clav&&order.length===2?(Math.abs(centre.x)<Math.abs(order[1-i].shell.geometry.boundingBox.getCenter(new T.Vector3()).x)?'内侧段':'外侧段')
+   :'骨块 '+(i+1);
   item.guidePoint=anchor.clone().lerp(centre,.24);
   if(limb){item.cutReference=anchor;item.segmentCentre=centre;}
  }
@@ -706,11 +710,23 @@ function nameFragmentEnds(items,spec,anchor){
 function motionLabels(){
  const parts=animated.filter(item=>item.guidePoint||item.jointLabel);
  const distinctBones=new Set(parts.filter(item=>item.name).map(item=>item.name)).size;
+ const isLeft=Boolean(selected&&/\bleft\b/i.test(selected));
+ const isRight=Boolean(selected&&/\bright\b/i.test(selected));
+ const isRib=Boolean(selected&&/\brib\b/i.test(selected));
  const entries=parts.map(item=>{
   const rest=item.guidePoint||item.anchor;
   const point=rest.clone().sub(item.anchor).applyQuaternion(item.pivot.quaternion).add(item.pivot.position);
-  const v=point.clone().sub(rest);v.x*=group.scale.x;
-  const dirs=v.toArray().map((n,i)=>[Math.abs(n),anatomyDirections[i][Number(n<0)]]).sort((a,b)=>b[0]-a[0]);
+  const vLocal=point.clone().sub(rest);
+  // World X (+X = patient left, -X = patient right) works identically for native Left, native Right, and mirrored Right bones.
+  const xWorld=vLocal.x*group.scale.x;
+  const xLabel=(isLeft||isRight)
+   ?((isLeft?xWorld<=0:xWorld>=0)?(isRib?'胸腔内（内侧）':'内侧'):(isRib?'胸壁外（外侧）':'外侧'))
+   :anatomyDirections[0][Number(xWorld<0)];
+  const dirs=[
+   [Math.abs(vLocal.x),xLabel],
+   [Math.abs(vLocal.y),anatomyDirections[1][Number(vLocal.y<0)]],
+   [Math.abs(vLocal.z),anatomyDirections[2][Number(vLocal.z<0)]]
+  ].sort((a,b)=>b[0]-a[0]);
   const significant=dirs.filter(([n])=>n>=Math.max(.0007,dirs[0][0]*.50)).slice(0,2);
   const boneLabel=distinctBones>1&&item.name?boneName(item.name).replace(/^[左右]/,''):'';
   const label=boneLabel+(item.segment||item.jointLabel);

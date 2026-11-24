@@ -4,7 +4,12 @@ import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {referenceName} from '../soft-tissue-view.js';
 import {LIMB_ZONES, isLimbBone, softTissueInfo, muscleDepth} from '../soft-tissue-catalog.js';
+import {clinicalSoftTissueFor} from '../soft-tissue-clinical.js';
 import {scoreTissueInjury} from '../tissue-damage.js';
+import {courses} from '../courses.js';
+import {joints} from '../joints.js';
+import {regionalCourses} from '../regional-courses.js';
+import {supplementalCourses} from '../supplemental.js';
 
 const base=new URL('../models/soft-tissue/',import.meta.url);
 const manifest=JSON.parse(readFileSync(new URL('manifest.json',base),'utf8'));
@@ -92,4 +97,53 @@ test('muscle depth layers and real-time biomechanical injury severity grading be
  const sev=scoreTissueInjury({layer:'vessels',sublayer:'arteries',restClearanceMm:10,liveClearanceMm:0.8,approachMm:9.2,strainPct:14,isSharpRim:true});
  assert.equal(sev.grade,3);
  assert.equal(sev.kind,'laceration');
+});
+
+test('all muscle origin/insertion coordinates lie on the correct anatomical side and are L-R symmetric',()=>{
+ const muscles=manifest.structures.muscles;
+ for(const [name,rec] of Object.entries(muscles)){
+  const sign=rec.side==='l'?1:rec.side==='r'?-1:0;
+  if(!sign)continue;
+  for(const k of ['origin','insertion']){
+   const pt=rec[k];
+   if(!pt)continue;
+   assert.ok(pt[0]*sign>=-0.02,`wrong-side ${k} on ${name}: ${JSON.stringify(pt)}`);
+  }
+  if(name.endsWith('.l')){
+   const other=muscles[name.slice(0,-2)+'.r'];
+   if(!other)continue;
+   for(const k of ['origin','insertion']){
+    assert.equal(Boolean(rec[k]),Boolean(other[k]),`one-sided ${k} on ${name}`);
+    if(rec[k]&&other[k]){
+     assert.ok(Math.abs(rec[k][0]+other[k][0])<=0.04,`X asymmetry in ${k} for ${name}`);
+     assert.ok(Math.abs(rec[k][1]-other[k][1])<=0.04,`Y asymmetry in ${k} for ${name}`);
+     assert.ok(Math.abs(rec[k][2]-other[k][2])<=0.04,`Z asymmetry in ${k} for ${name}`);
+    }
+   }
+  }
+ }
+});
+
+test('all clinical soft-tissue patterns match real structures and preserve verified anatomical details',()=>{
+ const allCourses=[...courses,...joints,...regionalCourses,...supplementalCourses];
+ for(const course of allCourses){
+  for(let vi=0;vi<course.variants.length;vi++){
+   for(const level of [0,1,2]){
+    const profile=clinicalSoftTissueFor(course,vi,level);
+    if(!profile)continue;
+    for(const item of [...(profile.deforming||[]),...(profile.risks||[])]){
+     const names=Object.keys(manifest.structures[item.layer]||{});
+     assert.ok(names.some(n=>item.pattern.test(n)),`unmatched pattern ${item.pattern} in ${course.id}[v${vi}] (${item.label})`);
+    }
+   }
+  }
+ }
+ const toeIp=clinicalSoftTissueFor({id:'toe-ip-dislocation',family:'toe-ip-dislocation'},0);
+ assert.ok(toeIp.summary.includes('跖板')&&!toeIp.summary.includes('掌板'));
+ const mcBase=clinicalSoftTissueFor({id:'metacarpal',family:'metacarpal'},0);
+ const mcBennett=clinicalSoftTissueFor({id:'metacarpal',family:'metacarpal'},1);
+ assert.equal(mcBase.deforming.find(d=>/Abductor pollicis longus/i.test(d.pattern.source)).group,'proximal');
+ assert.equal(mcBennett.deforming.find(d=>/Abductor pollicis longus/i.test(d.pattern.source)).group,'distal');
+ const shDis=clinicalSoftTissueFor({id:'shoulder-dislocation',family:'shoulder-dislocation'},0);
+ assert.match(shDis.risks.find(r=>r.label==='腋神经').mechanism,/四边孔|后外侧/);
 });

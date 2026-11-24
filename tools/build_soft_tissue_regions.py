@@ -359,7 +359,17 @@ def main(source, output):
                 base, kind, side = m.group(1).strip().lower().strip('()'), m.group(2), m.group(3)
                 box = bounds(doc, node)
                 centre = [(box[0][k] + box[1][k]) / 2 for k in range(3)]
+                # Trust actual 3D hemisphere over upstream Z-Anatomy sticker suffix typos (.ol/.or swapped)
+                if abs(centre[0]) > 0.015:
+                    side = 'l' if centre[0] > 0 else 'r'
                 muscle_attachments.setdefault((base, side), {'o': [], 'e': []})[kind].append(centre)
+            # Fill one-sided attachment patches symmetrically across midline (X = 0)
+            for (base, side), rec in list(muscle_attachments.items()):
+                other = 'r' if side == 'l' else 'l'
+                dst = muscle_attachments.setdefault((base, other), {'o': [], 'e': []})
+                for kind in ('o', 'e'):
+                    if rec[kind] and not dst[kind]:
+                        dst[kind] = [[-p[0], p[1], p[2]] for p in rec[kind]]
 
         manifest['layers'][layer] = {}
         selections = {zone: [] for zone in ZONES}

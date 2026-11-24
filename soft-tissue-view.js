@@ -6,7 +6,7 @@ import {
  ZONE_LABELS,
  DEPTH_LABELS
 } from './soft-tissue-catalog.js?v=limb-soft4';
-import { classifyNodeRole } from './soft-tissue-clinical.js?v=limb-soft4';
+import { classifyNodeRole } from './soft-tissue-clinical.js?v=sci-fix1';
 import { fetchVerifiedModel, prefetchModel } from './asset-mirror.js?v=mobile-ui1';
 
 const base = './models/soft-tissue/';

@@ -239,12 +239,17 @@ const CLINICAL_PROFILES = {
  }),
 
  metacarpal: (vi) => ({
-  summary: vi < 2
-   ? '第一掌骨基底部骨折（含 Bennett 骨折脱位）：近段受拇长展肌向桡背侧牵拉，远段受拇长/短屈肌及拇收肌向掌尺侧牵拉，形成向桡背侧成角！'
-   : '掌骨颈/骨干骨折受骨间肌与蚓状肌牵拉，掌骨头向掌侧屈转，断端向手背侧突起成角。',
-  deforming: vi < 2 ? [
-   m(/Abductor pollicis longus/i, 'proximal', '拇长展肌', '牵拉第一掌骨基底向桡背侧移位', 'Bennett 骨折中将掌骨干拉离大多角骨关节面。'),
+  summary: vi === 0
+   ? '第一掌骨基底部骨折：近段受拇长展肌向桡背侧牵拉，远段受拇长/短屈肌及拇收肌向掌尺侧牵拉，形成向桡背侧突起成角！'
+   : vi === 1
+    ? '第一掌骨基底部骨折脱位（Bennett 型）：基底掌尺侧小三角骨块借韧带留在原处，远侧掌骨干受拇长展肌牵拉向近侧背桡侧脱离大多角骨！'
+    : '掌骨颈/骨干骨折受骨间肌与蚓状肌牵拉，掌骨头向掌侧屈转，断端向手背侧突起成角。',
+  deforming: vi === 0 ? [
+   m(/Abductor pollicis longus/i, 'proximal', '拇长展肌', '牵拉第一掌骨基底近段向桡背侧移位', '与掌侧屈/收肌群形成力偶，导致向桡背侧成角。'),
    m(/Flexor pollicis longus|flexor pollicis brevis|adductor pollicis/i, 'distal', '拇长/短屈肌与拇收肌', '牵拉远段向掌侧内收屈曲', '与拇长展肌形成相反力偶，致桡背侧突起成角。')
+  ] : vi === 1 ? [
+   m(/Abductor pollicis longus/i, 'distal', '拇长展肌', '牵拉第一掌骨干（远段）向近侧背桡侧脱出', '基底掌尺侧小骨块留在原位，拇长展肌将掌骨干拉离大多角骨关节面。'),
+   m(/Flexor pollicis longus|flexor pollicis brevis|adductor pollicis/i, 'distal', '拇长/短屈肌与拇收肌', '协同拉掌骨干远端向掌尺侧内收屈曲', '加重第一腕掌关节半脱位与不稳定。')
   ] : [
    m(/interossei muscles of hand|Palmar interossei|Lumbrical muscles of hand/i, 'distal', '骨间肌与蚓状肌', '屈掌指关节，拉掌骨头向掌侧屈转、断端向背侧成角', '第5掌骨颈“拳击手骨折”掌屈畸形的主导肌群。')
   ],
@@ -500,7 +505,7 @@ const CLINICAL_PROFILES = {
    m(/Long head of biceps brachii/i, 'joint', '肱二头肌长头腱', '脱位时易自结节间沟滑脱，可能阻碍手法复位', '多次复位失败须排查长头腱嵌顿。')
   ],
   risks: [
-   n(/Axillary nerve/i, 'high', '腋神经', '紧绕外科颈下方，肱骨头前下脱出最常牵拉压迫此神经！', '三角肌麻痹（肩外展无力）及肩外侧三角肌区感觉减退；多随复位解除压迫。'),
+   n(/Axillary nerve/i, 'high', '腋神经', '经四边孔紧绕肱骨外科颈后外侧，肱骨头前下脱出最常牵拉压迫此神经！', '三角肌麻痹（肩外展无力）及肩外侧三角肌区感觉减退；多随复位解除压迫。'),
    v(/Axillary artery|Axillary vein/i, 'high', '腋动、静脉', '位于喙突下方腋窝内，脱位肱骨头或粗暴复位手法均可压迫撕裂', '桡动脉搏动减弱消失、手苍白发凉或腋部搏动性血肿。'),
    n(/brachial plexus/i, 'medium', '臂丛神经', '紧邻腋血管，前下移位过大时受牵拉压迫', '上肢多支神经感觉运动异常。')
   ]
@@ -625,7 +630,7 @@ const CLINICAL_PROFILES = {
  }),
 
  'toe-ip-dislocation': () => ({
-  summary: '趾间关节背侧脱位：趾长伸/屈肌腱牵拉维持错位，常伴掌板嵌入。',
+  summary: '趾间关节背侧脱位：趾长伸/屈肌腱牵拉维持错位，常伴跖板嵌入。',
   deforming: [
    m(/Extensor hallucis longus|Flexor hallucis longus/i, 'joint', '拇长伸肌与拇长屈肌腱', '维持末节基底背侧脱位张力', '适当牵引屈曲即可复位。')
   ],

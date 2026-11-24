@@ -58,7 +58,7 @@ function regionPoint(geometry,values,side){
 }
 export function guidesFor(name,geometry){
  if(!geometry?.boundingBox)return [];
- const side=/\bleft\b/i.test(name)?'left':'right';
+ const side=/\bleft\b/i.test(name)?'left':/\bright\b/i.test(name)?'right':'mid';
  const key=name.toLowerCase().replace(/\b(?:left|right)\s+/g,'').replace(/ fj\d+$/,'');
  let records=limbRegions[key];
  if(!records&&key.endsWith(' vertebra'))

@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import * as T from '../vendor/three.module.js';
 import {anatomyFor} from '../anatomy-data.js';
+import {guidesFor} from '../anatomy-panel.js';
 import {canonicalCourse,variantIndex} from '../variant-registry.js';
 import {examPoints} from '../exam-points.js';
 import {courses} from '../courses.js';
@@ -35,5 +37,22 @@ test('saved IDs, old numeric links and exam notes survive a reorder of authored 
     points.add(point);
    }
   }
+ }
+});
+
+test('midline mandible landmarks place left ramus at +X and right ramus at -X, and triquetral is ulnar/medial',()=>{
+ const geo=new T.BoxGeometry(0.12,0.08,0.10);
+ geo.computeBoundingBox();
+ const guides=guidesFor('Mandible',geo);
+ const leftRamus=guides.find(g=>g.text==='左下颌支区');
+ const rightRamus=guides.find(g=>g.text==='右下颌支区');
+ assert.ok(leftRamus&&rightRamus,'Mandible should include left and right ramus landmarks');
+ assert.ok(leftRamus.point.x>0,`左下颌支区 should be at +X (patient left), got ${leftRamus.point.x}`);
+ assert.ok(rightRamus.point.x<0,`右下颌支区 should be at -X (patient right), got ${rightRamus.point.x}`);
+
+ for(const side of ['Right','Left']){
+  const tri=anatomyFor(`${side} triquetral`);
+  assert.ok(!tri.summary.includes('月骨外侧'),'triquetral must not claim lateral to lunate');
+  assert.match(tri.summary,/内侧|尺侧/);
  }
 });
