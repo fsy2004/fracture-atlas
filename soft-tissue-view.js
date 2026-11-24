@@ -7,7 +7,7 @@ import {
  DEPTH_LABELS
 } from './soft-tissue-catalog.js?v=limb-soft4';
 import { classifyNodeRole } from './soft-tissue-clinical.js?v=limb-soft4';
-import { fetchVerifiedModel, prefetchModel } from './asset-mirror.js?v=mirror2';
+import { fetchVerifiedModel, prefetchModel } from './asset-mirror.js?v=mobile-ui1';
 
 const base = './models/soft-tissue/';
 const bounds = v => new T.Box3(new T.Vector3(...v[0]), new T.Vector3(...v[1]));

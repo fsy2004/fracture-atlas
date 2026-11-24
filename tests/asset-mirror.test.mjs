@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import {
  raceModelFetch,
  fetchVerifiedModel,
+ probeFastestSource,
  activeMirrorLabel,
  resetMirrorStatsForTests
 } from '../asset-mirror.js';
@@ -92,4 +93,24 @@ test('fetchVerifiedModel respects local origin when mirrors are disabled', async
  });
  assert.deepEqual(called, ['models/bones.bin']);
  assert.equal(new TextDecoder().decode(buf), payload);
+});
+
+test('probeFastestSource measures live RTT and promotes fastest mirror immediately', async () => {
+ resetMirrorStatsForTests();
+ const mockFetch = url => new Promise(resolve => {
+  const delay = url.includes('fast.cdn') ? 12 : 180;
+  setTimeout(() => resolve(new Response('{"ok":true}', { status: 200 })), delay);
+ });
+
+ const winner = await probeFastestSource({
+  useMirrors: true,
+  fetchImpl: mockFetch,
+  sources: [
+   { id: 'origin', label: '主站直连', base: null },
+   { id: 'fast', label: '极速镜像', base: 'https://fast.cdn/' }
+  ]
+ });
+
+ assert.equal(winner?.id, 'fast');
+ assert.equal(activeMirrorLabel(), '极速镜像');
 });

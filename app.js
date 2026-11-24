@@ -1,4 +1,4 @@
-import {prepareSoftTissues} from './soft-tissue-view.js?v=mirror2';
+import {prepareSoftTissues} from './soft-tissue-view.js?v=mobile-ui1';
 import {fitTissueSkeleton} from './tissue-registration.js';
 import {linkSoftTissues} from './tissue-motion.js?v=limb-soft4';
 import {isLimbBone} from './soft-tissue-catalog.js?v=limb-soft4';
@@ -6,8 +6,8 @@ import {clinicalSoftTissueFor} from './soft-tissue-clinical.js?v=limb-soft4';
 import {createSoftTissuePanel} from './soft-tissue-panel.js?v=limb-soft4';
 import {injuryDescription} from './injury-description.js';
 import {vertebralCompression} from './vertebral-compression.js';
-import {loadOverviewBytes} from './preview-mirror.js?v=mirror2';
-import {fetchVerifiedModel,activeMirrorLabel,mirrorsEnabled} from './asset-mirror.js?v=mirror2';
+import {loadOverviewBytes} from './preview-mirror.js?v=mobile-ui1';
+import {fetchVerifiedModel,activeMirrorLabel,mirrorsEnabled,probeFastestSource} from './asset-mirror.js?v=mobile-ui1';
 import {assembledSurfaces,detailRegions,regionsForScene} from './assembly-detail.js?v=mirror1';
 import {motionGuide} from './motion-guides.js';
 import {cutField} from './cut-field.js?v=tissue-motion1';
@@ -60,14 +60,18 @@ let fragmentRig=null,chosenFragment=null,repeating=false,holdUntil=0;
 let legacyMotion=false,quantities={},applyMotion=null,inspection=null,studyMode='overview',markName='',dirty=true;
 const markLayer=document.getElementById('markLayer');
 const markLabels=[];let viewWidth=1,viewHeight=1;
+let showBoneLabels=!matchMedia('(max-width:679px)').matches;
+let showTissueLabels=!matchMedia('(max-width:679px)').matches;
 function paintLabels(){
  const locationMarks=$('anatomyPanel').open&&$('anatomyGuides').checked?anatomyGuides:[];
- const boneTags=tissueEntry&&!tissueEntry.aligned?[]:[...(inspection?.tags||[]),...profileMarks,...fragmentMarks,...locationMarks];
+ const boneTags=!showBoneLabels||(tissueEntry&&!tissueEntry.aligned)?[]:[...(inspection?.tags||[]),...profileMarks,...fragmentMarks,...locationMarks];
  const tissueTags=[];
  if(tissueEntry){
-  for(const tag of tissueEntry.tags){
-   const item=tissueEntry.items?.find(it=>it.key===tag.structureKey);
-   if(!item||item.mesh.visible)tissueTags.push(tag);
+  if(showTissueLabels){
+   for(const tag of tissueEntry.tags){
+    const item=tissueEntry.items?.find(it=>it.key===tag.structureKey);
+    if(!item||item.mesh.visible)tissueTags.push(tag);
+   }
   }
   if(tissueEntry.selectedKey&&!tissueTags.some(t=>t.structureKey===tissueEntry.selectedKey)){
    const sel=tissueEntry.items?.find(it=>it.key===tissueEntry.selectedKey&&it.mesh.visible);
@@ -534,7 +538,6 @@ function syncPlayer(){
  const open=lessonOpen()&&(!tissueEntry||Boolean(tissueEntry.aligned));
  $('frameNavigation').hidden=!open;
  $('quickPlay').hidden=!open;
- $('quickEdit').hidden=!open||$('advanced').hidden;
 }
 const byBone=new Map();
 for(const c of courses){
@@ -560,7 +563,7 @@ function materialize(meta,bytes){
 }
 function clearScene(){
  profile?.dispose();profile=null;profileMarks=[];bedRims=[];alignment?.dispose();alignment=null;mechanics?.dispose();mechanics=null;timing=null;impaction=null;poseLimit=null;$('contactState').textContent='';
- fragmentRig?.dispose();fragmentRig=null;anklePose=null;poseGuide=null;motionWords=[];inspection=null;dirty=true;syncStudy();applyMotion=null;$('liveValues').textContent='';$('motionReadout').textContent='';$('motionReadout').classList.remove('with-reference');hovered=null;$('tip').hidden=true;group.scale.x=1;
+ fragmentRig?.dispose();fragmentRig=null;anklePose=null;poseGuide=null;motionWords=[];inspection=null;dirty=true;syncStudy();applyMotion=null;$('liveValues').textContent='';hovered=null;$('tip').hidden=true;group.scale.x=1;
  group.traverse(o=>{if(o.userData.dispose)o.geometry?.dispose();if(o.isArrowHelper||o.type==='ArrowHelper')o.dispose?.();});
  group.traverse(o=>{
   for(const resource of o.userData.cutResources||[])resource.dispose();
@@ -717,10 +720,24 @@ function motionLabels(){
 }
 function bonesFor(v){return [...v.cuts.map(c=>c.bone),...(v.fixed||[]),...(v.compareBones||[])];}
 function matches(key){return key?(byBone.get(teachingBone(key))||[]):[];}
-const smallScreen=matchMedia('(max-width:630px)');
+const smallScreen=matchMedia('(max-width:679px)');
+const compactScreen=matchMedia('(max-width:1079px)');
 let lastLesson='';
 function setPanel(open){
- document.body.classList.toggle('panel-open',open);$('mobilePanel').setAttribute('aria-expanded',String(open));
+ document.body.classList.toggle('panel-open',open);
+ $('mobilePanel').setAttribute('aria-expanded',String(open));
+ if($('panelBackdrop'))$('panelBackdrop').hidden=!open;
+}
+function setStageToolsOpen(open){
+ const box=$('stageTools'),btn=$('stageToolsToggle');
+ if(!box||!btn)return;
+ box.classList.toggle('open',open);
+ btn.setAttribute('aria-expanded',String(open));
+}
+function setPanelTab(tab){
+ for(const b of document.querySelectorAll('#panelQuickNav [data-panel-tab]')){
+  b.classList.toggle('active',b.dataset.panelTab===tab);
+ }
 }
 function pickBone(key,{keepLesson=false,openPanel=smallScreen.matches}={}){
  $('anatomyPanel').open=false;
@@ -864,7 +881,18 @@ function showControls(){
  $('advanced').hidden=!local||(!lesson&&!specimen.region(selected));$('motionSettings').hidden=!lesson;$('layers').hidden=!lesson;document.querySelector('[data-view=detail]').hidden=!lesson;$('viewRail').hidden=false;
  $('labels').hidden=local;$('breadcrumb').textContent=local?regionFor(selected):'全身骨骼　/　索引';
  $('jointShortcuts').hidden=local;syncPlayer();
- $('mobilePanel').textContent=!local?'骨骼索引':lesson?'分型与考点':'选择分型';
+ $('mobilePanel').textContent=!local?'骨骼索引':lesson?'分型与设置':'分型 · 解剖';
+ const qNav=$('panelQuickNav');
+ if(qNav){
+  qNav.hidden=!local;
+  const softBtn=qNav.querySelector('[data-panel-tab=soft]');
+  const motBtn=qNav.querySelector('[data-panel-tab=motion]');
+  if(softBtn)softBtn.hidden=!local||!isLimbBone(selected);
+  if(motBtn)motBtn.hidden=$('advanced').hidden;
+  setPanelTab('lesson');
+ }
+ if($('labelToggles'))$('labelToggles').hidden=!local;
+ if($('tissueLabelToggleRow'))$('tissueLabelToggleRow').hidden=!local||!isLimbBone(selected);
  if(!local){$('extentRow').hidden=true;updateAnatomyPanel(null,[]);return;}
  updateAnatomyPanel(selected,anatomyGuides);
  $('signView').hidden=!typeView(course,variant);
@@ -1028,7 +1056,8 @@ function assetsForLesson(){
 let detailTimer,softPrefetchTimer;
 function scheduleFullDetail(serial){
  clearTimeout(detailTimer);
- if(location.protocol==='file:'||navigator.connection?.saveData||(smallScreen.matches&&(navigator.deviceMemory??4)<4))return;
+ // Skip 16.5 MB background detail-region downloads on phones, tablets, and touch devices
+ if(location.protocol==='file:'||navigator.connection?.saveData||compactScreen.matches||matchMedia('(pointer:coarse)').matches)return;
  detailTimer=setTimeout(async()=>{
   for(const region of detailRegions){
    if(viewSerial!==serial||selected||document.hidden)return;
@@ -1068,7 +1097,7 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
   }
   displayedBone=selected;
   showControls();if(lesson)setLessonTitle();else{$('heading').textContent=boneName(selected);$('crumb').textContent=regionFor(selected)+' · 正常解剖';$('description').textContent='';}
-  $('centreBone').disabled=$('quickPlay').disabled=$('quickEdit').disabled=true;$('viewOptions').inert=true;
+  $('centreBone').disabled=$('quickPlay').disabled=true;$('viewOptions').inert=true;
   $('captureFrame').disabled=true;$('lessonPanel').inert=true;document.querySelector('.player').inert=true;
   host.dataset.specimen='false';
   const mirrorHint=mirrorsEnabled()?(activeMirrorLabel()?'（'+activeMirrorLabel()+'）':'（多节点镜像加速中）'):'';
@@ -1121,7 +1150,7 @@ function renderLesson(smooth=false,keepView=false,viewParams=null){
 }
 function finishLesson(smooth,keepView,viewParams,needed){
  clearScene();showControls();useSpecimen=needed.length>0;loadingSpecimen=false;delete host.dataset.pending;displayedBone=selected;
- $('centreBone').disabled=$('quickPlay').disabled=$('quickEdit').disabled=false;$('viewOptions').inert=false;
+ $('centreBone').disabled=$('quickPlay').disabled=false;$('viewOptions').inert=false;
  $('captureFrame').disabled=false;$('lessonPanel').inert=false;document.querySelector('.player').inert=false;
  specimen.trim(needed,course&&variant>=0?course:null);$('status').hidden=true;
  host.dataset.specimen=String(useSpecimen);
@@ -1669,7 +1698,6 @@ function scenePose(requested,report=true){
  if(fragmentRig){
   const marked=fragmentRig.display(injuryTime(progress,timing),$('trace').checked&&observationMode!=='cut'&&(report||progress>=1));
   if(report){
-   $('motionReadout').classList.toggle('with-reference',marked.referenceVisible);
    if($('fragmentBox').open&&studyMode==='overview'&&inspection){
     inspection.tags.length=0;inspection.tags.push({text:'调节中的骨块',point:marked.target});
    }
@@ -1684,20 +1712,9 @@ function scenePose(requested,report=true){
   if(m)$('liveValues').textContent+='　标示点高差 '+m.height.toFixed(1)+' mm　面内错位 '+m.slip.toFixed(1)+' mm';
  }
 }
-function updateMotionReadout(){
- const full=$('liveValues').textContent||'';
- const fields=full.split(/　+/).filter(Boolean);
- const main=fields.filter(s=>/旋|短缩|缩短|平移|侧移|移位|成角|倾|转角|压低|分离|重叠|内翻|外翻|内收|外展|屈曲|后伸/.test(s)&&!s.includes('断缘对应点'));
- const nonzero=main.filter(s=>/[-+]?[0-9.]+/.test(s)&&Number(s.match(/[-+]?[0-9.]+/)[0])!==0);
- const minimum=nonzero.length?nonzero:main.length?main:fields;
- const travel=nonzero.filter(note=>/平移/.test(note));
- const visible=motionWords.length?[...motionWords,...(course?.kind==='joint'?travel:[])]:minimum;
- const summary=visible.slice(0,4).join('　');
- if($('motionReadout').textContent!==summary)$('motionReadout').textContent=summary;
-}
 function setProgress(value){
  if(loadingSpecimen)return;
- dirty=true;progress=Math.max(0,Math.min(1,value));scenePose(progress);updateMotionReadout();updateLinkedTissues();
+ dirty=true;progress=Math.max(0,Math.min(1,value));scenePose(progress);updateLinkedTissues();
  if(poseLimit?.unfinished)progress=poseLimit.time;
  if(poseLimit?.reason){progress=poseLimit.time;playing=false;holdUntil=0;}
  $('time').value=Math.floor(progress*1000);
@@ -1831,7 +1848,15 @@ async function start(){
  }
  let previewMeta=null;
  const metadata=getAsset('models/detail.json').then(value=>previewMeta=value,()=>null);
- const [index,bin]=await Promise.all([getAsset('models/index.json'),loadOverviewBytes(getAsset)]);
+ const indexReq=getAsset('models/index.json');
+ // Probe all mirrors immediately on page entry (capped at 380 ms) so bones.bin & specimens hit the fastest live source right away.
+ if(mirrorsEnabled()){
+  $('status').textContent='正在测速并选择最快源…';
+  await Promise.race([probeFastestSource().catch(()=>null),new Promise(r=>setTimeout(r,380))]);
+  const winner=activeMirrorLabel();
+  $('status').textContent=winner?'正在载入骨骼（'+winner+'）…':'正在载入骨骼…';
+ }
+ const [index,bin]=await Promise.all([indexReq,loadOverviewBytes(getAsset)]);
  const framesById=new Map(previewMeta?.entries.map(entry=>[entry.mesh,landmarkMap(entry,previewMeta.display_offset_mm)]));
  for(const m of index){
   const key=boneData.has(m.name)?m.name+' '+m.mesh:m.name;
@@ -2019,6 +2044,38 @@ window.addEventListener('hashchange',route);
 $('nextPart').onclick=()=>{inspection?.advance();syncStudy();setProgress(progress);aimAtFace();};
 $('mobilePanel').onclick=()=>setPanel(!document.body.classList.contains('panel-open'));
 $('foldPanel').onclick=()=>setPanel(false);
+if($('panelBackdrop'))$('panelBackdrop').onclick=()=>setPanel(false);
+setStageToolsOpen(!compactScreen.matches);
+compactScreen.addEventListener?.('change',e=>setStageToolsOpen(!e.matches));
+if($('stageToolsToggle'))$('stageToolsToggle').onclick=()=>setStageToolsOpen(!$('stageTools').classList.contains('open'));
+if($('toggleBoneLabels')){
+ $('toggleBoneLabels').checked=showBoneLabels;
+ $('toggleBoneLabels').onchange=e=>{showBoneLabels=e.target.checked;dirty=true;};
+}
+if($('toggleTissueLabels')){
+ $('toggleTissueLabels').checked=showTissueLabels;
+ $('toggleTissueLabels').onchange=e=>{showTissueLabels=e.target.checked;dirty=true;};
+}
+for(const b of document.querySelectorAll('#viewRail button')){
+ b.addEventListener('click',()=>{if(compactScreen.matches)setStageToolsOpen(false);});
+}
+host.addEventListener('pointerdown',()=>{if(compactScreen.matches&&$('stageTools')?.classList.contains('open'))setStageToolsOpen(false);});
+for(const tabBtn of document.querySelectorAll('#panelQuickNav [data-panel-tab]')){
+ tabBtn.onclick=()=>{
+  const tab=tabBtn.dataset.panelTab;
+  setPanelTab(tab);
+  const scroller=document.querySelector('.rail-scroll');
+  if(tab==='lesson'){
+   scroller?.scrollTo({top:0,behavior:'smooth'});
+  }else if(tab==='soft'){
+   $('softTissuePanel').open=true;
+   requestAnimationFrame(()=>$('softTissuePanel').scrollIntoView({behavior:'smooth',block:'start'}));
+  }else if(tab==='motion'){
+   $('advanced').open=true;
+   requestAnimationFrame(()=>$('advanced').scrollIntoView({behavior:'smooth',block:'start'}));
+  }
+ };
+}
 for(const b of document.querySelectorAll('[data-study]'))b.onclick=()=>setStudy(b.dataset.study);
 $('copyLink').onclick=async()=>{
  updateURL(true);
@@ -2047,9 +2104,6 @@ $('fragmentBox').ontoggle=()=>{if($('fragmentBox').open)fragmentRig?.prepareEdit
 $('repeat').onclick=()=>{repeating=!repeating;holdUntil=0;$('repeat').setAttribute('aria-pressed',String(repeating));updateURL(true);};
 $('viewSeam').onclick=()=>{playing=false;setProgress(progress);aim('rearDetail',true);setPanel(false);};
 $('zoomMotion').onclick=()=>{motionCloseUp(true);setPanel(false);};
-$('quickEdit').onclick=()=>{
- setPanel(true);$('advanced').open=true;$('advanced').scrollIntoView({block:'start'});$('advanced').querySelector('summary').focus({preventScroll:true});
-};
 for(const id of ['bandRule','slack','drawConstraints'])$(id).onchange=()=>{
  $('slackValue').textContent=$('slack').value+'%';playing=false;holdUntil=0;setProgress(progress);updateURL(true);
 };

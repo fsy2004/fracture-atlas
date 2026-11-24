@@ -1,17 +1,19 @@
-// Multi-CDN mirror racing, SHA-256 integrity verification, and persistent
-// CacheStorage disk caching for large 3D bone & soft-tissue model binaries.
+// Multi-CDN mirror racing, entry-time fastest-source probing, SHA-256
+// integrity verification, and persistent CacheStorage disk caching for
+// large 3D bone & soft-tissue model binaries.
 //
 // - Local dev (localhost/127.0.0.1/file:) always reads directly from origin.
-// - On GitHub Pages (fsy2004.github.io/fracture-atlas/), large binary assets
-//   race across China-friendly & global jsDelivr mirrors + origin with hedged
-//   failover, cryptographic SHA-256 / exact-byte verification, and persistent
-//   browser disk caching so revisits load in <10 ms.
+// - On GitHub Pages & Cloudflare Pages, probes all candidate mirrors on page
+//   entry (~150-400 ms) so every model load immediately routes to the user's
+//   fastest live mirror, with parallel top-2 racing on cold cache and
+//   cryptographic SHA-256 / byte-length verification.
 
 const CACHE_NAME = 'fracture-atlas-models-v2';
 const STATS_KEY = 'atlas_mirror_stats_v2';
 const GITHUB_PAGES_ORIGIN = 'https://fsy2004.github.io';
 const CF_PAGES_ORIGIN = 'https://fracture-atlas-13k.pages.dev';
 const REPO_SLUG = 'fsy2004/fracture-atlas';
+const PROBE_ASSET = 'models/provenance.json';
 
 // Ordered mirror candidates (all verified CORS: *). Origin is always kept as a
 // guaranteed fresh authoritative fallback.
@@ -28,13 +30,15 @@ const MIRROR_SOURCES = [
 const sourceStats = new Map();
 let lastWinner = null;
 let cachePromise = null;
+let probePromise = null;
+let probed = false;
 
 function loadSavedStats() {
  try {
   const raw = typeof localStorage !== 'undefined' ? localStorage.getItem(STATS_KEY) : null;
   if (!raw) return;
   const parsed = JSON.parse(raw);
-  if (!parsed || Date.now() - (parsed.savedAt || 0) > 7 * 86400_000) return;
+  if (!parsed || Date.now() - (parsed.savedAt || 0) > 3 * 86400_000) return;
   for (const [id, entry] of Object.entries(parsed.scores || {})) {
    if (typeof entry?.ewma === 'number' && Number.isFinite(entry.ewma)) {
     sourceStats.set(id, { ewma: entry.ewma, fails: 0 });
@@ -107,27 +111,28 @@ async function verifyBytes(buffer, { bytes, sha256 } = {}) {
  return buffer;
 }
 
-function rankedSources() {
- // Default preference prioritizes Cloudflare Pages + China-friendly mirror + origin
- const defaultOrder = { cfpages: 820, jsdmirror: 900, origin: 960, fastly: 1120, onmicrosoft: 1180, jsdelivr: 1300, gcore: 1450 };
+function availableSources() {
  const currentOrigin = typeof location !== 'undefined' ? location.origin : '';
- return MIRROR_SOURCES
-  .filter(s => !s.base || !currentOrigin || !s.base.startsWith(currentOrigin + '/'))
-  .sort((a, b) => {
-   const sa = sourceStats.get(a.id);
-   const sb = sourceStats.get(b.id);
-   const scoreA = (sa ? sa.ewma : defaultOrder[a.id] ?? 2000) + (sa?.fails || 0) * 8000;
-   const scoreB = (sb ? sb.ewma : defaultOrder[b.id] ?? 2000) + (sb?.fails || 0) * 8000;
-   return scoreA - scoreB;
-  });
+ return MIRROR_SOURCES.filter(s => !s.base || !currentOrigin || !s.base.startsWith(currentOrigin + '/'));
+}
+
+function rankedSources() {
+ // Default preference before live probe completes
+ const defaultOrder = { cfpages: 820, jsdmirror: 900, origin: 960, fastly: 1120, onmicrosoft: 1180, jsdelivr: 1300, gcore: 1450 };
+ return availableSources().sort((a, b) => {
+  const sa = sourceStats.get(a.id);
+  const sb = sourceStats.get(b.id);
+  const scoreA = (sa ? sa.ewma : defaultOrder[a.id] ?? 2000) + (sa?.fails || 0) * 8000;
+  const scoreB = (sb ? sb.ewma : defaultOrder[b.id] ?? 2000) + (sb?.fails || 0) * 8000;
+  return scoreA - scoreB;
+ });
 }
 
 function recordSuccess(source, elapsedMs, byteLength) {
- // Normalize by size so small and large files share comparable latency+throughput score
  const mb = Math.max(0.25, byteLength / 1048576);
  const normalized = elapsedMs / mb;
  const prev = sourceStats.get(source.id);
- const ewma = prev ? prev.ewma * 0.55 + normalized * 0.45 : normalized;
+ const ewma = prev ? prev.ewma * 0.50 + normalized * 0.50 : normalized;
  sourceStats.set(source.id, { ewma, fails: 0 });
  lastWinner = source;
  saveStats();
@@ -136,7 +141,7 @@ function recordSuccess(source, elapsedMs, byteLength) {
 function recordFailure(source) {
  const prev = sourceStats.get(source.id);
  sourceStats.set(source.id, {
-  ewma: prev?.ewma ?? 3000,
+  ewma: prev?.ewma ?? 3500,
   fails: Math.min(5, (prev?.fails || 0) + 1)
  });
 }
@@ -146,7 +151,72 @@ function buildSourceURL(source, path, originURL) {
  return source.base + cleanAssetPath(path);
 }
 
-async function fetchFromSource(source, path, { originURL, bytes, sha256, signal, fetchImpl = fetch, timeoutMs = 22000 }) {
+/**
+ * Entry-time multi-source speed probe:
+ * Races a tiny (~0.5 KB) JSON file across all candidate mirrors in parallel so
+ * we know the live fastest mirror on the user's current network within ~200 ms.
+ * Resolves as soon as the fastest healthy source responds (others continue
+ * updating scores quietly in the background).
+ */
+export function probeFastestSource({
+ fetchImpl = fetch,
+ sources = null,
+ timeoutMs = 3500,
+ useMirrors = mirrorsEnabled()
+} = {}) {
+ if (!useMirrors) return Promise.resolve(null);
+ if (probePromise) return probePromise;
+
+ const list = sources ? [...sources] : availableSources();
+ if (list.length <= 1) return Promise.resolve(list[0] || null);
+
+ probePromise = new Promise(resolve => {
+  let resolved = false;
+  let remaining = list.length;
+  const finish = winner => {
+   if (resolved) return;
+   resolved = true;
+   probed = true;
+   if (winner) lastWinner = winner;
+   saveStats();
+   resolve(winner);
+  };
+
+  for (const source of list) {
+   const ctrl = new AbortController();
+   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+   const started = typeof performance !== 'undefined' ? performance.now() : Date.now();
+   const url = buildSourceURL(source, PROBE_ASSET, PROBE_ASSET) + '?p=' + (Date.now() & 65535);
+   const opts = source.base
+    ? { mode: 'cors', credentials: 'omit', cache: 'no-store', signal: ctrl.signal }
+    : { cache: 'no-store', signal: ctrl.signal };
+
+   fetchImpl(url, opts)
+    .then(async res => {
+     if (!res.ok) throw Error(`HTTP ${res.status}`);
+     await res.text();
+     const rtt = Math.max(15, (typeof performance !== 'undefined' ? performance.now() : Date.now()) - started);
+     // Weight live RTT strongly so current network wins immediately over stale saved scores
+     const prev = sourceStats.get(source.id);
+     const score = prev ? prev.ewma * 0.25 + rtt * 2.2 : rtt * 2.2;
+     sourceStats.set(source.id, { ewma: score, fails: 0 });
+     finish(source);
+    })
+    .catch(() => {
+     recordFailure(source);
+    })
+    .finally(() => {
+     clearTimeout(timer);
+     remaining--;
+     if (remaining === 0) finish(rankedSources()[0] || null);
+    });
+  }
+ });
+
+ return probePromise;
+}
+
+async function fetchFromSource(source, path, { originURL, bytes, sha256, signal, fetchImpl = fetch, timeoutMs = 20000 }) {
  const url = buildSourceURL(source, path, originURL);
  const ctrl = new AbortController();
  const onParentAbort = () => ctrl.abort(signal?.reason);
@@ -177,10 +247,10 @@ async function fetchFromSource(source, path, { originURL, bytes, sha256, signal,
 }
 
 /**
- * Race multiple sources with staggered hedging:
- * - Launches top-ranked source immediately.
- * - If not done within hedgeMs (default 850 ms), launches the next source in parallel.
- * - Guarantees `origin` is always included in the candidate list.
+ * Race multiple sources with fast parallel start + staggered hedging:
+ * - Launches `initialParallel` top-ranked sources immediately (default 2 on
+ *   unprobed cold start, 1 once a fast winner is established with quick hedge).
+ * - Hedges additional mirrors quickly (`hedgeMs`, default 500 ms).
  * - Cancels slower in-flight downloads the instant a verified winner arrives.
  */
 export async function raceModelFetch(path, options = {}) {
@@ -191,7 +261,8 @@ export async function raceModelFetch(path, options = {}) {
   signal = null,
   fetchImpl = fetch,
   sources = null,
-  hedgeMs = 850,
+  hedgeMs = 500,
+  initialParallel = probed ? 1 : 2,
   maxParallel = 3,
   useMirrors = mirrorsEnabled()
  } = options;
@@ -202,7 +273,6 @@ export async function raceModelFetch(path, options = {}) {
    ? rankedSources()
    : [MIRROR_SOURCES[0]];
 
- // Ensure origin is always reachable as fallback even if mirrors fail or serve stale cache
  if (!candidates.some(s => s.id === 'origin')) {
   candidates.push(MIRROR_SOURCES[0]);
  }
@@ -273,19 +343,13 @@ export async function raceModelFetch(path, options = {}) {
    }
   };
 
-  launchNext();
+  const burst = Math.min(Math.max(1, initialParallel), maxParallel, candidates.length);
+  for (let i = 0; i < burst; i++) launchNext();
  });
 }
 
 const inflight = new Map();
 
-/**
- * Fetch a binary model asset with:
- * 1. Persistent browser CacheStorage lookup (keyed by SHA-256 / byte size)
- * 2. Request deduplication for concurrent callers
- * 3. Multi-CDN hedged mirror racing + integrity verification
- * 4. Automatic write-back to CacheStorage
- */
 export async function fetchVerifiedModel(path, options = {}) {
  const clean = cleanAssetPath(path);
  const cacheable = Boolean(options.sha256 || options.bytes) && options.useCache !== false;
@@ -307,7 +371,6 @@ export async function fetchVerifiedModel(path, options = {}) {
   }
  }
 
- // Deduplicate identical non-abortable or shared fetches
  if (!options.signal && inflight.has(clean)) {
   return inflight.get(clean);
  }
@@ -332,15 +395,14 @@ export async function fetchVerifiedModel(path, options = {}) {
  return task;
 }
 
-/**
- * Lightweight background prefetch into CacheStorage (never throws, respects Save-Data).
- */
 export function prefetchModel(path, options = {}) {
  if (typeof navigator !== 'undefined' && navigator.connection?.saveData) return;
- fetchVerifiedModel(path, options).catch(() => {});
+ fetchVerifiedModel(path, { ...options, initialParallel: 1, hedgeMs: 1200 }).catch(() => {});
 }
 
 export function resetMirrorStatsForTests() {
  sourceStats.clear();
  lastWinner = null;
+ probePromise = null;
+ probed = false;
 }

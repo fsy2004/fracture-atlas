@@ -42,7 +42,7 @@ try{
  await page.locator('#end').click();
  assert.equal(await page.locator('#time').inputValue(),'1000');
  assert.equal(await page.locator('input[type=range]:visible').count(),1);
- assert.match(await page.locator('#motionReadout').innerText(),/旋转/);
+ assert.equal(await page.locator('#motionReadout').count(),0);
  assert.match(await page.locator('#liveValues').textContent(),/缩短/);
  await page.locator('#advanced > summary').click();
  assert.ok(await page.locator('#quantRows input:visible').count()>0);
@@ -117,11 +117,12 @@ try{
  await mobile.locator('#back').tap();await ready(mobile);
  assert.ok(await mobile.locator('#boneTitle').textContent()==='右桡骨');
  assert.equal(await mobile.locator('#examPoints').isVisible(),false);
- await mobile.locator('#navLesson').tap();await ready(mobile);
- await mobile.locator('#mobilePanel').tap();
+ await mobile.locator('#variants button').nth(1).tap();await ready(mobile);
  await checkExam(mobile,/屈曲型/);
+ await mobile.locator('#panelQuickNav [data-panel-tab=motion]').tap();assert.ok(await mobile.locator('#advanced').evaluate(el=>el.open));
  await mobile.locator('#foldPanel').tap();
- await mobile.locator('#quickEdit').tap();assert.ok(await mobile.locator('#advanced').evaluate(el=>el.open));
+ await mobile.locator('#stageToolsToggle').tap();
+ assert.ok(await mobile.locator('#toggleBoneLabels').isVisible());
  await page.goto(base+'#tibia/0/1?at=0');await ready(page);
  await page.locator('#patternBox #shapes').getByText('短斜形',{exact:true}).click();await ready(page);
  await page.locator('#end').click();assert.equal(await page.locator('#time').inputValue(),'1000');
@@ -156,14 +157,14 @@ try{
   assert.equal(await slow.locator('#viewport').getAttribute('data-specimen'),'false');
  }
  for(const [route,words] of [
-  ['hip-dislocation/v01/1?at=1000',/屈曲.+内收.+内旋/],
-  ['shoulder-dislocation/v01/1?at=1000&bone=FJ3262',/外展.+外旋/],
-  ['single-forearm/v01/1?at=1000',/近段旋后.+远段旋前/],
-  ['radius/v01/1?at=1000',/侧方移位.+成角移位/]
+  ['hip-dislocation/v01/1?at=1000',/平|转/],
+  ['shoulder-dislocation/v01/1?at=1000&bone=FJ3262',/平|转/],
+  ['single-forearm/v01/1?at=1000',/旋|平|移/],
+  ['radius/v01/1?at=1000',/平|移|错/]
  ]){
   await page.goto(base+'#'+route);await ready(page);
   assert.equal(await page.locator('#time').inputValue(),'1000');
-  assert.match(await page.locator('#motionReadout').innerText(),words);
+  assert.match(await page.locator('#liveValues').textContent(),words);
  }
  if(!base.startsWith('file:')){
   await page.goto(base+'#hip-dislocation/v01/1?at=450');await ready(page);

@@ -126,35 +126,77 @@ canvas{display:block;touch-action:none}
 }
 #loadNotice:not([hidden]){padding:3px 8px;margin-top:6px;background:#f8f9eee8;border-radius:4px;border:1px solid #d4dfd5}
 
-/* Orientation markers & view rail */
-#orientation{position:absolute;inset:17px 19px;pointer-events:none;z-index:1;color:#2c5648;font-size:12px}
+/* Orientation markers & unified top-right View/Label hub */
+#orientation{position:absolute;inset:15px 18px;pointer-events:none;z-index:1;color:#2c5648;font-size:12px}
 .dir{position:absolute;min-width:3em;padding:1px 6px;text-align:center;background:#f9faf2e6;border-radius:4px;border:1px solid #d8e2d7}
 .dir.tl{top:0;left:0}.dir.tr{top:0;right:0}.dir.bl{bottom:0;left:0}.dir.br{bottom:0;right:0}
 
+.stage-tools{
+ position:absolute;top:44px;right:18px;z-index:8;
+ display:flex;flex-direction:column;align-items:flex-end;gap:6px;
+ pointer-events:none;
+}
+.stage-tools>*{pointer-events:auto}
+#stageToolsToggle{
+ display:inline-flex;align-items:center;gap:6px;
+ padding:6px 11px;border-radius:999px;
+ background:#f9fbf4f0;backdrop-filter:blur(10px);
+ border:1px solid #bdd0c3;color:#1d4a3d;
+ font-size:12px;font-weight:650;white-space:nowrap;
+ box-shadow:0 3px 12px #14362c16;
+}
+#stageToolsToggle:after{content:"▾";font-size:11px;color:#4a7363;transition:transform .16s}
+.stage-tools.open #stageToolsToggle{background:#1d5244;color:#fff;border-color:#1d5244}
+.stage-tools.open #stageToolsToggle:after{color:#d7ebe2;transform:rotate(180deg)}
+
+.stage-tools-panel{
+ display:none;width:154px;
+ padding:7px;
+ background:#fafcf5f2;backdrop-filter:blur(12px);
+ border:1px solid #c4d5c8;border-radius:11px;
+ box-shadow:0 8px 24px #1233281f;
+}
+.stage-tools.open .stage-tools-panel{display:block}
+
 #viewRail{
- position:absolute;right:22px;top:50%;transform:translateY(-50%);
- display:grid;gap:4px;z-index:3;
- padding:5px;
- background:#f8faf2d8;
- backdrop-filter:blur(8px);
- border:1px solid #c9d7cb;
- border-radius:10px;
- box-shadow:0 4px 16px #183a2e14;
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;
 }
 #viewRail button{
- min-width:52px;min-height:31px;padding:3px 7px;
- background:#ffffffc8;border-color:#d2ded3;font-size:12px;border-radius:6px;
+ min-height:30px;padding:3px 6px;
+ background:#ffffffdb;border-color:#d2ded3;font-size:12px;border-radius:6px;
  white-space:nowrap;
 }
 #viewRail button:hover{background:#e7f0e9;border-color:#98b8a7}
 #viewRail button[aria-pressed=true]{background:var(--jade);color:#fff;border-color:var(--jade)}
-#viewRail [data-view=home]{margin-top:3px;border-top:1px solid #d2ded3}
+#viewRail [data-view=home]{grid-column:1 / -1;margin-top:2px}
+#viewRail #centreBone:not([hidden]){
+ position:static;grid-column:1 / -1;
+ background:#eef5ef;border-color:#b7ccb9;color:#1f4d3f;font-weight:600;
+}
+#viewRail #centreBone:hover{background:#dfece2}
 
-/* Floating Limb Soft-Tissue Quick Toolbar on Stage */
-.soft-bar{
+.label-toggles{
+ margin-top:7px;padding-top:7px;border-top:1px solid #d5e1d6;
+ display:grid;gap:5px;
+}
+.label-toggles label{
+ display:flex;align-items:center;gap:6px;
+ padding:4px 6px;border-radius:6px;
+ background:#f2f6ee;border:1px solid #dce6dc;
+ font-size:12px;font-weight:550;color:#244a3d;cursor:pointer;white-space:nowrap;
+}
+.label-toggles label:has(input:checked){background:#e6f2ea;border-color:#8cb8a3;color:#174738}
+
+/* Unified Floating Bottom Action Dock (Play + Soft Tissue Bar) */
+.stage-dock{
  position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
- z-index:6;pointer-events:auto;
- display:flex;align-items:center;gap:5px;flex-wrap:nowrap;
+ z-index:6;pointer-events:none;
+ display:flex;align-items:center;justify-content:center;gap:8px;
+ max-width:calc(100% - 148px);
+}
+.stage-dock>*{pointer-events:auto}
+.soft-bar{
+ display:flex;align-items:center;gap:4px;flex-wrap:nowrap;
  padding:5px 7px;
  background:#fbfcf6f2;
  backdrop-filter:blur(10px);
@@ -164,7 +206,7 @@ canvas{display:block;touch-action:none}
 }
 .soft-bar button{
  display:inline-flex;align-items:center;gap:5px;
- border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;
+ border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;
  background:transparent;border:1px solid transparent;color:var(--ink);
  white-space:nowrap;
 }
@@ -228,25 +270,29 @@ canvas{display:block;touch-action:none}
 @keyframes loadingSpin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){#viewport[data-pending] #status:before{animation:none}}
 
-#motionReadout{
- position:absolute;bottom:66px;left:4%;max-width:44%;pointer-events:none;
- border-left:3px solid var(--jade);border-radius:0 6px 6px 0;
- background:#fbfcf3ee;padding:6px 11px;font-size:13px;color:#20453a;
- font-variant-numeric:tabular-nums;letter-spacing:.015em;
- box-shadow:0 2px 10px #15372d12;
-}
-#motionReadout:empty{display:none}
-#motionReadout.with-reference:not(:empty)::before{content:"┄ 伤前断缘";font-size:.84em;color:#287165;margin-right:.75em}
-.tissues-active:not(.tissues-linked) #motionReadout{display:none}
-
 .stage-foot{
  bottom:20px;left:92px;right:82px;
- display:flex;align-items:center;gap:14px;font-size:11.5px;color:#4e6658;
+ display:flex;align-items:center;justify-content:flex-end;gap:14px;font-size:11.5px;color:#4e6658;
 }
-.stage-foot span:last-child{margin-left:auto}
-#centreBone{
- position:absolute;right:-58px;bottom:34px;pointer-events:auto;z-index:4;
- padding:5px 10px;border-radius:6px;background:#f8faf2ee;border:1px solid #afc2b5;color:#2f5547;font-size:12px;
+
+.panel-backdrop{
+ display:none;
+ position:fixed;inset:0;z-index:25;
+ background:#0f28204d;backdrop-filter:blur(2px);
+}
+.panel-quick-nav{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:4px;
+ padding:7px clamp(14px,1.8vw,22px);
+ background:#f2f6ee;border-bottom:1px solid var(--edge);
+}
+.panel-quick-nav button{
+ border:1px solid transparent;background:transparent;color:#3c5b4f;
+ padding:6px 8px;border-radius:7px;font-size:12.5px;font-weight:600;white-space:nowrap;
+}
+.panel-quick-nav button:hover{background:#e6efe7}
+.panel-quick-nav button.active{
+ background:#fff;color:var(--jade);border-color:#c6d8cb;
+ box-shadow:0 1px 4px #183a2e14;
 }
 
 /* Right sidebar */
@@ -528,8 +574,8 @@ h3 small{font-size:11px;font-weight:400;color:var(--muted);margin-left:6px}
 #advanced #liveValues{margin-top:10px;font-size:12.5px;line-height:1.55;color:var(--jade);font-variant-numeric:tabular-nums}
 #studyTools{border-top:1px solid #b7c8b8;border-bottom:1px solid #d5dfd0;padding:1px 0 10px}
 #inspectHelp{margin:6px 0 3px}
-.study-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
-.study-grid button{padding:6px 1px;font-size:12px}
+.study-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}
+.study-grid button{padding:6px 8px;font-size:12px;white-space:nowrap}
 #surfaceShare{font-weight:600;color:#245e50;margin:8px 0;font-size:13px}
 #extentRow:not([hidden]){display:block;margin:10px 0}
 
@@ -598,61 +644,131 @@ details{border-top:1px solid var(--edge);padding:9px 0 0;margin-top:10px}
 summary{font-size:13px;color:#345e4e}
 .scope{font-size:11px;display:block;margin-top:12px}
 .empty{padding:12px;color:var(--muted);font-size:13px}
-#quickPlay,#quickEdit{display:none}
+#quickPlay{display:none}
 
-/* Responsive */
-@media(max-width:850px){
- main{grid-template-columns:minmax(0,1fr) 300px}
+/* Tablet & compact landscape (680px - 1079px): full-bleed 3D stage + right slide-over drawer */
+@media(max-width:1079px){
+ header{height:54px;padding:0 14px;gap:10px}
+ header h1{font-size:18px;letter-spacing:.04em;white-space:nowrap}
+ .brand{width:30px;height:31px;font-size:18px}
+ #mobilePanel{
+  display:inline-flex;align-items:center;justify-content:center;
+  white-space:nowrap;padding:7px 13px;min-height:36px;
+  background:#eef5ec;color:#184539;border:1px solid #b9d1c2;
+  border-radius:8px;font-size:13px;font-weight:650;
+ }
+ #foldPanel{display:inline-flex;align-items:center}
+ main{height:calc(100dvh - 54px);grid-template-columns:minmax(0,1fr)}
  .callout{display:none}
- .stage-title{max-width:82%}
- .stage-foot span:last-child{display:none}
- #motionReadout{max-width:86%}
+ .stage-foot{display:none}
+ .stage-title{top:42px;left:18px;max-width:62%}
+ .stage-title h2{font-size:clamp(22px,3.2vw,34px)}
+ .stage-title p{font-size:12px}
+ #stageTools{top:40px;right:14px}
+ #stageToolsToggle{min-height:36px;padding:6px 12px;font-size:12.5px}
+ .stage-tools-panel{width:176px;padding:8px}
+ #viewRail button{min-height:36px;font-size:12.5px}
+ .label-toggles label{min-height:34px;font-size:12.5px}
+
+ /* Slide-over drawer on tablet */
+ aside{
+  position:fixed;top:54px;right:0;bottom:0;z-index:30;
+  width:min(410px,88vw);
+  box-shadow:-12px 0 32px #0f2b2229;
+  transform:translateX(104%);
+  transition:transform .22s cubic-bezier(.22,1,.36,1);
+ }
+ body.panel-open aside{transform:translateX(0)}
+ body.panel-open .panel-backdrop:not([hidden]){display:block}
+
+ /* Unified bottom dock on tablet & phone */
+ .stage-dock{
+  bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  max-width:calc(100% - 24px);
+ }
+ #quickPlay:not([hidden]){
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:38px;padding:0 15px;border-radius:999px;
+  background:#1c5244;color:#fff;border:0;font-size:13px;font-weight:650;
+  white-space:nowrap;box-shadow:0 4px 16px #12362a2e;
+ }
+ .soft-bar{padding:4px 6px}
+ .soft-bar button{min-height:32px;padding:4px 10px;font-size:12px}
+ body.panel-open .stage-dock{display:none}
 }
-@media(max-width:630px){
- header{height:83px;display:grid;grid-template-columns:1fr auto;grid-template-rows:40px 36px;column-gap:5px;row-gap:0;padding:3px 9px}
- header .identity{grid-area:1 / 1}
- header h1{font-size:16px;letter-spacing:.03em;white-space:nowrap}
- .brand{width:28px;height:30px;font-size:17px}
- header .page-nav{grid-area:2 / 1 / 2 / 3;margin:0;gap:5px}
- .page-nav button{min-height:30px;padding:3px 8px;font-size:12px}
- #mobilePanel{grid-area:1 / 2;margin-left:auto;display:block;white-space:nowrap;padding:6px 10px;background:#f2f5e9;color:#1c473b;border-radius:6px;font-weight:600}
- #foldPanel{display:block}
- main{height:calc(100dvh - 83px);display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
- body.panel-open main{grid-template-rows:minmax(180px,48fr) minmax(180px,52fr)}
+
+/* Phone portrait & narrow screens (<= 679px): single-row header + uncluttered 3D stage + bottom sheet */
+@media(max-width:679px){
+ header{height:50px;padding:0 10px;gap:6px}
+ header .identity{gap:6px;min-width:0}
+ header .identity #back{
+  padding:4px 8px;min-height:32px;font-size:12px;border-radius:6px;
+  background:#ffffff1c;border-color:#93b6a266;color:#f3f8f1;white-space:nowrap;
+ }
+ header h1{font-size:15.5px;overflow:hidden;text-overflow:ellipsis}
+ .brand{width:26px;height:27px;font-size:16px;flex:0 0 auto}
+ header .page-nav{gap:4px}
+ #navBone,#navLesson{display:none}
+ .page-nav button{min-height:32px;padding:3px 9px;font-size:12px}
+ #mobilePanel{min-height:34px;padding:5px 11px;font-size:12.5px}
+
+ main{
+  height:calc(100dvh - 50px);
+  display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);
+ }
+ body.panel-open main{grid-template-rows:minmax(185px,42fr) minmax(230px,58fr)}
  .stage{min-height:0;height:auto}
- .model-area:after{inset:6px}
- body.panel-open aside,body.panel-open.in-lesson aside{
-  position:relative;inset:auto;width:100%;min-height:0;box-shadow:none;transform:none;
-  grid-row:2;border-left:0;border-top:1px solid var(--edge);
+ .model-area:after{inset:6px;border-radius:6px}
+ #orientation{inset:9px 10px;font-size:10.5px}
+ .dir{padding:1px 5px;min-width:2.5em}
+
+ .stage-title{top:34px;left:12px;max-width:56%}
+ .stage-title small{font-size:11px;letter-spacing:.06em}
+ .stage-title h2{font-size:21px;margin:2px 0;line-height:1.18}
+ .stage-title p{font-size:11px}
+ .in-lesson .stage-title p:not(#loadNotice){display:none}
+ .stage-title:after{width:26px;margin-top:5px}
+
+ #stageTools{top:34px;right:10px}
+ #stageToolsToggle{min-height:32px;padding:4px 10px;font-size:11.5px}
+ .stage-tools-panel{width:162px;padding:6px}
+ #viewRail button{min-height:33px;font-size:11.5px;padding:3px 4px}
+ .label-toggles label{min-height:32px;font-size:11.5px;padding:3px 6px}
+
+ /* Bottom dock stays cleanly above bottom edge & safe area */
+ .stage-dock{
+  bottom:calc(30px + env(safe-area-inset-bottom,0px));
+  gap:6px;max-width:calc(100% - 16px);
+  flex-wrap:wrap;
+ }
+ #quickPlay:not([hidden]){min-height:34px;padding:0 13px;font-size:12px}
+ .soft-bar{padding:3px 5px;gap:2px;max-width:100%;overflow-x:auto}
+ .soft-bar button{min-height:30px;padding:3px 8px;font-size:11.5px;gap:4px}
+ .soft-bar #softBarScope{padding:3px 7px;font-size:11px}
+
+ /* Bottom sheet drawer on phone (shares split viewport so 3D bone stays visible above!) */
+ body.panel-open .panel-backdrop:not([hidden]){display:none}
+ aside{
+  position:relative;top:auto;right:auto;bottom:auto;width:100%;min-height:0;
+  box-shadow:0 -6px 20px #12332818;transform:none;transition:none;
+  border-left:0;border-top:1px solid #b7cabd;
+  border-radius:14px 14px 0 0;overflow:hidden;
  }
  body:not(.panel-open) aside{display:none}
+ body.panel-open aside{grid-row:2}
  #catalog{max-height:none;overflow:visible}
- .stage-title{top:32px;max-width:80%}
- .stage-title h2{font-size:24px}
- .stage-title p{font-size:11px}
- .stage-title:after{margin-top:6px}
- #orientation{inset:8px;font-size:11px}
- #viewRail{right:7px;grid-template-columns:repeat(2,1fr);gap:3px;padding:3px}
- #viewRail button{min-height:29px;min-width:40px;padding-inline:3px;font-size:11px}
- #viewRail [data-view=home]{grid-column:1 / -1}
- .soft-bar{bottom:8px;padding:3px 5px;gap:3px;max-width:96%;overflow-x:auto}
- .soft-bar button{padding:4px 8px;font-size:11px}
- .stage-foot{bottom:46px;gap:4px;align-items:flex-start;flex-direction:column;font-size:10px}
- .stage-foot span:last-child{display:none}
- #motionReadout{bottom:50px;font-size:11.5px;max-width:90%}
- #centreBone{right:0;bottom:48px}
- .in-lesson #centreBone{bottom:86px}
- #quickPlay:not([hidden]){display:block;position:absolute;z-index:4;right:10px;bottom:48px;background:#1d4e40;color:#fff;border:0;box-shadow:0 3px 12px #1234}
- #quickEdit:not([hidden]){display:block;position:absolute;right:96px;bottom:48px;z-index:3;background:var(--porcelain)}
- body.panel-open #centreBone,body.panel-open #quickPlay,body.panel-open #quickEdit,body.panel-open .soft-bar{display:none}
- body.panel-open .panel-head{padding:5px 10px}
- body.panel-open #boneTitle{font-size:17px;margin:0 0 4px}
- body.panel-open .rail-scroll{padding-top:4px}
- body.panel-open .player{padding:4px 10px 5px}
- body.panel-open .player .motion-actions{margin-top:3px}
- .in-lesson #examPoints{margin-top:9px}
+ .panel-head{padding:7px 12px}
+ .panel-quick-nav{padding:5px 10px}
+ .panel-quick-nav button{padding:5px 6px;font-size:12px}
+ .rail-scroll{padding:4px 12px 14px}
+ #boneTitle{font-size:19px;margin:2px 0 4px}
+ .cards button{padding:7px 8px;font-size:12.5px}
+ .player{padding:7px 12px calc(9px + env(safe-area-inset-bottom,0px))}
+ .player .motion-actions{margin-top:4px;gap:10px}
+ #examPoints{margin:9px 0;padding:10px 12px}
+ #examList{font-size:13px}
+ .soft-mode-row button{font-size:11.5px;padding:5px 4px}
 }
-@media(max-width:630px) and (max-height:590px){
- body.panel-open main{grid-template-rows:minmax(138px,49fr) minmax(146px,51fr)}
- #viewRail{top:48%}
+@media(max-width:679px) and (max-height:600px){
+ body.panel-open main{grid-template-rows:minmax(140px,42fr) minmax(170px,58fr)}
 }

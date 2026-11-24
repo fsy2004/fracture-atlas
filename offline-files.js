@@ -2,7 +2,7 @@
 self.ATLAS_OFFLINE_FILES = [
  "./",
  "index.html",
- "style.css?v=pbr-bone1",
+ "style.css?v=mobile-ui1",
  "models/index.json",
  "models/bones.bin",
  "models/detail.json?native-f32-v1",
