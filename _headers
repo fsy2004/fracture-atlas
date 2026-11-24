@@ -1,0 +1,49 @@
+# Cloudflare Pages edge & browser caching headers (ignored by GitHub Pages).
+# Prevents double-compression of pre-gzipped .bin.gz geometry packs and enables
+# fast Cloudflare edge caching + CORS for cross-origin mirror acceleration.
+
+/models/*.bin
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Access-Control-Allow-Origin: *
+
+/models/*.bin.gz
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Access-Control-Allow-Origin: *
+
+/models/*/*.bin.gz
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Access-Control-Allow-Origin: *
+
+/models/*/*/*.bin.gz
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Access-Control-Allow-Origin: *
+
+/models/soft-tissue/*.glb
+  Content-Type: model/gltf-binary
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Access-Control-Allow-Origin: *
+
+/vendor/draco/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/models/*.json
+  Cache-Control: public, max-age=300, must-revalidate
+  Access-Control-Allow-Origin: *
+
+/models/*/*.json
+  Cache-Control: public, max-age=300, must-revalidate
+  Access-Control-Allow-Origin: *
+
+/*.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/*.css
+  Cache-Control: public, max-age=300, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=120, must-revalidate
