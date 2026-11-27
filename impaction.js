@@ -2,15 +2,17 @@ import * as T from './vendor/three.module.js';
 
 // Axial impaction: shorten the receiving bone locally while its distant cortex stays fixed.
 // The intact point on the mobile fragment can then reach the deformed fracture bed.
-export function prepareImpaction(receiver,driver,origin){
+export function prepareImpaction(receiver,driver,origin,clearance=0,surface=null){
  const axis=driver.shift.clone().normalize(),depth=driver.shift.length();
  const thickness=Math.max(.012,depth*4.5),pt=new T.Vector3();
+ const inward=surface?.clone().normalize()||axis;
+ if(inward.dot(axis)<0)inward.negate();
  function deltas(geometry){
   const p=geometry.attributes.position,out=new Float32Array(p.count*3);
   for(let i=0;i<p.count;i++){
-   const h=pt.fromBufferAttribute(p,i).sub(origin).dot(axis);
+   const h=pt.fromBufferAttribute(p,i).sub(origin).dot(inward);
    const weight=1-T.MathUtils.smoothstep(h,0,thickness);
-   pt.copy(axis).multiplyScalar(depth*weight).toArray(out,i*3);
+   pt.copy(axis).multiplyScalar((depth+clearance)*weight).toArray(out,i*3);
   }
   return new T.BufferAttribute(out,3);
  }

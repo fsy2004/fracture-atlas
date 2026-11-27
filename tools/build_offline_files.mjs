@@ -3,10 +3,10 @@ import {posix} from 'node:path';
 const root=new URL('../',import.meta.url),modules=new Set();
 function scan(path){
  const clean=path.split('?')[0];
- if(modules.has(clean))return;
- modules.add(clean);
+ if(modules.has(path))return;
+ modules.add(path);
  const input=readFileSync(new URL(clean,root),'utf8');
- for(const [,dependency] of input.matchAll(/\b(?:from|import)\s+['"](\.[^'"]+)['"]/g)){
+ for(const [,dependency] of input.matchAll(/\b(?:from\s+|import\s*(?:\(\s*)?)['"](\.[^'"]+)['"]/g)){
   scan(posix.normalize(posix.join(posix.dirname(clean),dependency)));
  }
 }

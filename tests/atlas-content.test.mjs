@@ -28,10 +28,12 @@ test('saved IDs, old numeric links and exam notes survive a reorder of authored 
   assert.deepEqual(reordered.variants,normal.variants);
   const points=new Set();
   for(const [legacy,variant] of normal.variants.entries()){
+   assert.match(variant.id,/^v[0-9]{2}$/);
    const keyed=variantIndex(reordered,variant.id);
    assert.equal(keyed,variantIndex(normal,String(legacy)));
    const card=examPoints(reordered,keyed);
    assert.deepEqual(card,examPoints(normal,legacy));
+   assert.ok(card.points.length>=2&&card.points.length<=3);
    for(const point of card.points){
     assert.ok(!points.has(point),normal.id+'/'+variant.id+' duplicated an exam point');
     points.add(point);

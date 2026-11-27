@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import { createDamageSolver } from './tissue-damage.js?v=limb-soft4';
+import { createDamageSolver } from './tissue-damage.js?v=whole-body1';
 
 const maxDrivers = 4;
 const influence = { muscles: 0.92, vessels: 0.68, nerves: 0.62 };
@@ -293,6 +293,7 @@ function findDriverByGroup(groupHint, bound) {
 }
 
 export function linkSoftTissues(entry, registration, boneGroup, actors, wedges, options = {}) {
+ if (entry.anatomy?.axial && !registration.motionVerified) return null;
  const bound = fields(actors, wedges, boneGroup);
  if (!bound.length) return null;
 
@@ -377,6 +378,7 @@ export function linkSoftTissues(entry, registration, boneGroup, actors, wedges, 
   if (layer === 'muscles') {
    let originWorld = item.restOrigin ? item.restOrigin.clone().applyMatrix4(registration.matrix) : null;
    let insertionWorld = item.restInsertion ? item.restInsertion.clone().applyMatrix4(registration.matrix) : null;
+   if ((!originWorld || !insertionWorld) && entry.anatomy?.axial) continue;
    if (!originWorld || !insertionWorld) {
     const poles = estimatePoles(node);
     originWorld ||= poles.origin;

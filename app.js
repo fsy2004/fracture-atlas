@@ -1,13 +1,13 @@
-import {prepareSoftTissues} from './soft-tissue-view.js?v=mobile-ui1';
-import {fitTissueSkeleton} from './tissue-registration.js';
-import {linkSoftTissues} from './tissue-motion.js?v=limb-soft4';
-import {isLimbBone} from './soft-tissue-catalog.js?v=limb-soft4';
-import {clinicalSoftTissueFor} from './soft-tissue-clinical.js?v=sci-fix1';
-import {createSoftTissuePanel} from './soft-tissue-panel.js?v=limb-soft4';
+import {prepareSoftTissues,referenceBones} from './soft-tissue-view.js?v=whole-body1';
+import {fitTissueSkeleton,fitAxialTissues} from './tissue-registration.js?v=whole-body1';
+import {linkSoftTissues} from './tissue-motion.js?v=whole-body1';
+import {isSoftTissueSupported,resolveAnatomy} from './soft-tissue-catalog.js?v=whole-body1';
+import {clinicalSoftTissueFor,loadAxialClinical} from './soft-tissue-clinical.js?v=whole-body1';
+import {createSoftTissuePanel} from './soft-tissue-panel.js?v=whole-body1';
 import {injuryDescription} from './injury-description.js';
 import {vertebralCompression} from './vertebral-compression.js';
-import {loadOverviewBytes} from './preview-mirror.js?v=mobile-ui1';
-import {fetchVerifiedModel,activeMirrorLabel,mirrorsEnabled,probeFastestSource} from './asset-mirror.js?v=mobile-ui1';
+import {loadOverviewBytes} from './preview-mirror.js?v=whole-body1';
+import {fetchVerifiedModel,activeMirrorLabel,mirrorsEnabled,probeFastestSource} from './asset-mirror.js?v=whole-body1';
 import {assembledSurfaces,detailRegions,regionsForScene} from './assembly-detail.js?v=mirror1';
 import {motionGuide} from './motion-guides.js';
 import {cutField} from './cut-field.js?v=tissue-motion1';
@@ -20,7 +20,7 @@ import {ViewControls} from './view-controls.js';
 import { courses as fractures,levels } from './courses.js';
 import { section,atLevel,sliceMetrics,branchSection,shortShaftCut } from './geometry.js?v=tissue-motion1';
 
-import {boneName,teachingBone,regionFor,buildIndex} from './bone-index.js?v=limb-soft2';
+import {boneName,teachingBone,regionFor,buildIndex} from './bone-index.js?v=whole-body1';
 import {featuresFor,initialShape,shapeNames,motionNames,withShape,customPose} from './features.js';
 
 import {makeObservation,wristLandmarks} from './observation.js';
@@ -30,12 +30,12 @@ import {cutMaterial} from './cut-material.js?v=pbr-bone1';
 import {createStudioEnvironment,createCorticalBoneMaterial} from './bone-material.js?v=pbr-bone1';
 import {fractureProfile} from './fracture-surface.js';
 import {digitJointPath} from './digit-joints.js';
-import {elbowStudy,shoulderStudy} from './elbow-specimen.js';
+import {elbowStudy,shoulderStudy,legacyJointPath,compoundElbowPaths} from './elbow-specimen.js';
 import {plateauSite,applyPlateauBed,followPlateauRim,plateauProfile} from './plateau.js';
 import {bartonSurface} from './measured-wrist.js';
 import {canalSampler} from './endosteum.js';
 import {digitalCut} from './digit-frame.js';
-import {specimenLibrary} from './specimen.js?v=mirror1';
+import {specimenLibrary} from './specimen.js?v=whole-body1';
 import {lunateAdjuncts} from './lunate-adjuncts.js';
 import {carpalAlignment} from './carpal-alignment.js';
 import {typeView} from './clinical-types.js';
@@ -51,6 +51,7 @@ import {fittedShifts} from './fitted-shifts.js';
 import {nativeAnchor,addSurfaceLesson,surfaceTree} from './surface-lessons.js';
 import {fragmentEditor,isFragmentKey,hasEdits,clearEdits} from './fragment-motion.js';
 import {buildKinematics,shaftFrame} from './kinematics.js';
+import {acetabularPlan,displaceAcetabularWall,extractFragment,greenstickGeometry,physisFragments,virtualPhysis} from './textbook-geometry.js';
 const courses=[...fractures,...regionalCourses,...supplementalCourses,...joints].map(canonicalCourse);
 const ghostMaterial=new T.MeshBasicMaterial({color:0x569a96,transparent:true,opacity:.22,depthWrite:false});
 const editedMaterial=createCorticalBoneMaterial({color:0xb85e36,roughness:.58,clearcoat:.14,cavityStrength:.22,cacheKey:'cortical-edited-v1'});
@@ -66,7 +67,7 @@ function paintLabels(){
  const locationMarks=$('anatomyPanel').open&&$('anatomyGuides').checked?anatomyGuides:[];
  const boneTags=!showBoneLabels||(tissueEntry&&!tissueEntry.aligned)?[]:[...(inspection?.tags||[]),...profileMarks,...fragmentMarks,...locationMarks];
  const tissueTags=[];
- if(tissueEntry){
+ if(tissueEntry?.root.visible){
   if(showTissueLabels){
    for(const tag of tissueEntry.tags){
     const item=tissueEntry.items?.find(it=>it.key===tag.structureKey);
@@ -76,10 +77,9 @@ function paintLabels(){
   if(tissueEntry.selectedKey&&!tissueTags.some(t=>t.structureKey===tissueEntry.selectedKey)){
    const sel=tissueEntry.items?.find(it=>it.key===tissueEntry.selectedKey&&it.mesh.visible);
    if(sel){
-    const box=new T.Box3().setFromObject(sel.mesh);
     tissueTags.unshift({
      text:sel.info.zh,
-     point:box.getCenter(new T.Vector3()),
+     point:tissueEntry.labelPoint(sel),
      layer:sel.layer,
      sublayer:sel.sublayer,
      structureKey:sel.key,
@@ -174,7 +174,7 @@ function syncStudy(){
 
 const assetURL=u=>u.startsWith('models/detail')?u+'?native-f32-v1':u;
 const $=id=>document.getElementById(id), host=$('viewport');
-const boneData=new Map(), animated=[], annotations=[], nearBones=[],jointReferences=[], deformationGhosts=[],pieces=[],wedges=[];
+const boneData=new Map(), animated=[], annotations=[], nearBones=[],jointReferences=[], deformationGhosts=[],textbookEffects=[],pieces=[],wedges=[];
 const world=new T.Scene(), group=new T.Group();world.add(group);
 const tissues=prepareSoftTissues();
 const tissueControls={muscles:'softMuscles',vessels:'softVessels',nerves:'softNerves'};
@@ -192,7 +192,7 @@ function updateSoftClipPlane(){
   dirty=true;
   return;
  }
- const box=new T.Box3().setFromObject(tissueEntry.root);
+ const box=tissueEntry.anatomy.axial?tissueEntry.frame:new T.Box3().setFromObject(tissueEntry.root);
  if(box.isEmpty()){tissueEntry.setClipPlane(null);return;}
  const min=box.min,max=box.max;
  if(softClipAxis==='ap'){
@@ -279,7 +279,7 @@ function toggleSoftItem(key,visible){
 }
 
 async function focusClinicalPattern(layer,pattern){
- if(!selected||!isLimbBone(selected))return;
+ if(!selected||!isSoftTissueSupported(selected))return;
  const boxId=tissueControls[layer];
  if(boxId&&!$(boxId).checked){
   $(boxId).checked=true;
@@ -344,7 +344,15 @@ function tissueSection(key){
  return '';
 }
 function updateLinkedTissues(forceTelemetry=false){
- if(!tissueEntry?.motion)return;
+ if(!tissueEntry?.motion){
+  if(tissueEntry?.anatomy.axial&&tissueEntry.aligned&&lessonOpen()){
+   const baseline=progress<0.001;
+   tissueEntry.root.visible=baseline;
+   $('softStatus').textContent=baseline?tissueEntry.restStatus:'骨段正在演示 · 回到起点可查看伤前软组织叠加';
+   if(!baseline)$('labels').hidden=true;
+  }
+  return;
+ }
  host.dataset.softDisplacement=String(tissueEntry.motion.update());
  host.dataset.softDamageGrade=String(tissueEntry.motion.telemetry.maxGrade||0);
  const now=performance.now();
@@ -357,27 +365,54 @@ async function showTissues(){
  const layers=Object.keys(tissueControls).filter(layer=>$(tissueControls[layer]).checked);
  syncSoftQuickBar();
  if(!layers.length){closeTissues();return;}
- if(!selected||!isLimbBone(selected)){
+ if(!selected||!isSoftTissueSupported(selected)){
   closeTissues();
-  $('softStatus').textContent='当前软组织图谱专注四肢骨骼；请先点击上肢或下肢骨骼。';
+  $('softStatus').textContent='请选择骨骼后打开软组织图层。';
   $('softStatus').hidden=false;
   return;
  }
  if(!ready||loadingSpecimen){
   $('softStatus').textContent='请等当前骨面加载完成…';$('softStatus').hidden=false;return;
  }
- tissueRequest?.abort();leaveTissues(false);
+ tissueRequest?.abort();leaveTissues();
  const request=new AbortController(),current=viewSerial;
- tissueRequest=request;$('softStatus').textContent='正在载入四肢高精度软组织…';$('softStatus').hidden=false;
+ tissueRequest=request;$('softStatus').textContent='正在载入高精度软组织…';$('softStatus').hidden=false;
  const v=lessonOpen()?course.variants[variant]:null;
  const affected=v?(v.cuts.find(cut=>cut.bone===teachingBone(selected))||v.cuts[0]).bone:null;
  const patientBone=affected&&/\bleft\b/i.test(selected)?
   affected.replace(/\bright\b/ig,value=>value==='Right'?'Left':'left'):affected||selected;
- const clinical=clinicalSoftTissueFor(lessonOpen()?course:null,variant,level,patientBone);
+ const courseId=v?course.id:'';
+ const variantKey=v?.id||'';
+ const anatomy=resolveAnatomy(patientBone,courseId,variantKey,meshByKey.get(patientBone));
+ let pendingReference=null;
  try{
-  const reference=await tissues.load(layers,patientBone,request.signal,{
+  if(anatomy.axial)await loadAxialClinical();
+  request.signal.throwIfAborted();
+  const clinical=clinicalSoftTissueFor(v?course:null,variant,level,patientBone);
+  group.updateMatrixWorld(true);
+  const target=v?lessonMesh(affected):selectedMesh?.geometry;
+ const anchorTargets=new Map(), patientWorld=new T.Matrix4();
+  if(anatomy.axial&&target){
+   const names=referenceBones(patientBone,courseId);
+   if(useSpecimen&&target.userData.group){
+    const keys=specimen.registrationKeys(names,target.userData.group);
+    await Promise.allSettled(keys.map(([,key])=>specimen.load([key])));
+    request.signal.throwIfAborted();
+    for(const [name,key] of keys){
+     const geometry=specimen.fromKey(key);
+     if(geometry)anchorTargets.set(name,geometry);
+    }
+   }else if(!useSpecimen){
+    for(const name of names){
+     const geometry=boneData.get(name);
+     if(geometry&&geometry!==overviewMeshes.get(name))anchorTargets.set(name,geometry);
+    }
+   }
+  }
+  const reference=pendingReference=await tissues.load(layers,patientBone,request.signal,{
    section:tissueSection(patientBone),
-   courseId:lessonOpen()?course.id:'',
+   courseId,variantKey,meshId:anatomy.meshId,
+   anchorBones:[...anchorTargets.keys()],
    clinical,
    focusOnly:softFocusOnly,
    muscleOpacity:softMuscleOpacity,
@@ -387,54 +422,68 @@ async function showTissues(){
   if(request.signal.aborted||current!==viewSerial){tissues.detach(reference);return;}
   tissueReturn={description:$('description').textContent};
   group.updateMatrixWorld(true);
-  let motion=null,aligned=false;
-  if(v){
-   const drivers=animated.filter(item=>item.jointLabel||item.shell).sort((a,b)=>
-    Number(Boolean(b.moving||b.jointLabel))-Number(Boolean(a.moving||a.jointLabel)));
-   const target=affected?lessonMesh(affected):null;
-   const actor=drivers.find(item=>item.name===affected)||drivers[0];
-   const focusPt=(actor?.cutReference||actor?.anchor)?.clone().applyMatrix4(group.matrixWorld);
-   const match=fitTissueSkeleton(reference.pairedBone,target,group.matrixWorld,focusPt);
-   if(match?.accepted){
-    motion=linkSoftTissues(reference,match,group,drivers,wedges,{showArrows:softShowArrows});
-    aligned=Boolean(motion);
+  let motion=null,aligned=false,registration=null;
+  const drivers=v?animated.filter(item=>item.jointLabel||item.shell||item.adjunct&&item.name).sort((a,b)=>
+   Number(Boolean(b.moving||b.jointLabel))-Number(Boolean(a.moving||a.jointLabel))):[];
+  const actor=drivers.find(item=>item.name===affected)||drivers[0];
+  const focusPt=(actor?.cutReference||actor?.anchor)?.clone().applyMatrix4(group.matrixWorld);
+  const targetWorld=v?group.matrixWorld:selectedMesh?.matrixWorld||group.matrixWorld;
+  if(anatomy.axial){
+   const pairs=[[patientBone,target],...anchorTargets].flatMap(([name,geometry],index)=>{
+    const source=reference.boneAnchors.get(name);
+    return source&&geometry?[{name,source,geometry,world:index===0?targetWorld:patientWorld}]:[];
+   });
+   registration=fitAxialTissues(pairs,focusPt,{
+    variantKey:courseId+'/'+variantKey,injurySide:anatomy.injurySide,
+    sourceRevision:reference.revision,requireNeighbours:courseId==='tmj-dislocation'||courseId==='pelvis',
+    bilateralJoint:courseId==='tmj-dislocation'
+   });
+  }else{
+   registration=fitTissueSkeleton(reference.pairedBone,target,targetWorld,focusPt);
+  }
+  if(registration?.accepted){
+   if(v&&(!anatomy.axial||registration.motionVerified)){
+    motion=linkSoftTissues(reference,registration,group,drivers,[...wedges,...deformationGhosts.map(d=>d.mesh).filter(m=>!wedges.includes(m))],{showArrows:softShowArrows});
    }
-  }else if(selectedMesh){
-   // Single-bone zoomed view: register limb soft tissues directly onto the zoomed high-detail bone!
-   const match=fitTissueSkeleton(reference.pairedBone,selectedMesh.geometry,group.matrixWorld,null);
-   if(match?.accepted){
-    reference.root.applyMatrix4(match.matrix);
+   if(!motion){
+    reference.root.applyMatrix4(registration.matrix);
     reference.root.updateMatrixWorld(true);
-    for(const t of reference.tags)t.point.applyMatrix4(match.matrix);
-    reference.root.traverse(node=>{if(node.isMesh&&node.userData.atlasLayer==='bones')node.visible=false;});
-    aligned=true;
+    for(const t of reference.tags)t.point.applyMatrix4(registration.matrix);
+    for(const mesh of reference.boneAnchors.values())mesh.visible=false;
    }
+   reference.frame.applyMatrix4(registration.matrix);
+   reference.setClipPlane(reference.clipPlane);
+   aligned=true;
   }
   if(!motion)reference.applyStaticCalibers();
-  const dynamic=Boolean(motion&&(wedges.length||animated.some(item=>item.moving||item.jointLabel)));
+  const dynamic=Boolean(motion&&(wedges.length||deformationGhosts.length||animated.some(item=>item.moving||item.jointLabel||item.adjunct&&item.name)));
   if(!aligned){
    Object.assign(tissueReturn,{position:camera.position.clone(),up:camera.up.clone(),target:controls.target.clone()});
    playing=false;if(lessonOpen())setProgress(progress);
   }
-  tissueEntry={...reference,motion,aligned};world.add(reference.root);
+  tissueEntry={...reference,motion,aligned};pendingReference=null;world.add(reference.root);
   if(softClipAxis!=='none')updateSoftClipPlane();
   group.visible=aligned;if(!aligned){flight=null;automaticFit=false;}
-  $('description').textContent=dynamic?'四肢软组织随骨段联动 · 点击结构查名称':aligned?'四肢局部软组织 · 悬停或点击查名称':'配套骨面与伤前软组织';
+  $('description').textContent=(v?.child||v?.pulledElbow?'成人骨性底图儿童解剖示意 · ':'')+
+   (dynamic?'软组织随骨段联动 · 点击结构查名称':aligned?'局部软组织 · 悬停或点击查名称':'配套骨面与伤前软组织');
   document.body.classList.add('tissues-active');
   document.body.classList.toggle('tissues-linked',aligned);
   host.dataset.softLayers=layers.join(',');host.dataset.softMode=motion?'linked':aligned?'aligned':'reference';
   document.querySelector('.player').inert=lessonOpen()&&!aligned;
   $('copyLink').disabled=!aligned;$('softReturn').hidden=false;
   const shownCount=reference.items.filter(it=>it.mesh.visible).length;
-  $('softStatus').textContent=(dynamic?'已联动显示 ':aligned?'已配准显示 ':'伤前参照显示 ')+shownCount+' 项四肢软组织（悬停或点击查名称）';
+  const state=dynamic?'已联动显示 ':aligned?(anatomy.axial?'伤前静态叠加 ':'已配准显示 '):'源图谱参照 ';
+  tissueEntry.restStatus=state+shownCount+' 项软组织（悬停或点击查名称）';
+  if(anatomy.axial&&!aligned)tissueEntry.restStatus+=' · 当前标本未通过叠加验收';
+  $('softStatus').textContent=tissueEntry.restStatus;
   $('labels').hidden=true;$('tip').hidden=true;
   softPanel.setEntry(tissueEntry);
   syncSoftQuickBar();
   syncPlayer();
-  if(motion){updateLinkedTissues(true);dirty=true;}
-  else if(aligned){dirty=true;}
+  if(aligned){updateLinkedTissues(true);dirty=true;}
   else fitTissues(camera.position.clone().sub(controls.target));
  }catch(error){
+  tissues.detach(pendingReference);
   if(request.signal.aborted)return;
   closeTissues();$('softStatus').textContent=error?.message||'当前软组织载入失败，可重新选择。';$('softStatus').hidden=false;
   console.warn(error);
@@ -456,7 +505,9 @@ for(const btn of document.querySelectorAll('[data-soft-toggle]')){
 }
 function setSoftFocusMode(focusOnly){
  softFocusOnly=focusOnly;
- if(tissueEntry){
+ if(tissueEntry?.anatomy.axial||tissueRequest&&!tissueEntry){
+  showTissues();
+ }else if(tissueEntry){
   tissueEntry.focusOnly=focusOnly;
   tissueEntry.isolatedKey=null;
   tissueEntry.applyVisibility();
@@ -529,7 +580,8 @@ function lessonOpen(){return Boolean(course&&variant>=0&&selected);}
 function jointView(){
  const id=course?.id,v=course?.variants[variant];
  if(course?.kind!=='joint')return id==='radius'?'side':'home';
- if(id==='lisfranc-dislocation')return 'top';
+ if(id==='lisfranc-dislocation'||id==='knee-dislocation'&&v?.pivot)return 'top';
+ if(v?.centralHip||id==='elbow-dislocation'&&v?.id==='v04'||id==='pip-dislocation'&&v?.digitLateral)return 'front';
  if(id==='patella-dislocation'||id==='knee-dislocation'&&variant>=2||id==='pip-dislocation'&&variant===1||id==='elbow-dislocation'&&variant===1)return 'front';
  if(v?.nativePoint&&/\bleft\b/i.test(selected))return 'leftSide';
  return 'side';
@@ -564,11 +616,11 @@ function materialize(meta,bytes){
 function clearScene(){
  profile?.dispose();profile=null;profileMarks=[];bedRims=[];alignment?.dispose();alignment=null;mechanics?.dispose();mechanics=null;timing=null;impaction=null;poseLimit=null;$('contactState').textContent='';
  fragmentRig?.dispose();fragmentRig=null;anklePose=null;poseGuide=null;motionWords=[];inspection=null;dirty=true;syncStudy();applyMotion=null;$('liveValues').textContent='';hovered=null;$('tip').hidden=true;group.scale.x=1;
- group.traverse(o=>{if(o.userData.dispose)o.geometry?.dispose();if(o.isArrowHelper||o.type==='ArrowHelper')o.dispose?.();});
+ group.traverse(o=>{if(o.userData.dispose)o.geometry?.dispose();if(o.userData.ownMaterial)o.material?.dispose();if(o.isArrowHelper||o.type==='ArrowHelper')o.dispose?.();});
  group.traverse(o=>{
   for(const resource of o.userData.cutResources||[])resource.dispose();
  });
- group.clear();animated.length=annotations.length=nearBones.length=jointReferences.length=deformationGhosts.length=pieces.length=wedges.length=0;fragmentMarks=[];anatomyGuides=[];
+ group.clear();animated.length=annotations.length=nearBones.length=jointReferences.length=deformationGhosts.length=textbookEffects.length=pieces.length=wedges.length=0;fragmentMarks=[];anatomyGuides=[];
 }
 const specimen=specimenLibrary(async(u,meta)=>{
  if(location.protocol==='file:'||u.endsWith('.json'))return await fetch(u);
@@ -610,6 +662,231 @@ function addPart(part,anchor,motion,material){
  animated.push({pivot,anchor,ghost,shell,face,edge,name:markName,moving,tuned:motion.tuned,shift:vec(motion.shift).multiplyScalar(.001),turn:vec(motion.turn).multiplyScalar(Math.PI/180)});
  return pivot;
 }
+
+function addJointReferences(names){
+ for(const name of names){
+  const mesh=addBone(name,bone);
+  if(mesh)jointReferences.push(mesh);
+ }
+}
+function addJointGroup(spec,anchor){
+ const {bones=[],followers=[],label='活动骨端'}=spec;
+ const a=spec.pivot?nativeAnchor(lessonMesh(spec.pivot.bone),spec.pivot.point):anchor;
+ const pivot=new T.Group(),ghost=new T.Group();pivot.position.copy(a);ghost.visible=false;
+ const trajectory=new T.Line(new T.BufferGeometry().setFromPoints([a,a]),new T.LineDashedMaterial({color:0x267c6c,dashSize:.003,gapSize:.002}));
+ trajectory.userData.dispose=true;trajectory.userData.ownMaterial=true;trajectory.frustumCulled=false;
+ group.add(pivot,ghost,trajectory);
+ for(const name of [...bones,...followers]){
+  const mesh=addBone(name,displacedMaterial,pivot);
+  if(!mesh)continue;
+  mesh.position.copy(a).negate();
+  if(bones.includes(name))addBone(name,ghostMaterial,ghost);
+  else nearBones.push(mesh);
+ }
+ const item={jointLabel:label,trajectory,pivot,anchor:a,
+  shift:vec(spec.shift||[0,0,0]).multiplyScalar(.001),turn:vec(spec.turn||[0,0,0]).multiplyScalar(Math.PI/180),
+  name:bones[0],waypoints:spec.waypoints,knots:spec.knots,timing:spec.timing,rotationTiming:spec.rotationTiming,cycle:spec.cycle,directed:spec.directed,ghost};
+ animated.push(item);
+ return item;
+}
+
+function teachingOverlay(geometry,color,opacity,parent=group){
+ const mesh=new T.Mesh(geometry,new T.MeshBasicMaterial({color,opacity,transparent:true,depthWrite:false,side:T.DoubleSide}));
+ mesh.userData.dispose=true;mesh.userData.ownMaterial=true;mesh.userData.teachingOverlay=true;
+ parent.add(mesh);annotations.push(mesh);
+ return mesh;
+}
+
+function lateralDigitPath(g,v){
+ const {axis,transverse}=g.userData.digit;
+ const distal=vec(axis).normalize(),side=vec(transverse).normalize();
+ if(side.x<0)side.negate();
+ return {
+  end:side.multiplyScalar(v.digitLateral.distance).addScaledVector(distal,1.5).toArray(),
+  turn:v.turn,waypoints:[distal.multiplyScalar(v.digitLateral.way).toArray()]
+ };
+}
+
+function addPalmarLigament(lunate,radius,anchor,pivot,degrees){
+ const origin=nativeAnchor(radius,[.55,.05,.90]),insertion=nativeAnchor(lunate,[.52,.50,.92]);
+ const mesh=teachingOverlay(new T.BoxGeometry(1,1,1),0x36b9a7,.74);
+ const tip=new T.Vector3(),direction=new T.Vector3(),up=vec([0,1,0]);
+ textbookEffects.push(()=>{
+  tip.copy(insertion).sub(anchor).applyQuaternion(pivot.quaternion).add(pivot.position);
+  direction.copy(tip).sub(origin);mesh.position.copy(origin).lerp(tip,.5);
+  const length=direction.length();
+  mesh.scale.set(.004,length,.0011);
+  mesh.quaternion.setFromUnitVectors(up,direction.normalize());
+  if(degrees>180)mesh.rotateY(pivot.quaternion.x*1.7);
+ });
+}
+
+function addToeFlex(pivot,anchor){
+ const name='Distal phalanx of right big toe',mesh=pivot.children.find(o=>o.userData.bone===name);
+ if(!mesh)return;
+ const g=mesh.geometry,d=g.userData.digit,hinge=d?vec(d.proximal_m):nativeAnchor(g,[.5,.5,.14]);
+ const axis=d?vec(d.transverse).normalize():vec([1,0,0]);
+ if(axis.x<0)axis.negate();
+ const flex=new T.Group(),offset=hinge.clone().sub(anchor);
+ const long=d?vec(d.axis).normalize():vec([0,0,1]);
+ pivot.add(flex);flex.add(mesh);mesh.position.copy(hinge).negate();
+ textbookEffects.push(p=>{
+  flex.position.copy(offset).addScaledVector(long,.0025*T.MathUtils.smoothstep(p,.34,.60));
+  flex.quaternion.setFromAxisAngle(axis,Math.PI/12*T.MathUtils.smoothstep(p,.56,.94));
+ });
+}
+
+function buildPulledElbow(v,anchor){
+ const r=lessonMesh('Right radius'),ulna=lessonMesh('Right ulna');
+ const ends=[vec(atLevel(r,1,.04)),vec(atLevel(r,1,.96))];
+ ends.sort((a,b)=>a.distanceToSquared(anchor)-b.distanceToSquared(anchor));
+ const [head,far]=ends,shaft=far.clone().sub(head).normalize();
+ const hinge=anchor.clone(),bend=vec([1,0,0]);
+ const forearm=new T.Group();group.add(forearm);forearm.position.copy(hinge);
+ addBone('Right ulna',bone,forearm).position.copy(hinge).negate();
+ // The distal pull opens the radiohumeral interval along this specimen's radius.
+ const near=surfaceTree(ulna).closestPointToPoint(head).point;
+ const radial=head.clone().sub(near);
+ radial.addScaledVector(shaft,-radial.dot(shaft)).normalize();
+ const shift=shaft.clone().multiplyScalar(2.5).addScaledVector(radial,2);
+ const actor=addJointGroup({bones:['Right radius'],shift:shift.toArray(),
+  directed:{axis:shaft.toArray(),degrees:-16},rotationTiming:[.25,.90]},head);
+ const ringPoints=[],ringAxis=shaft.clone().cross(vec([1,0,0])).normalize(),orthogonal=shaft.clone().cross(ringAxis);
+ const diameter=sliceMetrics(r,head,shaft,ringAxis)?.width||.017;
+ for(let i=0;i<=36;i++){
+  const a=2*Math.PI*i/36;
+  ringPoints.push(head.clone().sub(hinge).addScaledVector(ringAxis,diameter*.57*Math.cos(a)).addScaledVector(orthogonal,diameter*.57*Math.sin(a)));
+ }
+ teachingOverlay(new T.TubeGeometry(new T.CatmullRomCurve3(ringPoints.slice(0,-1),true),48,.0014,8,true),0x2ca8a2,.63,forearm);
+ const flap=teachingOverlay(new T.SphereGeometry(.003,14,8),0x30b9ad,.78,forearm);
+ flap.scale.set(1,.34,.50);
+ flap.position.copy(ringPoints[18]);
+ const rest=flap.position.clone();
+ textbookEffects.push(p=>{
+  forearm.quaternion.setFromAxisAngle(bend,-.26*T.MathUtils.smoothstep(p,.15,.88));
+  actor.pivot.position.sub(hinge).applyQuaternion(forearm.quaternion).add(hinge);
+  actor.pivot.quaternion.premultiply(forearm.quaternion);
+  flap.position.copy(rest).addScaledVector(shaft,-.0015*T.MathUtils.smoothstep(p,.36,.87));
+ });
+ addJointReferences(v.fixed);
+ return anchor;
+}
+
+function buildCompoundJoint(v,anchor){
+ if(v.pulledElbow)return buildPulledElbow(v,anchor);
+ if(v.thoracicShoulder){
+  const humerus=lessonMesh('Right humerus');
+  const head=humerus.userData.headCentre||anchor;
+  const shaft=shaftFrame(vec(atLevel(humerus,1,.26)),vec(atLevel(humerus,1,.71)),false);
+  const driver=addJointGroup({bones:['Right humerus'],shift:v.shift,waypoints:[[0,0,0],...v.waypoints],knots:[0,.53,.69,.84,1],label:'肱骨头'},head);
+  Object.assign(driver,{jointAxis:shaft.axis,posture:v.posture,axial:v.axial,axialSign:-1,postureAfter:1});
+  const rest={shift:[0,0,0],turn:[0,0,0]};
+  for(const s of v.cuts.slice(1)){
+   markName=s.bone;
+   const g=lessonMesh(s.bone),planes=[
+    {normal:vec([-1,0,0]),point:head.clone().add(vec([.075,0,0]))},
+    {normal:vec([0,0,1]),point:head.clone().add(vec([0,0,-.074]))}
+   ];
+   const parts=extractFragment(g,planes);
+   addPart(parts[0],head,rest,bone);
+   addPart(parts[1],head,{shift:[-32,-54,73],turn:[0,0,0]},bone);
+   Object.assign(animated.at(-1),{waypoints:[[-2,-14,-8]],knots:[0,.21,.52]});
+  }
+  addJointReferences(v.fixed);
+  return head;
+ }
+ if(v.centralHip){
+  const femur=lessonMesh('Right femur'),hip=lessonMesh('Right hip bone');
+  const plan=acetabularPlan(femur,hip);
+  const driver=addJointGroup({bones:['Right femur'],shift:[plan.travel*1000,0,0],label:'股骨头'},plan.head);
+  driver.guidePoint=plan.head;
+  const [fixed,plug]=extractFragment(hip,plan.planes);
+  markName='Right hip bone';
+  const rest={shift:[0,0,0],turn:[0,0,0]};
+  addPart(fixed,plan.socket,rest,bone);
+  addPart(plug,plan.socket,{shift:[(plan.travel-plan.clearance)*1000,0,0],turn:[0,0,0]},bone);
+  const wall=animated.at(-1);wall.segment='臼底骨块';wall.guidePoint=plan.socket;
+  const displacement=new T.Vector3();
+  wall.translateFrom=()=>displacement.set(displaceAcetabularWall(driver.pivot.position.x-plan.head.x,plan.clearance),0,0);
+  return plan.head.clone().lerp(plan.socket,.5);
+ }
+ const fitted=useSpecimen&&v.elbowFrame?compoundElbowPaths(v.id,group.scale.x<0?'Left':'Right'):null;
+ for(const [i,spec] of v.jointGroups.entries())addJointGroup({...spec,...fitted?.[i]},anchor);
+ for(const original of v.jointFractures||[]){
+  const s=fitted?{...original,fitted:true,minus:{...original.minus,shift:fitted[1].shift},plus:{...original.plus,shift:fitted[2].shift},
+   minusPath:fitted[1].waypoints,plusPath:fitted[2].waypoints,minusKnots:fitted[1].knots,plusKnots:fitted[2].knots}:original;
+  markName=s.bone;
+  addFracture(s,vec(atLevel(lessonMesh(s.bone),s.axis,s.level)));
+ }
+ addJointReferences(v.fixed);
+ return anchor;
+}
+
+function addTextbookBoneForm(g,s,a){
+ function rim(geometry,parent=group,origin=null){
+  const edge=new T.LineSegments(geometry,line);edge.userData.dispose=true;
+  edge.userData.progressive=true;if(origin)edge.position.copy(origin).negate();
+  parent.add(edge);annotations.push(edge);
+ }
+ if(s.bend){
+  const {geometry,outline}=greenstickGeometry(g,a,s);
+  const mesh=new T.Mesh(geometry,bone);mesh.userData.dispose=true;mesh.userData.bone=s.bone;group.add(mesh);
+  deformationGhosts.push({mesh,ref:addBone(s.bone,ghostMaterial)});
+  rim(outline);
+  textbookEffects.push(p=>{mesh.morphTargetInfluences[0]=T.MathUtils.smoothstep(p,.18,.91);});
+  return;
+ }
+ if(s.physis){
+  const {type,side}=s.physis;
+  if(type<=4){
+   const parts=physisFragments(g,a,type,side);
+   const left=group.scale.x<0;
+   const shift=type===2?(left?[-3,7,-6]:[-3,9,0]):[type===3?2.5:type===4?3.5:4,type===1?0:side*1.5,0];
+   const motion=course.id==='physis-injury'?{shift,turn:[0,0,0]}:side>0?s.plus:s.minus;
+   const start=animated.length;
+   addPart(parts[0],a,{shift:[0,0,0],turn:[0,0,0]},bone);
+   addPart(parts[1],a,motion,bone);
+   if(type===2)animated.at(-1).waypoints=[[0,left?5:3,0]];
+   nameFragmentEnds(animated.slice(start),s,a);
+  }else addBone(s.bone,bone);
+  const {geometry,band:bandGeometry}=virtualPhysis(g,a,type);
+  const band=teachingOverlay(geometry,0x63d5d2,.53);
+  const upper=teachingOverlay(geometry.clone(),0x32a2b8,.48);
+  const rim=teachingOverlay(bandGeometry,0x49caca,.75);rim.position.copy(a);
+  let intact;
+  if(type===6){
+   const {geometry,band}=virtualPhysis(g,a,5);geometry.dispose();
+   intact=teachingOverlay(band,0x49caca,.75);intact.position.copy(a);intact.scale.y=.00125;
+  }
+  textbookEffects.push(p=>{
+   const u=T.MathUtils.smoothstep(p,.25,.93),thickness=.00125*(1-(type===5?.25*u:0));
+   band.position.y=thickness;upper.position.y=-thickness;rim.scale.y=thickness;
+   if(intact){
+    intact.material.opacity=.75*(1-u);
+    band.material.opacity=.63*u;upper.material.opacity=.58*u;rim.material.opacity=.77*u;
+   }
+  });
+  return;
+ }
+ if(s.star){
+  addBone(s.bone,bone);
+  for(const normal of [[1,.21,0],[.19,1,0],[.63,-.48,0]]){
+   const pair=section(g,normal,a.toArray());
+   const front=pair[0].outline.attributes.position,points=[];
+   for(let i=0;i<front.count;i+=2){
+    const p=new T.Vector3().fromBufferAttribute(front,i),q=new T.Vector3().fromBufferAttribute(front,i+1);
+    if((p.z+q.z)*.5>a.z)points.push(p,q);
+   }
+   rim(new T.BufferGeometry().setFromPoints(points));
+   for(const part of pair)for(const geometry of [part.geo,part.face,part.outline])geometry.dispose();
+  }
+  return;
+ }
+ const pair=section(g,s.normal,a.toArray());addBone(s.bone,bone);
+ rim(pair[0].outline.clone());
+ for(const part of pair)for(const geometry of [part.geo,part.face,part.outline])geometry.dispose();
+}
+
 function addWedge(g,kind){
  const geometry=g.clone();
  geometry.morphAttributes=vertebralCompression(g,kind);
@@ -652,14 +929,35 @@ function shapePreset(spec,g,anchor){
  }
  return prepared;
 }
+// Keep newly authored planar fragments on their own side of each fracture
+// boundary until they disengage. Existing routes retain their fitted paths.
+function protectFractureFace(item,normal,origin,side){
+ if(!item?.moving)return;
+ const out=vec(normal).normalize().multiplyScalar(side);
+ const inv=new T.Quaternion(),direction=new T.Vector3();
+ const arrays=[item.shell,item.face].map(mesh=>mesh.geometry.attributes.position.array);
+ const separation={out,origin,inv,direction,arrays};
+ (item.separation||=[]).push(separation);
+}
+
 function addFracture(spec,anchor){
  const g=lessonMesh(spec.bone), pair=section(g,spec.normal,anchor.toArray(),spec.fold,spec.spiralHeight,spec.spiralAxis,Infinity,spec.posteriorSpiral,spec.relief);
  const pivot=spec.pivot?vec(spec.pivot):anchor;
- const start=animated.length;
- addPart(pair[0],pivot,spec.minus,bone);
+ const start=animated.length,splitSide=spec.splitSide??1;
+ const baseSide=spec.second?1-splitSide:0;
+ const motions=[spec.minus,spec.plus];
+ function add(part,motion,position,side,breathing=false){
+  const prefix=side===0?'minus':'plus';
+  addPart(part,position,motion,bone);
+  Object.assign(animated.at(-1),{waypoints:spec[prefix+'Path'],breathing,
+   timing:spec[prefix+'Timing'],knots:spec[prefix+'Knots'],rotationTiming:spec[prefix+'Rotation']});
+ }
+ add(pair[baseSide],motions[baseSide],pivot,baseSide);
+ const protect=Boolean(course.variants[variant].textbook&&!spec.fitted&&!spec.impaction&&!spec.spiralHeight&&!spec.fold);
+ if(protect)protectFractureFace(animated[start],spec.normal,anchor,baseSide?1:-1);
  const baseFace=animated[start].face,resources=[];
- const primary=!spec.fold&&!spec.spiralHeight&&!pair[0].face.userData.canal?
-  cutField(pair[0].outline,anchor,vec(spec.normal)):null;
+ const primary=!spec.fold&&!spec.spiralHeight&&!pair[baseSide].face.userData.canal?
+  cutField(pair[baseSide].outline,anchor,vec(spec.normal)):null;
  function surfaceMaterial(field){
   if(!field)return cap;
   const material=cutMaterial(0xd6bf9e,.32,field);
@@ -670,18 +968,29 @@ function addFracture(spec,anchor){
  if(primary)baseFace.material=primaryMaterial;
  baseFace.userData.cutResources=resources;
  if(!spec.second){
-  addPart(pair[1],pivot,spec.plus,bone);
+  add(pair[1],spec.plus,pivot,1);
+  if(protect)protectFractureFace(animated.at(-1),spec.normal,anchor,1);
   if(primary)animated[start+1].face.material=primaryMaterial;
   nameFragmentEnds(animated.slice(start),spec,anchor);
   return;
  }
- // Both planes have their own cortical rim even where the second cut crosses the first.
- const first=pair[1],halves=branchSection(first,spec.second,anchor.toArray());
+ const first=pair[splitSide];
+ const secondAnchor=spec.secondPoint?nativeAnchor(g,spec.secondPoint):
+  spec.secondLevel!=null?vec(atLevel(g,spec.axis,spec.secondLevel)):anchor;
+ const halves=branchSection(first,spec.second,secondAnchor.toArray());
  const secondRim=halves[0].outline;
- const branchMaterial=surfaceMaterial(cutField(secondRim,anchor,vec(spec.second),secondRim.userData.branchRimVertices));
+ const branchMaterial=surfaceMaterial(cutField(secondRim,secondAnchor,vec(spec.second),secondRim.userData.branchRimVertices));
  halves.forEach((half,i)=>{
   const branch=spec.branches?.[i]||{shift:[i?1:-1,0,0],turn:[0,0,0]};
-  addPart(half,anchor,{shift:spec.plus.shift.map((v,k)=>v+branch.shift[k]),turn:spec.plus.turn.map((v,k)=>v+branch.turn[k]),tuned:spec.plus.tuned},bone);
+  const main=motions[splitSide];
+  const floating=spec.floating&&i===1;
+  const shift=floating?[6,0,0]:main.shift.map((v,k)=>v+branch.shift[k]);
+  add(half,{shift,turn:main.turn.map((v,k)=>v+branch.turn[k]),tuned:main.tuned},
+   spec.splitSide==null?anchor:pivot,splitSide,floating);
+  if(protect){
+   protectFractureFace(animated.at(-1),spec.normal,anchor,splitSide?1:-1);
+   protectFractureFace(animated.at(-1),spec.second,secondAnchor,i?1:-1);
+  }
   if(half.face.userData.canal)return;
   const border=half.face.userData.newSurfaceVertices;
   half.face.addGroup(0,border,0);
@@ -903,12 +1212,12 @@ function showControls(){
   qNav.hidden=!local;
   const softBtn=qNav.querySelector('[data-panel-tab=soft]');
   const motBtn=qNav.querySelector('[data-panel-tab=motion]');
-  if(softBtn)softBtn.hidden=!local||!isLimbBone(selected);
+  if(softBtn)softBtn.hidden=!local||!isSoftTissueSupported(selected);
   if(motBtn)motBtn.hidden=$('advanced').hidden;
   setPanelTab('lesson');
  }
  if($('labelToggles'))$('labelToggles').hidden=!local;
- if($('tissueLabelToggleRow'))$('tissueLabelToggleRow').hidden=!local||!isLimbBone(selected);
+ if($('tissueLabelToggleRow'))$('tissueLabelToggleRow').hidden=!local||!isSoftTissueSupported(selected);
  if(!local){$('extentRow').hidden=true;updateAnatomyPanel(null,[]);return;}
  updateAnatomyPanel(selected,anatomyGuides);
  $('signView').hidden=!typeView(course,variant);
@@ -926,7 +1235,7 @@ function showControls(){
  $('boneNote').textContent=!has?'可旋转查看此骨的正常解剖，当前尚无对应损伤课程。':variant<0?'选择分型后自动播放。':'';
  $('boneNote').hidden=!$('boneNote').textContent;
  for(const id of ['sites','siteLabel','variants','system'])$(id).hidden=!has;
- $('levelbox').hidden=!lesson;$('patternBox').hidden=!lesson;
+ $('levelbox').hidden=!lesson||!course?.levels||Boolean(course.variants[variant]?.textbook);$('patternBox').hidden=!lesson;
  if(!has)return;
  $('sites').replaceChildren(...list.map(c=>new Option(c.name,c.id,false,c===course)));
  $('sites').disabled=list.length===1;$('sites').hidden=$('siteLabel').hidden=list.length===1;
@@ -940,10 +1249,10 @@ function showControls(){
  if(!lesson)return;
  const isJoint=course.kind==='joint';
  const v=course.variants[variant];
- const aligned=!isJoint&&!v.depression&&!v.moving&&!v.cuts.some(s=>s.wedge||s.surface==='dent'||s.second||s.minus?.shift.some(Boolean)||s.plus?.shift.some(Boolean)||s.minus?.turn.some(Boolean)||s.plus?.turn.some(Boolean));
- const deform=Boolean(v.depression)||v.cuts.some(s=>s.wedge||s.surface==='dent');
- const stepTimes=aligned||deform?[0,.5,1]:isJoint?[0,.49,1]:[0,.17,.28,1];
- buttons($('steps'),aligned?['伤前','断线出现','保持对位']:deform?['伤前','形变过程','终末形态']:isJoint?['对位','移出','终点']:['伤前','断缘显露','初次错开','终末姿态'],-1,i=>{playing=false;setProgress(stepTimes[i]);});
+ const aligned=!isJoint&&!v.depression&&!v.cuts.some(s=>s.bend||s.physis)&&!v.moving&&!v.cuts.some(s=>s.wedge||s.surface==='dent'||s.second||s.minus?.shift.some(Boolean)||s.plus?.shift.some(Boolean)||s.minus?.turn.some(Boolean)||s.plus?.turn.some(Boolean));
+ const deform=Boolean(v.depression)||v.cuts.some(s=>s.wedge||s.bend||s.physis||s.surface==='dent');
+ const stepTimes=v.breathing?[0,.40,.66,1]:aligned||deform?[0,.5,1]:isJoint?[0,.49,1]:[0,.17,.28,1];
+ buttons($('steps'),v.breathing?['伤前','吸气','呼气','循环结束']:aligned?['伤前','断线出现','保持对位']:deform?['伤前','形变过程','终末形态']:isJoint?['对位','移出','终点']:['伤前','断缘显露','初次错开','终末姿态'],-1,i=>{playing=false;setProgress(stepTimes[i]);});
  const f=featuresFor(course,variant);
  const description=injuryDescription(course,variant,level,{shape,movements:motions});
  $('featureBox').hidden=false;$('patternBox').hidden=false;
@@ -1040,7 +1349,7 @@ function setLessonTitle(){
  $('crumb').textContent=boneName(selected)+' / '+course.name+(mirror?' · 左侧骨面':'');
  $('heading').textContent=course.variants[variant].name;
  const shapeOnly=shape&&shape!=='wedgeFragment'&&!motions.length;
- $('description').textContent=[shapeNames[shape],...(shapeOnly?['断端分离演示']:motions.map(k=>motionNames[k]))].filter(Boolean).join(' · ');
+ $('description').textContent=[course.variants[variant].child||course.variants[variant].pulledElbow?'成人骨性底图儿童解剖示意':'',shapeNames[shape],...(shapeOnly?['断端分离演示']:motions.map(k=>motionNames[k]))].filter(Boolean).join(' · ');
 }
 function motionCloseUp(smooth,defaults=false){
  if(!fragmentRig){aim('detail',smooth);return;}
@@ -1063,13 +1372,13 @@ function assetsForLesson(){
  if(!v&&atlasPalate)return [];
  if(!v&&regionReference&&specimen.region(selected))return [specimen.region(selected)[0]];
  const names=specimen.required(selected,course,v);
- if(!v||!$('compareTypes').checked)return names;
+ if(!v||v.textbook||!$('compareTypes').checked)return names;
  // Keep the same male reference anatomy across variants when an enhanced donor covers only some.
  const relevant=course.variants.filter(option=>bonesFor(option).includes(teachingBone(selected)));
  const currentGroup=specimen.group(names);
  return currentGroup&&relevant.every(option=>specimen.group(specimen.required(selected,course,option))===currentGroup)?names:[];
 }
-let detailTimer,softPrefetchTimer;
+let detailTimer;
 function scheduleFullDetail(serial){
  clearTimeout(detailTimer);
  // Skip 16.5 MB background detail-region downloads on phones, tablets, and touch devices
@@ -1081,17 +1390,9 @@ function scheduleFullDetail(serial){
   }
  },3200);
 }
-function scheduleSoftPrefetch(boneNameKey,serial){
- clearTimeout(softPrefetchTimer);
- if(!boneNameKey||!isLimbBone(boneNameKey)||location.protocol==='file:'||navigator.connection?.saveData)return;
- softPrefetchTimer=setTimeout(()=>{
-  if(viewSerial!==serial||selected!==boneNameKey||document.hidden)return;
-  tissues.prefetch(boneNameKey);
- },1400);
-}
 function renderLesson(smooth=false,keepView=false,viewParams=null){
  if(!ready)return;
- const keepTissues=Boolean(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked));
+ const keepTissues=Boolean(selected&&isSoftTissueSupported(selected)&&Object.values(tissueControls).some(id=>$(id).checked));
  if(tissueEntry||tissueRequest){
   if(keepTissues){tissueRequest?.abort();tissueRequest=null;leaveTissues(false);}
   else closeTissues(false);
@@ -1168,7 +1469,7 @@ function finishLesson(smooth,keepView,viewParams,needed){
  clearScene();showControls();useSpecimen=needed.length>0;loadingSpecimen=false;delete host.dataset.pending;displayedBone=selected;
  $('centreBone').disabled=$('quickPlay').disabled=false;$('viewOptions').inert=false;
  $('captureFrame').disabled=false;$('lessonPanel').inert=false;document.querySelector('.player').inert=false;
- specimen.trim(needed,course&&variant>=0?course:null);$('status').hidden=true;
+ specimen.trim(needed,course&&variant>=0?course:null,course?.variants[variant]);$('status').hidden=true;
  host.dataset.specimen=String(useSpecimen);
  selectedMesh=null;
  if(!selected||!course||variant<0){
@@ -1191,23 +1492,25 @@ function finishLesson(smooth,keepView,viewParams,needed){
   }
   if(!keepView||automaticFit&&selected)aim('home',false);
   if(selected&&viewParams)restoreView(viewParams);
-  if(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
-  else if(selected)scheduleSoftPrefetch(selected,viewSerial);
+  if(selected&&isSoftTissueSupported(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
   return;
  }
  const v=course.variants[variant],bounds=new T.Box3(),anchors=[];
  const mirror=/\bleft\b/i.test(selected);
  group.scale.x=mirror?-1:1;
  setLessonTitle();
- const ctx=useSpecimen?specimen.context(course,v):v.context||course.context||[], shared=course.levels?atLevel(lessonMesh('Right tibia'),1,levels[level][1])[1]:null;
+ const ctx=useSpecimen?specimen.context(course,v):v.context||course.context||[], shared=course.levels&&!v.textbook?atLevel(lessonMesh('Right tibia'),1,levels[level][1])[1]:null;
  let spiralDirection=null,referenceWidth=0,sharedPivot=null,frame=null,followMotion=v.cuts[0].minus;
  if(course.kind==='joint'){
-  const main=lessonMesh(v.cuts[0].bone),vkJaw=useSpecimen&&course.id==='tmj-dislocation';
-  const elbow=useSpecimen&&course.id==='elbow-dislocation'?elbowStudy[mirror?'Left':'Right']:null;
-  const shoulder=useSpecimen&&course.id==='shoulder-dislocation'?shoulderStudy[mirror?'Left':'Right']:null;
-  const localPath=(elbow||shoulder)?.variants[variant],pivotXYZ=elbow?.anchor_m;
-  const digitPath=useSpecimen&&main.userData.digit?digitJointPath(course.id,variant,mirror):null;
-  const a=digitPath?vec(main.userData.digit.proximal_m):elbow?vec([pivotXYZ[0]*(mirror?-1:1),pivotXYZ[1],pivotXYZ[2]]):vkJaw?nativeAnchor(main,[.502963,.949258,.081502]):v.nativePoint?nativeAnchor(main,v.nativePoint):main.userData.headCentre?.clone()||landmark(main,v.anchor);
+  const main=lessonMesh(v.cuts[0].bone),vkJaw=useSpecimen&&course.id==='tmj-dislocation'&&v.id==='v01';
+  const elbow=useSpecimen&&(course.id==='elbow-dislocation'||v.elbowFrame)?elbowStudy[mirror?'Left':'Right']:null;
+  const shoulder=useSpecimen&&course.id==='shoulder-dislocation'&&!v.thoracicShoulder?shoulderStudy[mirror?'Left':'Right']:null;
+  const localPath=legacyJointPath(elbow||shoulder,v.id),pivotXYZ=elbow?.anchor_m;
+  const digitPath=useSpecimen&&main.userData.digit?(v.digitLateral?lateralDigitPath(main,v):digitJointPath(course.id,variant,mirror)):null;
+  const a=v.pivot?nativeAnchor(lessonMesh(v.pivot.bone),v.pivot.point):digitPath?vec(main.userData.digit.proximal_m):elbow?vec([pivotXYZ[0]*(mirror?-1:1),pivotXYZ[1],pivotXYZ[2]]):vkJaw?nativeAnchor(main,[.502963,.949258,.081502]):v.nativePoint?nativeAnchor(main,v.nativePoint):main.userData.headCentre?.clone()||landmark(main,v.anchor);
+  if(v.centralHip||v.jointGroups||v.pulledElbow||v.thoracicShoulder){
+   anchors.push(buildCompoundJoint(v,a));
+  }else{
   const pivot=new T.Group(),ghost=new T.Group();group.add(pivot,ghost);pivot.position.copy(a);ghost.visible=false;
   const trajectory=new T.Line(new T.BufferGeometry().setFromPoints([a,a]),new T.LineDashedMaterial({color:0x267c6c,dashSize:.003,gapSize:.002}));
   trajectory.userData.dispose=true;trajectory.userData.ownMaterial=true;group.add(trajectory);trajectory.frustumCulled=false;
@@ -1225,8 +1528,11 @@ function finishLesson(smooth,keepView,viewParams,needed){
    const linked=addBone(name,adjacent,pivot);linked.position.copy(a).negate();nearBones.push(linked);
   }
   for(const name of v.fixed){if(useSpecimen&&course.id==='hip-dislocation'&&name==='Sacrum')continue;const m=addBone(name,bone);if(m)jointReferences.push(m);}
-  animated.push({jointLabel:'活动骨端',trajectory,pivot,anchor:a,shift:vec(digitPath?.end||localPath?.end||v.shift).multiplyScalar(.001),turn:vec(digitPath?.turn||(vkJaw?[18,0,0]:v.turn)||[0,0,0]).multiplyScalar(Math.PI/180),posture:shoulder?localPath.pose:v.posture,axial:shoulder?localPath.axial:v.axial,waypoints:digitPath?digitPath.waypoints:localPath?(localPath.via?[localPath.via]:undefined):vkJaw?[[0,-5,5]]:v.waypoints,sharedClock:course.id==='lunate-dislocation'&&variant===0,ghost,jointAxis:frame?.axis});
+  animated.push({jointLabel:'活动骨端',trajectory,pivot,anchor:a,shift:vec(digitPath?.end||localPath?.end||v.shift).multiplyScalar(.001),turn:vec(digitPath?.turn||(vkJaw?[18,0,0]:v.turn)||[0,0,0]).multiplyScalar(Math.PI/180),posture:shoulder?localPath?.pose||v.posture:v.posture,axial:shoulder?localPath?.axial??v.axial:v.axial,axialSign:v.axialSign,directed:v.directed,rotationTiming:v.rotationTiming,waypoints:digitPath?digitPath.waypoints:localPath?(localPath.via?[localPath.via]:undefined):vkJaw?[[0,-5,5]]:mirror&&v.leftWaypoints?v.leftWaypoints:v.waypoints,sharedClock:course.id==='lunate-dislocation'&&variant===0,ghost,jointAxis:frame?.axis,name:v.textbook?v.cuts[0].bone:undefined});
+  if(course.id==='mtp-dislocation')addToeFlex(pivot,a);
+  if(course.id==='lunate-dislocation'&&v.directed)addPalmarLigament(main,lessonMesh('Right radius'),a,pivot,v.directed.degrees);
   anchors.push(a);
+  }
  }
  for(const original of course.kind==='joint'?[]:v.cuts){
   markName=original.bone;
@@ -1265,10 +1571,15 @@ if((g.userData.group||'').startsWith('openskeleton-N187928-')&&course.id==='radi
  s={...s,level:.938,normal:[0,1,0],plus:{...s.plus,shift:mirror?[-.5,-3,0]:[0,-2.5,0]}};
 }
 
-  if(g.userData.digit){
+  if(s.neckLevel&&g.userData.headCentre){
+   const offset=s.neckLevel>.93?[-.018,-.012,0]:[-.030,-.022,0];
+   s={...s,digitAnchor:g.userData.headCentre.clone().add(vec(offset))};
+  }
+  if(s.trochanterSite&&g.userData.headCentre)s={...s,digitAnchor:g.userData.headCentre.clone().add(vec([-.024,-.035,.002]))};
+  if(g.userData.digit&&!s.nativePoint){
    const angle=s.shaftAngle??(v.name.startsWith('纵裂')?90:v.name.startsWith('斜形')?38:0);s=digitalCut(g,s,angle);
   }else if(s.shaftAngle!==undefined)s=shortShaftCut(g,s,s.shaftAngle);
-  else if(['toes','metatarsal','finger'].includes(course.family||course.id)){
+  else if(!v.textbook&&['toes','metatarsal','finger'].includes(course.family||course.id)){
    s=shortShaftCut(g,s,v.name.startsWith('纵裂')?90:v.name.startsWith('斜形')?38:0);
   }
 if(useSpecimen&&course.id==='scaphoid'){
@@ -1296,6 +1607,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   }
   if(s.surface){
    const mark=addSurfaceLesson(g,s,group,{bone,line,cap},annotations,wedges);
+   if(v.textbook&&s.surface==='trace')annotations.at(-1).userData.progressive=true;
    anchors.push(mark);bounds.union(g.boundingBox);continue;
   }
   if(s.wedge){
@@ -1319,6 +1631,11 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    s={...s,plus:{...s.plus,shift:[0,-6,0]}};
   }
   if(s.pivot)s={...s,pivot:landmark(g,s.pivot).toArray()};
+  if(s.sidePaths){
+   const [waypoint,shift]=s.sidePaths[mirror?'Left':'Right'];
+   s={...s,fitted:true,plus:{...s.plus,shift},plusPath:[waypoint],
+    plusKnots:[0,.47,1],plusRotation:[.47,1]};
+  }
   if(s.proximalHeadPivot&&g.userData.headCentre){
    // Set this specimen's reverse-oblique plane below the head, between the trochanters.
    s={...s,anchor:g.userData.headCentre.clone().add(new T.Vector3(0,-.043,0)).toArray()};
@@ -1331,7 +1648,16 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    fraction=(y-g.boundingBox.min.y)/(g.boundingBox.max.y-g.boundingBox.min.y);
   }
   const a=s.digitAnchor||(s.nativePoint?nativeAnchor(g,s.nativePoint):vec(s.anchor||atLevel(g,s.axis,fraction)));anchors.push(a);
-  const f=featuresFor(course,variant),surface=shape||initialShape(course,variant);
+  if(s.regionPlanes){
+   const planes=s.regionPlanes.map(([normal,point])=>({normal:vec(normal),point:nativeAnchor(g,point)}));
+   const [fixed,part]=extractFragment(g,planes);
+   addPart(fixed,a,s.minus,bone);addPart(part,a,s.plus,bone);
+   nameFragmentEnds(animated.slice(-2),s,a);bounds.union(g.boundingBox);continue;
+  }
+  if(s.bend||s.physis||s.star||s.completeTrace){
+   addTextbookBoneForm(g,s,a);bounds.union(g.boundingBox);continue;
+  }
+  const f=featuresFor(course,variant),surface=shape||(s.helix?'spiral':v.textbook?'':initialShape(course,variant));
   if(f.shapes.length&&['oblique','shortOblique','transverse'].includes(surface)){
    const low=vec(atLevel(g,s.axis,Math.max(.02,fraction-.08))),high=vec(atLevel(g,s.axis,Math.min(.98,fraction+.08)));
    const along=high.sub(low).normalize(),across=vec(s.normal);
@@ -1366,13 +1692,18 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    // A single forearm shaft is narrow. Keep the changed helix within the local
    // shaft before the raised connecting limb approaches the next epiphysis.
    const pitch=shape&&!motions.length&&useForearmAxis?.085:s.bone==='Right fibula'?.055:.15;
-   s.spiralHeight=extent*pitch;
+   s.spiralHeight=extent*(s.helix&&course.id==='galeazzi'?.086:pitch);
+   if(s.helix){
+    const axis=vec(s.spiralAxis);if(axis.dot(vec(s.normal))<0)axis.negate();
+    s.normal=axis.toArray();s.spiralAxis=axis.toArray();
+    s.minusPath=[axis.multiplyScalar(-Math.max(4,s.spiralHeight*950)).toArray()];
+   }
   }
   if(course.id==='tibia'&&surface==='spiral'&&s.bone==='Right fibula'){
    // Model a higher, short-oblique fibular break in its own shaft frame.
    s=shortShaftCut(g,{...s,normal:[0,1,0]},23);
   }
-  if(['femur','humerus','tibia','clavicle'].includes(course.id)&&!s.second&&!s.fold&&!s.spiralHeight){
+  if(!v.textbook&&['femur','humerus','tibia','clavicle'].includes(course.id)&&!s.second&&!s.fold&&!s.spiralHeight){
    const axis=s.spiralAxis?vec(s.spiralAxis):vec(s.normal).normalize();
    const lateral=shaftFrame(new T.Vector3(),axis,false).side;
    const width=sliceMetrics(g,a,axis,lateral)?.width||.022;
@@ -1390,7 +1721,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   const roughMetaphysis=course.id==='distalfemur'||course.id==='scaphoid'||
    (course.id==='patella'&&variant===0)||(course.id==='olecranon'&&variant===0)||
    (course.id==='calcaneus'&&variant===1)||(course.id==='metacarpal'&&(variant===0||variant===3));
-  if(useSpecimen&&!shape&&!motions.length&&
+  if(useSpecimen&&!v.textbook&&!shape&&!motions.length&&
      (course.id==='elbow'||(course.id==='trochanter'&&variant!==1)||roughMetaphysis)){
    const normal=vec(s.normal).normalize(),lateral=shaftFrame(new T.Vector3(),normal,false).side;
    const width=sliceMetrics(g,a,normal,lateral)?.width||.025;
@@ -1487,9 +1818,9 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
    if(course.id==='pelvis'&&variant===0){
     impaction=prepareRamusCompression(animated[start],a,vec(s.normal));
    }
-   if(v.name.includes('嵌插')&&animated.length-start===2){
+   if((v.name.includes('嵌插')||s.impaction)&&animated.length-start===2){
     const pieces=animated.slice(start),driver=pieces.find(i=>i.moving),receiver=pieces.find(i=>!i.moving);
-    if(driver&&receiver&&driver.shift.lengthSq()>0)impaction=prepareImpaction(receiver,driver,a);
+    if(driver&&receiver&&driver.shift.lengthSq()>0)impaction=prepareImpaction(receiver,driver,a,v.textbook ? .0008 : 0,v.textbook?vec(s.normal):null);
    }
    if(course.id==='single-forearm'&&variant<2&&!motions.length&&!shape){
     const axis=vec(s.normal).normalize();if(axis.y<0)axis.negate();
@@ -1498,9 +1829,10 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   }
   bounds.union(g.boundingBox);
  }
+ if(course.id==='ankle'&&v.textbook)addJointReferences(['Right tibia','Right fibula'].filter(n=>!v.cuts.some(s=>s.bone===n)));
  const lesion=anchors.reduce((s,a)=>s.add(a),new T.Vector3()).divideScalar(anchors.length);
  fractureFocus.copy(lesion);
- if(course.id==='ankle'){
+ if(course.id==='ankle'&&v.roll){
   const limb=new T.Group(),talus=lessonMesh('Right talus');
   const axis=nativeAnchor(talus,[v.roll>0?.90:.10,.91,.5]);
   limb.position.copy(axis);group.add(limb);
@@ -1510,7 +1842,8 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   }
   anklePose={limb,origin:axis,sign:v.roll};
  }
- for(const name of course.id==='ankle'?[]:ctx){
+ const contextPivots=new Map();
+ for(const name of course.id==='ankle'&&v.roll?[]:ctx){
   const m=addBone(name,adjacent);if(!m)continue;
   nearBones.push(m);
   let extra=v.moving?.find(item=>item.names.includes(name));
@@ -1521,8 +1854,11 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   if(bind&&Object.hasOwn(bind,name)){
    const driver=animated.filter(i=>i.shell)[bind[name]];driver.pivot.add(m);m.position.copy(driver.anchor).negate();
   }else if(extra){
-   const a=extra.pivot?landmark(lessonMesh(name),extra.pivot):anchors[0],pivot=new T.Group();group.add(pivot);pivot.add(m);m.position.copy(a).negate();
-   animated.push({pivot,anchor:a,shift:vec(extra.shift||[0,0,0]).multiplyScalar(.001),turn:vec(extra.turn||[0,0,0]).multiplyScalar(Math.PI/180),waypoints:extra.via?[extra.via]:undefined,sharedClock:Boolean(extra.via),adjunct:true});
+   const existing=contextPivots.get(extra);
+   if(existing){existing.pivot.add(m);m.position.copy(existing.anchor).negate();continue;}
+   const a=extra.pivotPoint?nativeAnchor(lessonMesh(extra.pivotPoint.bone),extra.pivotPoint.point):extra.pivot?landmark(lessonMesh(name),extra.pivot):anchors[0],pivot=new T.Group();group.add(pivot);pivot.add(m);m.position.copy(a).negate();
+   animated.push({pivot,anchor:a,shift:vec(extra.shift||[0,0,0]).multiplyScalar(.001),turn:vec(extra.turn||[0,0,0]).multiplyScalar(Math.PI/180),waypoints:extra.via?[extra.via]:undefined,sharedClock:Boolean(extra.via)&&!v.textbook,adjunct:true,timing:extra.timing,breathing:extra.breathing,name:v.textbook?name:undefined});
+   if(v.textbook)contextPivots.set(extra,animated.at(-1));
   }else if(v.follow?.includes(name)){
    const a=anchors[0],pivot=new T.Group();group.add(pivot);pivot.add(m);m.position.copy(a).negate();
    animated.push({pivot,anchor:a,follows:animated.find(i=>i.shell&&i.name===v.cuts[0].bone),tuned:followMotion.tuned,shift:vec(followMotion.shift).multiplyScalar(.001),turn:vec(followMotion.turn).multiplyScalar(Math.PI/180)});
@@ -1605,7 +1941,7 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
  if(mirror){focus.x*=-1;fractureFocus.x*=-1;}
  applyMotion=buildKinematics(animated,wedges,motions,frame,referenceWidth,course.kind==='joint',quantities,()=>{
   fragmentRig?.sample();playing=false;setProgress(1);syncPlayer();syncExam();updateURL();
- },{id:course.id,variant,legacyMotion,selectedShape:shape,wedge:shape==='wedgeFragment',palmar:course.id==='radius'&&variant===0?wristLandmarks(lessonMesh('Right radius')).palmar:null,ankleSign:anklePose?.sign,mirror});
+ },{id:course.id,variant,legacyMotion,selectedShape:shape,wedge:shape==='wedgeFragment',palmar:course.id==='radius'&&variant===0?wristLandmarks(lessonMesh('Right radius')).palmar:null,ankleSign:anklePose?.sign,lockTrajectory:Boolean(v.centralHip||v.pulledElbow||v.thoracicShoulder),mirror});
  const primary=v.cuts.find(s=>s.bone===teachingBone(selected))||v.cuts[0];
  const proximalFemur=(course.id==='trochanter'&&variant===1||course.id==='femur'&&variant===0)&&!shape&&!motions.length;
  const forearm=course.id==='single-forearm'&&variant<2&&!shape&&!motions.length;
@@ -1626,9 +1962,9 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
  const active=fragmentRig?.active;
  observe(active?.members.find(i=>i.name===primary.bone)||active?.members[0]);
  $('fragmentBox').hidden=!fragmentRig;
- $('motionStatus').textContent=fragmentRig?'青点是伤前位置，赭点随断缘移动。':wedges.length?(v.depression?'对照外侧平台中央与边缘高度。':v.cuts.some(s=>s.surface==='dent')?'从切线方向比较颅盖凹陷深度。':'比较椎体伤前与当前的局部高度。'):course.kind==='joint'?'以关节窝为参照，观察活动骨端。':'本分型示例保持对位，显示损伤位置。';
+ $('motionStatus').textContent=v.pulledElbow?'蓝绿色环和局部突起表示环状韧带及卡入处。':v.directed?'蓝绿色束表示月骨掌侧韧带。':v.cuts.some(s=>s.physis)?'蓝绿色带显示儿童虚拟骺板。':v.cuts.some(s=>s.bend)?'比较凸侧裂线与保持连续的凹侧皮质。':v.breathing?'比较游离胸壁与对侧肋骨在吸气、呼气时的方向。':fragmentRig?'青点是伤前位置，赭点随断缘移动。':wedges.length?(v.depression?'对照外侧平台中央与边缘高度。':v.cuts.some(s=>s.surface==='dent')?'从切线方向比较颅盖凹陷深度。':'比较椎体伤前与当前的局部高度。'):course.kind==='joint'?'以关节窝为参照，观察活动骨端。':'本分型示例保持对位，显示损伤位置。';
  if((studyMode==='cut'&&!inspection?.cut)||(studyMode==='facet'&&!inspection?.patch))studyMode='overview';
- timing=course.kind==='joint'?'joint':fragmentRig?'fracture':null;
+ timing=course.kind==='joint'?'joint':fragmentRig||v.textbook?'fracture':null;
  if(timing==='fracture'&&!impaction&&!bedRims.length)for(const item of animated)if(item.edge)orderRim(item.edge);
  if(v.depression){
   const tibia=lessonMesh('Right tibia');profile=plateauProfile(group,tibia,plateauSite(tibia),wedges,surfaceTree);
@@ -1645,16 +1981,16 @@ if(useSpecimen&&course.id.startsWith('region-sesamoid-')){
   const projected=visible?visible.addScaledVector(homeDir,-visible.dot(homeDir)).length():Infinity;
   const small=projected*Math.min(viewWidth,viewHeight)/Math.max(.001,span*.57)<22;
   if(course.id==='region-palatine'&&useSpecimen)palateView(lessonMesh(v.cuts[0].bone),.048);
-  else if(small&&d.lengthSq()>1e-10&&studyMode==='overview')motionCloseUp(smooth,true);
+  else if(small&&d?.lengthSq()>1e-10&&studyMode==='overview')motionCloseUp(smooth,true);
   else aim(v.depression?'plateauDetail':course.kind==='joint'?jointView():'detail',smooth);
  }
  previous=0;setProgress(progress);if(viewParams)restoreView(viewParams);
- if(selected&&isLimbBone(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
- else if(selected)scheduleSoftPrefetch(selected,viewSerial);
+ if(selected&&isSoftTissueSupported(selected)&&Object.values(tissueControls).some(id=>$(id).checked))showTissues();
 }
 function rawPose(t,report=false){
  const progress=injuryTime(t,timing);
  applyMotion?.(progress,report);fragmentRig?.apply(progress);impaction?.();for(const update of bedRims)update();
+ for(const update of textbookEffects)update(progress);
  if(anklePose){
   const u=T.MathUtils.smoothstep(progress,.19,.76),angle=applyMotion.footRoll();
   anklePose.limb.rotation.z=anklePose.sign*T.MathUtils.degToRad(angle)*u;
@@ -1680,7 +2016,7 @@ function scenePose(requested,report=true){
  const exposed=animated.some(i=>i.shell&&(i.pivot.position.distanceToSquared(i.anchor)>1e-10||Math.abs(i.pivot.quaternion.w)<.9999999));
  for(const item of animated)if(item.shell){const changing=item.pivot.position.distanceToSquared(item.anchor)>1e-10||Math.abs(item.pivot.quaternion.w)<.9999999;const editing=$('fragmentBox').open&&fragmentRig?.active.members.includes(item);item.shell.material=editing&&report?editedMaterial:changing?displacedMaterial:bone;if(item.ghost)item.ghost.visible=$('ghost').checked&&changing;item.face.visible=exposed||observationMode==='cut'||observationMode==='facet';}
  for(const obj of annotations){
-  obj.visible=obj.userData.force?$('guides').checked&&progress>.05&&progress<.63:obj.userData.displacement?$('guides').checked&&progress>.24:$('trace').checked&&progress>=.30;
+  obj.visible=obj.userData.teachingOverlay?$('trace').checked:obj.userData.force?$('guides').checked&&progress>.05&&progress<.63:obj.userData.displacement?$('guides').checked&&progress>.24:$('trace').checked&&progress>=.30;
   if(obj.userData.progressive){
    const u=T.MathUtils.clamp((progress-.12)/.10,0,1);
    obj.geometry.setDrawRange(0,2*Math.floor(obj.geometry.attributes.position.count*u/2));
@@ -1893,7 +2229,7 @@ async function start(){
   }
  }
  assemblyDetail=assembledSurfaces(getAsset,readFullMetadata,installAssembly);
- buildIndex(boneData.keys(),pickBone,key=>matches(key).length);
+ buildIndex(boneData.keys(),pickBone,matches);
  ready=true;host.dataset.ready='true';route();$('status').hidden=!loadingSpecimen;
  // Pre-warm specimen manifests in background so the first bone click skips manifest latency.
  if(location.protocol!=='file:'&&!selected)setTimeout(()=>{specimen.init().catch(()=>{});},600);
@@ -1931,7 +2267,7 @@ async function start(){
   return result;
  }
  function hitSoftTissue(e){
-  if(!tissueEntry?.items?.length)return null;
+  if(!tissueEntry?.root.visible||!tissueEntry.items.length)return null;
   const box=host.getBoundingClientRect();
   pointer.set(2*(e.clientX-box.left)/box.width-1,1-2*(e.clientY-box.top)/box.height);
   ray.setFromCamera(pointer,camera);
@@ -1953,7 +2289,9 @@ async function start(){
   for(const {item,entry} of candidates){
    if(entry>nearest)break;
    hits.length=0;item.mesh.raycast(ray,hits);
-   for(const h of hits)if(h.distance<nearest){nearest=h.distance;best=item;}
+   for(const h of hits)if(h.distance<nearest&&!item.mesh.material.clippingPlanes?.some(plane=>plane.distanceToPoint(h.point)<0)){
+    nearest=h.distance;best=item;
+   }
   }
   return best;
  }

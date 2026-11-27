@@ -23,13 +23,18 @@ export function addSurfaceLesson(g,s,group,materials,annotations,wedges){
  }
  const radius=Math.max(.002,scale*s.extent);
  if(s.surface==='dent'){
+  if(s.depth){
+   out.set(0,s.normal[1]<0?-1:1,0);
+   base.copy(seed);
+  }
   const geo=g.clone(),deltas=[new Float32Array(p.count*3),new Float32Array(p.count*3)];
   for(let i=0;i<p.count;i++){
    tmp.fromBufferAttribute(p,i).sub(base);
    const z=tmp.dot(out),r=tmp.addScaledVector(out,-z).length();
    for(let j=0;j<2;j++){
-    const w=1-T.MathUtils.smoothstep(r,0,radius*(j?1.2:.82));
-    const depth=.22*radius*w*(1-T.MathUtils.smoothstep(Math.abs(z),.25*radius,.65*radius));
+    const range=s.spread?.[j]||radius*(j?1.2:.82);
+    const w=1-T.MathUtils.smoothstep(r,s.depth?range*.55:0,range);
+    const depth=(s.depth||.22*radius)*w*(1-T.MathUtils.smoothstep(Math.abs(z),s.depth?.42*range:.25*radius,s.depth?.75*range:.65*radius));
     for(let k=0;k<3;k++)deltas[j][3*i+k]=-depth*out.getComponent(k);
    }
   }

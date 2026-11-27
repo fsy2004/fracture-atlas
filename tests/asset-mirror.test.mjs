@@ -95,6 +95,46 @@ test('fetchVerifiedModel respects local origin when mirrors are disabled', async
  assert.equal(new TextDecoder().decode(buf), payload);
 });
 
+test('a same-length corrupt cache entry is rejected and replaced by verified content',async()=>{
+ const good='current-shard',bad='damaged-shard';
+ assert.equal(good.length,bad.length);
+ const beforeLocation=Object.getOwnPropertyDescriptor(globalThis,'location');
+ const beforeCaches=Object.getOwnPropertyDescriptor(globalThis,'caches');
+ let stored=bad,requests=0,deleted=false;
+ Object.defineProperty(globalThis,'location',{configurable:true,value:{protocol:'https:'}});
+ Object.defineProperty(globalThis,'caches',{configurable:true,value:{open:async()=>({
+  match:async()=>stored?new Response(stored):null,
+  delete:async()=>{stored=null;deleted=true;return true;},
+  put:async(_key,response)=>{stored=await response.text();}
+ })}});
+ try{
+  const module=await import('../asset-mirror.js?cache-integrity-test');
+  const load=()=>module.fetchVerifiedModel('models/soft-tissue/nerves-face-1.glb',{
+   sha256:shaOf(good),bytes:good.length,useMirrors:false,fetchImpl:async()=>{
+    requests++;return new Response(good);
+   }
+  });
+  assert.equal(new TextDecoder().decode(await load()),good);
+  assert.equal(deleted,true);
+  assert.equal(new TextDecoder().decode(await load()),good);
+  assert.equal(requests,1);
+ }finally{
+  if(beforeLocation)Object.defineProperty(globalThis,'location',beforeLocation);else delete globalThis.location;
+  if(beforeCaches)Object.defineProperty(globalThis,'caches',beforeCaches);else delete globalThis.caches;
+ }
+});
+
+test('concurrent requests for different versions of a model use separate in-flight promises',async()=>{
+ const path='models/soft-tissue/nerves-back-1.glb', seen=[];
+ const data=['version-one','version-two'];
+ const buffers=await Promise.all(data.map((value,i)=>fetchVerifiedModel(path,{
+  originURL:path+'?v='+i,sha256:shaOf(value),bytes:value.length,useMirrors:false,useCache:false,
+  fetchImpl:async url=>{seen.push(url);await new Promise(r=>setTimeout(r,15));return new Response(value);}
+ })));
+ assert.deepEqual(seen,[path+'?v=0',path+'?v=1']);
+ assert.deepEqual(buffers.map(buf=>new TextDecoder().decode(buf)),data);
+});
+
 test('probeFastestSource measures live RTT and promotes fastest mirror immediately', async () => {
  resetMirrorStatsForTests();
  const mockFetch = url => new Promise(resolve => {

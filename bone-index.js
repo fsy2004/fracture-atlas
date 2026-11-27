@@ -1,4 +1,4 @@
-import {isLimbBone} from './soft-tissue-catalog.js';
+import {isLimbBone} from './soft-tissue-catalog.js?v=whole-body1';
 
 const terms = {
   "hip bone":"髋骨","xiphoid process":"剑突","atlas":"寰椎","axis":"枢椎","body of sternum":"胸骨体",
@@ -14,21 +14,43 @@ const terms = {
 };
 
 // Clinical search aliases: students can search eponyms, nerves, vessels, muscles, or classic signs
-// to jump straight to the corresponding limb bone!
+// to jump to the corresponding bone.
 const clinicalAliases = {
-  '桡骨': 'colles smith barton 餐叉 枪刺 盖氏 galeazzi 孟氏 monteggia 旋前圆肌 旋前方肌 旋后肌 肱桡肌 正中神经 桡神经深支 骨间后神经 腕管 拇长伸肌腱',
-  '尺骨': '孟氏 monteggia 鹰嘴 肱三头肌 肘脱位 靴状 尺神经 爪形手 旋前方肌 前臂双骨折 骨筋膜室',
-  '肱骨': '外科颈 肱骨干 髁上 外髁 内上髁 肩脱位 方肩 dugas 腋神经 腋动脉 桡神经 桡神经沟 垂腕 虎口 肱动脉 正中神经 缺血性肌挛缩 volkmann 尺神经 爪形手 肘后三角 三角肌 胸大肌 肱前肌 肱二头肌 肱三头肌',
+  '额骨': '枕额肌 额肌 上矢状窦 眶上动脉',
+  '顶骨': '上矢状窦 脑膜中动脉 颞肌 凹陷骨折',
+  '颞骨': '颞下颌关节 脑膜中动脉 面神经 前庭蜗神经 乙状窦',
+  '枕骨': '横窦 乙状窦 枕下肌 枕骨大孔 舌下神经',
+  '蝶骨': '海绵窦 视神经 颈内动脉 眶尖 翼点',
+  '筛骨': '筛前动脉 筛后动脉 嗅神经 筛板 内直肌',
+  '上颌骨': '眶下动脉 眶下神经 上颌神经 下直肌',
+  '腭骨': '腭大动脉 腭降动脉 腭大神经 腭咽肌',
+  '颧骨': '颧弓 咬肌 颞肌 面横动脉 眶下神经',
+  '犁骨': '鼻中隔 蝶腭动脉',
+  '鼻骨': '鼻肌 内眦动脉 鼻中隔血肿',
+  '下颌骨': '颞下颌关节 TMJ 翼外肌 咬肌 下牙槽神经 下牙槽动脉 颏神经 髁突',
+  '舌骨': '二腹肌 舌骨舌肌 舌骨下肌 吞咽 舌下神经',
+  '寰椎': 'C1 椎动脉 延髓 脊髓 颈长肌 枕下肌',
+  '枢椎': 'C2 齿突 椎动脉 脊髓 延髓',
+  '椎骨': '脊髓 脊髓白质 脊神经根 椎动脉 马尾 多裂肌 脊髓前动脉',
+  '肋骨': '肋间外肌 肋间内肌 肋间最内肌 肋间神经组 肋间后动脉 胸膜',
+  '第1肋骨': '锁骨下动脉 锁骨下静脉 臂丛 前斜角肌',
+  '胸骨柄': '胸廓内动脉 胸骨舌骨肌 胸锁乳突肌',
+  '胸骨体': '胸横肌 胸廓内动脉 纵隔',
+  '剑突': '膈 腹直肌 胸骨',
+  '骶骨': '骶骨翼 骶孔 骶尾 马尾 骶外侧静脉 梨状肌 尾骨肌',
+  '桡骨': '小儿桡骨头半脱位 牵拉肘 肘错环 肘脱环 尺桡骨干双骨折 尺桡骨干单骨折 桡骨下1/3骨折合并尺桡远侧关节脱位 colles smith barton 餐叉 枪刺 盖氏 galeazzi 孟氏 monteggia 旋前圆肌 旋前方肌 旋后肌 肱桡肌 正中神经 桡神经深支 骨间后神经 腕管 拇长伸肌腱',
+  '尺骨': '尺骨上1/3骨折合并桡骨头脱位 牵拉肘 尺桡骨干单骨折 孟氏 monteggia 鹰嘴 肱三头肌 肘脱位 靴状 尺神经 爪形手 旋前方肌 前臂双骨折 骨筋膜室',
+  '肱骨': '骨骺损伤 Salter–Harris Salter-Harris 骺板 牵拉肘 外科颈 肱骨干 髁上 外髁 内上髁 肩脱位 方肩 dugas 腋神经 腋动脉 桡神经 桡神经沟 垂腕 虎口 肱动脉 正中神经 缺血性肌挛缩 volkmann 尺神经 爪形手 肘后三角 三角肌 胸大肌 肱前肌 肱二头肌 肱三头肌',
   '锁骨': '胸锁乳突肌 三角肌 锁骨下动脉 锁骨下静脉 臂丛神经',
   '肩胛骨': '肩脱位 肩袖 冈上肌 冈下肌 肩胛下肌 腋神经 方肩',
   '手舟骨': '鼻烟壶 缺血性坏死 桡动脉 舟骨腰部',
-  '月骨': '月骨脱位 腕管 正中神经 猿手 桡侧三指半 月骨周围',
+  '月骨': '月骨脱位 腕骨脱位 腕管 正中神经 猿手 桡侧三指半 月骨周围',
   '掌骨': 'bennett 拳击手 拇长展肌 骨间肌 蚓状肌',
   '指骨': '骨间肌 蚓状肌 伸肌腱 掌侧成角',
-  '股骨': '股骨颈 转子间 反转子间 股骨干 髁上 髁间 髋脱位 旋股内侧动脉 股骨头坏死 linton 髂腰肌 臀中肌 臀小肌 外旋肌 梨状肌 内收肌 腓肠肌 坐骨神经 股动脉 股静脉 闭孔神经 腘动脉 腘静脉',
-  '髋骨': '髋脱位 坐骨神经 股动脉 闭孔神经 臀中肌 髂腰肌 骨盆环',
+  '股骨': '中心性脱位 膝关节脱位 胫股 股骨转子间骨折 Garden 股骨颈 转子间 反转子间 股骨干 髁上 髁间 髋脱位 旋股内侧动脉 股骨头坏死 linton 髂腰肌 臀中肌 臀小肌 外旋肌 梨状肌 内收肌 腓肠肌 坐骨神经 股动脉 股静脉 闭孔神经 腘动脉 腘静脉',
+  '髋骨': '髋关节脱位 中心性脱位 髋臼底 耻骨部 闭孔 前脱位 髋脱位 坐骨神经 股动脉 闭孔神经 臀中肌 髂腰肌 骨盆环 髂翼 髂腰动脉 骶髂关节 阴部神经',
   '髌骨': '股四头肌 浮髌 髌骨脱位 股内侧肌',
-  '胫骨': '胫骨平台 胫骨髁 胫腓骨干 踝部 膝脱位 腘动脉 胫前动脉 胫后动脉 腓总神经 足下垂 骨筋膜室 筋膜间隔区 滋养动脉 小腿三头肌',
+  '胫骨': '膝关节脱位 胫股关节脱位 胫股 骨骺损伤 骺板 Salter–Harris Salter-Harris 胫骨平台 胫骨髁 胫腓骨干 踝部 膝脱位 腘动脉 胫前动脉 胫后动脉 腓总神经 足下垂 骨筋膜室 筋膜间隔区 滋养动脉 小腿三头肌',
   '腓骨': '腓总神经 足下垂 腓骨颈 胫腓骨干 踝部 外踝',
   '距骨': '足背动脉 距骨颈 缺血性坏死 跟腱 拇长屈肌',
   '跟骨': '跟腱 腓肠肌 比目鱼肌 bohler 结节关节角 腓肠神经',
@@ -64,14 +86,15 @@ export function regionFor(name){
  if(/椎|肋骨|胸骨|骶骨|髋骨|剑突/.test(text))return '躯干';
  return '头颈';
 }
-export function buildIndex(names,select,courseCount){
+export function buildIndex(names,select,lessonsFor){
  const host=document.getElementById('catalog'),search=document.getElementById('search');
  const priorityBox=document.getElementById('priorityBones'),priorityList=document.getElementById('priorityList');
- const groups=new Map(),tabs=document.getElementById('regions');
+ const groups=new Map(),keywords=new Map(),tabs=document.getElementById('regions');
  for(const key of names){
   const label=boneName(key).replace(/^[左右]/,''),region=regionFor(key);
   if(!groups.has(label))groups.set(label,{label,region,keys:[]});
   groups.get(label).keys.push(key);
+  keywords.set(key,lessonsFor(key).flatMap(c=>[c.name,...c.variants.filter(v=>v.cuts.some(cut=>cut.bone===teachingBone(key))||(v.fixed||[]).includes(teachingBone(key))).map(v=>v.name)]).join(' '));
  }
  const priority=['桡骨','肱骨','锁骨','尺骨','股骨','胫骨','腓骨','髌骨','髋骨','椎骨'];
  const rank=label=>priority.includes(label)?priority.indexOf(label):100;
@@ -103,7 +126,7 @@ export function buildIndex(names,select,courseCount){
   const primary=document.createElement('button');primary.className='bone-link';
   const defaultKey=keys.find(k=>!(/left/i.test(k)))||keys[0];
   primary.onclick=()=>select(defaultKey);primary.setAttribute('aria-label','放大'+boneName(defaultKey));
-  const meta=document.createElement('small'),n=courseCount(defaultKey);
+  const meta=document.createElement('small'),n=lessonsFor(defaultKey).length;
   const softTag=isLimbBone(defaultKey)?' · 含肌脉神经':'';
   meta.textContent=(n?n+' 个骨伤专题':'解剖定位')+softTag;
   primary.append(highlighted(row.label),meta);line.append(primary);
@@ -129,7 +152,7 @@ export function buildIndex(names,select,courseCount){
     const rowAlias=(clinicalAliases[row.label]||'').toLowerCase();
     const keys=row.keys.filter(key=>{
      const alias=boneName(key).replace(/^胸椎/,'T').replace(/^腰椎/,'L').replace(/^颈椎/,'C');
-     return (boneName(key)+' '+key+' '+alias+' '+group.label+' '+rowAlias+' '+groupAlias).toLowerCase().includes(q);
+     return (boneName(key)+' '+key+' '+alias+' '+group.label+' '+rowAlias+' '+groupAlias+' '+keywords.get(key)).toLowerCase().includes(q);
     });
     if(keys.length){target.append(lineFor(row,keys));count+=keys.length;}
    }

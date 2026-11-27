@@ -1,16 +1,19 @@
 import * as T from './vendor/three.module.js';
 import {
- isLimbBone,
+ isSoftTissueSupported,
+ resolveAnatomy,
+ loadAxialTerms,
  softTissueInfo,
  zonesForBone,
  ZONE_LABELS,
  DEPTH_LABELS
-} from './soft-tissue-catalog.js?v=limb-soft4';
-import { classifyNodeRole } from './soft-tissue-clinical.js?v=sci-fix1';
-import { fetchVerifiedModel, prefetchModel } from './asset-mirror.js?v=mobile-ui1';
+} from './soft-tissue-catalog.js?v=whole-body1';
+import { classifyNodeRoles } from './soft-tissue-clinical.js?v=whole-body1';
+import { fetchVerifiedModel, prefetchModel } from './asset-mirror.js?v=whole-body1';
 
 const base = './models/soft-tissue/';
 const bounds = v => new T.Box3(new T.Vector3(...v[0]), new T.Vector3(...v[1]));
+const partURL = part => base + part.file + '?v=' + part.sha256;
 
 function makeMaterial({
  color, opacity = 1, roughness = 0.48, metalness = 0.04,
@@ -48,6 +51,7 @@ function applyStaticCaliber(material, offsetM) {
 }
 
 const identifier = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+const ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'];
 
 export function referenceName(bone, table) {
  const side = /\bleft\b/i.test(bone) ? 'l' : /\bright\b/i.test(bone) ? 'r' : '';
@@ -62,8 +66,7 @@ export function referenceName(bone, table) {
  if (/^(scaphoid|lunate|pisiform|trapezium|trapezoid|capitate|hamate)$/.test(text)) text += ' bone';
  const column = text.match(/^(\w+) (cervical|thoracic|lumbar) vertebra$/);
  if (column) {
-  const ord = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'];
-  const number = ord.indexOf(column[1]) + 1;
+  const number = ordinals.indexOf(column[1]) + 1;
   if (number) text = 'vertebra ' + column[2][0] + number;
  }
  const match = text.match(/^(proximal|middle|distal) phalanx of (.*)$/);
@@ -79,9 +82,158 @@ export function referenceName(bone, table) {
  return Object.keys(table).find(name => identifier(name) === tagged);
 }
 
+export function referenceBones(bone, courseId = '') {
+ const title = word => word[0].toUpperCase() + word.slice(1);
+ const name = bone.toLowerCase();
+ if (/^atlas$|^axis$|cervical vertebra|thoracic vertebra|lumbar vertebra/.test(name)) {
+  const names = ['Atlas', 'Axis', ...ordinals.slice(2, 7).map(word => title(word) + ' cervical vertebra'),
+   ...ordinals.map(word => title(word) + ' thoracic vertebra'),
+   ...ordinals.slice(0, 5).map(word => title(word) + ' lumbar vertebra')];
+  const i = names.indexOf(bone);
+  return [names[i - 1] || 'Occipital bone', names[i + 1] || 'Sacrum', names[i + 2] || names[i - 2]].filter(Boolean);
+ }
+ const rib = bone.match(/^(Left|Right) (.+) rib$/);
+ if (rib) {
+  const i = ordinals.indexOf(rib[2]), sameSide = rib[1];
+  return [`${sameSide === 'Left' ? 'Right' : 'Left'} ${rib[2]} rib`, 'Manubrium', title(rib[2]) + ' thoracic vertebra',
+   `${sameSide} ${ordinals[i === 0 ? 1 : i - 1]} rib`];
+ }
+ if (/sternum|^manubrium$|xiphoid/.test(name)) {
+  const n = name.includes('xiphoid') ? 'sixth' : 'first';
+  return ['Manubrium', 'Body of sternum', `Left ${n} rib`, `Right ${n} rib`].filter(x => x !== bone);
+ }
+ if (/sacrum|coccyx|hip bone/.test(name)) return ['Left hip bone', 'Right hip bone', 'Sacrum'].filter(x => x !== bone);
+ if (name === 'hyoid bone') return ['Mandible', 'Axis', 'Fourth cervical vertebra'];
+ if (courseId === 'tmj-dislocation' || name === 'mandible') return ['Left temporal bone', 'Right temporal bone', 'Sphenoid bone'];
+ return ['Left temporal bone', 'Right temporal bone', 'Sphenoid bone', 'Mandible', 'Frontal bone'].filter(x => x !== bone);
+}
+
+export function partsFor(manifest, layer, zone) {
+ const value = manifest.layers[layer]?.[zone];
+ return value ? Array.isArray(value) ? value : [value] : [];
+}
+
+const regionIndex = new WeakMap();
+function nearbyRecords(manifest, layer, zones) {
+ if (!regionIndex.has(manifest)) {
+  const layers = {};
+  for (const [key, structures] of Object.entries(manifest.structures)) {
+   layers[key] = new Map();
+   for (const row of Object.entries(structures)) {
+    const [name, record] = row;
+    if (!layers[key].has(record.region)) layers[key].set(record.region, []);
+    layers[key].get(record.region).push([name, record]);
+   }
+  }
+  regionIndex.set(manifest, layers);
+ }
+ return zones.flatMap(zone => regionIndex.get(manifest)[layer]?.get(zone) || []);
+}
+
+export function tissueLoadPlan(manifest, layers, anatomy, options = {}) {
+ const {section = '', courseId = anatomy.courseId, clinical = null, focusOnly = true, anchorBones = []} = options;
+ const skeleton = manifest.structures.bones;
+ const name = referenceName(anatomy.bone, skeleton);
+ const reference = skeleton[name];
+ if (!reference) throw Error('未找到该骨骼的软组织配准参照');
+ const referenceNames = new Map([[name, anatomy.bone]]);
+ const regionBones = /^(tmj-dislocation|pelvis)$/.test(courseId) ? referenceBones(anatomy.bone, courseId) : [];
+ if (anatomy.bone === 'Sacrum') regionBones.push('Coccyx');
+ for (const bone of [...anchorBones, ...regionBones]) {
+  const key = referenceName(bone, skeleton);
+  if (key && !referenceNames.has(key)) referenceNames.set(key, bone);
+ }
+ const target = bounds(reference.bounds), full = target.clone();
+ if (courseId === 'pelvis') {
+  for (const key of referenceNames.keys()) full.union(bounds(skeleton[key].bounds));
+  target.copy(full);
+ }
+ const y = target.max.y - target.min.y;
+ if (section === 'proximal') target.min.y = target.max.y - y * 0.38;
+ if (section === 'distal') target.max.y = target.min.y + y * 0.38;
+ const extent = target.getSize(new T.Vector3()).length();
+ const margin = anatomy.axial ? T.MathUtils.clamp(extent * 0.36, 0.025, 0.06) : 0.058;
+ const local = target.clone().expandByScalar(margin);
+ const clinicalBox = full.clone().expandByScalar(anatomy.axial ? margin * 2 : 0.16);
+ const side = anatomy.injurySide === 'left' ? 'l' : anatomy.injurySide === 'right' ? 'r' : '';
+ const tasks = new Map();
+ function addPart(layer, record) {
+  for (const part of partsFor(manifest, layer, record.region)) {
+   if (record.ownerPart && part.file !== record.ownerPart) continue;
+   tasks.set(part.file, {layer, zone: record.region, part});
+  }
+ }
+ for (const key of referenceNames.keys()) addPart('bones', skeleton[key]);
+ const candidates = new Map();
+ for (const layer of layers) {
+  const rows = anatomy.axial ? nearbyRecords(manifest, layer, anatomy.zones) : Object.entries(manifest.structures[layer]);
+  const matching = [];
+  for (const [key, record] of rows) {
+   if (side && record.side && record.side !== side) continue;
+   if (!anatomy.axial && record.limb && reference.limb !== record.limb) continue;
+   const box = bounds(record.bounds);
+   const nearLocal = local.intersectsBox(box);
+   const roles = classifyNodeRoles(layer, key, clinical);
+   const relevant = roles.length && clinicalBox.intersectsBox(box);
+   if (relevant || nearLocal && (anatomy.axial || anatomy.zones.includes(record.region))) {
+    matching.push([key, {record, roles: relevant ? roles : [], nearLocal}]);
+   }
+  }
+  const focus = anatomy.axial && focusOnly && matching.some(([, entry]) => entry.roles.length);
+  for (const [key, entry] of matching) {
+   if (focus && !entry.roles.length) continue;
+   candidates.set(layer + ':' + key, entry);
+   addPart(layer, entry.record);
+  }
+ }
+ return {name, target, local, referenceNames, candidates, tasks: [...tasks.values()]};
+}
+
+// The source stores both hallux sesamoids in one Draco mesh per foot.
+export function sesamoidComponent(source, side, component) {
+ const {geometry, matrixWorld} = source;
+ const positions = geometry.attributes.position, index = geometry.index?.array;
+ if (!component || !index) return null;
+ const parent = Uint32Array.from({length: positions.count}, (_, i) => i);
+ function root(i) {
+  while (i !== parent[i]) { parent[i] = parent[parent[i]]; i = parent[i]; }
+  return i;
+ }
+ for (let i = 0; i < index.length; i += 3) {
+  const a = root(index[i]);
+  parent[root(index[i + 1])] = a;
+  parent[root(index[i + 2])] = a;
+ }
+ const connected = new Map(), point = new T.Vector3();
+ for (const i of new Set(index)) {
+  const id = root(i);
+  if (!connected.has(id)) connected.set(id, new T.Box3());
+  point.fromBufferAttribute(positions, i).applyMatrix4(matrixWorld);
+  connected.get(id).expandByPoint(point);
+ }
+ if (connected.size !== 2) return null;
+ const sign = side === 'left' ? 1 : -1;
+ const ordered = [...connected].sort((a, b) => sign * (a[1].min.x + a[1].max.x - b[1].min.x - b[1].max.x));
+ const selected = ordered[component === 'medial' ? 0 : 1][0];
+ const remap = new Map(), vertices = [], faces = [];
+ for (const i of index) {
+  if (root(i) !== selected) continue;
+  if (!remap.has(i)) {
+   remap.set(i, vertices.length / 3);
+   vertices.push(positions.getX(i), positions.getY(i), positions.getZ(i));
+  }
+  faces.push(remap.get(i));
+ }
+ const result = new T.BufferGeometry();
+ result.setAttribute('position', new T.Float32BufferAttribute(vertices, 3));
+ result.setIndex(faces);
+ result.computeVertexNormals();
+ return result;
+}
+
 let catalogue, manager;
 function readCatalogue() {
- return catalogue ??= fetch(base + 'manifest.json').then(r => {
+ return catalogue ??= fetch(base + 'manifest.json?v=whole-body1').then(r => {
   if (!r.ok) throw Error('软组织目录不可用');
   return r.json();
  }).catch(error => { catalogue = null; throw error; });
@@ -156,25 +308,60 @@ export function prepareSoftTissues() {
   })
  };
 
- let cache = new Map();
+ const cache = new Map();
+ const maxDecodedBytes = 32 * 1024 * 1024;
+ let cacheGeneration = 0;
 
- async function getPart(part, loader, signal, storage) {
-  if (storage.has(part.file)) return storage.get(part.file);
-  const data = await fetchVerifiedModel('models/soft-tissue/' + part.file, {
-   originURL: base + part.file,
-   bytes: part.bytes,
-   sha256: part.sha256 || '',
-   signal
-  });
-  if (data.byteLength !== part.bytes) throw Error('软组织分区长度不匹配');
-  const { scene } = await loader.parseAsync(data, base);
-  if (signal.aborted || storage !== cache) {
-   disposeScene(scene);
-   throw new DOMException('过期的软组织加载', 'AbortError');
+ function trimCache() {
+  let total = [...cache.values()].reduce((sum, entry) => sum + entry.bytes, 0);
+  for (const [file, entry] of cache) {
+   if (total <= maxDecodedBytes) break;
+   if (entry.refs) continue;
+   cache.delete(file);
+   disposeScene(entry.scene);
+   total -= entry.bytes;
   }
-  scene.updateMatrixWorld(true);
-  storage.set(part.file, scene);
-  return scene;
+ }
+
+ async function getPart(part, loader, signal, generation) {
+  const file = part.file;
+  if (cache.has(file)) {
+   const entry = cache.get(file);
+   cache.delete(file);
+   cache.set(file, entry);
+   entry.refs++;
+   return entry;
+  }
+  const data = await fetchVerifiedModel('models/soft-tissue/' + file, {
+   originURL: partURL(part), bytes: part.bytes, sha256: part.sha256, signal
+  });
+  const {scene} = await loader.parseAsync(data, base);
+  if (signal?.aborted || generation !== cacheGeneration) {
+   disposeScene(scene);
+   throw new DOMException('????????', 'AbortError');
+  }
+  const hit = cache.get(file);
+  if (hit) {
+   disposeScene(scene);
+   hit.refs++;
+   return hit;
+  }
+  let bytes = 0;
+  scene.traverse(node => {
+   if (!node.isMesh) return;
+   for (const attr of Object.values(node.geometry.attributes)) bytes += attr.array.byteLength;
+   bytes += node.geometry.index?.array.byteLength || 0;
+  });
+  const entry = {scene, bytes, refs: 1, evicted: false};
+  cache.set(file, entry);
+  return entry;
+ }
+
+ function release(entries) {
+  for (const entry of entries) {
+   if (--entry.refs === 0 && entry.evicted) disposeScene(entry.scene);
+  }
+  trimCache();
  }
 
  function createRoleMaterial(layer, sublayer, role, muscleOpacity) {
@@ -199,71 +386,42 @@ export function prepareSoftTissues() {
  }
 
  async function load(layers, bone, signal, options = {}) {
-  const {
-   section = '', courseId = '', clinical = null,
-   focusOnly = true, muscleOpacity = 0.28, depthLevel = 1, clipPlane = null
-  } = options;
-  if (!bone || !isLimbBone(bone)) {
-   throw Error('当前软组织图谱专注四肢骨折与脱位相关结构');
-  }
-  const [manifest, loader] = await Promise.all([readCatalogue(), loadDecoder()]);
-  const skeleton = manifest.structures.bones;
-  const name = referenceName(bone, skeleton);
-  const reference = name ? skeleton[name] : null;
-  if (!reference) throw Error('未找到该四肢骨骼的软组织配准参照');
-
-  const side = /\bleft\b/i.test(bone) ? 'l' : 'r';
-  const target = bounds(reference.bounds);
-  const fullTarget = target.clone();
-  if (section) {
-   const y = target.max.y - target.min.y;
-   if (section === 'proximal') target.min.y = target.max.y - y * 0.38;
-   if (section === 'distal') target.max.y = target.min.y + y * 0.38;
-  }
-  const local = target.clone().expandByScalar(0.058);
-  const clinicalBox = fullTarget.clone().expandByScalar(0.16);
+  const {section = '', courseId = '', variantKey = '', meshId = '', focusOnly = true,
+   muscleOpacity = 0.28, depthLevel = 1, clipPlane = null} = options;
+  if (!isSoftTissueSupported(bone)) throw Error('??????????');
+  const anatomy = resolveAnatomy(bone, courseId, variantKey, meshId);
+  const manifest = await readCatalogue();
+  signal?.throwIfAborted();
+  const {name, target, local, referenceNames, candidates, tasks} = tissueLoadPlan(manifest, layers, anatomy, options);
+  const [loader] = await Promise.all([
+   loadDecoder(), loadAxialTerms([...candidates.values()].map(({record}) => record.region))
+  ]);
+  signal?.throwIfAborted();
   const centre = target.getCenter(new T.Vector3());
   const tissuePoint = new T.Vector3();
-  const allowedZones = new Set(zonesForBone(bone, courseId));
-
-  const fetchTasks = [];
-  const layerList = ['bones', ...layers];
-  for (const layer of layerList) {
-   const dictionary = manifest.structures[layer];
-   const neededZones = new Set();
-   if (layer === 'bones') {
-    neededZones.add(reference.region);
-   } else {
-    for (const z of allowedZones) neededZones.add(z);
-    for (const [key, rec] of Object.entries(dictionary)) {
-     if (rec.side && rec.side !== side) continue;
-     const role = classifyNodeRole(layer, key, clinical);
-     if (role && clinicalBox.intersectsBox(bounds(rec.bounds))) neededZones.add(rec.region);
-    }
-   }
-   for (const zone of neededZones) {
-    const part = manifest.layers[layer][zone];
-    if (part) fetchTasks.push({ layer, zone, part });
-   }
+  const generation = cacheGeneration;
+  const settled = await Promise.allSettled(tasks.map(async task => ({
+   ...task, entry: await getPart(task.part, loader, signal, generation)
+  })));
+  const loadedParts = settled.filter(task => task.status === 'fulfilled').map(task => task.value);
+  const acquired = loadedParts.map(task => task.entry);
+  const failure = settled.find(task => task.status === 'rejected');
+  if (failure || signal?.aborted || generation !== cacheGeneration) {
+   release(acquired);
+   throw failure?.reason || new DOMException('????????', 'AbortError');
   }
-
-  const storage = cache;
-  const loadedParts = await Promise.all(
-   fetchTasks.map(async task => ({
-    ...task,
-    scene: await getPart(task.part, loader, signal, storage)
-   }))
-  );
-  signal.throwIfAborted?.();
+  trimCache();
 
   const root = new T.Group();
   const items = [];
   const tags = [];
   const ownMaterials = [];
   let pairedBone = null;
+  const boneAnchors = new Map();
+  const componentGeometries = [];
 
-  for (const { layer, zone, scene } of loadedParts) {
-   const dictionary = manifest.structures[layer];
+  for (const { layer, zone, entry: stored } of loadedParts) {
+   const {scene} = stored;
    const clonedGroup = new T.Group();
    clonedGroup.userData.layer = layer;
    clonedGroup.userData.zone = zone;
@@ -272,33 +430,31 @@ export function prepareSoftTissues() {
    scene.traverse(srcNode => {
     if (!srcNode.isMesh) return;
     const key = (srcNode.userData.name || srcNode.name).trim();
-    const record = dictionary[key];
-    if (!record) return;
 
     if (layer === 'bones') {
-     if (key !== name) return;
+     const targetBone = referenceNames.get(key);
+     if (!targetBone) return;
+     const geometry = key === name && anatomy.component ? sesamoidComponent(srcNode, anatomy.side, anatomy.component) : srcNode.geometry;
+     if (!geometry) return;
+     if (geometry !== srcNode.geometry) componentGeometries.push(geometry);
      const mat = createRoleMaterial('bones', 'bones', null, 1);
      ownMaterials.push(mat);
-     const mesh = new T.Mesh(srcNode.geometry, mat);
+     const mesh = new T.Mesh(geometry, mat);
      mesh.applyMatrix4(srcNode.matrixWorld);
      mesh.updateMatrixWorld(true);
      mesh.userData.atlasLayer = 'bones';
      mesh.userData.structureKey = key;
-     mesh.userData.ownMaterial = true;
+     mesh.visible = key === name || key === 'Coccyx' || courseId === 'tmj-dislocation' || courseId === 'pelvis';
      clonedGroup.add(mesh);
-     if (!/^Sesamoid bones of foot/i.test(key)) pairedBone = mesh;
+     boneAnchors.set(targetBone, mesh);
+     if (key === name) pairedBone = mesh;
      return;
     }
 
-    if (record.side && record.side !== side) return;
-    if (record.limb && reference.limb && record.limb !== reference.limb) return;
-
-    const role = classifyNodeRole(layer, key, clinical);
-    const box = bounds(record.bounds);
-    const nearLocal = local.intersectsBox(box);
-    const nearClinical = Boolean(role) && clinicalBox.intersectsBox(box);
-    if (!nearLocal && !nearClinical) return;
-
+    const candidate = candidates.get(layer + ':' + key);
+    if (!candidate) return;
+    const {record, roles, nearLocal} = candidate;
+    const role = roles[0] || null;
     const info = softTissueInfo(layer, key);
     const mat = createRoleMaterial(layer, info.sublayer, role, muscleOpacity);
     if (clipPlane) mat.clippingPlanes = [clipPlane];
@@ -328,7 +484,12 @@ export function prepareSoftTissues() {
      sublayer: info.sublayer,
      info,
      role,
+     roles,
      nearLocal,
+     localPlanes: anatomy.axial && (/nerve-group|ganglion-group|central-reference|meningeal-reference/.test(info.kind) || /intercostal arteries|lumbar (arteries|veins)/i.test(key)) ? [
+      new T.Plane(new T.Vector3(0, 1, 0), -local.min.y),
+      new T.Plane(new T.Vector3(0, -1, 0), local.max.y)
+     ] : [],
      enabled: true,
      restOrigin: mesh.userData.origin ? mesh.userData.origin.clone() : null,
      restInsertion: mesh.userData.insertion ? mesh.userData.insertion.clone() : null,
@@ -359,8 +520,8 @@ export function prepareSoftTissues() {
   for (const item of prioritized) {
    if (tags.length >= 6) break;
    const tagText = item.role.label || item.info.zhBase;
-   const display = item.info.zhBase;
-   if (seenTag.has(display) || seenTag.has(tagText)) continue;
+   const display = anatomy.axial ? item.info.zh : item.info.zhBase;
+   if (seenTag.has(display) || !anatomy.axial && seenTag.has(tagText)) continue;
    const positions = item.mesh.geometry.attributes.position;
    const step = Math.max(1, Math.floor(positions.count / 1800));
    let nearest = Infinity, bestPt = null;
@@ -400,7 +561,17 @@ export function prepareSoftTissues() {
    frame,
    tags,
    pairedBone,
+   boneAnchors,
+   anatomy,
+   revision: manifest.revision,
    items,
+   labelPoint(item) {
+    const tag = this.tags.find(tag => tag.structureKey === item.key);
+    if (tag) return tag.point;
+    const box = new T.Box3().setFromObject(item.mesh);
+    if (item.localPlanes.length) box.intersect(local.clone().applyMatrix4(this.root.matrixWorld));
+    return box.isEmpty() ? centre.clone().applyMatrix4(this.root.matrixWorld) : box.getCenter(new T.Vector3());
+   },
    ownMaterials,
    focusOnly,
    muscleOpacity,
@@ -438,9 +609,9 @@ export function prepareSoftTissues() {
    },
    setClipPlane(plane) {
     this.clipPlane = plane;
-    const list = plane ? [plane] : [];
     for (const it of this.items) {
-     it.mesh.material.clippingPlanes = list;
+     const localPlanes = it.localPlanes.map(p => p.clone().applyMatrix4(this.root.matrixWorld));
+     it.mesh.material.clippingPlanes = plane ? [...localPlanes, plane] : localPlanes;
      it.mesh.material.needsUpdate = true;
     }
    },
@@ -493,40 +664,40 @@ export function prepareSoftTissues() {
    dispose() {
     for (const mat of this.ownMaterials) mat.dispose();
     this.ownMaterials.length = 0;
+    for (const geometry of componentGeometries) geometry.dispose();
+    release(acquired.splice(0));
     this.root.removeFromParent();
     this.root.clear();
    }
   };
   entry.applyVisibility();
+  entry.setClipPlane(clipPlane);
   return entry;
  }
 
  return {
   load,
-  prefetch(bone) {
-   if (!bone || !isLimbBone(bone)) return;
-   const zones = zonesForBone(bone);
-   if (!zones.length) return;
-   readCatalogue().then(cat => {
-    for (const z of zones) {
-     const part = cat.parts?.find(p => p.zone === z);
-     if (part && !cache.has(part.file)) {
-      prefetchModel('models/soft-tissue/' + part.file, {
-       originURL: base + part.file,
-       bytes: part.bytes,
-       sha256: part.sha256 || ''
-      });
-     }
-    }
-   }).catch(() => {});
+  async prefetch(bone, layers = ['muscles', 'vessels', 'nerves'], options = {}) {
+   if (!isSoftTissueSupported(bone) || !layers?.length || globalThis.navigator?.connection?.saveData) return;
+   const anatomy = resolveAnatomy(bone, options.courseId, options.variantKey, options.meshId);
+   try {
+    const manifest = await readCatalogue();
+    const parts = tissueLoadPlan(manifest, layers, anatomy, options).tasks.map(task => task.part);
+    await Promise.all(parts.filter(part => !cache.has(part.file)).map(part => prefetchModel('models/soft-tissue/' + part.file, {
+     originURL: partURL(part), bytes: part.bytes, sha256: part.sha256
+    })));
+   } catch {
+    // The user's explicit layer request will report any loading errors.
+   }
   },
-  detach: entry => {
-   if (entry) entry.dispose?.();
-  },
+  detach: entry => entry?.dispose(),
   clear() {
-   const old = cache;
-   cache = new Map();
-   for (const scene of old.values()) disposeScene(scene);
+   cacheGeneration++;
+   for (const entry of cache.values()) {
+    entry.evicted = true;
+    if (!entry.refs) disposeScene(entry.scene);
+   }
+   cache.clear();
   }
  };
 }

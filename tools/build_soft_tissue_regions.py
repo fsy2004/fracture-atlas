@@ -1,11 +1,12 @@
-"""Build clean, limb-only, 6-zone Draco GLB soft-tissue assets from pinned Z-Anatomy male sources.
+"""Build 11-zone soft-tissue assets from pinned Z-Anatomy male sources.
 
 Retains native Draco mesh geometry without decimation, removes origin/insertion sticker patches
 (.ol/.or/.el/.er), bursae, and enveloping fasciae from the muscular layer, extracts true 3D
-origin/insertion centroids from those attachment patches into manifest metadata, and partitions
-upper/lower limb bones, muscles, vessels, and nerves into 6 fast-loading clinical zones.
+origin/insertion bounds centres from those attachment patches into manifest metadata, and partitions
+the original Draco buffers without re-encoding.
 """
 import argparse
+from tempfile import TemporaryDirectory
 from copy import deepcopy
 from hashlib import sha256
 import itertools
@@ -13,6 +14,7 @@ import json
 from pathlib import Path
 import re
 import struct
+import subprocess
 
 LAYERS = {
     'bones': 'skeletal_male.glb',
@@ -21,9 +23,12 @@ LAYERS = {
     'nerves': 'nervous_male.glb',
 }
 ZONES = ('shoulder-arm', 'elbow-forearm', 'wrist-hand', 'hip-thigh', 'knee-leg', 'ankle-foot')
+AXIAL_ZONES = ('face', 'neck', 'chest', 'back', 'pelvis')
+TRIANGLE_LIMIT = 180_000
+AXIAL_SELECTION_SHA256 = '55c154d68e910768075a7ce4298d8f81928a5eacce1b5b8c2bbd5eb4f0cf354b'
 ROOT = Path(__file__).resolve().parents[1]
 
-ATTACHMENT_RE = re.compile(r'^(.+?)\.([oe])\d*([lr])$')
+ATTACHMENT_RE = re.compile(r'^(.+?)\.([oe])(\d*)([lr])$')
 JUNK_MUSCLE_RE = re.compile(
     r'\b(bursa|bursae|fascia|retinaculum|sheath|aponeurosis|septum|ligament|'
     r'tendinous arch|membrane|annular part|cruciform part|vincula|'
@@ -291,7 +296,7 @@ def mean_point(points):
 def match_attachments(label, att_map):
     m = re.match(r'^(.+?)\.([lr])$', label)
     if not m:
-        return None, None
+        return [], []
     base, side = m.group(1).strip(), m.group(2)
     low = base.lower().strip('()')
     candidates = [low]
@@ -309,136 +314,235 @@ def match_attachments(label, att_map):
         candidates.append(low + ' muscle')
 
     origins, insertions = [], []
+    def evidence(patches, candidate):
+        return [dict(p, status='shared-head') if candidate != low and p['status'] == 'observed' else p for p in patches]
     for cand in candidates:
         rec = att_map.get((cand, side))
         if rec:
             if not origins and rec['o']:
-                origins = rec['o']
+                origins = evidence(rec['o'], cand)
             if not insertions and rec['e']:
-                insertions = rec['e']
+                insertions = evidence(rec['e'], cand)
         if origins and insertions:
             break
-    return mean_point(origins), mean_point(insertions)
+    return origins, insertions
 
 
-def main(source, output):
-    output.mkdir(parents=True, exist_ok=True)
-    # Remove stale legacy region GLBs so only the clean 6-zone limb bundle remains
-    for old in output.glob('*.glb'):
-        old.unlink()
+def named_side(label):
+    if re.search(r'\.l$|^left\b', label, re.I):
+        return 'l'
+    if re.search(r'\.r$|^right\b', label, re.I):
+        return 'r'
+    return ''
 
+
+def plan_regions(layer, doc, axial, owners):
+    selections = {zone: [] for zone in (*ZONES, *AXIAL_ZONES)}
+    excluded = []
+    duplicates = []
+    nodes = {}
+    locked = {idx: (zone, label) for idx, zone, label in axial}
+    for i, node in enumerate(doc['nodes']):
+        label = node['name'].strip()
+        key = label.casefold()
+        box = bounds(doc, node)
+        limb = keep_structure(layer, label, box)
+        if i in locked:
+            zone, expected = locked[i]
+            if expected != label or zone not in AXIAL_ZONES or limb and key not in owners:
+                raise ValueError(f'Unexpected axial selection {layer}/{i}: {label}')
+        elif layer != 'bones' and key in owners and owners[key] != layer:
+            duplicates.append(label)
+            excluded.append([i, 'other-layer'])
+            continue
+        elif limb:
+            zone = zone_for(label, box)
+        else:
+            excluded.append([i, 'attachment-metadata' if layer == 'muscles' and ATTACHMENT_RE.match(label) else 'outside-selection'])
+            continue
+        if key in owners and owners[key] != layer:
+            raise ValueError(f'Structure selected in multiple layers: {label}')
+        owners.setdefault(key, layer)
+        selections[zone].append(i)
+        primitives = doc['meshes'][node['mesh']]['primitives']
+        nodes[i] = (label, {
+            'region': zone,
+            'zones': touched_zones(label, box) if zone in ZONES else [zone],
+            'limb': limb_for(label, box) if zone in ZONES else '',
+            'side': side_of(label, box) if zone in ZONES else named_side(label),
+            'bounds': box,
+            'sourceNode': i,
+            'structureId': f'{layer}:{i}',
+        }, sum(doc['accessors'][p['indices']]['count'] // 3 for p in primitives))
+    parts = {}
+    for zone, indices in selections.items():
+        if not indices:
+            raise ValueError(f'Uncovered zone {layer}/{zone}')
+        if zone in ZONES or sum(nodes[i][2] for i in indices) <= TRIANGLE_LIMIT:
+            parts[zone] = [indices]
+            continue
+        parts[zone] = []
+        for side in ('', 'l', 'r'):
+            current = []
+            triangles = 0
+            for i in indices:
+                if named_side(nodes[i][0]) != side:
+                    continue
+                count = nodes[i][2]
+                if triangles + count > TRIANGLE_LIMIT:
+                    if not current or count > TRIANGLE_LIMIT:
+                        raise ValueError(f'An individual node exceeds the triangle budget: {layer}/{i}')
+                    parts[zone].append(current)
+                    current, triangles = [], 0
+                current.append(i)
+                triangles += count
+            if current:
+                parts[zone].append(current)
+    return parts, nodes, duplicates, excluded
+
+
+def attachment_patches(doc, centres):
+    attachments = {}
+    for index, node in enumerate(doc['nodes']):
+        match = ATTACHMENT_RE.match(node['name'].strip())
+        if not match:
+            continue
+        base, kind, ordinal, source_side = match.groups()
+        base = base.strip().lower().strip('()')
+        point = centres[str(index)]
+        side = ('l' if point[0] > 0 else 'r') if abs(point[0]) > .015 else source_side
+        attachments.setdefault((base, side), {'o': [], 'e': []})[kind].append({
+            'point': point, 'sourceNode': index, 'ordinal': ordinal, 'sourceSide': source_side,
+            'side': side, 'sideConflict': side != source_side, 'method': 'decoded-world-bounds-centre',
+            'status': 'observed',
+        })
+    for (base, side), record in list(attachments.items()):
+        other = 'r' if side == 'l' else 'l'
+        dst = attachments.setdefault((base, other), {'o': [], 'e': []})
+        for kind, patches in record.items():
+            if patches and not dst[kind]:
+                dst[kind] = [dict(p, point=[-p['point'][0], *p['point'][1:]], side=other,
+                                  status='mirrored') for p in patches]
+    return attachments
+
+
+def lock_geometry(doc, binary, nodes):
+    digest = sha256()
+    for index in sorted(nodes):
+        node = doc['nodes'][index]
+        primitive, = doc['meshes'][node['mesh']]['primitives']
+        view = doc['bufferViews'][primitive['extensions']['KHR_draco_mesh_compression']['bufferView']]
+        start = view.get('byteOffset', 0)
+        count = view['byteLength']
+        digest.update(struct.pack('<II', index, count))
+        digest.update(binary[start:start + count])
+    return digest.hexdigest()
+
+
+def build(source, output):
     records = json.loads((source / 'sources.json').read_text(encoding='utf8'))
+    selection = json.loads(Path(__file__).with_name('soft-tissue-axial-selection.json').read_text(encoding='utf8'))
     manifest = {
+        'schemaVersion': 2,
         'license': 'CC-BY-SA-4.0',
-        'scope': 'limbs',
+        'scope': 'whole-body',
         'revision': records['revision'],
-        'regions': list(ZONES),
+        'axialSelectionSha256': AXIAL_SELECTION_SHA256,
+        'regions': [*ZONES, *AXIAL_ZONES],
         'layers': {},
         'coverage': {},
         'structures': {},
+        'sourceGaps': {
+            'textOnly': ['Phrenic nerve', 'Recurrent laryngeal nerve', 'Auriculotemporal nerve',
+                         'Infra-orbital nerve', 'Complete cervical plexus', 'Complete lumbar plexus',
+                         'Complete sacral plexus', 'Individual S2-S4 roots'],
+            'groups': ['Intercostal nerves', 'Anterior root of spinal nerve', 'Posterior root of spinal nerve',
+                       'Spinal ganglion', 'Cauda equina', 'Posterior intercostal arteries'],
+        },
+        'referenceComponents': {'FJ3266': 'medial', 'FJ3270': 'lateral',
+                                'FJ3372': 'medial', 'FJ3376': 'lateral'},
     }
     owners = {}
-    muscle_attachments = {}
-
+    selector = sha256()
     for layer, filename in LAYERS.items():
         raw = (source / filename).read_bytes()
         declared = next(item for item in records['assets'] if item['file'] == filename)
-        assert sha256(raw).hexdigest() == declared['sha256']
+        lock = selection[layer]
+        if sha256(raw).hexdigest() != declared['sha256'] or declared['sha256'] != lock['sha256']:
+            raise ValueError(f'Source checksum mismatch: {filename}')
         doc, binary = read_glb(raw)
         assert 'KHR_draco_mesh_compression' in doc['extensionsRequired'] and not doc.get('images')
-
-        # First pass for muscles: extract exact 3D centroids of .o (origin) and .e (insertion) patches
+        codes = bytearray(len(doc['nodes']))
+        for index, zone, _ in lock['nodes']:
+            codes[index] = AXIAL_ZONES.index(zone) + 1
+        selector.update(codes)
+        partitions, nodes, duplicates, excluded = plan_regions(layer, doc, lock['nodes'], owners)
+        muscle_attachments = {}
         if layer == 'muscles':
-            for node in doc['nodes']:
-                if 'mesh' not in node:
-                    continue
-                label = node['name'].strip()
-                m = ATTACHMENT_RE.match(label)
-                if not m:
-                    continue
-                base, kind, side = m.group(1).strip().lower().strip('()'), m.group(2), m.group(3)
-                box = bounds(doc, node)
-                centre = [(box[0][k] + box[1][k]) / 2 for k in range(3)]
-                # Trust actual 3D hemisphere over upstream Z-Anatomy sticker suffix typos (.ol/.or swapped)
-                if abs(centre[0]) > 0.015:
-                    side = 'l' if centre[0] > 0 else 'r'
-                muscle_attachments.setdefault((base, side), {'o': [], 'e': []})[kind].append(centre)
-            # Fill one-sided attachment patches symmetrically across midline (X = 0)
-            for (base, side), rec in list(muscle_attachments.items()):
-                other = 'r' if side == 'l' else 'l'
-                dst = muscle_attachments.setdefault((base, other), {'o': [], 'e': []})
-                for kind in ('o', 'e'):
-                    if rec[kind] and not dst[kind]:
-                        dst[kind] = [[-p[0], p[1], p[2]] for p in rec[kind]]
+            centres = subprocess.run(['node', str(ROOT / 'tools/soft-tissue-draco.mjs'), str(source / filename)],
+                                     stdout=subprocess.PIPE, text=True, check=True)
+            muscle_attachments = attachment_patches(doc, json.loads(centres.stdout))
 
+        manifest['structures'][layer] = {}
         manifest['layers'][layer] = {}
-        selections = {zone: [] for zone in ZONES}
-        structure_info = {}
-        skipped = []
-
-        for i, node in enumerate(doc['nodes']):
-            if 'mesh' not in node:
-                continue
-            label = node['name'].strip()
-            key = label.casefold()
-            if layer != 'bones' and key in owners and owners[key] != layer:
-                skipped.append(label)
-                continue
-            box = bounds(doc, node)
-            if not keep_structure(layer, label, box):
-                continue
-            owners.setdefault(key, layer)
-            zone = zone_for(label, box)
-            zones = touched_zones(label, box)
-            selections[zone].append(i)
-            triangles = sum(doc['accessors'][p['indices']]['count'] // 3 for p in doc['meshes'][node['mesh']]['primitives'])
-            rec = {
-                'region': zone,
-                'zones': zones,
-                'limb': limb_for(label, box),
-                'side': side_of(label, box),
-                'bounds': box,
-            }
-            if layer == 'muscles':
-                origin, insertion = match_attachments(label, muscle_attachments)
-                if origin:
-                    rec['origin'] = origin
-                if insertion:
-                    rec['insertion'] = insertion
-            structure_info[i] = (label, rec, triangles)
-
-        for zone, indices in selections.items():
-            if not indices:
-                raise ValueError(f'Uncovered zone {layer}/{zone}')
-            content = partition(doc, binary, indices)
-            name = f'{layer}-{zone}.glb'
-            (output / name).write_bytes(content)
-            manifest['layers'][layer][zone] = {
-                'file': name,
-                'bytes': len(content),
-                'sha256': sha256(content).hexdigest(),
-                'triangles': sum(structure_info[i][2] for i in indices),
-                'nodes': len(indices),
-            }
+        for zone, groups in partitions.items():
+            parts = []
+            for number, indices in enumerate(groups, 1):
+                suffix = f'-{number}' if len(groups) > 1 else ''
+                name = f'{layer}-{zone}{suffix}.glb'
+                content = partition(doc, binary, indices)
+                triangles = sum(nodes[i][2] for i in indices)
+                if len(content) >= 25_000_000 or zone in AXIAL_ZONES and triangles > TRIANGLE_LIMIT:
+                    raise ValueError(f'Partition exceeds budget: {name}')
+                (output / name).write_bytes(content)
+                parts.append({'file': name, 'bytes': len(content), 'sha256': sha256(content).hexdigest(),
+                              'triangles': triangles, 'nodes': len(indices)})
+                for i in indices:
+                    label, record, _ = nodes[i]
+                    record['ownerPart'] = name
+                    record['anatomicalSide'] = {'l': 'left', 'r': 'right', '': 'midline'}[record['side']]
+                    concept = re.sub(r'^(left|right)\s+', '', re.sub(r'\.[lr]$', '', label, flags=re.I), flags=re.I)
+                    record['conceptId'] = f'{layer}:{concept.lower()}'
+                    if layer == 'muscles':
+                        origin, insertion = match_attachments(label, muscle_attachments)
+                        for key, patches in [('origin', origin), ('insertion', insertion)]:
+                            if patches:
+                                record[key] = mean_point([p['point'] for p in patches])
+                        record['attachmentEvidence'] = {'origin': origin, 'insertion': insertion}
+                    manifest['structures'][layer][label] = record
+            manifest['layers'][layer][zone] = parts[0] if len(parts) == 1 else parts
 
         manifest['coverage'][layer] = {
-            'count': sum(len(x) for x in selections.values()),
-            'source': declared,
-            'duplicates': skipped,
+            'count': len(nodes), 'axialCount': len(lock['nodes']), 'source': declared,
+            'duplicates': duplicates, 'excluded': excluded, 'dracoSha256': lock_geometry(doc, binary, nodes),
         }
-        manifest['structures'][layer] = {
-            structure_info[i][0]: structure_info[i][1]
-            for zone, indices in selections.items()
-            for i in indices
-        }
-        total_mb = sum(manifest['layers'][layer][z]['bytes'] for z in ZONES) / (1024 * 1024)
-        print(f'{layer:8s}: {manifest["coverage"][layer]["count"]:4d} nodes, {total_mb:.2f} MB across 6 limb zones', flush=True)
+        if len(manifest['structures'][layer]) != len(nodes):
+            raise ValueError(f'Duplicate node labels in {layer}')
+        print(f'{layer}: {len(nodes)} nodes ({len(lock["nodes"])} added)', flush=True)
 
+    if selector.hexdigest() != AXIAL_SELECTION_SHA256:
+        raise ValueError('Axial node assignments differ from the approved selection')
     (output / 'manifest.json').write_text(
         json.dumps(manifest, ensure_ascii=False, separators=(',', ':')) + '\n',
         encoding='utf8',
     )
     (output / 'NOTICE').write_bytes((source / 'NOTICE').read_bytes())
+
+
+def main(source, output):
+    source, output = source.resolve(), output.resolve()
+    if output == source or source in output.parents:
+        raise ValueError('Output must be outside the read-only source directory')
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix='soft-tissue-build-', dir=output.parent) as staging:
+        staged = Path(staging)
+        build(source, staged)
+        output.mkdir(exist_ok=True)
+        # Publish the manifest last so it never advertises files still being built.
+        for asset in sorted(staged.glob('*.glb')):
+            asset.replace(output / asset.name)
+        (staged / 'NOTICE').replace(output / 'NOTICE')
+        (staged / 'manifest.json').replace(output / 'manifest.json')
 
 
 if __name__ == '__main__':

@@ -6,3 +6,28 @@ export function elbowDisplayGeometry(source,side,shoulder=false){
  const {rotation:r,translation_m:t}=(shoulder?shoulderStudy:elbowStudy)[side],matrix=new T.Matrix4().set(...r[0],t[0],...r[1],t[1],...r[2],t[2],0,0,0,1);
  const g=source.clone();g.applyMatrix4(matrix);if(shoulder&&source.userData.headCentre)g.userData.headCentre=new T.Vector3(...shoulderStudy[side].head_center_m);g.computeBoundingBox();g.computeBoundingSphere();return g;
 }
+
+// Legacy fitted paths are keyed independently of authoring order.
+export function legacyJointPath(study,id){
+ const index={v01:0,v02:1,v03:2}[id];
+ return study?.variants[index];
+}
+
+// Compound trajectories checked in the native elbow teaching frame.
+// Columns are radial head, distal ulna, and (when present) the olecranon fragment.
+const compoundElbowFrames={
+ v05:{
+  Right:[[[0,-6,0],[0,-6,0]],[[-31,0,0],[-31,0,0]],[[-34,-22,42],[40,-52,-32]]],
+  Left:[[[0,-6,0],[0,-6,0]],[[-16,-25,-10],[-16,-25,-10]],[[-33,-38,32],[41,-53,-35]]]
+ },
+ v06:{
+  Right:[[[-3,3,4],[-5,-5,-2],[0,2,-3]],[[-6,-35,37],[-7,-37,38],[-2,2,-2]]],
+  Left:[[[-8,3,-3],[5,-4,2],[0,0,0]],[[-36,-38,29],[-37,-39,31],[-1,0,-2]]]
+ }
+};
+export function compoundElbowPaths(id,side){
+ const frames=compoundElbowFrames[id]?.[side];
+ if(!frames)return null;
+ const knots=id==='v05'?[0,.22,.51,1]:[0,.25,1];
+ return frames.at(-1).map((shift,i)=>({shift,knots,waypoints:frames.slice(0,-1).map(frame=>frame[i])}));
+}

@@ -9,8 +9,35 @@ export const LIMB_ZONES = [
  'knee-leg',
  'ankle-foot'
 ];
+export const AXIAL_ZONES = ['face', 'neck', 'chest', 'back', 'pelvis'];
+export const ALL_ZONES = [...LIMB_ZONES, ...AXIAL_ZONES];
+
+const axialTerms = {muscles: {}, vessels: {}, nerves: {}};
+const termImports = {
+ face: () => import('./soft-tissue-terms/face.js?v=whole-body1'),
+ neck: () => import('./soft-tissue-terms/neck.js?v=whole-body1'),
+ chest: () => import('./soft-tissue-terms/chest.js?v=whole-body1'),
+ back: () => import('./soft-tissue-terms/back.js?v=whole-body1'),
+ pelvis: () => import('./soft-tissue-terms/pelvis.js?v=whole-body1')
+};
+const pendingTerms = new Map();
+export function loadAxialTerms(zones = AXIAL_ZONES) {
+ return Promise.all([...new Set(zones)].filter(zone => Object.hasOwn(termImports, zone)).map(zone => {
+  if (!pendingTerms.has(zone)) {
+   pendingTerms.set(zone, termImports[zone]().then(({default: terms}) => {
+    for (const [layer, entries] of Object.entries(terms)) Object.assign(axialTerms[layer], entries);
+   }).catch(error => { pendingTerms.delete(zone); throw error; }));
+  }
+  return pendingTerms.get(zone);
+ }));
+}
 
 export const ZONE_LABELS = {
+ face: '颅颌面',
+ neck: '颈部',
+ chest: '胸廓',
+ back: '胸腰背',
+ pelvis: '腹盆骶尾',
  'shoulder-arm': '肩带与上臂',
  'elbow-forearm': '肘与前臂',
  'wrist-hand': '腕与手',
@@ -363,19 +390,32 @@ export function sideLabel(rawName) {
 }
 
 export function vesselSublayer(rawName) {
- return /\b(?:vein|veins|venous|vena)\b/i.test(rawName) ? 'veins' : 'arteries';
+ return /\b(?:vein|veins|venous|vena|sinus)\b/i.test(rawName) ? 'veins' : 'arteries';
+}
+
+export function structureKind(layer, name) {
+ if (layer === 'vessels' && /\bsinus\b|basilar venous plexus/i.test(name)) return 'venous-sinus';
+ if (layer === 'nerves') {
+  if (/spinal dura/i.test(name)) return 'meningeal-reference';
+  if (/of spinal cord|medulla oblongata/i.test(name)) return 'central-reference';
+  if (/gangli/i.test(name)) return 'ganglion-group';
+  if (/cauda equina|root of spinal nerve|intercostal nerves|sympathetic nerves/i.test(name)) return 'nerve-group';
+  if (/\([ivx]+\)|cochlear|vestibular|optic|chorda tympani|trigeminal|mandibular nerve|ophthalmic nerve|maxillary nerve|buccal nerve|inferior alveolar nerve|lingual nerve|mental nerve|nerve to mylohyoid/i.test(name)) return 'cranial-nerve';
+ }
+ return layer === 'vessels' ? vesselSublayer(name) : layer;
 }
 
 export function softTissueInfo(layer, rawName) {
  const base = normalizeStructureKey(rawName);
  const side = sideLabel(rawName);
  const table = layer === 'muscles' ? MUSCLE_TERMS : layer === 'vessels' ? VESSEL_TERMS : NERVE_TERMS;
- const entry = table[base] || table[base.toLowerCase()];
+ const axial = axialTerms?.[layer]?.[base.toLowerCase()];
+ const entry = axial || table[base] || table[base.toLowerCase()];
  const zhBase = entry ? entry[0] : base;
  const note = entry ? entry[1] : '';
  const sublayer = layer === 'vessels' ? vesselSublayer(rawName) : layer;
  const depth = layer === 'muscles' ? muscleDepth(base) : 3;
- const caliber = anatomicalCaliber(layer, base);
+ const caliber = axial ? {offsetM: 0, refMm: ''} : anatomicalCaliber(layer, base);
  return {
   key: rawName,
   base,
@@ -385,6 +425,7 @@ export function softTissueInfo(layer, rawName) {
   en: base,
   layer,
   sublayer,
+  kind: structureKind(layer, rawName),
   depth,
   caliber,
   note,
@@ -447,9 +488,20 @@ export function isLimbBone(boneName) {
  return /clavicle|scapula|humerus|radius|ulna|scaphoid|lunate|triquetr|pisiform|trapezium|trapezoid|capitate|hamate|metacarpal|phalanx.*finger|thumb|hip bone|femur|patella|tibia|fibula|talus|calcaneus|navicular|cuboid|cuneiform|metatarsal|phalanx.*toe|sesamoid.*foot/i.test(boneName);
 }
 
-export function zonesForBone(boneName, courseId = '') {
+export function isAxialTissueCase(boneName, courseId = '') {
+ return Boolean(boneName && (!isLimbBone(boneName) || /^(pelvis|region-iliac-wing|tmj-dislocation)$/.test(courseId)));
+}
+
+export function isSoftTissueSupported(boneName) {
+ return zonesForBone(boneName).length > 0;
+}
+
+export function zonesForBone(boneName, courseId = '', variantKey = '') {
  if (!boneName) return [];
  const b = boneName.toLowerCase();
+ if(courseId==='hip-dislocation'&&variantKey==='v03')return ['pelvis','hip-thigh'];
+ if(courseId==='shoulder-dislocation'&&variantKey==='v06')return ['shoulder-arm','chest','neck'];
+ if(courseId==='physis-injury'&&/tibia/.test(b))return ['knee-leg','ankle-foot'];
  if (/clavicle|scapula/.test(b)) return ['shoulder-arm'];
  if (/humerus/.test(b)) {
   if (['elbow', 'elbow-dislocation', 'lateral-elbow', 'medial-elbow'].includes(courseId)) return ['elbow-forearm', 'shoulder-arm'];
@@ -463,7 +515,7 @@ export function zonesForBone(boneName, courseId = '') {
  if (/scaphoid|lunate|triquetr|pisiform|trapezium|trapezoid|capitate|hamate|metacarpal|finger|thumb/.test(b)) {
   return ['wrist-hand', 'elbow-forearm'];
  }
- if (/hip bone/.test(b)) return ['hip-thigh'];
+ if (/hip bone/.test(b)) return courseId === 'hip-dislocation' ? ['hip-thigh'] : ['pelvis', 'hip-thigh'];
  if (/femur/.test(b)) {
   if (['neck', 'trochanter', 'hip-dislocation'].includes(courseId)) return ['hip-thigh'];
   if (['distalfemur', 'intercondylar', 'knee-dislocation', 'patella-dislocation'].includes(courseId)) return ['hip-thigh', 'knee-leg'];
@@ -478,5 +530,33 @@ export function zonesForBone(boneName, courseId = '') {
  if (/talus|calcaneus|navicular|cuboid|cuneiform|metatarsal|toe|sesamoid/.test(b)) {
   return ['ankle-foot', 'knee-leg'];
  }
+ if (/mandible|temporal bone|palatine/.test(b)) return ['face', 'neck'];
+ if (/occipital/.test(b)) return ['face', 'neck'];
+ if (/frontal|parietal|ethmoid|sphenoid|zygoma|maxilla|palatine|nasal|vomer/.test(b)) return ['face'];
+ if (/hyoid|^atlas$|^axis$/.test(b)) return ['neck', 'face', 'back'];
+ if (/cervical vertebra/.test(b)) return ['neck', 'back', 'shoulder-arm'];
+ if (/\bfirst rib\b/.test(b)) return ['chest', 'neck', 'shoulder-arm'];
+ if (/\b(?:second|third) rib\b/.test(b)) return ['chest', 'neck', 'shoulder-arm', 'back'];
+ if (/\b(?:tenth|eleventh|twelfth) rib\b/.test(b)) return ['chest', 'back', 'pelvis'];
+ if (/\brib\b/.test(b)) return ['chest', 'back', 'shoulder-arm'];
+ if (/manubrium/.test(b)) return ['chest', 'neck', 'shoulder-arm'];
+ if (/sternum/.test(b)) return ['chest', 'shoulder-arm'];
+ if (/xiphoid/.test(b)) return ['chest', 'pelvis'];
+ if (/thoracic vertebra/.test(b)) return ['back', 'chest', 'neck', 'pelvis'];
+ if (/lumbar vertebra/.test(b)) return ['back', 'pelvis', 'hip-thigh'];
+ if (/sacrum|coccyx/.test(b)) return ['pelvis', 'hip-thigh', 'back'];
  return [];
+}
+
+export function boneSide(bone) {
+ return /\bleft\b/i.test(bone) ? 'left' : /\bright\b/i.test(bone) ? 'right' : 'midline';
+}
+
+export function resolveAnatomy(bone, courseId = '', variantKey = '', meshId = '') {
+ const component = ({FJ3266: 'medial', FJ3270: 'lateral', FJ3372: 'medial', FJ3376: 'lateral'})[meshId || bone?.match(/FJ\d+$/)?.[0]];
+ const side = boneSide(bone);
+ const injurySide = courseId==='tmj-dislocation'&&variantKey==='v02'?'right':courseId === 'tmj-dislocation' || courseId === 'pelvis' ? 'bilateral'
+  : courseId === 'region-mandible' && variantKey === 'v02' || courseId === 'region-hyoid' ? 'right' : side;
+ return {bone, meshId, courseId, variantKey, side, injurySide, component, zones: zonesForBone(bone, courseId, variantKey),
+  axial: isAxialTissueCase(bone, courseId)};
 }

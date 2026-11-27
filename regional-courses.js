@@ -6,7 +6,7 @@ const extra=[];
 function bind(id,suffix,bone,title,context){
  const template=courses.find(c=>c.id===id);
  const original=template.variants[0].cuts[0].bone;
- const variants=template.variants.map(v=>{
+ const variants=template.variants.filter(v=>!v.textbook).map(v=>{
   const observe=v.observe.replace('第一腰椎',title);
   return {...v,observe,context,span:undefined,cuts:v.cuts.map(s=>({...s,bone}))};
  });

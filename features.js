@@ -21,6 +21,7 @@ export function initialShape(course,i){
  return 'transverse';
 }
 export function featuresFor(course,index){
+ if(course.variants[index]?.textbook)return {shapes:[],motions:[]};
  const id=course.family||course.id;
  const shapes=shafts[id]?.[index];
  if(shapes)return {shapes:id==='femur'?[...shapes,'wedgeFragment']:shapes,motions:Object.keys(motionNames)};

@@ -1,10 +1,18 @@
 import * as T from './vendor/three.module.js';
 import {surfaceTree} from './surface-lessons.js';
 
-function sample(geometry,matrix){
+function sample(geometry,matrix,include=null){
  const attr=geometry.attributes.position,points=[];
- const step=Math.max(1,Math.ceil(attr.count/1250));
- for(let i=0;i<attr.count;i+=step)points.push(new T.Vector3().fromBufferAttribute(attr,i).applyMatrix4(matrix));
+ const step=include?1:Math.max(1,Math.ceil(attr.count/1250));
+ const point=new T.Vector3();
+ for(let i=0;i<attr.count;i+=step){
+  point.fromBufferAttribute(attr,i).applyMatrix4(matrix);
+  if(!include||include(point))points.push(point.clone());
+ }
+ if(points.length>1250){
+  const stride=points.length/1250;
+  return Array.from({length:1250},(_,i)=>points[Math.floor(i*stride)]);
+ }
  return points;
 }
 function average(points){
@@ -64,7 +72,7 @@ function fit(rows,guess){
 
 // Fit a local teaching atlas to the actual intact model present in this
 // scene. Distances are checked on both uncensored surfaces before use.
-export function fitTissueSkeleton(source,targetGeometry,targetWorld,focus){
+export function fitTissueSkeleton(source,targetGeometry,targetWorld,focus,seed=null){
  if(!source?.geometry||!targetGeometry?.attributes?.position)return null;
  const from=sample(source.geometry,source.matrixWorld),to=sample(targetGeometry,targetWorld);
  if(from.length<30||to.length<30)return null;
@@ -102,22 +110,26 @@ export function fitTissueSkeleton(source,targetGeometry,targetWorld,focus){
  const acceptable=({median,p90})=>median<=Math.min(.0065,Math.max(.0014,radius*.041))&&
   p90<=Math.min(.014,Math.max(.003,radius*.087));
  function examine(choices,iterations){
-  for(const q of choices){
-   const k=T.MathUtils.clamp(b.extent/a.extent,.78,1.27);
-   const offset=goal.clone().sub(centre.clone().applyQuaternion(q).multiplyScalar(k));
-   let estimate={orientation:q,matrix:new T.Matrix4().compose(offset,q,new T.Vector3().setScalar(k)),scale:k};
-   for(let i=0;i<iterations;i++){
-    const rows=collect(estimate.matrix);
-    const fitted=fit(rows.slice(0,Math.floor(rows.length*.78)),estimate.orientation);
-    if(!fitted)break;
-    estimate=fitted;
-   }
+  function consider(estimate){
    const {median,p90}=quality(estimate.matrix);
    if(!best||p90+median<best.p90+best.median)best={...estimate,median,p90,extent:radius};
   }
+  for(const q of choices){
+   const k=T.MathUtils.clamp(b.extent/a.extent,.78,1.27);
+   const offset=goal.clone().sub(centre.clone().applyQuaternion(q).multiplyScalar(k));
+   let estimate=seed&&q===seed.orientation?seed:{orientation:q,matrix:new T.Matrix4().compose(offset,q,new T.Vector3().setScalar(k)),scale:k};
+   if(seed)consider(estimate);
+   for(let i=0;i<iterations;i++){
+    const rows=collect(estimate.matrix);
+    const fitted=fit(rows.slice(0,Math.floor(rows.length*.78)),estimate.orientation);
+    if(!fitted||seed&&fitted.orientation.angleTo(seed.orientation)>Math.PI/9)break;
+    estimate=fitted;
+   }
+   consider(estimate);
+  }
  }
- examine(choices,10);
- if(best&&!acceptable(best)){
+ examine(seed?[seed.orientation]:choices,10);
+ if(best&&!acceptable(best)&&!seed){
   // Fingers and feet may have a different resting twist across the specimens.
   const axis=elongated?goalAxis:new T.Vector3(0,1,0);
   const alternatives=[-Math.PI/3,Math.PI/3].map(angle=>new T.Quaternion().setFromAxisAngle(axis,angle).multiply(aligned));
@@ -147,4 +159,101 @@ export function fitTissueSkeleton(source,targetGeometry,targetWorld,focus){
  const stable=focusedPoint.copy(sourceFocus).applyMatrix4(local.matrix).distanceTo(focus)<Math.min(.008,window*.26);
  const accepted=stable&&acceptable(localQuality);
  return accepted?{...local,...localQuality,extent:radius,accepted,local:true}:{...best,accepted:false};
+}
+
+const axialFits = new WeakMap();
+const identity = new T.Quaternion();
+function worldBounds(geometry, matrix) {
+ const positions = geometry.attributes.position, point = new T.Vector3(), box = new T.Box3();
+ for (let i = 0; i < positions.count; i++) box.expandByPoint(point.fromBufferAttribute(positions,i).applyMatrix4(matrix));
+ return box;
+}
+function worldCentre(geometry, matrix) {
+ return worldBounds(geometry,matrix).getCenter(new T.Vector3());
+}
+
+function localSurfaceError(pair, transform, focus, bilateral, extent) {
+ const {source, geometry, world} = pair;
+ const sourceWorld = new T.Matrix4().multiplyMatrices(transform, source.matrixWorld);
+ const targetBox = worldBounds(geometry,world);
+ const centre = targetBox.getCenter(new T.Vector3()), size = targetBox.getSize(new T.Vector3());
+ const radius = T.MathUtils.clamp(extent * .28, .015, .045);
+ const sides = bilateral ? [-1, 1] : [0];
+ const errors = [];
+ for (const side of sides) {
+  const near = bilateral ? p => (p.x - centre.x) * side >= size.x * .29 &&
+   p.y >= targetBox.max.y - size.y * .23 && p.z <= centre.z :
+   p => p.distanceToSquared(focus) < radius ** 2;
+  const a = sample(source.geometry,sourceWorld,near), b = sample(geometry,world,near);
+  if (Math.min(a.length,b.length)<12) return Infinity;
+  const point = new T.Vector3(), hit = {point: new T.Vector3()};
+  function distances(points, mesh, matrix) {
+   const tree = surfaceTree(mesh), inverse = matrix.clone().invert();
+   return points.map(p => {
+    const fit = tree.closestPointToPoint(point.copy(p).applyMatrix4(inverse),hit);
+    return point.copy(fit.point).applyMatrix4(matrix).distanceTo(p);
+   });
+  }
+  const d = [...distances(a,geometry,world),...distances(b,source.geometry,sourceWorld)].sort((a,b)=>a-b);
+  errors.push(d[Math.floor(d.length*.9)]);
+ }
+ return Math.max(...errors);
+}
+
+export function regionalTissueSeed(pairs) {
+ if (pairs.length < 3) return null;
+ const rows = pairs.map(({source, geometry, world}) => ({
+  source: worldCentre(source.geometry, source.matrixWorld), target: worldCentre(geometry, world)
+ }));
+ const ab = new T.Vector3(), ac = new T.Vector3();
+ const span = rows.slice(1).some((b, i) => rows.slice(i + 2).some(c => {
+  ab.copy(b.source).sub(rows[0].source);
+  ac.copy(c.source).sub(rows[0].source);
+  return ab.cross(ac).length() > 0.000025;
+ }));
+ if (!span) return null;
+ const result = fit(rows, identity);
+ if (!result || result.orientation.angleTo(identity) > Math.PI / 6) return null;
+ const errors = rows.map(row => row.source.clone().applyMatrix4(result.matrix).distanceTo(row.target));
+ if (Math.max(...errors) > 0.012) return null;
+ return {...result, landmarkP90: errors.sort((a,b)=>a-b)[Math.floor(errors.length*.9)]};
+}
+
+// Source and targets are already in patient-world coordinates. Reflected lesson
+// geometry enters with the scene's reflection, so the tissue transform stays proper.
+export function fitAxialTissues(pairs, focus, {variantKey = '', injurySide = '', sourceRevision = '',
+ requireNeighbours = false, bilateralJoint = false} = {}) {
+ const primary = pairs[0];
+ if (!primary) return null;
+ let cache = axialFits.get(primary.geometry);
+ if (!cache) axialFits.set(primary.geometry, cache = new Map());
+ const key = JSON.stringify([sourceRevision, variantKey, injurySide, requireNeighbours, bilateralJoint, focus?.toArray(),
+  pairs.map(({name,geometry,world}) => [name,geometry.id,geometry.userData.group,world.elements])]);
+ if (cache.has(key)) return cache.get(key);
+ const donor = primary.geometry.userData.group;
+ const compatible = pairs.filter(pair => pair.geometry.userData.group === donor);
+ const seed = regionalTissueSeed(compatible);
+ function assess(match) {
+  if (!match) return null;
+  const transformed = source => new T.Matrix4().multiplyMatrices(match.matrix,source.matrixWorld);
+  const centreError = worldCentre(primary.source.geometry,transformed(primary.source))
+   .distanceTo(worldCentre(primary.geometry, primary.world));
+  const neighborError = compatible.slice(1).reduce((max, pair) => Math.max(max,
+   worldCentre(pair.source.geometry,transformed(pair.source))
+    .distanceTo(worldCentre(pair.geometry, pair.world))), 0);
+  const localP90 = match.accepted && (focus || bilateralJoint)
+   ? localSurfaceError(primary,match.matrix,focus,bilateralJoint,match.extent) : null;
+  const accepted = match.accepted && match.matrix.determinant() > 0 &&
+   match.orientation.angleTo(identity) <= Math.PI / 6 &&
+   centreError < Math.min(0.012, Math.max(0.003, match.extent * 0.1)) &&
+   (localP90 === null || localP90 <= Math.min(.014,Math.max(.004,match.extent*.087))) &&
+   (!seed || neighborError < 0.015) && (!requireNeighbours || seed && neighborError < 0.008);
+  return {...match, accepted: Boolean(accepted), centreError, neighborError, localP90, regional: Boolean(seed), motionVerified: false};
+ }
+ const seeded = assess(fitTissueSkeleton(primary.source,primary.geometry,primary.world,focus,seed));
+ const independent = seed && !seeded?.accepted
+  ? assess(fitTissueSkeleton(primary.source,primary.geometry,primary.world,focus)) : null;
+ const result = independent?.accepted ? independent : seeded || independent;
+ cache.set(key, result);
+ return result;
 }

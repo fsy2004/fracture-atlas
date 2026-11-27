@@ -4,9 +4,9 @@
 // - Selected structure inspector with anatomical caliber, depth layer, isolate / hide controls
 // - Bone-grade searchable, filterable per-structure index with hover & click 3D sync
 
-import { isLimbBone, DEPTH_LABELS } from './soft-tissue-catalog.js?v=limb-soft4';
-import { clinicalSoftTissueFor, displacementImpactNotes } from './soft-tissue-clinical.js?v=limb-soft4';
-import { damageGradeMeta } from './tissue-damage.js?v=limb-soft4';
+import { isSoftTissueSupported, isAxialTissueCase, DEPTH_LABELS } from './soft-tissue-catalog.js?v=whole-body1';
+import { clinicalSoftTissueFor, displacementImpactNotes, loadAxialClinical } from './soft-tissue-clinical.js?v=whole-body1';
+import { damageGradeMeta } from './tissue-damage.js?v=whole-body1';
 
 const LAYER_META = {
  muscles: { label: '肌肉', cls: 'dot-muscle' },
@@ -18,8 +18,12 @@ const LAYER_META = {
 const GROUP_TAG = {
  proximal: '牵拉近段',
  distal: '牵拉远段',
- joint: '脱位肌群'
+ joint: '脱位肌群',
+ contraction: '主动收缩',
+ adjacent: '邻近参照',
+ passive: '被动受牵'
 };
+const GRANULARITY = {group: '集合网格', parent: '父结构参照', reference: '解剖参照'};
 
 export function createSoftTissuePanel(callbacks) {
  const $ = id => document.getElementById(id);
@@ -27,6 +31,7 @@ export function createSoftTissuePanel(callbacks) {
  let searchQuery = '';
  let currentEntry = null;
  let currentClinical = null;
+ let clinicalUpdate = 0;
 
  const searchInput = $('softSearch');
  const filterHost = $('softFilterTabs');
@@ -69,11 +74,11 @@ export function createSoftTissuePanel(callbacks) {
  }
  buildFilters();
 
- function renderClinicalImpact({ selectedBone, course, variant, level, motions }) {
+ async function renderClinicalImpact({ selectedBone, course, variant, level, motions }) {
   if (!impactBox) return;
-  const limb = isLimbBone(selectedBone);
-  const clinical = limb ? clinicalSoftTissueFor(course, variant, level, selectedBone) : null;
-  currentClinical = clinical;
+  const update = ++clinicalUpdate;
+  currentClinical = null;
+  const supported = isSoftTissueSupported(selectedBone);
 
   const panel = $('softTissuePanel');
   const noteEl = $('softScopeNote');
@@ -90,15 +95,29 @@ export function createSoftTissuePanel(callbacks) {
   }
 
   if (panel) panel.hidden = false;
-  if (stageBar) stageBar.hidden = !limb;
-  if (sevBox) sevBox.hidden = !(limb && course && variant >= 0);
+  if (stageBar) stageBar.hidden = !supported;
+  if (sevBox) sevBox.hidden = !(supported && course && variant >= 0);
   if (noteEl) {
-   noteEl.hidden = limb;
-   noteEl.textContent = limb ? '' : '当前软组织图谱专注四肢骨折与脱位相关肌肉、血管与神经；请选择上肢或下肢骨骼查看。';
+   noteEl.hidden = supported;
+   noteEl.textContent = supported ? '' : '此入口暂无软组织参照。';
   }
-  if (controlsWrap) controlsWrap.hidden = !limb;
+  if (controlsWrap) controlsWrap.hidden = !supported;
+  impactBox.hidden = true;
+  if (isAxialTissueCase(selectedBone, course?.id)) {
+   try { await loadAxialClinical(); }
+   catch {
+    if (update === clinicalUpdate && noteEl) {
+     noteEl.hidden = false;
+     noteEl.textContent = '病例软组织说明暂时无法加载。';
+    }
+    return;
+   }
+   if (update !== clinicalUpdate) return;
+  }
+  const clinical = supported ? clinicalSoftTissueFor(course, variant, level, selectedBone) : null;
+  currentClinical = clinical;
 
-  if (!limb || !clinical) {
+  if (!clinical) {
    impactBox.hidden = true;
    impactBox.replaceChildren();
    return;
@@ -112,15 +131,16 @@ export function createSoftTissuePanel(callbacks) {
   summary.textContent = clinical.summary;
   impactBox.append(summary);
 
-  if (clinical.deforming?.length) {
+  const muscles = [...(clinical.deforming || []), ...(clinical.adjacent || [])];
+  if (muscles.length) {
    const heading = document.createElement('h4');
    heading.className = 'soft-subhead';
-   heading.textContent = '牵拉与致畸肌群';
+   heading.textContent = clinical.axial ? '肌群牵拉与局部邻近' : '牵拉与致畸肌群';
    impactBox.append(heading);
 
    const ul = document.createElement('div');
    ul.className = 'impact-cards';
-   for (const item of clinical.deforming) {
+   for (const item of muscles) {
     const card = document.createElement('button');
     card.type = 'button';
     card.className = 'impact-card impact-muscle';
@@ -168,7 +188,7 @@ export function createSoftTissuePanel(callbacks) {
     mech.className = 'impact-action';
     mech.textContent = item.mechanism;
     const sign = document.createElement('small');
-    sign.textContent = '体征：' + item.sign;
+    sign.textContent = '观察：' + item.sign + (GRANULARITY[item.granularity] ? '（' + GRANULARITY[item.granularity] + '）' : '');
     card.append(top, mech, sign);
     card.onclick = () => callbacks.focusPattern?.(item.layer, item.pattern);
     ul.append(card);
@@ -176,7 +196,22 @@ export function createSoftTissuePanel(callbacks) {
    impactBox.append(ul);
   }
 
-  const dynamicNotes = displacementImpactNotes(motions, level, course);
+  for (const line of clinical.textOnly || []) {
+   const note = document.createElement('p');
+   note.className = 'soft-summary';
+   note.textContent = line;
+   impactBox.append(note);
+  }
+  if (clinical.source) {
+   const source = document.createElement('a');
+   source.href = clinical.source;
+   source.target = '_blank';
+   source.rel = 'noopener';
+   source.textContent = '临床参考资料';
+   impactBox.append(source);
+  }
+
+  const dynamicNotes = clinical.axial ? [] : displacementImpactNotes(motions, level, course);
   if (dynamicNotes.length) {
    const box = document.createElement('div');
    box.className = 'dynamic-impact';
@@ -224,16 +259,16 @@ export function createSoftTissuePanel(callbacks) {
 
   const note = document.createElement('p');
   note.className = 'sel-note';
-  note.textContent = item.info.note || '四肢解剖软组织结构。';
+  note.textContent = item.info.note || '解剖软组织结构。';
 
   detailBox.append(head, note);
 
-  if (item.role) {
+  for (const role of item.roles || (item.role ? [item.role] : [])) {
    const roleP = document.createElement('p');
    roleP.className = 'sel-role';
-   roleP.textContent = item.role.role === 'deforming'
-    ? `当前作用（${GROUP_TAG[item.role.group] || '牵拉'}）：${item.role.action}。${item.role.detail}`
-    : `当前风险（${item.role.severity === 'high' ? '高危' : '留意'}）：${item.role.mechanism}。体征：${item.role.sign}`;
+   roleP.textContent = role.role === 'risk'
+    ? `风险与观察（${role.severity === 'high' ? '高危' : '留意'}） ${role.mechanism} ${role.sign}`
+    : `${GROUP_TAG[role.group] || '牵拉'} · ${role.action} ${role.detail}`;
    detailBox.append(roleP);
   }
 
@@ -281,7 +316,7 @@ export function createSoftTissuePanel(callbacks) {
   const countEl = $('softStructureCount');
   if (countEl) {
    const shownNow = currentEntry.items.filter(it => it.mesh.visible).length;
-   countEl.textContent = `当前显示 ${shownNow} / 共建模 ${currentEntry.items.length} 项四肢软组织`;
+   countEl.textContent = `当前显示 ${shownNow} / 共建模 ${currentEntry.items.length} 项软组织`;
   }
 
   listHost.replaceChildren();
@@ -319,8 +354,8 @@ export function createSoftTissuePanel(callbacks) {
 
    if (it.role) {
     const tag = document.createElement('span');
-    tag.className = 'badge ' + (it.role.role === 'deforming' ? 'badge-pull' : it.role.severity === 'high' ? 'badge-high' : 'badge-med');
-    tag.textContent = it.role.role === 'deforming' ? '牵拉' : '高危';
+    tag.className = 'badge ' + (it.role.role === 'risk' ? it.role.severity === 'high' ? 'badge-high' : 'badge-med' : 'badge-pull');
+    tag.textContent = it.role.role === 'risk' ? it.role.severity === 'high' ? '高危' : '留意' : GROUP_TAG[it.role.group] || '牵拉';
     btn.append(tag);
    }
 

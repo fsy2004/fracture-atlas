@@ -1,4 +1,7 @@
-// Clinical soft-tissue biomechanics and neurovascular risk definitions for limb fractures & dislocations.
+import {textbookTissueProfile} from './textbook-tissues.js';
+import {isAxialTissueCase} from './soft-tissue-catalog.js?v=whole-body1';
+
+// Clinical soft-tissue biomechanics and neurovascular risk definitions.
 // Grounded in 《中医骨伤科学》（全国中医药行业高等教育“十四五”规划教材）Ch. 5, 6, 7.
 
 const m = (pattern, group, label, action, detail) => ({ pattern, layer: 'muscles', role: 'deforming', group, label, action, detail });
@@ -711,25 +714,36 @@ export function boneSoftTissueProfile(boneName) {
  return null;
 }
 
+let axialProfile;
+let pendingAxial;
+export function loadAxialClinical() {
+ return pendingAxial ??= import('./soft-tissue-axial-clinical.js?v=whole-body1')
+  .then(module => { axialProfile = module.axialProfile; })
+  .catch(error => { pendingAxial = null; throw error; });
+}
+
 export function clinicalSoftTissueFor(course, variantIndex = 0, level = 1, selectedBone = '') {
- if (!course || variantIndex < 0) return boneSoftTissueProfile(selectedBone);
+ const active = variantIndex >= 0 ? course?.variants?.[variantIndex] : null;
+ const specific=active&&textbookTissueProfile(course.id,active.id||'v'+String(variantIndex+1).padStart(2,'0'));
+ if(specific)return specific;
+ const bone = selectedBone || active?.cuts?.[0]?.bone || course?.sourceBone;
+ if (isAxialTissueCase(bone, course?.id) || course?.id === 'tmj-dislocation') {
+  return axialProfile?.(variantIndex >= 0 ? course : null, active?.id || 'v' + String(variantIndex + 1).padStart(2, '0'), bone) ?? null;
+ }
+ if (!course || variantIndex < 0) return boneSoftTissueProfile(bone);
  const key = course.family || course.id;
  const fn = CLINICAL_PROFILES[key];
  if (fn) return fn(variantIndex, level);
- return boneSoftTissueProfile(selectedBone);
+ return boneSoftTissueProfile(bone);
 }
 
-// Match an individual Z-Anatomy mesh node against the active clinical profile
+export function classifyNodeRoles(layer, rawName, profile) {
+ if (!profile) return [];
+ const items = layer === 'muscles'
+  ? [...(profile.deforming || []), ...(profile.risks || []), ...(profile.adjacent || [])] : profile.risks || [];
+ return items.filter(item => item.layer === layer && item.pattern.test(rawName));
+}
+
 export function classifyNodeRole(layer, rawName, profile) {
- if (!profile) return null;
- if (layer === 'muscles') {
-  const def = profile.deforming?.find(item => item.pattern.test(rawName));
-  if (def) return { role: 'deforming', ...def };
-  const risk = profile.risks?.find(item => item.layer === 'muscles' && item.pattern.test(rawName));
-  if (risk) return { role: 'risk', ...risk };
- } else {
-  const risk = profile.risks?.find(item => item.layer === layer && item.pattern.test(rawName));
-  if (risk) return { role: 'risk', ...risk };
- }
- return null;
+ return classifyNodeRoles(layer, rawName, profile)[0] || null;
 }

@@ -8,7 +8,7 @@
 //   fastest live mirror, with parallel top-2 racing on cold cache and
 //   cryptographic SHA-256 / byte-length verification.
 
-const CACHE_NAME = 'fracture-atlas-models-v2';
+const CACHE_NAME = 'fracture-atlas-models-v3';
 const STATS_KEY = 'atlas_mirror_stats_v2';
 const GITHUB_PAGES_ORIGIN = 'https://fsy2004.github.io';
 const CF_PAGES_ORIGIN = 'https://fracture-atlas-13k.pages.dev';
@@ -87,13 +87,14 @@ function cleanAssetPath(path) {
  return String(path || '').replace(/^\.\//, '').split('?')[0];
 }
 
-function cacheRequestKey(path, { sha256, bytes } = {}) {
- const tag = sha256 ? sha256.slice(0, 16) : bytes ? 'b' + bytes : 'v1';
- return `https://atlas-model-cache.local/${cleanAssetPath(path)}?v=${tag}`;
+function cacheRequestKey(path, { originURL = path, sha256, bytes } = {}) {
+ const tag = new URLSearchParams({origin: String(originURL), sha256: sha256 || '', bytes: String(bytes || 0)});
+ return `https://atlas-model-cache.local/${cleanAssetPath(path)}?${tag}`;
 }
 
+let loggedMissingCrypto = false;
 async function sha256Hex(buffer) {
- if (typeof crypto === 'undefined' || !crypto.subtle) return null;
+ if (!globalThis.crypto?.subtle) return null;
  const digest = await crypto.subtle.digest('SHA-256', buffer);
  return Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
 }
@@ -104,6 +105,10 @@ async function verifyBytes(buffer, { bytes, sha256 } = {}) {
  }
  if (sha256) {
   const actual = await sha256Hex(buffer);
+  if (!actual && !loggedMissingCrypto) {
+   loggedMissingCrypto = true;
+   console.warn('此环境无法进行模型 SHA-256 校验，仍会核对文件长度。');
+  }
   if (actual && actual !== sha256) {
    throw Error('模型校验和不一致');
   }
@@ -234,6 +239,7 @@ async function fetchFromSource(source, path, { originURL, bytes, sha256, signal,
   if (!response.ok) throw Error(`HTTP ${response.status}`);
   const buffer = await response.arrayBuffer();
   await verifyBytes(buffer, { bytes, sha256 });
+  ctrl.signal.throwIfAborted();
   const elapsed = (typeof performance !== 'undefined' ? performance.now() : Date.now()) - started;
   recordSuccess(source, elapsed, buffer.byteLength);
   return { buffer, source };
@@ -353,7 +359,9 @@ const inflight = new Map();
 export async function fetchVerifiedModel(path, options = {}) {
  const clean = cleanAssetPath(path);
  const cacheable = Boolean(options.sha256 || options.bytes) && options.useCache !== false;
- const cacheKey = cacheable ? cacheRequestKey(clean, options) : null;
+ const requestKey = cacheRequestKey(clean, {...options, originURL: options.originURL || path});
+ const cacheKey = cacheable ? requestKey : null;
+ options.signal?.throwIfAborted();
 
  if (cacheKey && !options.skipCache) {
   const cache = await openModelCache();
@@ -361,22 +369,25 @@ export async function fetchVerifiedModel(path, options = {}) {
    try {
     const hit = await cache.match(cacheKey);
     if (hit) {
-     const buf = await hit.arrayBuffer();
-     if (!options.bytes || buf.byteLength === options.bytes) {
-      lastWinner = { id: 'cache', label: '本地缓存秒开' };
-      return buf;
-     }
+     const buf = await verifyBytes(await hit.arrayBuffer(), options);
+     options.signal?.throwIfAborted();
+     lastWinner = { id: 'cache', label: '本地缓存' };
+     return buf;
     }
-   } catch {}
+   } catch {
+    options.signal?.throwIfAborted();
+    await cache.delete?.(cacheKey).catch(() => {});
+   }
   }
  }
 
- if (!options.signal && inflight.has(clean)) {
-  return inflight.get(clean);
+ options.signal?.throwIfAborted();
+ if (!options.signal && inflight.has(requestKey)) {
+  return inflight.get(requestKey);
  }
 
  const task = (async () => {
-  const buffer = await raceModelFetch(clean, options);
+  const buffer = await raceModelFetch(clean, {...options, originURL: options.originURL || path});
   if (cacheKey) {
    const cache = await openModelCache();
    if (cache) {
@@ -389,15 +400,16 @@ export async function fetchVerifiedModel(path, options = {}) {
  })();
 
  if (!options.signal) {
-  inflight.set(clean, task);
-  task.finally(() => inflight.delete(clean));
+  inflight.set(requestKey, task);
+  const remove = () => inflight.delete(requestKey);
+  task.then(remove, remove);
  }
  return task;
 }
 
 export function prefetchModel(path, options = {}) {
  if (typeof navigator !== 'undefined' && navigator.connection?.saveData) return;
- fetchVerifiedModel(path, { ...options, initialParallel: 1, hedgeMs: 1200 }).catch(() => {});
+ return fetchVerifiedModel(path, { ...options, initialParallel: 1, hedgeMs: 1200 }).catch(() => {});
 }
 
 export function resetMirrorStatsForTests() {

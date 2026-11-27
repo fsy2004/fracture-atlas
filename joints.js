@@ -1,3 +1,5 @@
+import {addTextbookJoints} from './textbook-joints.js';
+
 // Positions are in the male atlas (metres). Directions are anatomical XYZ.
 // A joint translates its complete moving group; both forearm bones stay together.
 function joint(id,name,region,bones,fixed,anchor,span,variants){
@@ -41,7 +43,7 @@ export const joints=[
  localJoint('pip-dislocation','指间关节脱位','上肢',['Middle phalanx of right index finger'],['Proximal phalanx of right index finger'],[.5,.88,.5],.067,[
   ['示指近指间背侧脱位',[1.9,-2.9,-7.7],'以近节指骨滑车为参照，观察中节基底向手背侧移出。'],
   ['示指近指间侧方脱位',[-6,1,0],'从掌面观察中节基底向桡侧错开，转至侧面与背移对照。']],['Distal phalanx of right index finger']),
- localJoint('knee-dislocation','胫股关节脱位','下肢',['Right tibia','Right fibula'],['Right femur'],[.49,.94,.54],.23,[
+ localJoint('knee-dislocation','膝关节脱位','下肢',['Right tibia','Right fibula'],['Right femur'],[.49,.94,.54],.23,[
   ['前脱位',[0,-3,40],'固定股骨髁，在侧面观察胫骨平台向前移出。'],
   ['后脱位',[0,-3,-40],'固定股骨髁，在侧面观察胫骨平台向后移出。'],
   ['外侧脱位',[-39,-3,0],'从正面看胫骨平台与股骨髁的内外侧边缘。'],
@@ -59,7 +61,7 @@ export const joints=[
 // Intermediate translations are teaching poses relative to the healthy bone, in millimetres.
 // Separate diagnoses compared by which carpal articulation loses congruity (AO wrist).
 const carpal=joints.find(c=>c.id==='lunate-dislocation');
-carpal.name='腕骨脱位';carpal.variants[0].name='月骨掌侧脱位（转位伴掌移）';carpal.system='按失去对合的关节';
+carpal.variants[0].name='Ⅲ型（掌旋90°并掌移）';carpal.system='按失去对合的关节';
 carpal.variants.push({
  name:'月骨周围背侧脱位',source:'AO 月头关节脱位 · 补充鉴别',cause:'本例保留桡月对位。头状骨从月骨远侧凹面向背侧移出。',
  observe:'在侧面跟踪桡骨月骨窝、月骨与头状骨。比较桡月和月头两处对位。',
@@ -76,3 +78,5 @@ const routes={
  'toe-ip-dislocation':{0:[[-.5,-.4,1.9]]}
 };
 for(const c of joints)for(const [i,v] of c.variants.entries())v.waypoints=routes[c.id]?.[i];
+
+addTextbookJoints(joints);

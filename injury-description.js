@@ -20,6 +20,13 @@ const articular={
 };
 function lineOf(course,index){
  const v=course.variants[index];
+ const authored=v.cuts[0];
+ if(v.linton)return '冠状面Linton角约'+v.linton+'°';
+ if(authored.physis)return ['','经骺板分离','骺板与干骺端','关节面至骺板','骨骺、骺板与干骺端','骺板压缩','骺板周缘缺损'][authored.physis.type];
+ if(authored.bend)return '不完全断线与连续侧皮质';
+ if(authored.star)return '自前方中心放射的裂线';
+ if(authored.helix)return '沿骨干绕行的螺旋断线';
+ if(authored.secondLevel!=null)return '同一肋骨两处断线';
  if(v.depression)return v.cuts.length===1&&v.cuts[0].pit?'关节面局部压陷':'关节面劈裂伴压陷';
  if(v.cuts.some(c=>c.wedge==='anterior'))return '椎体前缘楔变';
  if(v.cuts.some(c=>c.wedge==='lateral'))return '椎体偏侧楔变';

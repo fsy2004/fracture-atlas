@@ -197,8 +197,28 @@ try{
   await page.locator('#viewport[data-soft-mode="linked"]').waitFor({timeout:85000});
   await page.locator('#end').click();
   assert.ok(Number(await page.locator('#viewport').getAttribute('data-soft-displacement'))>.005);
-  await page.goto(base+'#spine/v01/1?at=0');await ready(page);
-  assert.equal(await page.locator('#softBar').isVisible(),false);
+  const axial=await viewport({viewport:{width:1360,height:850}});
+  const softRequests=[];
+  axial.on('request',request=>{if(/\/models\/soft-tissue\/.*\.glb/.test(request.url()))softRequests.push(request.url());});
+  await axial.goto(base+'#skeleton');await ready(axial);
+  assert.deepEqual(softRequests,[]);
+  for(const [route,layer,name] of [
+   ['region-rib-1/v01/1','softNerves','右肋间神经组'],
+   ['region-body-c5/v02/1','softNerves','右脊神经后根组'],
+   ['region-parietal/v02/1','softVessels','上矢状窦'],
+   ['tmj-dislocation/v01/1','softMuscles','左翼内肌']
+  ]){
+   const requestCount=softRequests.length;
+   await axial.goto(base+'#'+route+'?at=0');await ready(axial);
+   await axial.locator('#softBar').waitFor();
+   assert.equal(softRequests.length,requestCount);
+   if(!await axial.locator('#softTissuePanel').evaluate(panel=>panel.open))await axial.locator('#softTissuePanel summary').click();
+   await axial.locator('#'+layer).check();
+   await axial.locator('#viewport[data-soft-layers][data-soft-mode]').waitFor({timeout:85000});
+   assert.match(await axial.locator('#softStructureList').textContent(),new RegExp(name));
+   assert.notEqual(await axial.locator('#viewport').getAttribute('data-soft-mode'),'linked');
+   await axial.locator('#softReturn').click();
+  }
  }
  assert.deepEqual(errors,[]);console.log('Desktop and touch selection, rotation and shared orientation, playback, unified anatomy index, sidebar exam points, reference readouts and frame capture passed.');
 }finally{await browser.close();}

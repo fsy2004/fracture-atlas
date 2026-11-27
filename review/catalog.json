@@ -2,7 +2,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "胫腓骨干 中 1/3",
+      "site": "胫腓骨干骨折 中 1/3",
       "form": "横断骨折线",
       "motion": "从正面观察，两根骨的骨折线位于同一高度；侧转模型可见断端成角。"
     },
@@ -11,7 +11,7 @@
     "route": "#tibia/v01/1",
     "legacyRoute": "#tibia/0/1",
     "scope": "教材分型示例",
-    "site": "胫腓骨干",
+    "site": "胫腓骨干骨折",
     "pattern": "直接暴力",
     "reference": "第三节 · 八｜图 6-85 · PDF 412–413 页",
     "affected": [
@@ -24,7 +24,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "胫腓骨干 中 1/3",
+      "site": "胫腓骨干骨折 中 1/3",
       "form": "螺旋形骨折线",
       "motion": "先看胫骨内侧低、外侧高的斜线，再转向后侧找纵裂。此例腓骨断面较高。"
     },
@@ -33,7 +33,7 @@
     "route": "#tibia/v02/1",
     "legacyRoute": "#tibia/1/1",
     "scope": "教材分型示例",
-    "site": "胫腓骨干",
+    "site": "胫腓骨干骨折",
     "pattern": "间接暴力",
     "reference": "第三节 · 八｜图 6-85 · PDF 412–413 页",
     "affected": [
@@ -44,9 +44,51 @@
     "observation": "先看胫骨内侧低、外侧高的斜线，再转向后侧找纵裂。此例腓骨断面较高。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "胫腓骨干骨折 中 1/3",
+      "form": "不完全断线与连续侧皮质",
+      "motion": "观察局部成角与凸侧裂线，并以保持完整的腓骨比较小腿力线。"
+    },
+    "cardReference": "第六章 · 第三节｜八｜图 6-85 · PDF 412–414 页",
+    "cardScope": "教材部位要点",
+    "route": "#tibia/v03/1",
+    "legacyRoute": "#tibia/2/1",
+    "scope": "教材儿童解剖示意",
+    "site": "胫腓骨干骨折",
+    "pattern": "儿童青枝骨折",
+    "reference": "第六章 · 第三节｜八｜图 6-85 · PDF 412–414 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "观察局部成角与凸侧裂线，并以保持完整的腓骨比较小腿力线。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "胫腓骨干骨折 中 1/3",
+      "form": "局部裂线",
+      "motion": "观察是否仅局限在一面皮质，同时与有弯曲和铰链的青枝骨折对照。"
+    },
+    "cardReference": "第六章 · 第三节｜八｜图 6-85 · PDF 412–414 页",
+    "cardScope": "教材部位要点",
+    "route": "#tibia/v04/1",
+    "legacyRoute": "#tibia/3/1",
+    "scope": "教材分型示例",
+    "site": "胫腓骨干骨折",
+    "pattern": "裂纹骨折",
+    "reference": "第六章 · 第三节｜八｜图 6-85 · PDF 412–414 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "观察是否仅局限在一面皮质，同时与有弯曲和铰链的青枝骨折对照。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "股骨干",
+      "site": "股骨干骨折",
       "form": "横断骨折线",
       "motion": "近段屈曲、外展和外旋，远段向内、向上并向后移位。"
     },
@@ -55,7 +97,7 @@
     "route": "#femur/v01/1",
     "legacyRoute": "#femur/0/1",
     "scope": "教材分型示例",
-    "site": "股骨干",
+    "site": "股骨干骨折",
     "pattern": "上 1/3",
     "reference": "第三节 · 三｜图 6-73 · PDF 394–395 页",
     "affected": [
@@ -67,7 +109,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "股骨干",
+      "site": "股骨干骨折",
       "form": "横断骨折线",
       "motion": "比较两侧断端，远段向内上，近段有屈曲外展倾向。"
     },
@@ -76,7 +118,7 @@
     "route": "#femur/v02/1",
     "legacyRoute": "#femur/1/1",
     "scope": "教材分型示例",
-    "site": "股骨干",
+    "site": "股骨干骨折",
     "pattern": "中 1/3",
     "reference": "第三节 · 三｜图 6-73 · PDF 394–395 页",
     "affected": [
@@ -88,7 +130,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "股骨干",
+      "site": "股骨干骨折",
       "form": "短斜形骨折线",
       "motion": "转至侧面，观察远段向后方移动。"
     },
@@ -97,7 +139,7 @@
     "route": "#femur/v03/1",
     "legacyRoute": "#femur/2/1",
     "scope": "教材分型示例",
-    "site": "股骨干",
+    "site": "股骨干骨折",
     "pattern": "下 1/3",
     "reference": "第三节 · 三｜图 6-73 · PDF 394–395 页",
     "affected": [
@@ -107,20 +149,41 @@
     "observation": "转至侧面，观察远段向后方移动。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "股骨干骨折",
+      "form": "不完全断线与连续侧皮质",
+      "motion": "比较伤前与终帧骨轴，观察中段均匀成角及凸侧不贯穿的裂线。"
+    },
+    "cardReference": "第六章 · 第三节｜三｜图 6-73 · PDF 394–395 页",
+    "cardScope": "教材部位要点",
+    "route": "#femur/v04/1",
+    "legacyRoute": "#femur/3/1",
+    "scope": "教材儿童解剖示意",
+    "site": "股骨干骨折",
+    "pattern": "儿童青枝骨折",
+    "reference": "第六章 · 第三节｜三｜图 6-73 · PDF 394–395 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "比较伤前与终帧骨轴，观察中段均匀成角及凸侧不贯穿的裂线。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "股骨颈",
+      "site": "股骨颈骨折",
       "form": "斜向断面的教学例",
       "motion": "股骨头留在髋臼内；观察骨干端短缩、外旋及两端成角。"
     },
-    "cardReference": "第六章 第三节 下肢骨折 · 股骨颈骨折",
+    "cardReference": "第三节 · 一｜图 6-66 · PDF 386 页",
     "cardScope": "教材部位要点",
     "route": "#neck/v01/1",
     "legacyRoute": "#neck/0/1",
     "scope": "教材分型示例",
-    "site": "股骨颈",
+    "site": "股骨颈骨折",
     "pattern": "头下部骨折",
-    "reference": "第三节 · 一｜图 6-66 · PDF 383 页",
+    "reference": "第三节 · 一｜图 6-66 · PDF 386 页",
     "affected": [
       "Right femur"
     ],
@@ -130,18 +193,18 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "股骨颈",
+      "site": "股骨颈骨折",
       "form": "斜向断面的教学例",
       "motion": "颈中断面两侧失去对线；旋转视角观察远段上移与外旋。"
     },
-    "cardReference": "第六章 第三节 下肢骨折 · 股骨颈骨折",
+    "cardReference": "第三节 · 一｜图 6-66 · PDF 386 页",
     "cardScope": "教材部位要点",
     "route": "#neck/v02/1",
     "legacyRoute": "#neck/1/1",
     "scope": "教材分型示例",
-    "site": "股骨颈",
+    "site": "股骨颈骨折",
     "pattern": "颈中部骨折",
-    "reference": "第三节 · 一｜图 6-66 · PDF 383 页",
+    "reference": "第三节 · 一｜图 6-66 · PDF 386 页",
     "affected": [
       "Right femur"
     ],
@@ -151,18 +214,18 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "股骨颈",
+      "site": "股骨颈骨折",
       "form": "斜向断面的教学例",
       "motion": "断面接近转子区。本例选择较小的短缩和外旋。"
     },
-    "cardReference": "第六章 第三节 下肢骨折 · 股骨颈骨折",
+    "cardReference": "第三节 · 一｜图 6-66 · PDF 386 页",
     "cardScope": "教材部位要点",
     "route": "#neck/v03/1",
     "legacyRoute": "#neck/2/1",
     "scope": "教材分型示例",
-    "site": "股骨颈",
+    "site": "股骨颈骨折",
     "pattern": "基底部骨折",
-    "reference": "第三节 · 一｜图 6-66 · PDF 383 页",
+    "reference": "第三节 · 一｜图 6-66 · PDF 386 页",
     "affected": [
       "Right femur"
     ],
@@ -170,9 +233,135 @@
     "observation": "断面接近转子区。本例选择较小的短缩和外旋。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "股骨颈骨折",
+      "form": "冠状面Linton角约25°",
+      "motion": "冠状方向观察头下较平缓的断线及嵌插，股骨头仍以髋臼为参照。"
+    },
+    "cardReference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "cardScope": "教材部位要点",
+    "route": "#neck/v04/1",
+    "legacyRoute": "#neck/3/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈骨折",
+    "pattern": "外展型",
+    "reference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "冠状方向观察头下较平缓的断线及嵌插，股骨头仍以髋臼为参照。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "股骨颈骨折",
+      "form": "冠状面Linton角约45°",
+      "motion": "Linton角大于70°时剪力更显著。按冠状面水平参考线量角，并辨认易移位的近垂直断线。"
+    },
+    "cardReference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "cardScope": "教材部位要点",
+    "route": "#neck/v05/1",
+    "legacyRoute": "#neck/4/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈骨折",
+    "pattern": "内收型",
+    "reference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "Linton角大于70°时剪力更显著。按冠状面水平参考线量角，并辨认易移位的近垂直断线。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "股骨颈骨折",
+      "form": "不完全断线与连续侧皮质",
+      "motion": "观察皮质连续侧、相对轻微成角和短裂线。"
+    },
+    "cardReference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "cardScope": "教材部位要点",
+    "route": "#neck/v06/1",
+    "legacyRoute": "#neck/5/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈骨折",
+    "pattern": "Garden Ⅰ型",
+    "reference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "观察皮质连续侧、相对轻微成角和短裂线。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "股骨颈骨折",
+      "form": "斜向断面的教学例",
+      "motion": "用断缘显示辨认贯穿断线，与Ⅰ型仍保留连续骨桥相鉴别。"
+    },
+    "cardReference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "cardScope": "教材部位要点",
+    "route": "#neck/v07/1",
+    "legacyRoute": "#neck/6/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈骨折",
+    "pattern": "Garden Ⅱ型",
+    "reference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "用断缘显示辨认贯穿断线，与Ⅰ型仍保留连续骨桥相鉴别。"
+  },
+  {
+    "variantId": "v08",
+    "description": {
+      "site": "股骨颈骨折",
+      "form": "斜向断面的教学例",
+      "motion": "比较股骨头与股骨颈的相对方向和断面对合，髋臼中的股骨头可有倾斜。"
+    },
+    "cardReference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "cardScope": "教材部位要点",
+    "route": "#neck/v08/1",
+    "legacyRoute": "#neck/7/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈骨折",
+    "pattern": "Garden Ⅲ型",
+    "reference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "比较股骨头与股骨颈的相对方向和断面对合，髋臼中的股骨头可有倾斜。"
+  },
+  {
+    "variantId": "v09",
+    "description": {
+      "site": "股骨颈骨折",
+      "form": "斜向断面的教学例",
+      "motion": "从正斜位看骨干侧完全脱离股骨头颈断面，而股骨头仍可在髋臼内。"
+    },
+    "cardReference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "cardScope": "教材部位要点",
+    "route": "#neck/v09/1",
+    "legacyRoute": "#neck/8/1",
+    "scope": "教材分型示例",
+    "site": "股骨颈骨折",
+    "pattern": "Garden Ⅳ型",
+    "reference": "第六章 · 第三节｜一｜图 6-66 至 6-68 · PDF 383–387 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "从正斜位看骨干侧完全脱离股骨头颈断面，而股骨头仍可在髋臼内。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "髌骨",
+      "site": "髌骨骨折",
       "form": "横形骨折线",
       "motion": "上下两块分离，观察近端向上牵移。"
     },
@@ -181,7 +370,7 @@
     "route": "#patella/v01/1",
     "legacyRoute": "#patella/0/1",
     "scope": "教材分型示例",
-    "site": "髌骨",
+    "site": "髌骨骨折",
     "pattern": "横形骨折",
     "reference": "第三节 · 六｜病因病机 · PDF 406–407 页",
     "affected": [
@@ -193,7 +382,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "髌骨",
+      "site": "髌骨骨折",
       "form": "多骨块断面",
       "motion": "从前面观察相交的骨折线。此例示意多块形态，保留较小的块间移位。"
     },
@@ -202,7 +391,7 @@
     "route": "#patella/v02/1",
     "legacyRoute": "#patella/1/1",
     "scope": "教材分型示例",
-    "site": "髌骨",
+    "site": "髌骨骨折",
     "pattern": "粉碎性骨折",
     "reference": "第三节 · 六｜病因病机 · PDF 406–407 页",
     "affected": [
@@ -212,9 +401,51 @@
     "observation": "从前面观察相交的骨折线。此例示意多块形态，保留较小的块间移位。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "髌骨骨折",
+      "form": "局部裂线",
+      "motion": "辨认未分离的上下极与伸膝装置，区别明显间隙的横形骨折。"
+    },
+    "cardReference": "第六章 · 第三节｜六｜PDF 406–407 页",
+    "cardScope": "教材部位要点",
+    "route": "#patella/v03/1",
+    "legacyRoute": "#patella/2/1",
+    "scope": "教材分型示例",
+    "site": "髌骨骨折",
+    "pattern": "裂纹骨折",
+    "reference": "第六章 · 第三节｜六｜PDF 406–407 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [],
+    "observation": "辨认未分离的上下极与伸膝装置，区别明显间隙的横形骨折。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "髌骨骨折",
+      "form": "自前方中心放射的裂线",
+      "motion": "正面看共同起点及放射线，侧位核对伸膝装置和关节面是否仍基本对位。"
+    },
+    "cardReference": "第六章 · 第三节｜六｜PDF 406–407 页",
+    "cardScope": "教材部位要点",
+    "route": "#patella/v04/1",
+    "legacyRoute": "#patella/3/1",
+    "scope": "教材分型示例",
+    "site": "髌骨骨折",
+    "pattern": "星状骨折",
+    "reference": "第六章 · 第三节｜六｜PDF 406–407 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [],
+    "observation": "正面看共同起点及放射线，侧位核对伸膝装置和关节面是否仍基本对位。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "踝部",
+      "site": "踝部骨折",
       "form": "多处骨折线",
       "motion": "内踝斜断，外踝呈横形。"
     },
@@ -223,7 +454,7 @@
     "route": "#ankle/v01/1",
     "legacyRoute": "#ankle/0/1",
     "scope": "教材分型示例",
-    "site": "踝部",
+    "site": "踝部骨折",
     "pattern": "内翻损伤",
     "reference": "第三节 · 九｜图 6-89、6-90 · PDF 420–421 页",
     "affected": [
@@ -236,7 +467,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "踝部",
+      "site": "踝部骨折",
       "form": "多处骨折线",
       "motion": "内踝横断，外踝呈斜形。"
     },
@@ -245,7 +476,7 @@
     "route": "#ankle/v02/1",
     "legacyRoute": "#ankle/1/1",
     "scope": "教材分型示例",
-    "site": "踝部",
+    "site": "踝部骨折",
     "pattern": "外翻损伤",
     "reference": "第三节 · 九｜图 6-89、6-90 · PDF 420–421 页",
     "affected": [
@@ -256,20 +487,190 @@
     "observation": "内踝横断，外踝呈斜形。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "踝部骨折",
+      "form": "斜向断面的教学例",
+      "motion": "俯视比较足长轴与踝穴方向，观察外踝短斜断线及下胫腓关节间距。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v03/1",
+    "legacyRoute": "#ankle/2/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "外旋损伤",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "俯视比较足长轴与踝穴方向，观察外踝短斜断线及下胫腓关节间距。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "踝部骨折",
+      "form": "骨面局部凹陷",
+      "motion": "正位核对距骨向上的平移，再沿踝穴看负重面的局部高度变化。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v04/1",
+    "legacyRoute": "#ankle/3/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "纵向挤压损伤",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "正位核对距骨向上的平移，再沿踝穴看负重面的局部高度变化。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "踝部骨折",
+      "form": "斜向断面的教学例",
+      "motion": "正面辨认距骨内移与外踝骨片，侧位比较前后方向保持程度。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v05/1",
+    "legacyRoute": "#ankle/4/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "侧方挤压损伤",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "正面辨认距骨内移与外踝骨片，侧位比较前后方向保持程度。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "踝部骨折",
+      "form": "斜向断面的教学例",
+      "motion": "侧面沿足长轴辨别跖屈，并在胫骨后缘定位相应骨折线。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v06/1",
+    "legacyRoute": "#ankle/5/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "跖屈损伤",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "侧面沿足长轴辨别跖屈，并在胫骨后缘定位相应骨折线。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "踝部骨折",
+      "form": "斜向断面的教学例",
+      "motion": "在侧面比较前缘断线及足背靠近胫骨的角度，与跖屈后缘例对照。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v07/1",
+    "legacyRoute": "#ankle/6/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "背伸损伤",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "在侧面比较前缘断线及足背靠近胫骨的角度，与跖屈后缘例对照。"
+  },
+  {
+    "variantId": "v08",
+    "description": {
+      "site": "踝部骨折",
+      "form": "斜向断面的教学例",
+      "motion": "核对距骨仍位于踝穴，判读时分别评价骨折数量与关节对位。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v08/1",
+    "legacyRoute": "#ankle/7/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "Ⅰ度（单踝）",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "核对距骨仍位于踝穴，判读时分别评价骨折数量与关节对位。"
+  },
+  {
+    "variantId": "v09",
+    "description": {
+      "site": "踝部骨折",
+      "form": "多处骨折线",
+      "motion": "在正位辨认距骨滑车的侧移与踝穴不对称，后缘无独立骨折片。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v09/1",
+    "legacyRoute": "#ankle/8/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "Ⅱ度（双踝伴轻度脱位）",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "在正位辨认距骨滑车的侧移与踝穴不对称，后缘无独立骨折片。"
+  },
+  {
+    "variantId": "v10",
+    "description": {
+      "site": "踝部骨折",
+      "form": "相交断线与骨片",
+      "motion": "侧位辨认后踝骨片和距骨位置，正位核对两踝断线及距骨侧方错移。"
+    },
+    "cardReference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "cardScope": "教材部位要点",
+    "route": "#ankle/v10/1",
+    "legacyRoute": "#ankle/9/1",
+    "scope": "教材分型示例",
+    "site": "踝部骨折",
+    "pattern": "Ⅲ度（三踝伴脱位）",
+    "reference": "第六章 · 第三节｜九｜图 6-89 至 6-91 · PDF 419–422 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [],
+    "observation": "侧位辨认后踝骨片和距骨位置，正位核对两踝断线及距骨侧方错移。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "跖骨",
+      "site": "跖骨骨折",
       "form": "横形骨折线",
       "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
     },
-    "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折",
+    "cardReference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "cardScope": "教材部位要点",
     "route": "#metatarsal/v01/1",
     "legacyRoute": "#metatarsal/0/1",
     "scope": "教材分型示例",
-    "site": "跖骨",
+    "site": "跖骨骨折",
     "pattern": "横断骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right second metatarsal bone"
     ],
@@ -279,18 +680,18 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "跖骨",
+      "site": "跖骨骨折",
       "form": "斜形骨折线",
       "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
     },
-    "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折",
+    "cardReference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "cardScope": "教材部位要点",
     "route": "#metatarsal/v02/1",
     "legacyRoute": "#metatarsal/1/1",
     "scope": "教材分型示例",
-    "site": "跖骨",
+    "site": "跖骨骨折",
     "pattern": "斜形骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right second metatarsal bone"
     ],
@@ -300,18 +701,18 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "跖骨",
+      "site": "跖骨骨折",
       "form": "多骨块断面",
       "motion": "转至足背方向观察骨折线。邻骨支持可限制移位。"
     },
-    "cardReference": "第六章 第三节 下肢骨折 · 跖骨骨折",
+    "cardReference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "cardScope": "教材部位要点",
     "route": "#metatarsal/v03/1",
     "legacyRoute": "#metatarsal/2/1",
     "scope": "教材分型示例",
-    "site": "跖骨",
+    "site": "跖骨骨折",
     "pattern": "粉碎性骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right second metatarsal bone"
     ],
@@ -319,9 +720,30 @@
     "observation": "转至足背方向观察骨折线。邻骨支持可限制移位。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "跖骨骨折",
+      "form": "局部裂线",
+      "motion": "在骨头近侧找细裂线，与急性骨干完全断裂的部位及断端移位鉴别。"
+    },
+    "cardReference": "第六章 · 第三节｜十二｜图 6-100 · PDF 434–436 页",
+    "cardScope": "教材部位要点",
+    "route": "#metatarsal/v04/1",
+    "legacyRoute": "#metatarsal/3/1",
+    "scope": "教材分型示例",
+    "site": "跖骨骨折",
+    "pattern": "第2跖骨颈疲劳骨折",
+    "reference": "第六章 · 第三节｜十二｜图 6-100 · PDF 434–436 页",
+    "affected": [
+      "Right second metatarsal bone"
+    ],
+    "fixed": [],
+    "observation": "在骨头近侧找细裂线，与急性骨干完全断裂的部位及断端移位鉴别。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "锁骨",
+      "site": "锁骨骨折",
       "form": "短斜形骨折线",
       "motion": "观察骨折线与锁骨两端的距离，此例只示意该位置的小幅分离。"
     },
@@ -330,7 +752,7 @@
     "route": "#clavicle/v01/1",
     "legacyRoute": "#clavicle/0/1",
     "scope": "教材分型示例",
-    "site": "锁骨",
+    "site": "锁骨骨折",
     "pattern": "内 1/3",
     "reference": "第二节 · 一｜图 6-15 · PDF 312–313 页",
     "affected": [
@@ -342,7 +764,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "锁骨",
+      "site": "锁骨骨折",
       "form": "短斜形骨折线",
       "motion": "胸锁乳突肌牵拉内侧段向后上方；上肢重量与三角肌作用使外侧段向前下方。"
     },
@@ -351,7 +773,7 @@
     "route": "#clavicle/v02/1",
     "legacyRoute": "#clavicle/1/1",
     "scope": "教材分型示例",
-    "site": "锁骨",
+    "site": "锁骨骨折",
     "pattern": "中 1/3",
     "reference": "第二节 · 一｜图 6-15 · PDF 312–313 页",
     "affected": [
@@ -363,7 +785,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "锁骨",
+      "site": "锁骨骨折",
       "form": "短斜形骨折线",
       "motion": "观察骨折线与锁骨两端的距离，此例只示意该位置的小幅分离。"
     },
@@ -372,7 +794,7 @@
     "route": "#clavicle/v03/1",
     "legacyRoute": "#clavicle/2/1",
     "scope": "教材分型示例",
-    "site": "锁骨",
+    "site": "锁骨骨折",
     "pattern": "外 1/3",
     "reference": "第二节 · 一｜图 6-15 · PDF 312–313 页",
     "affected": [
@@ -382,9 +804,30 @@
     "observation": "观察骨折线与锁骨两端的距离，此例只示意该位置的小幅分离。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "锁骨骨折",
+      "form": "不完全断线与连续侧皮质",
+      "motion": "观察向上成角及凸侧局部裂线，沿凹侧可追踪相连的骨面。"
+    },
+    "cardReference": "第六章 · 第二节｜一｜PDF 311–313 页",
+    "cardScope": "教材部位要点",
+    "route": "#clavicle/v04/1",
+    "legacyRoute": "#clavicle/3/1",
+    "scope": "教材儿童解剖示意",
+    "site": "锁骨骨折",
+    "pattern": "儿童青枝骨折",
+    "reference": "第六章 · 第二节｜一｜PDF 311–313 页",
+    "affected": [
+      "Right clavicle"
+    ],
+    "fixed": [],
+    "observation": "观察向上成角及凸侧局部裂线，沿凹侧可追踪相连的骨面。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "肱骨干",
+      "site": "肱骨干骨折",
       "form": "横断骨折线",
       "motion": "近端向前内侧，远端向外上方。"
     },
@@ -393,7 +836,7 @@
     "route": "#humerus/v01/1",
     "legacyRoute": "#humerus/0/1",
     "scope": "教材分型示例",
-    "site": "肱骨干",
+    "site": "肱骨干骨折",
     "pattern": "上 1/3",
     "reference": "第二节 · 三｜图 6-21 · PDF 321–322 页",
     "affected": [
@@ -405,7 +848,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "肱骨干",
+      "site": "肱骨干骨折",
       "form": "横断骨折线",
       "motion": "近端向前外侧，远端上移并发生重叠。"
     },
@@ -414,7 +857,7 @@
     "route": "#humerus/v02/1",
     "legacyRoute": "#humerus/1/1",
     "scope": "教材分型示例",
-    "site": "肱骨干",
+    "site": "肱骨干骨折",
     "pattern": "中 1/3",
     "reference": "第二节 · 三｜图 6-21 · PDF 321–322 页",
     "affected": [
@@ -426,7 +869,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "肱骨干",
+      "site": "肱骨干骨折",
       "form": "斜形骨折线",
       "motion": "观察远段内旋及成角。具体移位随肘与前臂姿势而变。"
     },
@@ -435,7 +878,7 @@
     "route": "#humerus/v03/1",
     "legacyRoute": "#humerus/2/1",
     "scope": "教材分型示例",
-    "site": "肱骨干",
+    "site": "肱骨干骨折",
     "pattern": "下 1/3",
     "reference": "第二节 · 三｜图 6-21 · PDF 321–322 页",
     "affected": [
@@ -447,18 +890,18 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "桡骨远端",
+      "site": "桡骨远端骨折",
       "form": "横向断面的教学例",
       "motion": "远端骨块向背侧及桡侧移动，侧位可见背倾。"
     },
-    "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
+    "cardReference": "第二节 · 十三｜图 6-48／49 · PDF 363／364 页",
     "cardScope": "教材部位要点",
     "route": "#radius/v01/1",
     "legacyRoute": "#radius/0/1",
     "scope": "教材分型示例",
-    "site": "桡骨远端",
+    "site": "桡骨远端骨折",
     "pattern": "伸直型",
-    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "reference": "第二节 · 十三｜图 6-47／48／49 · PDF 361／363／364 页",
     "affected": [
       "Right radius"
     ],
@@ -468,18 +911,18 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "桡骨远端",
+      "site": "桡骨远端骨折",
       "form": "横向断面的教学例",
       "motion": "与伸直型对照，远端骨块向掌侧及桡侧移动。"
     },
-    "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
+    "cardReference": "第二节 · 十三｜病因病机 · PDF 361–362 页",
     "cardScope": "教材部位要点",
     "route": "#radius/v02/1",
     "legacyRoute": "#radius/1/1",
     "scope": "教材分型示例",
-    "site": "桡骨远端",
+    "site": "桡骨远端骨折",
     "pattern": "屈曲型",
-    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "reference": "第二节 · 十三｜图 6-47／48／49 · PDF 361／363／364 页",
     "affected": [
       "Right radius"
     ],
@@ -489,18 +932,18 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "桡骨远端",
+      "site": "桡骨远端骨折",
       "form": "背侧关节缘劈裂，断线进入桡腕关节面",
       "motion": "关节缘楔形骨块及腕骨向背侧移位。"
     },
-    "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
+    "cardReference": "第二节 · 十三｜背侧缘型 · PDF 361–362 页",
     "cardScope": "教材部位要点",
     "route": "#radius/v03/1",
     "legacyRoute": "#radius/2/1",
     "scope": "教材分型示例",
-    "site": "桡骨远端",
+    "site": "桡骨远端骨折",
     "pattern": "背侧缘型",
-    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "reference": "第二节 · 十三｜图 6-47／48／49 · PDF 361／363／364 页",
     "affected": [
       "Right radius"
     ],
@@ -510,18 +953,18 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "桡骨远端",
+      "site": "桡骨远端骨折",
       "form": "掌侧关节缘劈裂，断线进入桡腕关节面",
       "motion": "掌侧缘受到劈裂，腕骨随骨块向掌侧移动。"
     },
-    "cardReference": "第六章 第二节 上肢骨折 · 桡骨远端骨折",
+    "cardReference": "第二节 · 十三｜掌侧缘型 · PDF 361–362 页",
     "cardScope": "教材部位要点",
     "route": "#radius/v04/1",
     "legacyRoute": "#radius/3/1",
     "scope": "教材分型示例",
-    "site": "桡骨远端",
+    "site": "桡骨远端骨折",
     "pattern": "掌侧缘型",
-    "reference": "第二节 · 十三｜图 6-47 至 6-49 · PDF 361–363 页",
+    "reference": "第二节 · 十三｜图 6-47／48／49 · PDF 361／363／364 页",
     "affected": [
       "Right radius"
     ],
@@ -529,9 +972,30 @@
     "observation": "掌侧缘受到劈裂，腕骨随骨块向掌侧移动。"
   },
   {
+    "variantId": "v05",
+    "description": {
+      "site": "桡骨远端骨折",
+      "form": "断端嵌插",
+      "motion": "在侧面比较伤前和终帧，辨认短距离轴向嵌插与典型伸直型的背移背倾。"
+    },
+    "cardReference": "第六章 · 第二节｜十三｜图 6-47 · PDF 361 页",
+    "cardScope": "教材部位要点",
+    "route": "#radius/v05/1",
+    "legacyRoute": "#radius/4/1",
+    "scope": "教材分型示例",
+    "site": "桡骨远端骨折",
+    "pattern": "伸直型（轻度嵌插无明显移位）",
+    "reference": "第六章 · 第二节｜十三｜图 6-47 · PDF 361 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "在侧面比较伤前和终帧，辨认短距离轴向嵌插与典型伸直型的背移背倾。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "尺桡骨干",
+      "site": "尺桡骨干双骨折",
       "form": "横断骨折线",
       "motion": "在相近水平追踪两条横断线，再观察远侧骨段的侧移和成角。"
     },
@@ -540,7 +1004,7 @@
     "route": "#forearm/v01/1",
     "legacyRoute": "#forearm/0/1",
     "scope": "教材分型示例",
-    "site": "尺桡骨干",
+    "site": "尺桡骨干双骨折",
     "pattern": "直接暴力",
     "reference": "第二节 · 十｜图 6-38",
     "affected": [
@@ -553,7 +1017,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "尺桡骨干",
+      "site": "尺桡骨干双骨折",
       "form": "斜形骨折线",
       "motion": "比较两骨骨折线的高度与倾斜方向。"
     },
@@ -562,8 +1026,8 @@
     "route": "#forearm/v02/1",
     "legacyRoute": "#forearm/1/1",
     "scope": "教材分型示例",
-    "site": "尺桡骨干",
-    "pattern": "传达暴力",
+    "site": "尺桡骨干双骨折",
+    "pattern": "间接暴力（传达型）",
     "reference": "第二节 · 十｜图 6-38",
     "affected": [
       "Right radius",
@@ -575,7 +1039,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "尺桡骨干",
+      "site": "尺桡骨干双骨折",
       "form": "斜形骨折线",
       "motion": "此例呈斜形骨折，拖动观察两段相对旋转。"
     },
@@ -584,7 +1048,7 @@
     "route": "#forearm/v03/1",
     "legacyRoute": "#forearm/2/1",
     "scope": "教材分型示例",
-    "site": "尺桡骨干",
+    "site": "尺桡骨干双骨折",
     "pattern": "扭转暴力",
     "reference": "第二节 · 十｜图 6-38",
     "affected": [
@@ -597,7 +1061,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "肋骨",
+      "site": "肋骨骨折",
       "form": "横向断面的教学例",
       "motion": "骨折端向内侧移动。"
     },
@@ -606,7 +1070,7 @@
     "route": "#rib/v01/1",
     "legacyRoute": "#rib/0/1",
     "scope": "教材分型示例",
-    "site": "肋骨",
+    "site": "肋骨骨折",
     "pattern": "直接暴力",
     "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
     "affected": [
@@ -618,7 +1082,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "肋骨",
+      "site": "肋骨骨折",
       "form": "横向断面的教学例",
       "motion": "观察断端向胸廓外方突出的方向。"
     },
@@ -627,7 +1091,7 @@
     "route": "#rib/v02/1",
     "legacyRoute": "#rib/1/1",
     "scope": "教材分型示例",
-    "site": "肋骨",
+    "site": "肋骨骨折",
     "pattern": "间接暴力",
     "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
     "affected": [
@@ -639,7 +1103,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "肋骨",
+      "site": "肋骨骨折",
       "form": "局部裂线",
       "motion": "高亮线表示局部损伤位置，此例保持骨段对位。"
     },
@@ -648,7 +1112,7 @@
     "route": "#rib/v03/1",
     "legacyRoute": "#rib/2/1",
     "scope": "教材分型示例",
-    "site": "肋骨",
+    "site": "肋骨骨折",
     "pattern": "肌肉强烈收缩",
     "reference": "第四节 · 一｜图 6-102 · PDF 438–439 页",
     "affected": [
@@ -658,9 +1122,76 @@
     "observation": "高亮线表示局部损伤位置，此例保持骨段对位。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "肋骨骨折",
+      "form": "同一肋骨两处断线",
+      "motion": "沿右第6肋的胸壁弧线确认两处断面均属于同一根肋骨。"
+    },
+    "cardReference": "第六章 · 第四节｜一｜图 6-102、6-103 · PDF 438–440 页",
+    "cardScope": "教材部位要点",
+    "route": "#rib/v04/1",
+    "legacyRoute": "#rib/3/1",
+    "scope": "教材分型示例",
+    "site": "肋骨骨折",
+    "pattern": "单根双处骨折",
+    "reference": "第六章 · 第四节｜一｜图 6-102、6-103 · PDF 438–440 页",
+    "affected": [
+      "Right sixth rib"
+    ],
+    "fixed": [],
+    "observation": "沿右第6肋的胸壁弧线确认两处断面均属于同一根肋骨。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "肋骨骨折",
+      "form": "多处骨折线",
+      "motion": "逐根计数并观察胸腔方向的断端，同时辨认有无多处断裂构成游离胸壁。"
+    },
+    "cardReference": "第六章 · 第四节｜一｜图 6-102、6-103 · PDF 438–440 页",
+    "cardScope": "教材部位要点",
+    "route": "#rib/v05/1",
+    "legacyRoute": "#rib/4/1",
+    "scope": "教材分型示例",
+    "site": "肋骨骨折",
+    "pattern": "多根肋骨骨折",
+    "reference": "第六章 · 第四节｜一｜图 6-102、6-103 · PDF 438–440 页",
+    "affected": [
+      "Right fifth rib",
+      "Right sixth rib",
+      "Right seventh rib"
+    ],
+    "fixed": [],
+    "observation": "逐根计数并观察胸腔方向的断端，同时辨认有无多处断裂构成游离胸壁。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "肋骨骨折",
+      "form": "同一肋骨两处断线",
+      "motion": "吸气时游离段内陷、呼气时外凸，与整体胸廓扩张和回缩方向相反。"
+    },
+    "cardReference": "第六章 · 第四节｜一｜图 6-102、6-103 · PDF 438–440 页",
+    "cardScope": "教材部位要点",
+    "route": "#rib/v06/1",
+    "legacyRoute": "#rib/5/1",
+    "scope": "教材分型示例",
+    "site": "肋骨骨折",
+    "pattern": "浮动胸壁",
+    "reference": "第六章 · 第四节｜一｜图 6-102、6-103 · PDF 438–440 页",
+    "affected": [
+      "Right fifth rib",
+      "Right sixth rib",
+      "Right seventh rib"
+    ],
+    "fixed": [],
+    "observation": "吸气时游离段内陷、呼气时外凸，与整体胸廓扩张和回缩方向相反。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "胫骨髁",
+      "site": "胫骨髁骨折",
       "form": "内侧平台劈裂，断线进入负重关节面",
       "motion": "自上方观察受累半侧平台，再侧转查看骨折线如何延入干骺端。"
     },
@@ -669,7 +1200,7 @@
     "route": "#plateau/v01/1",
     "legacyRoute": "#plateau/0/1",
     "scope": "教材分型示例",
-    "site": "胫骨髁",
+    "site": "胫骨髁骨折",
     "pattern": "内侧髁骨折",
     "reference": "第三节 · 七｜图 6-84 · PDF 410 页",
     "affected": [
@@ -681,7 +1212,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "胫骨髁",
+      "site": "胫骨髁骨折",
       "form": "外侧平台劈裂，断线进入负重关节面",
       "motion": "自上方观察受累半侧平台，再侧转查看骨折线如何延入干骺端。"
     },
@@ -690,7 +1221,7 @@
     "route": "#plateau/v02/1",
     "legacyRoute": "#plateau/1/1",
     "scope": "教材分型示例",
-    "site": "胫骨髁",
+    "site": "胫骨髁骨折",
     "pattern": "外侧髁骨折",
     "reference": "第三节 · 七｜图 6-84 · PDF 410 页",
     "affected": [
@@ -702,7 +1233,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "胫骨髁",
+      "site": "胫骨髁骨折",
       "form": "两侧平台劈裂，断线进入双髁关节面",
       "motion": "从上方看内、外两侧平台，从正面看两髁与干骺端的关系。"
     },
@@ -711,8 +1242,8 @@
     "route": "#plateau/v03/1",
     "legacyRoute": "#plateau/2/1",
     "scope": "教材分型示例",
-    "site": "胫骨髁",
-    "pattern": "双髁骨折",
+    "site": "胫骨髁骨折",
+    "pattern": "垂直冲击骨折（双髁）",
     "reference": "第三节 · 七｜图 6-84 · PDF 410 页",
     "affected": [
       "Right tibia"
@@ -723,7 +1254,7 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "胫骨髁",
+      "site": "胫骨髁骨折",
       "form": "关节面局部压陷",
       "motion": "上方看受累范围，斜侧面比较压低中心和周围平台的高度；外侧皮质缘保持连续。"
     },
@@ -731,8 +1262,8 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#plateau/v04/1",
     "legacyRoute": "#plateau/3/1",
-    "scope": "教材分型示例",
-    "site": "胫骨髁",
+    "scope": "AO 补充鉴别",
+    "site": "胫骨髁骨折",
     "pattern": "外侧平台 · 局部压陷",
     "reference": "AO 41B2 · 平台压陷形态",
     "affected": [
@@ -744,7 +1275,7 @@
   {
     "variantId": "v05",
     "description": {
-      "site": "胫骨髁",
+      "site": "胫骨髁骨折",
       "form": "关节面劈裂伴压陷",
       "motion": "先看外侧皮质的分离，再转到上方查看独立可调的中央压低区。"
     },
@@ -752,8 +1283,8 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#plateau/v05/1",
     "legacyRoute": "#plateau/4/1",
-    "scope": "教材分型示例",
-    "site": "胫骨髁",
+    "scope": "AO 补充鉴别",
+    "site": "胫骨髁骨折",
     "pattern": "外侧平台 · 劈裂伴压陷",
     "reference": "AO 41B3.1 · 外侧平台劈裂压陷形态",
     "affected": [
@@ -765,7 +1296,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "股骨髁上",
+      "site": "股骨髁上骨折",
       "form": "斜向断面的教学例",
       "motion": "在侧位观察，骨折线从后上斜向前下，远端向后。"
     },
@@ -774,7 +1305,7 @@
     "route": "#distalfemur/v01/1",
     "legacyRoute": "#distalfemur/0/1",
     "scope": "教材分型示例",
-    "site": "股骨髁上",
+    "site": "股骨髁上骨折",
     "pattern": "屈曲型",
     "reference": "第三节 · 四｜病因病机",
     "affected": [
@@ -786,7 +1317,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "股骨髁上",
+      "site": "股骨髁上骨折",
       "form": "斜向断面的教学例",
       "motion": "在侧位观察，骨折线从前上斜向后下，远端向前。"
     },
@@ -795,7 +1326,7 @@
     "route": "#distalfemur/v02/1",
     "legacyRoute": "#distalfemur/1/1",
     "scope": "教材分型示例",
-    "site": "股骨髁上",
+    "site": "股骨髁上骨折",
     "pattern": "伸直型",
     "reference": "第三节 · 四｜病因病机",
     "affected": [
@@ -807,7 +1338,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "跟骨",
+      "site": "跟骨骨折",
       "form": "关节外骨折线",
       "motion": "观察后方结节骨块与上方距跟关节面的关系。"
     },
@@ -816,8 +1347,8 @@
     "route": "#calcaneus/v01/1",
     "legacyRoute": "#calcaneus/0/1",
     "scope": "教材分型示例",
-    "site": "跟骨",
-    "pattern": "不波及关节面",
+    "site": "跟骨骨折",
+    "pattern": "不波及距跟关节面",
     "reference": "第三节 · 十一｜图 6-95",
     "affected": [
       "Right calcaneus"
@@ -828,7 +1359,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "跟骨",
+      "site": "跟骨骨折",
       "form": "距下关节面受累",
       "motion": "从足外侧和上方追踪骨折线，确认其进入距跟接触面。"
     },
@@ -837,8 +1368,8 @@
     "route": "#calcaneus/v02/1",
     "legacyRoute": "#calcaneus/1/1",
     "scope": "教材分型示例",
-    "site": "跟骨",
-    "pattern": "波及关节面",
+    "site": "跟骨骨折",
+    "pattern": "波及距跟关节面",
     "reference": "第三节 · 十一｜图 6-95",
     "affected": [
       "Right calcaneus"
@@ -847,9 +1378,93 @@
     "observation": "从足外侧和上方追踪骨折线，确认其进入距跟接触面。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "跟骨骨折",
+      "form": "近纵向断面的教学例",
+      "motion": "由后面追踪裂线在结节内的走向，与跟腱牵拉造成的横形撕脱比较。"
+    },
+    "cardReference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "cardScope": "教材部位要点",
+    "route": "#calcaneus/v03/1",
+    "legacyRoute": "#calcaneus/2/1",
+    "scope": "教材分型示例",
+    "site": "跟骨骨折",
+    "pattern": "结节纵形骨折",
+    "reference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "affected": [
+      "Right calcaneus"
+    ],
+    "fixed": [],
+    "observation": "由后面追踪裂线在结节内的走向，与跟腱牵拉造成的横形撕脱比较。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "跟骨骨折",
+      "form": "斜向断面的教学例",
+      "motion": "追踪载距突下方拇长屈肌腱的通道，同时核对距跟相对面。"
+    },
+    "cardReference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "cardScope": "教材部位要点",
+    "route": "#calcaneus/v04/1",
+    "legacyRoute": "#calcaneus/3/1",
+    "scope": "教材分型示例",
+    "site": "跟骨骨折",
+    "pattern": "载距突骨折",
+    "reference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "affected": [
+      "Right calcaneus"
+    ],
+    "fixed": [],
+    "observation": "追踪载距突下方拇长屈肌腱的通道，同时核对距跟相对面。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "跟骨骨折",
+      "form": "骨面局部凹陷",
+      "motion": "俯视比较内外高度，侧位观察塌陷中心与周缘的阶差。"
+    },
+    "cardReference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "cardScope": "教材部位要点",
+    "route": "#calcaneus/v05/1",
+    "legacyRoute": "#calcaneus/4/1",
+    "scope": "教材分型示例",
+    "site": "跟骨骨折",
+    "pattern": "外侧距跟关节面塌陷",
+    "reference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "affected": [
+      "Right calcaneus"
+    ],
+    "fixed": [],
+    "observation": "俯视比较内外高度，侧位观察塌陷中心与周缘的阶差。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "跟骨骨折",
+      "form": "骨面局部凹陷",
+      "motion": "比较全幅高度损失与局限于外侧的一块压陷，并查看整个后关节面。"
+    },
+    "cardReference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "cardScope": "教材部位要点",
+    "route": "#calcaneus/v06/1",
+    "legacyRoute": "#calcaneus/5/1",
+    "scope": "教材分型示例",
+    "site": "跟骨骨折",
+    "pattern": "全部距跟关节面塌陷",
+    "reference": "第六章 · 第三节｜十一｜图 6-95 · PDF 426–429 页",
+    "affected": [
+      "Right calcaneus"
+    ],
+    "fixed": [],
+    "observation": "比较全幅高度损失与局限于外侧的一块压陷，并查看整个后关节面。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "趾骨",
+      "site": "趾骨骨折",
       "form": "横形骨折线",
       "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
     },
@@ -858,7 +1473,7 @@
     "route": "#toes/v01/1",
     "legacyRoute": "#toes/0/1",
     "scope": "教材分型示例",
-    "site": "趾骨",
+    "site": "趾骨骨折",
     "pattern": "横断骨折",
     "reference": "第三节 · 十三｜病因病机",
     "affected": [
@@ -870,7 +1485,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "趾骨",
+      "site": "趾骨骨折",
       "form": "斜形骨折线",
       "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
     },
@@ -879,7 +1494,7 @@
     "route": "#toes/v02/1",
     "legacyRoute": "#toes/1/1",
     "scope": "教材分型示例",
-    "site": "趾骨",
+    "site": "趾骨骨折",
     "pattern": "斜形骨折",
     "reference": "第三节 · 十三｜病因病机",
     "affected": [
@@ -891,7 +1506,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "趾骨",
+      "site": "趾骨骨折",
       "form": "纵向裂线",
       "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
     },
@@ -900,7 +1515,7 @@
     "route": "#toes/v03/1",
     "legacyRoute": "#toes/2/1",
     "scope": "教材分型示例",
-    "site": "趾骨",
+    "site": "趾骨骨折",
     "pattern": "纵裂骨折",
     "reference": "第三节 · 十三｜病因病机",
     "affected": [
@@ -912,7 +1527,7 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "趾骨",
+      "site": "趾骨骨折",
       "form": "多骨块断面",
       "motion": "观察骨折线与趾骨长轴的关系。本例选取近节。"
     },
@@ -921,7 +1536,7 @@
     "route": "#toes/v04/1",
     "legacyRoute": "#toes/3/1",
     "scope": "教材分型示例",
-    "site": "趾骨",
+    "site": "趾骨骨折",
     "pattern": "粉碎性骨折",
     "reference": "第三节 · 十三｜病因病机",
     "affected": [
@@ -933,7 +1548,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "肱骨髁上",
+      "site": "肱骨髁上骨折",
       "form": "斜向断面的教学例",
       "motion": "从侧面看远段向后，断线由前下走向后上。"
     },
@@ -942,7 +1557,7 @@
     "route": "#elbow/v01/1",
     "legacyRoute": "#elbow/0/1",
     "scope": "教材分型示例",
-    "site": "肱骨髁上",
+    "site": "肱骨髁上骨折",
     "pattern": "伸直型",
     "reference": "第二节 · 四｜图 6-26",
     "affected": [
@@ -954,7 +1569,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "肱骨髁上",
+      "site": "肱骨髁上骨折",
       "form": "斜向断面的教学例",
       "motion": "远端向前，断线由后下斜向前上。"
     },
@@ -963,7 +1578,7 @@
     "route": "#elbow/v02/1",
     "legacyRoute": "#elbow/1/1",
     "scope": "教材分型示例",
-    "site": "肱骨髁上",
+    "site": "肱骨髁上骨折",
     "pattern": "屈曲型",
     "reference": "第二节 · 四｜图 6-26",
     "affected": [
@@ -975,7 +1590,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "肱骨髁上",
+      "site": "肱骨髁上骨折",
       "form": "髁上横行线连至髁间纵裂",
       "motion": "观察横向髁上线及延伸至髁间的纵线，此例为 T 形示意。"
     },
@@ -984,7 +1599,7 @@
     "route": "#elbow/v03/1",
     "legacyRoute": "#elbow/2/1",
     "scope": "教材分型示例",
-    "site": "肱骨髁上",
+    "site": "肱骨髁上骨折",
     "pattern": "粉碎型",
     "reference": "第二节 · 四｜图 6-26",
     "affected": [
@@ -994,9 +1609,72 @@
     "observation": "观察横向髁上线及延伸至髁间的纵线，此例为 T 形示意。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "肱骨髁上骨折",
+      "form": "斜向断面的教学例",
+      "motion": "正位辨认内侧骨皮质挤压、外侧张开，侧位核对共同的后移特征。"
+    },
+    "cardReference": "第六章 · 第二节｜四｜图 6-26 · PDF 325–328 页",
+    "cardScope": "教材部位要点",
+    "route": "#elbow/v04/1",
+    "legacyRoute": "#elbow/3/1",
+    "scope": "教材分型示例",
+    "site": "肱骨髁上骨折",
+    "pattern": "伸直尺偏型",
+    "reference": "第六章 · 第二节｜四｜图 6-26 · PDF 325–328 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "正位辨认内侧骨皮质挤压、外侧张开，侧位核对共同的后移特征。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "肱骨髁上骨折",
+      "form": "斜向断面的教学例",
+      "motion": "正位辨认外侧骨皮质挤压、内侧张开，侧位核对共同的后移特征。"
+    },
+    "cardReference": "第六章 · 第二节｜四｜图 6-26 · PDF 325–328 页",
+    "cardScope": "教材部位要点",
+    "route": "#elbow/v05/1",
+    "legacyRoute": "#elbow/4/1",
+    "scope": "教材分型示例",
+    "site": "肱骨髁上骨折",
+    "pattern": "伸直桡偏型",
+    "reference": "第六章 · 第二节｜四｜图 6-26 · PDF 325–328 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "正位辨认外侧骨皮质挤压、内侧张开，侧位核对共同的后移特征。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "肱骨髁上骨折",
+      "form": "Y 形骨折线",
+      "motion": "从正面和远端看三支断线，与同部位横线加纵裂的T形例鉴别。"
+    },
+    "cardReference": "第六章 · 第二节｜四｜图 6-26 · PDF 325–328 页",
+    "cardScope": "教材部位要点",
+    "route": "#elbow/v06/1",
+    "legacyRoute": "#elbow/5/1",
+    "scope": "教材分型示例",
+    "site": "肱骨髁上骨折",
+    "pattern": "粉碎型（Y形）",
+    "reference": "第六章 · 第二节｜四｜图 6-26 · PDF 325–328 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "从正面和远端看三支断线，与同部位横线加纵裂的T形例鉴别。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "手舟骨",
+      "site": "手舟骨骨折",
       "form": "斜向断面的教学例",
       "motion": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
     },
@@ -1005,7 +1683,7 @@
     "route": "#scaphoid/v01/1",
     "legacyRoute": "#scaphoid/0/1",
     "scope": "教材分型示例",
-    "site": "手舟骨",
+    "site": "手舟骨骨折",
     "pattern": "近端骨折",
     "reference": "第二节 · 十四｜图 6-51",
     "affected": [
@@ -1017,7 +1695,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "手舟骨",
+      "site": "手舟骨骨折",
       "form": "斜向断面的教学例",
       "motion": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
     },
@@ -1026,7 +1704,7 @@
     "route": "#scaphoid/v02/1",
     "legacyRoute": "#scaphoid/1/1",
     "scope": "教材分型示例",
-    "site": "手舟骨",
+    "site": "手舟骨骨折",
     "pattern": "腰部骨折",
     "reference": "第二节 · 十四｜图 6-51",
     "affected": [
@@ -1038,7 +1716,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "手舟骨",
+      "site": "手舟骨骨折",
       "form": "斜向断面的教学例",
       "motion": "以相邻的桡骨远端作参照，观察断面从近侧端经腰部向远侧结节的位置变化。"
     },
@@ -1047,7 +1725,7 @@
     "route": "#scaphoid/v03/1",
     "legacyRoute": "#scaphoid/2/1",
     "scope": "教材分型示例",
-    "site": "手舟骨",
+    "site": "手舟骨骨折",
     "pattern": "结节部骨折",
     "reference": "第二节 · 十四｜图 6-51",
     "affected": [
@@ -1059,7 +1737,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "尺骨鹰嘴",
+      "site": "尺骨鹰嘴骨折",
       "form": "斜向断面的教学例",
       "motion": "被牵拉的鹰嘴骨块向近端移动，断端间隙增大。"
     },
@@ -1068,7 +1746,7 @@
     "route": "#olecranon/v01/1",
     "legacyRoute": "#olecranon/0/1",
     "scope": "教材分型示例",
-    "site": "尺骨鹰嘴",
+    "site": "尺骨鹰嘴骨折",
     "pattern": "间接暴力",
     "reference": "第二节 · 七｜图 6-33",
     "affected": [
@@ -1080,7 +1758,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "尺骨鹰嘴",
+      "site": "尺骨鹰嘴骨折",
       "form": "相交断线与骨片",
       "motion": "观察近端多块骨折及较小移位。"
     },
@@ -1089,7 +1767,7 @@
     "route": "#olecranon/v02/1",
     "legacyRoute": "#olecranon/1/1",
     "scope": "教材分型示例",
-    "site": "尺骨鹰嘴",
+    "site": "尺骨鹰嘴骨折",
     "pattern": "直接暴力",
     "reference": "第二节 · 七｜图 6-33",
     "affected": [
@@ -1099,9 +1777,30 @@
     "observation": "观察近端多块骨折及较小移位。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "尺骨鹰嘴骨折",
+      "form": "附着区撕脱",
+      "motion": "从后外方追踪半月切迹，关节面保持连续可与大块鹰嘴骨折区别。"
+    },
+    "cardReference": "第六章 · 第二节｜七｜图 6-33 · PDF 339 页",
+    "cardScope": "教材部位要点",
+    "route": "#olecranon/v03/1",
+    "legacyRoute": "#olecranon/2/1",
+    "scope": "教材分型示例",
+    "site": "尺骨鹰嘴骨折",
+    "pattern": "关节外小撕脱",
+    "reference": "第六章 · 第二节｜七｜图 6-33 · PDF 339 页",
+    "affected": [
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "从后外方追踪半月切迹，关节面保持连续可与大块鹰嘴骨折区别。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "指骨",
+      "site": "指骨骨折",
       "form": "横形骨折线",
       "motion": "对照骨折线走向与骨块数。"
     },
@@ -1110,7 +1809,7 @@
     "route": "#finger/v01/1",
     "legacyRoute": "#finger/0/1",
     "scope": "教材分型示例",
-    "site": "指骨",
+    "site": "指骨骨折",
     "pattern": "横断骨折",
     "reference": "第二节 · 十六｜病因病机",
     "affected": [
@@ -1122,7 +1821,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "指骨",
+      "site": "指骨骨折",
       "form": "斜形骨折线",
       "motion": "对照骨折线走向与骨块数。"
     },
@@ -1131,7 +1830,7 @@
     "route": "#finger/v02/1",
     "legacyRoute": "#finger/1/1",
     "scope": "教材分型示例",
-    "site": "指骨",
+    "site": "指骨骨折",
     "pattern": "斜形骨折",
     "reference": "第二节 · 十六｜病因病机",
     "affected": [
@@ -1143,7 +1842,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "指骨",
+      "site": "指骨骨折",
       "form": "多骨块断面",
       "motion": "对照骨折线走向与骨块数。"
     },
@@ -1152,7 +1851,7 @@
     "route": "#finger/v03/1",
     "legacyRoute": "#finger/2/1",
     "scope": "教材分型示例",
-    "site": "指骨",
+    "site": "指骨骨折",
     "pattern": "粉碎性骨折",
     "reference": "第二节 · 十六｜病因病机",
     "affected": [
@@ -1162,9 +1861,93 @@
     "observation": "对照骨折线走向与骨块数。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "指骨骨折",
+      "form": "横向断面的教学例",
+      "motion": "侧位辨认骨颈处的掌侧成角和骨头翻转，并核对骨折线与关节面的距离。"
+    },
+    "cardReference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "cardScope": "教材部位要点",
+    "route": "#finger/v04/1",
+    "legacyRoute": "#finger/3/1",
+    "scope": "教材分型示例",
+    "site": "指骨骨折",
+    "pattern": "指骨颈骨折",
+    "reference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "affected": [
+      "Proximal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "侧位辨认骨颈处的掌侧成角和骨头翻转，并核对骨折线与关节面的距离。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "指骨骨折",
+      "form": "附着区撕脱",
+      "motion": "观察末节主体掌屈和背侧骨片留在近端，同时核对基底关节面的受累。"
+    },
+    "cardReference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "cardScope": "教材部位要点",
+    "route": "#finger/v05/1",
+    "legacyRoute": "#finger/4/1",
+    "scope": "教材分型示例",
+    "site": "指骨骨折",
+    "pattern": "末节指骨基底背侧撕脱（锤状指）",
+    "reference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "affected": [
+      "Distal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "观察末节主体掌屈和背侧骨片留在近端，同时核对基底关节面的受累。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "指骨骨折",
+      "form": "沿骨干绕行的螺旋断线",
+      "motion": "将中远节轴线与邻指比较，留意屈曲时旋转畸形造成的指尖交叉。"
+    },
+    "cardReference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "cardScope": "教材部位要点",
+    "route": "#finger/v06/1",
+    "legacyRoute": "#finger/5/1",
+    "scope": "教材分型示例",
+    "site": "指骨骨折",
+    "pattern": "螺旋形骨折",
+    "reference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "affected": [
+      "Proximal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "将中远节轴线与邻指比较，留意屈曲时旋转畸形造成的指尖交叉。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "指骨骨折",
+      "form": "斜向断面的教学例",
+      "motion": "沿掌骨头的关节弧辨别约毫米级的局部错台和保留的其余接触面。"
+    },
+    "cardReference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "cardScope": "教材部位要点",
+    "route": "#finger/v07/1",
+    "legacyRoute": "#finger/6/1",
+    "scope": "教材分型示例",
+    "site": "指骨骨折",
+    "pattern": "关节内骨折",
+    "reference": "第六章 · 第二节｜十六｜图 6-58、6-59、6-62 · PDF 375–380 页",
+    "affected": [
+      "Proximal phalanx of right index finger"
+    ],
+    "fixed": [],
+    "observation": "沿掌骨头的关节弧辨别约毫米级的局部错台和保留的其余接触面。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "骨盆环",
+      "site": "骨盆骨折",
       "form": "近纵向断面的教学例",
       "motion": "从上方看，伤侧半骨盆向中线内旋。此例以前环耻骨支骨折示意。"
     },
@@ -1173,7 +1956,7 @@
     "route": "#pelvis/v01/1",
     "legacyRoute": "#pelvis/0/1",
     "scope": "教材分型示例",
-    "site": "骨盆环",
+    "site": "骨盆骨折",
     "pattern": "侧方压缩型",
     "reference": "第四节 · 三｜图 6-116",
     "affected": [
@@ -1185,7 +1968,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "骨盆环",
+      "site": "骨盆骨折",
       "form": "近纵向断面的教学例",
       "motion": "以骶髂区为轴，观察前环逐渐张开。此例取耻骨支骨折伴外旋的形态。"
     },
@@ -1194,7 +1977,7 @@
     "route": "#pelvis/v02/1",
     "legacyRoute": "#pelvis/1/1",
     "scope": "教材分型示例",
-    "site": "骨盆环",
+    "site": "骨盆骨折",
     "pattern": "前后压缩型",
     "reference": "第四节 · 三｜图 6-116",
     "affected": [
@@ -1206,7 +1989,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "骨盆环",
+      "site": "骨盆骨折",
       "form": "近纵向断面的教学例",
       "motion": "两侧髂嵴高度产生差异，伤侧向头侧移位。"
     },
@@ -1215,7 +1998,7 @@
     "route": "#pelvis/v03/1",
     "legacyRoute": "#pelvis/2/1",
     "scope": "教材分型示例",
-    "site": "骨盆环",
+    "site": "骨盆骨折",
     "pattern": "垂直压缩型",
     "reference": "第四节 · 三｜图 6-116",
     "affected": [
@@ -1225,9 +2008,114 @@
     "observation": "两侧髂嵴高度产生差异，伤侧向头侧移位。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "骨盆骨折",
+      "form": "相交断线与骨片",
+      "motion": "沿骨盆入口看伤侧半骨盆内旋与前环断线，再找后方较固定的骨片。"
+    },
+    "cardReference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "cardScope": "教材部位要点",
+    "route": "#pelvis/v04/1",
+    "legacyRoute": "#pelvis/3/1",
+    "scope": "教材分型示例",
+    "site": "骨盆骨折",
+    "pattern": "半月形骨折",
+    "reference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "沿骨盆入口看伤侧半骨盆内旋与前环断线，再找后方较固定的骨片。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "骨盆骨折",
+      "form": "近纵向断面的教学例",
+      "motion": "结合入口位和出口位，核对耻骨支断线、骶髂关系及两侧髂嵴高度。"
+    },
+    "cardReference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "cardScope": "教材部位要点",
+    "route": "#pelvis/v05/1",
+    "legacyRoute": "#pelvis/4/1",
+    "scope": "教材分型示例",
+    "site": "骨盆骨折",
+    "pattern": "混合型",
+    "reference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "结合入口位和出口位，核对耻骨支断线、骶髂关系及两侧髂嵴高度。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "骨盆骨折",
+      "form": "附着区撕脱",
+      "motion": "在髂嵴前端定位骨片，核对骨盆环其余部位是否保持连续。"
+    },
+    "cardReference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "cardScope": "教材部位要点",
+    "route": "#pelvis/v06/1",
+    "legacyRoute": "#pelvis/5/1",
+    "scope": "教材分型示例",
+    "site": "骨盆骨折",
+    "pattern": "髂前上棘撕脱",
+    "reference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "在髂嵴前端定位骨片，核对骨盆环其余部位是否保持连续。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "骨盆骨折",
+      "form": "附着区撕脱",
+      "motion": "在髋臼前上方定位骨片，核对骨盆环其余部位是否保持连续。"
+    },
+    "cardReference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "cardScope": "教材部位要点",
+    "route": "#pelvis/v07/1",
+    "legacyRoute": "#pelvis/6/1",
+    "scope": "教材分型示例",
+    "site": "骨盆骨折",
+    "pattern": "髂前下棘撕脱",
+    "reference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "在髋臼前上方定位骨片，核对骨盆环其余部位是否保持连续。"
+  },
+  {
+    "variantId": "v08",
+    "description": {
+      "site": "骨盆骨折",
+      "form": "附着区撕脱",
+      "motion": "在骨盆下后方定位骨片，核对骨盆环其余部位是否保持连续。"
+    },
+    "cardReference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "cardScope": "教材部位要点",
+    "route": "#pelvis/v08/1",
+    "legacyRoute": "#pelvis/7/1",
+    "scope": "教材分型示例",
+    "site": "骨盆骨折",
+    "pattern": "坐骨结节撕脱",
+    "reference": "第六章 · 第四节｜三｜图 6-116 · PDF 467–469 页",
+    "affected": [
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "在骨盆下后方定位骨片，核对骨盆环其余部位是否保持连续。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "胸腰椎",
+      "site": "脊柱骨折",
       "form": "椎体前缘楔变",
       "motion": "转至侧位，观察椎体前缘高度降低、后缘高度相对保留。"
     },
@@ -1236,7 +2124,7 @@
     "route": "#spine/v01/1",
     "legacyRoute": "#spine/0/1",
     "scope": "教材分型示例",
-    "site": "胸腰椎",
+    "site": "脊柱骨折",
     "pattern": "屈曲型损伤",
     "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
     "affected": [
@@ -1248,7 +2136,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "胸腰椎",
+      "site": "脊柱骨折",
       "form": "椎体偏侧楔变",
       "motion": "正面观察第一腰椎左右侧高度差，压缩侧形成楔形。"
     },
@@ -1257,7 +2145,7 @@
     "route": "#spine/v02/1",
     "legacyRoute": "#spine/1/1",
     "scope": "教材分型示例",
-    "site": "胸腰椎",
+    "site": "脊柱骨折",
     "pattern": "侧屈型损伤",
     "reference": "第四节 · 二｜病因病机 · PDF 445–448 页",
     "affected": [
@@ -1267,9 +2155,156 @@
     "observation": "正面观察第一腰椎左右侧高度差，压缩侧形成楔形。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "脊柱骨折",
+      "form": "椎体前缘楔变",
+      "motion": "侧位检查椎体排列及后方小关节、张力带失配，与单纯前缘楔压区别。"
+    },
+    "cardReference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "cardScope": "教材部位要点",
+    "route": "#spine/v03/1",
+    "legacyRoute": "#spine/2/1",
+    "scope": "教材分型示例",
+    "site": "脊柱骨折",
+    "pattern": "屈曲骨折脱位",
+    "reference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "侧位检查椎体排列及后方小关节、张力带失配，与单纯前缘楔压区别。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "脊柱骨折",
+      "form": "斜向断面的教学例",
+      "motion": "观察前缘张开和上位椎骨向后仰，再核对后弓接触区。"
+    },
+    "cardReference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "cardScope": "教材部位要点",
+    "route": "#spine/v04/1",
+    "legacyRoute": "#spine/3/1",
+    "scope": "教材分型示例",
+    "site": "脊柱骨折",
+    "pattern": "过伸型",
+    "reference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "观察前缘张开和上位椎骨向后仰，再核对后弓接触区。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "脊柱骨折",
+      "form": "相交断线与骨片",
+      "motion": "在轴向查看椎管前壁骨块，区分伴后壁受累的爆裂和单纯楔形压缩。"
+    },
+    "cardReference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "cardScope": "教材部位要点",
+    "route": "#spine/v05/1",
+    "legacyRoute": "#spine/4/1",
+    "scope": "教材分型示例",
+    "site": "脊柱骨折",
+    "pattern": "垂直压缩（爆裂型）",
+    "reference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "在轴向查看椎管前壁骨块，区分伴后壁受累的爆裂和单纯楔形压缩。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "脊柱骨折",
+      "form": "斜向断面的教学例",
+      "motion": "从斜后方比较两侧关节突的高度、扭转及对合状态。"
+    },
+    "cardReference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "cardScope": "教材部位要点",
+    "route": "#spine/v06/1",
+    "legacyRoute": "#spine/5/1",
+    "scope": "教材分型示例",
+    "site": "脊柱骨折",
+    "pattern": "屈曲旋转型",
+    "reference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "从斜后方比较两侧关节突的高度、扭转及对合状态。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "脊柱骨折",
+      "form": "横向断面的教学例",
+      "motion": "侧位沿断线由后向前追踪，前柱附近小幅转动可在后柱产生更大间隙。"
+    },
+    "cardReference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "cardScope": "教材部位要点",
+    "route": "#spine/v07/1",
+    "legacyRoute": "#spine/6/1",
+    "scope": "教材分型示例",
+    "site": "脊柱骨折",
+    "pattern": "水平剪力型",
+    "reference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "侧位沿断线由后向前追踪，前柱附近小幅转动可在后柱产生更大间隙。"
+  },
+  {
+    "variantId": "v08",
+    "description": {
+      "site": "脊柱骨折",
+      "form": "附着区撕脱",
+      "motion": "在后正中区定位独立骨片，核对椎体及小关节整体排列。"
+    },
+    "cardReference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "cardScope": "教材部位要点",
+    "route": "#spine/v08/1",
+    "legacyRoute": "#spine/7/1",
+    "scope": "教材分型示例",
+    "site": "脊柱骨折",
+    "pattern": "棘突撕脱",
+    "reference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "在后正中区定位独立骨片，核对椎体及小关节整体排列。"
+  },
+  {
+    "variantId": "v09",
+    "description": {
+      "site": "脊柱骨折",
+      "form": "附着区撕脱",
+      "motion": "正位辨认侧方骨片，结合其位置与正中棘突损伤鉴别。"
+    },
+    "cardReference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "cardScope": "教材部位要点",
+    "route": "#spine/v09/1",
+    "legacyRoute": "#spine/8/1",
+    "scope": "教材分型示例",
+    "site": "脊柱骨折",
+    "pattern": "横突撕脱",
+    "reference": "第六章 · 第四节｜二｜图 6-106 至 6-110 · PDF 443、445–451 页",
+    "affected": [
+      "First lumbar vertebra"
+    ],
+    "fixed": [],
+    "observation": "正位辨认侧方骨片，结合其位置与正中棘突损伤鉴别。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "肱骨外科颈",
+      "site": "肱骨外科颈骨折",
       "form": "局部裂线",
       "motion": "此例保留骨段对位，以高亮线标出受累区。"
     },
@@ -1278,7 +2313,7 @@
     "route": "#shoulder/v01/1",
     "legacyRoute": "#shoulder/0/1",
     "scope": "教材分型示例",
-    "site": "肱骨外科颈",
+    "site": "肱骨外科颈骨折",
     "pattern": "裂缝骨折",
     "reference": "第二节 · 二｜图 6-18",
     "affected": [
@@ -1290,7 +2325,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "肱骨外科颈",
+      "site": "肱骨外科颈骨折",
       "form": "断端嵌插",
       "motion": "观察骨干端沿长轴嵌入近端。"
     },
@@ -1299,7 +2334,7 @@
     "route": "#shoulder/v02/1",
     "legacyRoute": "#shoulder/1/1",
     "scope": "教材分型示例",
-    "site": "肱骨外科颈",
+    "site": "肱骨外科颈骨折",
     "pattern": "嵌插骨折",
     "reference": "第二节 · 二｜图 6-18",
     "affected": [
@@ -1311,7 +2346,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "肱骨外科颈",
+      "site": "肱骨外科颈骨折",
       "form": "横向断面的教学例",
       "motion": "外侧嵌插、内侧张开，可见向内侧成角。"
     },
@@ -1320,7 +2355,7 @@
     "route": "#shoulder/v03/1",
     "legacyRoute": "#shoulder/2/1",
     "scope": "教材分型示例",
-    "site": "肱骨外科颈",
+    "site": "肱骨外科颈骨折",
     "pattern": "外展型",
     "reference": "第二节 · 二｜图 6-18",
     "affected": [
@@ -1332,7 +2367,7 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "肱骨外科颈",
+      "site": "肱骨外科颈骨折",
       "form": "横向断面的教学例",
       "motion": "内侧嵌插、外侧张开，可见向外侧成角。"
     },
@@ -1341,7 +2376,7 @@
     "route": "#shoulder/v04/1",
     "legacyRoute": "#shoulder/3/1",
     "scope": "教材分型示例",
-    "site": "肱骨外科颈",
+    "site": "肱骨外科颈骨折",
     "pattern": "内收型",
     "reference": "第二节 · 二｜图 6-18",
     "affected": [
@@ -1353,7 +2388,7 @@
   {
     "variantId": "v05",
     "description": {
-      "site": "肱骨外科颈",
+      "site": "肱骨外科颈骨折",
       "form": "横向断面的教学例",
       "motion": "相对肩盂观察，肱骨头移向前下方。"
     },
@@ -1362,8 +2397,8 @@
     "route": "#shoulder/v05/1",
     "legacyRoute": "#shoulder/4/1",
     "scope": "教材分型示例",
-    "site": "肱骨外科颈",
-    "pattern": "合并肩关节脱位",
+    "site": "肱骨外科颈骨折",
+    "pattern": "肱骨外科颈骨折合并肩关节脱位",
     "reference": "第二节 · 二｜图 6-18",
     "affected": [
       "Right humerus"
@@ -1374,7 +2409,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "肱骨外髁",
+      "site": "肱骨外髁骨折",
       "form": "斜向断面的教学例",
       "motion": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
     },
@@ -1383,7 +2418,7 @@
     "route": "#lateral-elbow/v01/1",
     "legacyRoute": "#lateral-elbow/0/1",
     "scope": "教材分型示例",
-    "site": "肱骨外髁",
+    "site": "肱骨外髁骨折",
     "pattern": "无移位",
     "reference": "第二节 · 五｜图 6-30",
     "affected": [
@@ -1395,7 +2430,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "肱骨外髁",
+      "site": "肱骨外髁骨折",
       "form": "斜向断面的教学例",
       "motion": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
     },
@@ -1404,7 +2439,7 @@
     "route": "#lateral-elbow/v02/1",
     "legacyRoute": "#lateral-elbow/1/1",
     "scope": "教材分型示例",
-    "site": "肱骨外髁",
+    "site": "肱骨外髁骨折",
     "pattern": "轻度移位",
     "reference": "第二节 · 五｜图 6-30",
     "affected": [
@@ -1416,7 +2451,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "肱骨外髁",
+      "site": "肱骨外髁骨折",
       "form": "斜向断面的教学例",
       "motion": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
     },
@@ -1425,7 +2460,7 @@
     "route": "#lateral-elbow/v03/1",
     "legacyRoute": "#lateral-elbow/2/1",
     "scope": "教材分型示例",
-    "site": "肱骨外髁",
+    "site": "肱骨外髁骨折",
     "pattern": "翻转移位",
     "reference": "第二节 · 五｜图 6-30",
     "affected": [
@@ -1435,9 +2470,51 @@
     "observation": "教材常以儿童说明此伤。这里用骨骺已闭合的男性模型展示外髁骨块的相对位置。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "肱骨外髁骨折",
+      "form": "斜向断面的教学例",
+      "motion": "用侧位确认骨块位于肱骨下端的前方，再转至外侧辨认骨片关节面。"
+    },
+    "cardReference": "第六章 · 第二节｜五｜图 6-30 · PDF 332–333 页",
+    "cardScope": "教材部位要点",
+    "route": "#lateral-elbow/v04/1",
+    "legacyRoute": "#lateral-elbow/3/1",
+    "scope": "教材儿童解剖示意",
+    "site": "肱骨外髁骨折",
+    "pattern": "前移翻转",
+    "reference": "第六章 · 第二节｜五｜图 6-30 · PDF 332–333 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "用侧位确认骨块位于肱骨下端的前方，再转至外侧辨认骨片关节面。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "肱骨外髁骨折",
+      "form": "斜向断面的教学例",
+      "motion": "用侧位确认骨块位于肱骨下端的后方，再转至外侧辨认骨片关节面。"
+    },
+    "cardReference": "第六章 · 第二节｜五｜图 6-30 · PDF 332–333 页",
+    "cardScope": "教材部位要点",
+    "route": "#lateral-elbow/v05/1",
+    "legacyRoute": "#lateral-elbow/4/1",
+    "scope": "教材儿童解剖示意",
+    "site": "肱骨外髁骨折",
+    "pattern": "后移翻转",
+    "reference": "第六章 · 第二节｜五｜图 6-30 · PDF 332–333 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "用侧位确认骨块位于肱骨下端的后方，再转至外侧辨认骨片关节面。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "肱骨内上髁",
+      "site": "肱骨内上髁骨折",
       "form": "斜向断面的教学例",
       "motion": "示意轻微分离，骨块仍紧邻附着处。 采用成年男性骨性标志示意。"
     },
@@ -1446,8 +2523,8 @@
     "route": "#medial-elbow/v01/1",
     "legacyRoute": "#medial-elbow/0/1",
     "scope": "教材分型示例",
-    "site": "肱骨内上髁",
-    "pattern": "Ⅰ 度",
+    "site": "肱骨内上髁骨折",
+    "pattern": "Ⅰ度",
     "reference": "第二节 · 六｜图 6-32",
     "affected": [
       "Right humerus"
@@ -1458,7 +2535,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "肱骨内上髁",
+      "site": "肱骨内上髁骨折",
       "form": "斜向断面的教学例",
       "motion": "骨块向前下方移位并旋转，仍在关节间隙上方。 采用成年男性骨性标志示意。"
     },
@@ -1467,8 +2544,8 @@
     "route": "#medial-elbow/v02/1",
     "legacyRoute": "#medial-elbow/1/1",
     "scope": "教材分型示例",
-    "site": "肱骨内上髁",
-    "pattern": "Ⅱ 度",
+    "site": "肱骨内上髁骨折",
+    "pattern": "Ⅱ度",
     "reference": "第二节 · 六｜图 6-32",
     "affected": [
       "Right humerus"
@@ -1479,7 +2556,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "肱骨内上髁",
+      "site": "肱骨内上髁骨折",
       "form": "斜向断面的教学例",
       "motion": "骨块进入内侧肘关节间隙。 采用成年男性骨性标志示意。"
     },
@@ -1488,8 +2565,8 @@
     "route": "#medial-elbow/v03/1",
     "legacyRoute": "#medial-elbow/2/1",
     "scope": "教材分型示例",
-    "site": "肱骨内上髁",
-    "pattern": "Ⅲ 度",
+    "site": "肱骨内上髁骨折",
+    "pattern": "Ⅲ度",
     "reference": "第二节 · 六｜图 6-32",
     "affected": [
       "Right humerus"
@@ -1500,7 +2577,7 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "肱骨内上髁",
+      "site": "肱骨内上髁骨折",
       "form": "斜向断面的教学例",
       "motion": "内上髁骨块嵌入关节，前臂随肘关节向桡侧脱位。 采用成年男性骨性标志示意。"
     },
@@ -1509,8 +2586,8 @@
     "route": "#medial-elbow/v04/1",
     "legacyRoute": "#medial-elbow/3/1",
     "scope": "教材分型示例",
-    "site": "肱骨内上髁",
-    "pattern": "Ⅳ 度",
+    "site": "肱骨内上髁骨折",
+    "pattern": "Ⅳ度",
     "reference": "第二节 · 六｜图 6-32",
     "affected": [
       "Right humerus"
@@ -1521,7 +2598,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "桡骨头",
+      "site": "桡骨头骨折",
       "form": "横向断面的教学例",
       "motion": "细线标示损伤部位，关节对位保留。"
     },
@@ -1530,7 +2607,7 @@
     "route": "#radial-head/v01/1",
     "legacyRoute": "#radial-head/0/1",
     "scope": "教材分型示例",
-    "site": "桡骨头",
+    "site": "桡骨头骨折",
     "pattern": "无明显移位",
     "reference": "第二节 · 八｜图 6-34",
     "affected": [
@@ -1542,7 +2619,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "桡骨头",
+      "site": "桡骨头骨折",
       "form": "断端嵌插",
       "motion": "观察桡骨头与颈部的嵌插。"
     },
@@ -1551,7 +2628,7 @@
     "route": "#radial-head/v02/1",
     "legacyRoute": "#radial-head/1/1",
     "scope": "教材分型示例",
-    "site": "桡骨头",
+    "site": "桡骨头骨折",
     "pattern": "嵌插",
     "reference": "第二节 · 八｜图 6-34",
     "affected": [
@@ -1563,7 +2640,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "桡骨头",
+      "site": "桡骨头骨折",
       "form": "斜向断面的教学例",
       "motion": "观察骨折线进入桡骨头的关节面。"
     },
@@ -1572,7 +2649,7 @@
     "route": "#radial-head/v03/1",
     "legacyRoute": "#radial-head/2/1",
     "scope": "教材分型示例",
-    "site": "桡骨头",
+    "site": "桡骨头骨折",
     "pattern": "劈裂",
     "reference": "第二节 · 八｜图 6-34",
     "affected": [
@@ -1584,7 +2661,7 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "桡骨头",
+      "site": "桡骨头骨折",
       "form": "多骨块断面",
       "motion": "多个骨块累及桡骨头，转至上方观察骨折线。"
     },
@@ -1593,7 +2670,7 @@
     "route": "#radial-head/v04/1",
     "legacyRoute": "#radial-head/3/1",
     "scope": "教材分型示例",
-    "site": "桡骨头",
+    "site": "桡骨头骨折",
     "pattern": "粉碎",
     "reference": "第二节 · 八｜图 6-34",
     "affected": [
@@ -1603,9 +2680,96 @@
     "observation": "多个骨块累及桡骨头，转至上方观察骨折线。"
   },
   {
+    "variantId": "v05",
+    "description": {
+      "site": "桡骨头骨折",
+      "form": "不完全断线与连续侧皮质",
+      "motion": "围绕桡骨颈看成角和仅在一侧的短裂线，桡骨头保持整体。"
+    },
+    "cardReference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "cardScope": "教材部位要点",
+    "route": "#radial-head/v05/1",
+    "legacyRoute": "#radial-head/4/1",
+    "scope": "教材儿童解剖示意",
+    "site": "桡骨头骨折",
+    "pattern": "青枝骨折",
+    "reference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "围绕桡骨颈看成角和仅在一侧的短裂线，桡骨头保持整体。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "桡骨头骨折",
+      "form": "横向断面的教学例",
+      "motion": "与无移位例相比需辨别皮质错台，旋转视角可与单纯嵌插区分。"
+    },
+    "cardReference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "cardScope": "教材部位要点",
+    "route": "#radial-head/v06/1",
+    "legacyRoute": "#radial-head/5/1",
+    "scope": "教材分型示例",
+    "site": "桡骨头骨折",
+    "pattern": "轻度移位",
+    "reference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "与无移位例相比需辨别皮质错台，旋转视角可与单纯嵌插区分。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "桡骨头骨折",
+      "form": "断端嵌插",
+      "motion": "比较肱骨小头下方的桡骨头高度和侧方阶差，两个方向的改变可同时存在。"
+    },
+    "cardReference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "cardScope": "教材部位要点",
+    "route": "#radial-head/v07/1",
+    "legacyRoute": "#radial-head/6/1",
+    "scope": "教材分型示例",
+    "site": "桡骨头骨折",
+    "pattern": "嵌插合并移位",
+    "reference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "比较肱骨小头下方的桡骨头高度和侧方阶差，两个方向的改变可同时存在。"
+  },
+  {
+    "variantId": "v08",
+    "description": {
+      "site": "桡骨头骨折",
+      "form": "经骺板分离",
+      "motion": "半透明带标示儿童骺板位置，联合肱骨小头参照区分颈部断裂与经骺板分离。"
+    },
+    "cardReference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "cardScope": "教材部位要点",
+    "route": "#radial-head/v08/1",
+    "legacyRoute": "#radial-head/7/1",
+    "scope": "教材儿童解剖示意",
+    "site": "桡骨头骨折",
+    "pattern": "儿童骨骺分离",
+    "reference": "第六章 · 第二节｜八｜图 6-34 · PDF 341 页",
+    "related": [
+      "#physis-injury/v01/1"
+    ],
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "半透明带标示儿童骺板位置，联合肱骨小头参照区分颈部断裂与经骺板分离。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "尺骨上段合并桡骨头脱位",
+      "site": "尺骨上1/3骨折合并桡骨头脱位",
       "form": "斜向断面的教学例",
       "motion": "桡骨头向前外侧脱位，观察尺骨上段斜形断面。"
     },
@@ -1614,7 +2778,7 @@
     "route": "#monteggia/v01/1",
     "legacyRoute": "#monteggia/0/1",
     "scope": "教材分型示例",
-    "site": "尺骨上段合并桡骨头脱位",
+    "site": "尺骨上1/3骨折合并桡骨头脱位",
     "pattern": "伸直型",
     "reference": "第二节 · 九｜图 6-35",
     "affected": [
@@ -1626,7 +2790,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "尺骨上段合并桡骨头脱位",
+      "site": "尺骨上1/3骨折合并桡骨头脱位",
       "form": "横向断面的教学例",
       "motion": "桡骨头向后外侧脱位，尺骨近段可呈横断或短斜形。"
     },
@@ -1635,7 +2799,7 @@
     "route": "#monteggia/v02/1",
     "legacyRoute": "#monteggia/1/1",
     "scope": "教材分型示例",
-    "site": "尺骨上段合并桡骨头脱位",
+    "site": "尺骨上1/3骨折合并桡骨头脱位",
     "pattern": "屈曲型",
     "reference": "第二节 · 九｜图 6-35",
     "affected": [
@@ -1647,7 +2811,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "尺骨上段合并桡骨头脱位",
+      "site": "尺骨上1/3骨折合并桡骨头脱位",
       "form": "横向断面的教学例",
       "motion": "桡骨头向外侧脱位。教材常见于幼儿，本例只展示骨段方向。"
     },
@@ -1656,7 +2820,7 @@
     "route": "#monteggia/v03/1",
     "legacyRoute": "#monteggia/2/1",
     "scope": "教材分型示例",
-    "site": "尺骨上段合并桡骨头脱位",
+    "site": "尺骨上1/3骨折合并桡骨头脱位",
     "pattern": "内收型",
     "reference": "第二节 · 九｜图 6-35",
     "affected": [
@@ -1668,7 +2832,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "尺桡骨干单骨",
+      "site": "尺桡骨干单骨折",
       "form": "横断骨折线",
       "motion": "近段趋向旋后，远段趋向旋前。"
     },
@@ -1677,7 +2841,7 @@
     "route": "#single-forearm/v01/1",
     "legacyRoute": "#single-forearm/0/1",
     "scope": "教材分型示例",
-    "site": "尺桡骨干单骨",
+    "site": "尺桡骨干单骨折",
     "pattern": "桡骨干上 1/3",
     "reference": "第二节 · 十一｜图 6-42",
     "affected": [
@@ -1689,7 +2853,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "尺桡骨干单骨",
+      "site": "尺桡骨干单骨折",
       "form": "横断骨折线",
       "motion": "近段接近中立位，远段发生旋前。"
     },
@@ -1698,7 +2862,7 @@
     "route": "#single-forearm/v02/1",
     "legacyRoute": "#single-forearm/1/1",
     "scope": "教材分型示例",
-    "site": "尺桡骨干单骨",
+    "site": "尺桡骨干单骨折",
     "pattern": "桡骨干中 1/3",
     "reference": "第二节 · 十一｜图 6-42",
     "affected": [
@@ -1710,7 +2874,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "尺桡骨干单骨",
+      "site": "尺桡骨干单骨折",
       "form": "横断骨折线",
       "motion": "观察尺骨骨干断面，保留桡骨连续性。"
     },
@@ -1719,7 +2883,7 @@
     "route": "#single-forearm/v03/1",
     "legacyRoute": "#single-forearm/2/1",
     "scope": "教材分型示例",
-    "site": "尺桡骨干单骨",
+    "site": "尺桡骨干单骨折",
     "pattern": "尺骨干单骨折",
     "reference": "第二节 · 十一｜图 6-42",
     "affected": [
@@ -1729,9 +2893,30 @@
     "observation": "观察尺骨骨干断面，保留桡骨连续性。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "尺桡骨干单骨折",
+      "form": "不完全断线与连续侧皮质",
+      "motion": "以尺骨作参照，从正面看桡骨弯曲是否改变骨间隙。"
+    },
+    "cardReference": "第六章 · 第二节｜十一｜图 6-42 · PDF 353–354 页",
+    "cardScope": "教材部位要点",
+    "route": "#single-forearm/v04/1",
+    "legacyRoute": "#single-forearm/3/1",
+    "scope": "教材儿童解剖示意",
+    "site": "尺桡骨干单骨折",
+    "pattern": "幼儿青枝骨折",
+    "reference": "第六章 · 第二节｜十一｜图 6-42 · PDF 353–354 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "以尺骨作参照，从正面看桡骨弯曲是否改变骨间隙。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "桡骨下段合并下尺桡关节脱位",
+      "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
       "form": "横向断面的教学例",
       "motion": "桡骨下段横断、轻度成角，观察桡骨与尺骨头的相对位置。"
     },
@@ -1740,7 +2925,7 @@
     "route": "#galeazzi/v01/1",
     "legacyRoute": "#galeazzi/0/1",
     "scope": "教材分型示例",
-    "site": "桡骨下段合并下尺桡关节脱位",
+    "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
     "pattern": "稳定型",
     "reference": "第二节 · 十二｜图 6-44",
     "affected": [
@@ -1752,8 +2937,8 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "桡骨下段合并下尺桡关节脱位",
-      "form": "斜向断面的教学例",
+      "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+      "form": "短斜形骨折线",
       "motion": "桡骨下段斜形断裂，远段短缩并向掌侧移位。"
     },
     "cardReference": "第六章 第二节 上肢骨折 · 桡骨下1/3骨折合并尺桡远侧关节脱位",
@@ -1761,8 +2946,8 @@
     "route": "#galeazzi/v02/1",
     "legacyRoute": "#galeazzi/1/1",
     "scope": "教材分型示例",
-    "site": "桡骨下段合并下尺桡关节脱位",
-    "pattern": "不稳定型",
+    "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+    "pattern": "不稳定型（短斜）",
     "reference": "第二节 · 十二｜图 6-44",
     "affected": [
       "Right radius"
@@ -1773,7 +2958,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "桡骨下段合并下尺桡关节脱位",
+      "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
       "form": "多处骨折线",
       "motion": "桡尺骨下段均骨折，同时伴下尺桡关节对位异常。"
     },
@@ -1782,7 +2967,7 @@
     "route": "#galeazzi/v03/1",
     "legacyRoute": "#galeazzi/2/1",
     "scope": "教材分型示例",
-    "site": "桡骨下段合并下尺桡关节脱位",
+    "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
     "pattern": "特殊型",
     "reference": "第二节 · 十二｜图 6-44",
     "affected": [
@@ -1793,9 +2978,97 @@
     "observation": "桡尺骨下段均骨折，同时伴下尺桡关节对位异常。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+      "form": "不完全断线与连续侧皮质",
+      "motion": "顺桡骨远段看成角，再看尺骨头相对桡骨远端的位置，分别评价两处改变。"
+    },
+    "cardReference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "cardScope": "教材部位要点",
+    "route": "#galeazzi/v04/1",
+    "legacyRoute": "#galeazzi/3/1",
+    "scope": "教材儿童解剖示意",
+    "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+    "pattern": "稳定型（青枝）",
+    "reference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "顺桡骨远段看成角，再看尺骨头相对桡骨远端的位置，分别评价两处改变。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+      "form": "多处骨折线",
+      "motion": "分别辨认尺骨干骺端与虚拟骺板的阶差，以及桡骨自身的骨折线。"
+    },
+    "cardReference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "cardScope": "教材部位要点",
+    "route": "#galeazzi/v05/1",
+    "legacyRoute": "#galeazzi/4/1",
+    "scope": "教材儿童解剖示意",
+    "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+    "pattern": "稳定型（尺骨远端骨骺滑脱）",
+    "reference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "related": [
+      "#physis-injury/v01/1"
+    ],
+    "affected": [
+      "Right radius",
+      "Right ulna"
+    ],
+    "fixed": [],
+    "observation": "分别辨认尺骨干骺端与虚拟骺板的阶差，以及桡骨自身的骨折线。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+      "form": "沿骨干绕行的螺旋断线",
+      "motion": "转动观察骨折线绕过桡骨干，并以尺骨头定位下尺桡失对位。"
+    },
+    "cardReference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "cardScope": "教材部位要点",
+    "route": "#galeazzi/v06/1",
+    "legacyRoute": "#galeazzi/5/1",
+    "scope": "教材分型示例",
+    "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+    "pattern": "不稳定型（螺旋）",
+    "reference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "转动观察骨折线绕过桡骨干，并以尺骨头定位下尺桡失对位。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+      "form": "多骨块断面",
+      "motion": "从远端核对桡骨长度和尺骨头相对位置，区分粉碎例与连续螺旋断线。"
+    },
+    "cardReference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "cardScope": "教材部位要点",
+    "route": "#galeazzi/v07/1",
+    "legacyRoute": "#galeazzi/6/1",
+    "scope": "教材分型示例",
+    "site": "桡骨下1/3骨折合并尺桡远侧关节脱位",
+    "pattern": "不稳定型（粉碎）",
+    "reference": "第六章 · 第二节｜十二｜图 6-44 · PDF 356–358 页",
+    "affected": [
+      "Right radius"
+    ],
+    "fixed": [],
+    "observation": "从远端核对桡骨长度和尺骨头相对位置，区分粉碎例与连续螺旋断线。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "掌骨",
+      "site": "掌骨骨折",
       "form": "横向断面的教学例",
       "motion": "第一掌骨近端骨折，观察成角位置。"
     },
@@ -1804,8 +3077,8 @@
     "route": "#metacarpal/v01/1",
     "legacyRoute": "#metacarpal/0/1",
     "scope": "教材分型示例",
-    "site": "掌骨",
-    "pattern": "第一掌骨基底部",
+    "site": "掌骨骨折",
+    "pattern": "第1掌骨基底部骨折",
     "reference": "第二节 · 十五｜图 6-52、6-53",
     "affected": [
       "Right first metacarpal bone"
@@ -1816,7 +3089,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "掌骨",
+      "site": "掌骨骨折",
       "form": "斜向断面的教学例",
       "motion": "基底尺掌侧小骨块留在原处，掌骨干与大多角骨失去对位。"
     },
@@ -1825,8 +3098,8 @@
     "route": "#metacarpal/v02/1",
     "legacyRoute": "#metacarpal/1/1",
     "scope": "教材分型示例",
-    "site": "掌骨",
-    "pattern": "第一掌骨基底部骨折脱位",
+    "site": "掌骨骨折",
+    "pattern": "第1掌骨基底部骨折脱位",
     "reference": "第二节 · 十五｜图 6-52、6-53",
     "affected": [
       "Right first metacarpal bone"
@@ -1837,7 +3110,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "掌骨",
+      "site": "掌骨骨折",
       "form": "横向断面的教学例",
       "motion": "以第五掌骨为例，掌骨头向掌侧屈转。"
     },
@@ -1846,8 +3119,8 @@
     "route": "#metacarpal/v03/1",
     "legacyRoute": "#metacarpal/2/1",
     "scope": "教材分型示例",
-    "site": "掌骨",
-    "pattern": "掌骨颈",
+    "site": "掌骨骨折",
+    "pattern": "掌骨颈骨折",
     "reference": "第二节 · 十五｜图 6-52、6-53",
     "affected": [
       "Right fifth metacarpal bone"
@@ -1858,7 +3131,7 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "掌骨",
+      "site": "掌骨骨折",
       "form": "斜形骨折线",
       "motion": "以第二掌骨为例，观察骨干斜线及侧移。"
     },
@@ -1867,8 +3140,8 @@
     "route": "#metacarpal/v04/1",
     "legacyRoute": "#metacarpal/3/1",
     "scope": "教材分型示例",
-    "site": "掌骨",
-    "pattern": "掌骨干",
+    "site": "掌骨骨折",
+    "pattern": "掌骨干骨折",
     "reference": "第二节 · 十五｜图 6-52、6-53",
     "affected": [
       "Right second metacarpal bone"
@@ -1877,9 +3150,32 @@
     "observation": "以第二掌骨为例，观察骨干斜线及侧移。"
   },
   {
+    "variantId": "v05",
+    "description": {
+      "site": "掌骨骨折",
+      "form": "多处骨折线",
+      "motion": "逐根核对第2至第4掌骨长度、成角和旋转，用掌弓及指轴关系辨认整体畸形。"
+    },
+    "cardReference": "第六章 · 第二节｜十五｜图 6-52、6-53 · PDF 370–372 页",
+    "cardScope": "教材部位要点",
+    "route": "#metacarpal/v05/1",
+    "legacyRoute": "#metacarpal/4/1",
+    "scope": "教材分型示例",
+    "site": "掌骨骨折",
+    "pattern": "多根掌骨干骨折",
+    "reference": "第六章 · 第二节｜十五｜图 6-52、6-53 · PDF 370–372 页",
+    "affected": [
+      "Right second metacarpal bone",
+      "Right third metacarpal bone",
+      "Right fourth metacarpal bone"
+    ],
+    "fixed": [],
+    "observation": "逐根核对第2至第4掌骨长度、成角和旋转，用掌弓及指轴关系辨认整体畸形。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "股骨转子区",
+      "site": "股骨转子间骨折",
       "form": "斜向断面的教学例",
       "motion": "从大转子沿断线观察其向内下走行。"
     },
@@ -1888,7 +3184,7 @@
     "route": "#trochanter/v01/1",
     "legacyRoute": "#trochanter/0/1",
     "scope": "教材分型示例",
-    "site": "股骨转子区",
+    "site": "股骨转子间骨折",
     "pattern": "顺转子间型",
     "reference": "第三节 · 二｜图 6-72",
     "affected": [
@@ -1900,7 +3196,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "股骨转子区",
+      "site": "股骨转子间骨折",
       "form": "斜向断面的教学例",
       "motion": "从正面看断线由外下走向内上，近段外展。转到上方，观察近段绕股骨头外旋。"
     },
@@ -1909,7 +3205,7 @@
     "route": "#trochanter/v02/1",
     "legacyRoute": "#trochanter/1/1",
     "scope": "教材分型示例",
-    "site": "股骨转子区",
+    "site": "股骨转子间骨折",
     "pattern": "反转子间型",
     "reference": "第三节 · 二｜图 6-72",
     "affected": [
@@ -1921,7 +3217,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "股骨转子区",
+      "site": "股骨转子间骨折",
       "form": "横向断面的教学例",
       "motion": "断面位于大小转子以下。"
     },
@@ -1930,7 +3226,7 @@
     "route": "#trochanter/v03/1",
     "legacyRoute": "#trochanter/2/1",
     "scope": "教材分型示例",
-    "site": "股骨转子区",
+    "site": "股骨转子间骨折",
     "pattern": "转子下型",
     "reference": "第三节 · 二｜图 6-72",
     "affected": [
@@ -1940,9 +3236,93 @@
     "observation": "断面位于大小转子以下。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "股骨转子间骨折",
+      "form": "多骨块断面",
+      "motion": "寻找小转子和内侧支柱的独立断面，区别单条顺转子间断线与粉碎形态。"
+    },
+    "cardReference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "cardScope": "教材部位要点",
+    "route": "#trochanter/v04/1",
+    "legacyRoute": "#trochanter/3/1",
+    "scope": "教材分型示例",
+    "site": "股骨转子间骨折",
+    "pattern": "顺转子间粉碎型",
+    "reference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "寻找小转子和内侧支柱的独立断面，区别单条顺转子间断线与粉碎形态。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "股骨转子间骨折",
+      "form": "斜向断面的教学例",
+      "motion": "沿小转子下方追踪内侧支柱，与移位后支撑不足的例子比较。"
+    },
+    "cardReference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "cardScope": "教材部位要点",
+    "route": "#trochanter/v05/1",
+    "legacyRoute": "#trochanter/4/1",
+    "scope": "教材分型示例",
+    "site": "股骨转子间骨折",
+    "pattern": "Evans 稳定型",
+    "reference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "沿小转子下方追踪内侧支柱，与移位后支撑不足的例子比较。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "股骨转子间骨折",
+      "form": "斜向断面的教学例",
+      "motion": "从内后方辨认一侧断缘接触减少，比较复位前两骨段的对线和压缩侧。"
+    },
+    "cardReference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "cardScope": "教材部位要点",
+    "route": "#trochanter/v06/1",
+    "legacyRoute": "#trochanter/5/1",
+    "scope": "教材分型示例",
+    "site": "股骨转子间骨折",
+    "pattern": "Evans 欠稳定型",
+    "reference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "从内后方辨认一侧断缘接触减少，比较复位前两骨段的对线和压缩侧。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "股骨转子间骨折",
+      "form": "相交断线与骨片",
+      "motion": "在内后侧找到骨片脱离及支柱缺口，再比较单纯局部张开的欠稳定选例。"
+    },
+    "cardReference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "cardScope": "教材部位要点",
+    "route": "#trochanter/v07/1",
+    "legacyRoute": "#trochanter/6/1",
+    "scope": "教材分型示例",
+    "site": "股骨转子间骨折",
+    "pattern": "Evans 不稳定型",
+    "reference": "第六章 · 第三节｜二｜图 6-72 · PDF 391–392 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [],
+    "observation": "在内后侧找到骨片脱离及支柱缺口，再比较单纯局部张开的欠稳定选例。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "股骨髁间",
+      "site": "股骨髁间骨折",
       "form": "T 形髁间骨折线",
       "motion": "从正面追踪髁间纵行线，比较近侧两支的走向，再转到下方观察关节面。"
     },
@@ -1951,7 +3331,7 @@
     "route": "#intercondylar/v01/1",
     "legacyRoute": "#intercondylar/0/1",
     "scope": "教材分型示例",
-    "site": "股骨髁间",
+    "site": "股骨髁间骨折",
     "pattern": "T 形",
     "reference": "第三节 · 五｜图 6-80",
     "affected": [
@@ -1963,7 +3343,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "股骨髁间",
+      "site": "股骨髁间骨折",
       "form": "Y 形髁间骨折线",
       "motion": "从正面追踪髁间纵行线，比较近侧两支的走向，再转到下方观察关节面。"
     },
@@ -1972,7 +3352,7 @@
     "route": "#intercondylar/v02/1",
     "legacyRoute": "#intercondylar/1/1",
     "scope": "教材分型示例",
-    "site": "股骨髁间",
+    "site": "股骨髁间骨折",
     "pattern": "Y 形",
     "reference": "第三节 · 五｜图 6-80",
     "affected": [
@@ -1984,7 +3364,7 @@
   {
     "variantId": "v01",
     "description": {
-      "site": "距骨",
+      "site": "距骨骨折",
       "form": "横向断面的教学例",
       "motion": "在侧位观察分开距骨体与头颈区的骨折线。"
     },
@@ -1993,7 +3373,7 @@
     "route": "#talus/v01/1",
     "legacyRoute": "#talus/0/1",
     "scope": "教材分型示例",
-    "site": "距骨",
+    "site": "距骨骨折",
     "pattern": "距骨颈骨折",
     "reference": "第三节 · 十｜图 6-93",
     "affected": [
@@ -2005,7 +3385,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "距骨",
+      "site": "距骨骨折",
       "form": "斜向断面的教学例",
       "motion": "转至后方观察距骨后缘的小骨块。"
     },
@@ -2014,7 +3394,7 @@
     "route": "#talus/v02/1",
     "legacyRoute": "#talus/1/1",
     "scope": "教材分型示例",
-    "site": "距骨",
+    "site": "距骨骨折",
     "pattern": "距骨后唇骨折",
     "reference": "第三节 · 十｜图 6-93",
     "affected": [
@@ -2022,6 +3402,174 @@
     ],
     "fixed": [],
     "observation": "转至后方观察距骨后缘的小骨块。"
+  },
+  {
+    "variantId": "v03",
+    "description": {
+      "site": "距骨骨折",
+      "form": "横向断面的教学例",
+      "motion": "侧位同时核对胫距与距跟对位，辨认向后翻转的体块和距骨体血供风险。"
+    },
+    "cardReference": "第六章 · 第三节｜十｜图 6-93 · PDF 424–425 页",
+    "cardScope": "教材部位要点",
+    "route": "#talus/v03/1",
+    "legacyRoute": "#talus/2/1",
+    "scope": "教材分型示例",
+    "site": "距骨骨折",
+    "pattern": "距骨颈骨折伴距骨体后脱位",
+    "reference": "第六章 · 第三节｜十｜图 6-93 · PDF 424–425 页",
+    "affected": [
+      "Right talus"
+    ],
+    "fixed": [],
+    "observation": "侧位同时核对胫距与距跟对位，辨认向后翻转的体块和距骨体血供风险。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "距骨骨折",
+      "form": "斜向断面的教学例",
+      "motion": "观察距骨滑车前移到踝穴之前，辨别与距骨颈骨折伴后脱位的反向关系。"
+    },
+    "cardReference": "第六章 · 第三节｜十｜图 6-93 · PDF 424–425 页",
+    "cardScope": "教材部位要点",
+    "route": "#talus/v04/1",
+    "legacyRoute": "#talus/3/1",
+    "scope": "教材分型示例",
+    "site": "距骨骨折",
+    "pattern": "距骨后唇骨折伴前脱位",
+    "reference": "第六章 · 第三节｜十｜图 6-93 · PDF 424–425 页",
+    "affected": [
+      "Right talus"
+    ],
+    "fixed": [],
+    "observation": "观察距骨滑车前移到踝穴之前，辨别与距骨颈骨折伴后脱位的反向关系。"
+  },
+  {
+    "variantId": "v01",
+    "description": {
+      "site": "骨骺损伤",
+      "form": "经骺板分离",
+      "motion": "核对虚拟骺板两侧的滑移，干骺端和骨骺均无独立骨片。"
+    },
+    "cardReference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "cardScope": "教材部位要点",
+    "route": "#physis-injury/v01/1",
+    "legacyRoute": "#physis-injury/0/1",
+    "scope": "教材儿童解剖示意",
+    "site": "骨骺损伤",
+    "pattern": "Salter–Harris Ⅰ型",
+    "reference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "核对虚拟骺板两侧的滑移，干骺端和骨骺均无独立骨片。"
+  },
+  {
+    "variantId": "v02",
+    "description": {
+      "site": "骨骺损伤",
+      "form": "骺板与干骺端",
+      "motion": "沿骺板边缘追踪折转，与单纯经板分离的Ⅰ型鉴别。"
+    },
+    "cardReference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "cardScope": "教材部位要点",
+    "route": "#physis-injury/v02/1",
+    "legacyRoute": "#physis-injury/1/1",
+    "scope": "教材儿童解剖示意",
+    "site": "骨骺损伤",
+    "pattern": "Salter–Harris Ⅱ型",
+    "reference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [],
+    "observation": "沿骺板边缘追踪折转，与单纯经板分离的Ⅰ型鉴别。"
+  },
+  {
+    "variantId": "v03",
+    "description": {
+      "site": "骨骺损伤",
+      "form": "关节面至骺板",
+      "motion": "同时核对关节面错台及干骺端是否完整。"
+    },
+    "cardReference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "cardScope": "教材部位要点",
+    "route": "#physis-injury/v03/1",
+    "legacyRoute": "#physis-injury/2/1",
+    "scope": "教材儿童解剖示意",
+    "site": "骨骺损伤",
+    "pattern": "Salter–Harris Ⅲ型",
+    "reference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "同时核对关节面错台及干骺端是否完整。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "骨骺损伤",
+      "form": "骨骺、骺板与干骺端",
+      "motion": "追踪同一条断线跨过生长板，并检查其关节面开口。"
+    },
+    "cardReference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "cardScope": "教材部位要点",
+    "route": "#physis-injury/v04/1",
+    "legacyRoute": "#physis-injury/3/1",
+    "scope": "教材儿童解剖示意",
+    "site": "骨骺损伤",
+    "pattern": "Salter–Harris Ⅳ型",
+    "reference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "追踪同一条断线跨过生长板，并检查其关节面开口。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "骨骺损伤",
+      "form": "骺板压缩",
+      "motion": "比较虚拟板带厚度随加载而减小，随访重点为骺板早闭和生长受限。"
+    },
+    "cardReference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "cardScope": "教材部位要点",
+    "route": "#physis-injury/v05/1",
+    "legacyRoute": "#physis-injury/4/1",
+    "scope": "教材儿童解剖示意",
+    "site": "骨骺损伤",
+    "pattern": "Salter–Harris Ⅴ型",
+    "reference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "比较虚拟板带厚度随加载而减小，随访重点为骺板早闭和生长受限。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "骨骺损伤",
+      "form": "骺板周缘缺损",
+      "motion": "观察虚拟带的单侧周缘缺损，与弥漫性骺板压缩的Ⅴ型鉴别。"
+    },
+    "cardReference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "cardScope": "教材部位要点",
+    "route": "#physis-injury/v06/1",
+    "legacyRoute": "#physis-injury/5/1",
+    "scope": "教材儿童解剖示意",
+    "site": "骨骺损伤",
+    "pattern": "Salter–Harris Ⅵ型",
+    "reference": "第六章 · 第五节｜图 6-121 · PDF 476–480 页 · 成人骨性底图儿童解剖示意",
+    "affected": [
+      "Right tibia"
+    ],
+    "fixed": [],
+    "observation": "观察虚拟带的单侧周缘缺损，与弥漫性骺板压缩的Ⅴ型鉴别。"
   },
   {
     "variantId": "v01",
@@ -2352,7 +3900,7 @@
     "scope": "同类部位实例",
     "site": "第3跖骨",
     "pattern": "横断骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right third metatarsal bone"
     ],
@@ -2373,7 +3921,7 @@
     "scope": "同类部位实例",
     "site": "第3跖骨",
     "pattern": "斜形骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right third metatarsal bone"
     ],
@@ -2394,7 +3942,7 @@
     "scope": "同类部位实例",
     "site": "第3跖骨",
     "pattern": "粉碎性骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right third metatarsal bone"
     ],
@@ -2415,7 +3963,7 @@
     "scope": "同类部位实例",
     "site": "第4跖骨",
     "pattern": "横断骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right fourth metatarsal bone"
     ],
@@ -2436,7 +3984,7 @@
     "scope": "同类部位实例",
     "site": "第4跖骨",
     "pattern": "斜形骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right fourth metatarsal bone"
     ],
@@ -2457,7 +4005,7 @@
     "scope": "同类部位实例",
     "site": "第4跖骨",
     "pattern": "粉碎性骨折",
-    "reference": "第三节 · 十二｜图 6-100 · PDF 434 页",
+    "reference": "第三节 · 十二｜图 6-100 · PDF 435 页",
     "affected": [
       "Right fourth metatarsal bone"
     ],
@@ -3378,7 +4926,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c3/v01/1",
     "legacyRoute": "#region-body-c3/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈3椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3399,7 +4947,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c3/v02/1",
     "legacyRoute": "#region-body-c3/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈3椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3420,7 +4968,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c4/v01/1",
     "legacyRoute": "#region-body-c4/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈4椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3441,7 +4989,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c4/v02/1",
     "legacyRoute": "#region-body-c4/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈4椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3462,7 +5010,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c5/v01/1",
     "legacyRoute": "#region-body-c5/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈5椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3483,7 +5031,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c5/v02/1",
     "legacyRoute": "#region-body-c5/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈5椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3504,7 +5052,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c6/v01/1",
     "legacyRoute": "#region-body-c6/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈6椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3525,7 +5073,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c6/v02/1",
     "legacyRoute": "#region-body-c6/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈6椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3546,7 +5094,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c7/v01/1",
     "legacyRoute": "#region-body-c7/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈7椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3567,7 +5115,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-c7/v02/1",
     "legacyRoute": "#region-body-c7/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颈7椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-SUBAXIAL",
@@ -3588,7 +5136,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t1/v01/1",
     "legacyRoute": "#region-body-t1/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸1椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3609,7 +5157,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t1/v02/1",
     "legacyRoute": "#region-body-t1/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸1椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3630,7 +5178,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t2/v01/1",
     "legacyRoute": "#region-body-t2/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸2椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3651,7 +5199,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t2/v02/1",
     "legacyRoute": "#region-body-t2/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸2椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3672,7 +5220,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t3/v01/1",
     "legacyRoute": "#region-body-t3/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸3椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3693,7 +5241,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t3/v02/1",
     "legacyRoute": "#region-body-t3/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸3椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3714,7 +5262,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t4/v01/1",
     "legacyRoute": "#region-body-t4/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸4椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3735,7 +5283,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t4/v02/1",
     "legacyRoute": "#region-body-t4/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸4椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3756,7 +5304,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t5/v01/1",
     "legacyRoute": "#region-body-t5/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸5椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3777,7 +5325,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t5/v02/1",
     "legacyRoute": "#region-body-t5/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸5椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3798,7 +5346,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t6/v01/1",
     "legacyRoute": "#region-body-t6/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸6椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3819,7 +5367,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t6/v02/1",
     "legacyRoute": "#region-body-t6/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸6椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3840,7 +5388,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t7/v01/1",
     "legacyRoute": "#region-body-t7/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸7椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3861,7 +5409,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t7/v02/1",
     "legacyRoute": "#region-body-t7/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸7椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3882,7 +5430,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t8/v01/1",
     "legacyRoute": "#region-body-t8/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸8椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3903,7 +5451,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t8/v02/1",
     "legacyRoute": "#region-body-t8/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸8椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3924,7 +5472,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t9/v01/1",
     "legacyRoute": "#region-body-t9/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸9椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3945,7 +5493,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t9/v02/1",
     "legacyRoute": "#region-body-t9/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸9椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3966,7 +5514,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t10/v01/1",
     "legacyRoute": "#region-body-t10/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸10椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -3987,7 +5535,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-t10/v02/1",
     "legacyRoute": "#region-body-t10/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "胸10椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -4008,7 +5556,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-l3/v01/1",
     "legacyRoute": "#region-body-l3/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "腰3椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -4029,7 +5577,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-l3/v02/1",
     "legacyRoute": "#region-body-l3/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "腰3椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -4050,7 +5598,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-l4/v01/1",
     "legacyRoute": "#region-body-l4/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "腰4椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -4071,7 +5619,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-l4/v02/1",
     "legacyRoute": "#region-body-l4/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "腰4椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -4092,7 +5640,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-l5/v01/1",
     "legacyRoute": "#region-body-l5/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "腰5椎体",
     "pattern": "前缘楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -4113,7 +5661,7 @@
     "cardScope": "教材部位要点",
     "route": "#region-body-l5/v02/1",
     "legacyRoute": "#region-body-l5/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "腰5椎体",
     "pattern": "侧方楔形压缩",
     "reference": "AO-THORACOLUMBAR",
@@ -4134,7 +5682,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-atlas/v01/1",
     "legacyRoute": "#region-atlas/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "寰椎",
     "pattern": "前弓裂线",
     "reference": "AO-C1",
@@ -4155,7 +5703,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-atlas/v02/1",
     "legacyRoute": "#region-atlas/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "寰椎",
     "pattern": "后弓裂线",
     "reference": "AO-C1",
@@ -4176,7 +5724,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-axis/v01/1",
     "legacyRoute": "#region-axis/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "枢椎齿突",
     "pattern": "齿突尖端骨折",
     "reference": "AO-C2",
@@ -4197,7 +5745,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-axis/v02/1",
     "legacyRoute": "#region-axis/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "枢椎齿突",
     "pattern": "齿突基底部骨折",
     "reference": "AO-C2",
@@ -4302,7 +5850,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-sacrum/v01/1",
     "legacyRoute": "#region-sacrum/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "骶骨翼",
     "pattern": "骶骨翼骨折",
     "reference": "AO-SACRUM",
@@ -4323,7 +5871,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-scapula/v01/1",
     "legacyRoute": "#region-scapula/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "肩胛骨体",
     "pattern": "肩胛骨体骨折",
     "reference": "AO-SCAPULA",
@@ -5310,7 +6858,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-triquetrum/v01/1",
     "legacyRoute": "#region-triquetrum/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "三角骨背侧缘",
     "pattern": "三角骨背侧缘骨折",
     "reference": "AO-CARPAL",
@@ -5331,7 +6879,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-lunate/v01/1",
     "legacyRoute": "#region-lunate/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "月骨体",
     "pattern": "月骨体骨折",
     "reference": "AO-CARPAL",
@@ -5352,7 +6900,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-pisiform/v01/1",
     "legacyRoute": "#region-pisiform/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "豌豆骨",
     "pattern": "豌豆骨骨折",
     "reference": "AO-CARPAL",
@@ -5373,7 +6921,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-hamate/v01/1",
     "legacyRoute": "#region-hamate/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "钩骨体",
     "pattern": "钩骨体骨折",
     "reference": "AO-CARPAL",
@@ -5394,7 +6942,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-capitate/v01/1",
     "legacyRoute": "#region-capitate/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "头状骨颈",
     "pattern": "头状骨颈骨折",
     "reference": "AO-CARPAL",
@@ -5415,7 +6963,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-trapezium/v01/1",
     "legacyRoute": "#region-trapezium/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "大多角骨体",
     "pattern": "大多角骨体骨折",
     "reference": "AO-CARPAL",
@@ -5436,7 +6984,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-trapezoid/v01/1",
     "legacyRoute": "#region-trapezoid/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "小多角骨体",
     "pattern": "小多角骨体骨折",
     "reference": "AO-CARPAL",
@@ -5457,7 +7005,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-navicular/v01/1",
     "legacyRoute": "#region-navicular/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "足舟骨体",
     "pattern": "足舟骨体骨折",
     "reference": "AO-MIDFOOT",
@@ -5478,7 +7026,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuboid/v01/1",
     "legacyRoute": "#region-cuboid/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "骰骨体",
     "pattern": "骰骨体骨折",
     "reference": "AO-MIDFOOT",
@@ -5499,7 +7047,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuneiform-medial/v01/1",
     "legacyRoute": "#region-cuneiform-medial/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "内侧楔骨",
     "pattern": "内侧楔骨骨折",
     "reference": "AO-MIDFOOT",
@@ -5520,7 +7068,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuneiform-intermediate/v01/1",
     "legacyRoute": "#region-cuneiform-intermediate/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "中间楔骨",
     "pattern": "中间楔骨骨折",
     "reference": "AO-MIDFOOT",
@@ -5541,7 +7089,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-cuneiform-lateral/v01/1",
     "legacyRoute": "#region-cuneiform-lateral/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "外侧楔骨",
     "pattern": "外侧楔骨骨折",
     "reference": "AO-MIDFOOT",
@@ -5604,7 +7152,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-frontal/v01/1",
     "legacyRoute": "#region-frontal/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "额骨鳞部",
     "pattern": "局部线形骨折",
     "reference": "AO-SKULL",
@@ -5625,7 +7173,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-frontal/v02/1",
     "legacyRoute": "#region-frontal/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "额骨鳞部",
     "pattern": "局限性凹陷形态",
     "reference": "AO-SKULL",
@@ -5646,7 +7194,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-parietal/v01/1",
     "legacyRoute": "#region-parietal/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "顶骨",
     "pattern": "局部线形骨折",
     "reference": "AO-SKULL",
@@ -5667,7 +7215,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-parietal/v02/1",
     "legacyRoute": "#region-parietal/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "顶骨",
     "pattern": "局限性凹陷形态",
     "reference": "AO-SKULL",
@@ -5688,7 +7236,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-occipital/v01/1",
     "legacyRoute": "#region-occipital/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "枕骨鳞部",
     "pattern": "局部线形骨折",
     "reference": "AO-SKULL",
@@ -5709,7 +7257,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-occipital/v02/1",
     "legacyRoute": "#region-occipital/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "枕骨鳞部",
     "pattern": "局限性凹陷形态",
     "reference": "AO-SKULL",
@@ -5730,7 +7278,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-temporal/v01/1",
     "legacyRoute": "#region-temporal/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颞骨鳞部",
     "pattern": "局部线形骨折",
     "reference": "AO-SKULL",
@@ -5751,7 +7299,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-ethmoid/v01/1",
     "legacyRoute": "#region-ethmoid/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "筛骨眶内侧壁",
     "pattern": "局部线形骨折",
     "reference": "AO-SKULL",
@@ -5772,7 +7320,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-sphenoid/v01/1",
     "legacyRoute": "#region-sphenoid/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "蝶骨大翼区",
     "pattern": "局部线形骨折",
     "reference": "AO-SKULL",
@@ -5793,7 +7341,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-maxilla/v01/1",
     "legacyRoute": "#region-maxilla/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "上颌骨前壁",
     "pattern": "局部线形骨折",
     "reference": "AO-CMF",
@@ -5814,7 +7362,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-palatine/v01/1",
     "legacyRoute": "#region-palatine/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "腭骨水平板",
     "pattern": "局部线形骨折",
     "reference": "AO-CMF",
@@ -5835,7 +7383,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-vomer/v01/1",
     "legacyRoute": "#region-vomer/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "犁骨骨性鼻中隔",
     "pattern": "局部线形骨折",
     "reference": "AO-CMF",
@@ -5856,7 +7404,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-nasal/v01/1",
     "legacyRoute": "#region-nasal/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "鼻骨",
     "pattern": "无明显移位",
     "reference": "AO-CMF",
@@ -5877,7 +7425,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-nasal/v02/1",
     "legacyRoute": "#region-nasal/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "鼻骨",
     "pattern": "移位示例",
     "reference": "AO-CMF",
@@ -5898,7 +7446,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-zygoma/v01/1",
     "legacyRoute": "#region-zygoma/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "颧骨",
     "pattern": "颧弓区局部骨折",
     "reference": "AO-CMF",
@@ -5919,7 +7467,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-mandible/v01/1",
     "legacyRoute": "#region-mandible/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "下颌骨",
     "pattern": "体部骨折",
     "reference": "AO-MANDIBLE",
@@ -5940,7 +7488,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-mandible/v02/1",
     "legacyRoute": "#region-mandible/1/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "下颌骨",
     "pattern": "右髁突颈骨折",
     "reference": "AO-MANDIBLE",
@@ -5982,7 +7530,7 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#region-iliac-wing/v01/1",
     "legacyRoute": "#region-iliac-wing/0/1",
-    "scope": "部位补充形态",
+    "scope": "AO 补充鉴别",
     "site": "髂骨翼",
     "pattern": "髂翼上部骨折",
     "reference": "AO-ILIAC",
@@ -6039,6 +7587,105 @@
       "Right clavicle"
     ],
     "observation": "在侧位比较伤前轮廓与肱骨头终点。"
+  },
+  {
+    "variantId": "v03",
+    "description": {
+      "site": "肩关节脱位",
+      "form": "",
+      "motion": "从前斜方观察喙突下的头影，并与位置更低的盂下型比较。"
+    },
+    "cardReference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "cardScope": "教材部位要点",
+    "route": "#shoulder-dislocation/v03/1",
+    "legacyRoute": "#shoulder-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "肩关节脱位",
+    "pattern": "前脱位（喙突下）",
+    "reference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [
+      "Right scapula",
+      "Right clavicle"
+    ],
+    "observation": "从前斜方观察喙突下的头影，并与位置更低的盂下型比较。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "肩关节脱位",
+      "form": "",
+      "motion": "沿肩胛盂平面观察关节头低落到腋侧，上臂保持外展。"
+    },
+    "cardReference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "cardScope": "教材部位要点",
+    "route": "#shoulder-dislocation/v04/1",
+    "legacyRoute": "#shoulder-dislocation/3/1",
+    "scope": "成人关节脱位",
+    "site": "肩关节脱位",
+    "pattern": "前脱位（盂下）",
+    "reference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [
+      "Right scapula",
+      "Right clavicle"
+    ],
+    "observation": "沿肩胛盂平面观察关节头低落到腋侧，上臂保持外展。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "肩关节脱位",
+      "form": "",
+      "motion": "前斜视角比较肱骨头与锁骨下缘，并检查臂丛和腋血管邻近区。"
+    },
+    "cardReference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "cardScope": "教材部位要点",
+    "route": "#shoulder-dislocation/v05/1",
+    "legacyRoute": "#shoulder-dislocation/4/1",
+    "scope": "成人关节脱位",
+    "site": "肩关节脱位",
+    "pattern": "前脱位（锁骨下）",
+    "reference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "affected": [
+      "Right humerus"
+    ],
+    "fixed": [
+      "Right scapula",
+      "Right clavicle"
+    ],
+    "observation": "前斜视角比较肱骨头与锁骨下缘，并检查臂丛和腋血管邻近区。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "肩关节脱位",
+      "form": "",
+      "motion": "从上方和胸壁侧面检查肱骨头是否位于肋面内侧，联系胸壁与胸腔相关损伤。"
+    },
+    "cardReference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "cardScope": "教材部位要点",
+    "route": "#shoulder-dislocation/v06/1",
+    "legacyRoute": "#shoulder-dislocation/5/1",
+    "scope": "成人关节脱位",
+    "site": "肩关节脱位",
+    "pattern": "前脱位（胸腔内）",
+    "reference": "第七章 · 第三节 · 一｜图 7-3 · PDF 507–509 页",
+    "affected": [
+      "Right humerus",
+      "Right second rib",
+      "Right third rib",
+      "Right fourth rib"
+    ],
+    "fixed": [
+      "Right scapula",
+      "Right clavicle"
+    ],
+    "observation": "从上方和胸壁侧面检查肱骨头是否位于肋面内侧，联系胸壁与胸腔相关损伤。"
   },
   {
     "variantId": "v01",
@@ -6113,6 +7760,78 @@
     "observation": "侧位对照鹰嘴与肱骨远端，注意运动的是前臂骨。"
   },
   {
+    "variantId": "v04",
+    "description": {
+      "site": "肘关节脱位",
+      "form": "",
+      "motion": "正面看近端尺桡是否保持在同一组，检查肘后三点和内外侧副结构。"
+    },
+    "cardReference": "第七章 · 第三节 · 二｜图 7-7 至 7-9 · PDF 515–520 页",
+    "cardScope": "教材部位要点",
+    "route": "#elbow-dislocation/v04/1",
+    "legacyRoute": "#elbow-dislocation/3/1",
+    "scope": "成人关节脱位",
+    "site": "肘关节脱位",
+    "pattern": "侧方脱位（内侧例）",
+    "reference": "第七章 · 第三节 · 二｜图 7-7 至 7-9 · PDF 515–520 页",
+    "affected": [
+      "Right ulna",
+      "Right radius"
+    ],
+    "fixed": [
+      "Right humerus"
+    ],
+    "observation": "正面看近端尺桡是否保持在同一组，检查肘后三点和内外侧副结构。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "肘关节脱位",
+      "form": "",
+      "motion": "侧面同时追踪尺桡两骨的相反轨迹，结合环状韧带和近侧骨间膜受损理解分离。"
+    },
+    "cardReference": "第七章 · 第三节 · 二｜图 7-7 至 7-9 · PDF 515–520 页",
+    "cardScope": "教材部位要点",
+    "route": "#elbow-dislocation/v05/1",
+    "legacyRoute": "#elbow-dislocation/4/1",
+    "scope": "成人关节脱位",
+    "site": "肘关节脱位",
+    "pattern": "分离脱位",
+    "reference": "第七章 · 第三节 · 二｜图 7-7 至 7-9 · PDF 515–520 页",
+    "affected": [
+      "Right ulna",
+      "Right radius"
+    ],
+    "fixed": [
+      "Right humerus"
+    ],
+    "observation": "侧面同时追踪尺桡两骨的相反轨迹，结合环状韧带和近侧骨间膜受损理解分离。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "肘关节脱位",
+      "form": "",
+      "motion": "尺桡远段共同前移。侧面同时辨认尺骨断面和肱尺、肱桡关节错位。"
+    },
+    "cardReference": "第七章 · 第三节 · 二｜图 7-7 至 7-9 · PDF 515–520 页",
+    "cardScope": "教材部位要点",
+    "route": "#elbow-dislocation/v06/1",
+    "legacyRoute": "#elbow-dislocation/5/1",
+    "scope": "成人关节脱位",
+    "site": "肘关节脱位",
+    "pattern": "肘关节骨折脱位（伴尺骨鹰嘴骨折）",
+    "reference": "第七章 · 第三节 · 二｜图 7-7 至 7-9 · PDF 515–520 页",
+    "affected": [
+      "Right ulna",
+      "Right radius"
+    ],
+    "fixed": [
+      "Right humerus"
+    ],
+    "observation": "尺桡远段共同前移。侧面同时辨认尺骨断面和肱尺、肱桡关节错位。"
+  },
+  {
     "variantId": "v01",
     "description": {
       "site": "髋关节脱位",
@@ -6161,6 +7880,74 @@
     "observation": "保留骨盆作为参照，在侧面比较股骨头伤前和伤后的位置。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "髋关节脱位",
+      "form": "",
+      "motion": "股骨头与臼底骨片同向进入盆腔。冠状方向同时辨认髋臼缺口、移位块和股骨头，重度时可见短缩。"
+    },
+    "cardReference": "第七章 · 第四节 · 一｜PDF 533–535、542 页",
+    "cardScope": "教材部位要点",
+    "route": "#hip-dislocation/v03/1",
+    "legacyRoute": "#hip-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "髋关节脱位",
+    "pattern": "中心性脱位",
+    "reference": "第七章 · 第四节 · 一｜PDF 533–535、542 页",
+    "affected": [
+      "Right femur",
+      "Right hip bone"
+    ],
+    "fixed": [],
+    "observation": "股骨头与臼底骨片同向进入盆腔。冠状方向同时辨认髋臼缺口、移位块和股骨头，重度时可见短缩。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "髋关节脱位",
+      "form": "",
+      "motion": "正面辨认高位的股骨头，侧面看它处于骨盆前方，并核对与股血管的邻近关系。"
+    },
+    "cardReference": "第七章 · 第四节 · 一｜PDF 533–535、542 页",
+    "cardScope": "教材部位要点",
+    "route": "#hip-dislocation/v04/1",
+    "legacyRoute": "#hip-dislocation/3/1",
+    "scope": "成人关节脱位",
+    "site": "髋关节脱位",
+    "pattern": "前脱位（耻骨部）",
+    "reference": "第七章 · 第四节 · 一｜PDF 533–535、542 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [
+      "Right hip bone"
+    ],
+    "observation": "正面辨认高位的股骨头，侧面看它处于骨盆前方，并核对与股血管的邻近关系。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "髋关节脱位",
+      "form": "",
+      "motion": "以前内下方头影和髋屈曲、外展、外旋区分闭孔部例，注意闭孔神经与内收肌的关系。"
+    },
+    "cardReference": "第七章 · 第四节 · 一｜PDF 533–535、542 页",
+    "cardScope": "教材部位要点",
+    "route": "#hip-dislocation/v05/1",
+    "legacyRoute": "#hip-dislocation/4/1",
+    "scope": "成人关节脱位",
+    "site": "髋关节脱位",
+    "pattern": "前脱位（闭孔）",
+    "reference": "第七章 · 第四节 · 一｜PDF 533–535、542 页",
+    "affected": [
+      "Right femur"
+    ],
+    "fixed": [
+      "Right hip bone"
+    ],
+    "observation": "以前内下方头影和髋屈曲、外展、外旋区分闭孔部例，注意闭孔神经与内收肌的关系。"
+  },
+  {
     "variantId": "v01",
     "description": {
       "site": "颞下颌关节脱位",
@@ -6185,9 +7972,33 @@
     "observation": "两侧下颌髁突向前越过关节结节。侧面看髁突与下颌窝，正面观察下颌是否保持对称。"
   },
   {
+    "variantId": "v02",
+    "description": {
+      "site": "颞下颌关节脱位",
+      "form": "",
+      "motion": "正面辨认颏部偏向健侧，分别从两侧核对髁突落点和双侧不对称。"
+    },
+    "cardReference": "第七章 · 第二节｜PDF 504–505 页",
+    "cardScope": "教材部位要点",
+    "route": "#tmj-dislocation/v02/1",
+    "legacyRoute": "#tmj-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "颞下颌关节脱位",
+    "pattern": "单侧前脱位",
+    "reference": "第七章 · 第二节｜PDF 504–505 页",
+    "affected": [
+      "Mandible"
+    ],
+    "fixed": [
+      "Right temporal bone",
+      "Left temporal bone"
+    ],
+    "observation": "正面辨认颏部偏向健侧，分别从两侧核对髁突落点和双侧不对称。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "腕骨脱位",
+      "site": "月骨脱位",
       "form": "",
       "motion": "从桡侧看月骨远侧凹面向掌侧转约 90°，头状骨随后向近端靠近桡骨远端。"
     },
@@ -6196,8 +8007,8 @@
     "route": "#lunate-dislocation/v01/1",
     "legacyRoute": "#lunate-dislocation/0/1",
     "scope": "成人关节脱位",
-    "site": "腕骨脱位",
-    "pattern": "月骨掌侧脱位（转位伴掌移）",
+    "site": "月骨脱位",
+    "pattern": "Ⅲ型（掌旋90°并掌移）",
     "reference": "教材第七章 · 月骨脱位",
     "affected": [
       "Right lunate"
@@ -6210,7 +8021,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "腕骨脱位",
+      "site": "月骨脱位",
       "form": "",
       "motion": "在侧面跟踪桡骨月骨窝、月骨与头状骨。比较桡月和月头两处对位。"
     },
@@ -6218,8 +8029,8 @@
     "cardScope": "教材通则与补充形态对照",
     "route": "#lunate-dislocation/v02/1",
     "legacyRoute": "#lunate-dislocation/1/1",
-    "scope": "成人关节脱位",
-    "site": "腕骨脱位",
+    "scope": "AO 补充鉴别",
+    "site": "月骨脱位",
     "pattern": "月骨周围背侧脱位",
     "reference": "AO 月头关节脱位 · 补充鉴别",
     "affected": [
@@ -6230,6 +8041,52 @@
       "Right lunate"
     ],
     "observation": "在侧面跟踪桡骨月骨窝、月骨与头状骨。比较桡月和月头两处对位。"
+  },
+  {
+    "variantId": "v03",
+    "description": {
+      "site": "月骨脱位",
+      "form": "",
+      "motion": "从桡侧观察远侧凹面的方向，辨认旋转与明显掌侧移位的差别。"
+    },
+    "cardReference": "第七章 · 第三节 · 四｜图 7-13 · PDF 525–527 页",
+    "cardScope": "教材部位要点",
+    "route": "#lunate-dislocation/v03/1",
+    "legacyRoute": "#lunate-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "月骨脱位",
+    "pattern": "Ⅰ型（掌旋约90°）",
+    "reference": "第七章 · 第三节 · 四｜图 7-13 · PDF 525–527 页",
+    "affected": [
+      "Right lunate"
+    ],
+    "fixed": [
+      "Right radius"
+    ],
+    "observation": "从桡侧观察远侧凹面的方向，辨认旋转与明显掌侧移位的差别。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "月骨脱位",
+      "form": "",
+      "motion": "连续观察旋向和累计角度，终帧骨面方向本身无法区分大角度转位与反向短弧。"
+    },
+    "cardReference": "第七章 · 第三节 · 四｜图 7-13 · PDF 525–527 页",
+    "cardScope": "教材部位要点",
+    "route": "#lunate-dislocation/v04/1",
+    "legacyRoute": "#lunate-dislocation/3/1",
+    "scope": "成人关节脱位",
+    "site": "月骨脱位",
+    "pattern": "Ⅱ型（掌旋大于90°）",
+    "reference": "第七章 · 第三节 · 四｜图 7-13 · PDF 525–527 页",
+    "affected": [
+      "Right lunate"
+    ],
+    "fixed": [
+      "Right radius"
+    ],
+    "observation": "连续观察旋向和累计角度，终帧骨面方向本身无法区分大角度转位与反向短弧。"
   },
   {
     "variantId": "v01",
@@ -6301,9 +8158,32 @@
     "observation": "从掌面观察中节基底向桡侧错开，转至侧面与背移对照。"
   },
   {
+    "variantId": "v03",
+    "description": {
+      "site": "指间关节脱位",
+      "form": "",
+      "motion": "掌面辨别尺侧台阶，再与历史桡侧例比较，末节随中节一起移位。"
+    },
+    "cardReference": "第七章 · 第三节 · 五｜PDF 531–532 页",
+    "cardScope": "教材部位要点",
+    "route": "#pip-dislocation/v03/1",
+    "legacyRoute": "#pip-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "指间关节脱位",
+    "pattern": "示指近指间尺侧脱位",
+    "reference": "第七章 · 第三节 · 五｜PDF 531–532 页",
+    "affected": [
+      "Middle phalanx of right index finger"
+    ],
+    "fixed": [
+      "Proximal phalanx of right index finger"
+    ],
+    "observation": "掌面辨别尺侧台阶，再与历史桡侧例比较，末节随中节一起移位。"
+  },
+  {
     "variantId": "v01",
     "description": {
-      "site": "胫股关节脱位",
+      "site": "膝关节脱位",
       "form": "",
       "motion": "固定股骨髁，在侧面观察胫骨平台向前移出。"
     },
@@ -6312,9 +8192,9 @@
     "route": "#knee-dislocation/v01/1",
     "legacyRoute": "#knee-dislocation/0/1",
     "scope": "成人关节脱位",
-    "site": "胫股关节脱位",
+    "site": "膝关节脱位",
     "pattern": "前脱位",
-    "reference": "教材第七章 · 胫股关节脱位",
+    "reference": "教材第七章 · 膝关节脱位",
     "affected": [
       "Right tibia",
       "Right fibula"
@@ -6327,7 +8207,7 @@
   {
     "variantId": "v02",
     "description": {
-      "site": "胫股关节脱位",
+      "site": "膝关节脱位",
       "form": "",
       "motion": "固定股骨髁，在侧面观察胫骨平台向后移出。"
     },
@@ -6336,9 +8216,9 @@
     "route": "#knee-dislocation/v02/1",
     "legacyRoute": "#knee-dislocation/1/1",
     "scope": "成人关节脱位",
-    "site": "胫股关节脱位",
+    "site": "膝关节脱位",
     "pattern": "后脱位",
-    "reference": "教材第七章 · 胫股关节脱位",
+    "reference": "教材第七章 · 膝关节脱位",
     "affected": [
       "Right tibia",
       "Right fibula"
@@ -6351,7 +8231,7 @@
   {
     "variantId": "v03",
     "description": {
-      "site": "胫股关节脱位",
+      "site": "膝关节脱位",
       "form": "",
       "motion": "从正面看胫骨平台与股骨髁的内外侧边缘。"
     },
@@ -6360,9 +8240,9 @@
     "route": "#knee-dislocation/v03/1",
     "legacyRoute": "#knee-dislocation/2/1",
     "scope": "成人关节脱位",
-    "site": "胫股关节脱位",
+    "site": "膝关节脱位",
     "pattern": "外侧脱位",
-    "reference": "教材第七章 · 胫股关节脱位",
+    "reference": "教材第七章 · 膝关节脱位",
     "affected": [
       "Right tibia",
       "Right fibula"
@@ -6375,7 +8255,7 @@
   {
     "variantId": "v04",
     "description": {
-      "site": "胫股关节脱位",
+      "site": "膝关节脱位",
       "form": "",
       "motion": "从正面看胫骨平台内移；腓骨和足与胫骨一起运动。"
     },
@@ -6384,9 +8264,9 @@
     "route": "#knee-dislocation/v04/1",
     "legacyRoute": "#knee-dislocation/3/1",
     "scope": "成人关节脱位",
-    "site": "胫股关节脱位",
+    "site": "膝关节脱位",
     "pattern": "内侧脱位",
-    "reference": "教材第七章 · 胫股关节脱位",
+    "reference": "教材第七章 · 膝关节脱位",
     "affected": [
       "Right tibia",
       "Right fibula"
@@ -6395,6 +8275,102 @@
       "Right femur"
     ],
     "observation": "从正面看胫骨平台内移；腓骨和足与胫骨一起运动。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "膝关节脱位",
+      "form": "",
+      "motion": "沿胫骨轴俯视时，以外髁附近为枢，观察内侧间隙向前方打开及胫腓骨带足组转动。"
+    },
+    "cardReference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "cardScope": "教材部位要点",
+    "route": "#knee-dislocation/v05/1",
+    "legacyRoute": "#knee-dislocation/4/1",
+    "scope": "成人关节脱位",
+    "site": "膝关节脱位",
+    "pattern": "前内旋转脱位",
+    "reference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "沿胫骨轴俯视时，以外髁附近为枢，观察内侧间隙向前方打开及胫腓骨带足组转动。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "膝关节脱位",
+      "form": "",
+      "motion": "沿胫骨轴俯视时，以内髁附近为枢，观察外侧间隙向前方打开及胫腓骨带足组转动。"
+    },
+    "cardReference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "cardScope": "教材部位要点",
+    "route": "#knee-dislocation/v06/1",
+    "legacyRoute": "#knee-dislocation/5/1",
+    "scope": "成人关节脱位",
+    "site": "膝关节脱位",
+    "pattern": "前外旋转脱位",
+    "reference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "沿胫骨轴俯视时，以内髁附近为枢，观察外侧间隙向前方打开及胫腓骨带足组转动。"
+  },
+  {
+    "variantId": "v07",
+    "description": {
+      "site": "膝关节脱位",
+      "form": "",
+      "motion": "沿胫骨轴俯视时，以外髁附近为枢，观察内侧间隙向后方打开及胫腓骨带足组转动。"
+    },
+    "cardReference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "cardScope": "教材部位要点",
+    "route": "#knee-dislocation/v07/1",
+    "legacyRoute": "#knee-dislocation/6/1",
+    "scope": "成人关节脱位",
+    "site": "膝关节脱位",
+    "pattern": "后内旋转脱位",
+    "reference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "沿胫骨轴俯视时，以外髁附近为枢，观察内侧间隙向后方打开及胫腓骨带足组转动。"
+  },
+  {
+    "variantId": "v08",
+    "description": {
+      "site": "膝关节脱位",
+      "form": "",
+      "motion": "沿胫骨轴俯视时，以内髁附近为枢，观察外侧间隙向后方打开及胫腓骨带足组转动。"
+    },
+    "cardReference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "cardScope": "教材部位要点",
+    "route": "#knee-dislocation/v08/1",
+    "legacyRoute": "#knee-dislocation/7/1",
+    "scope": "成人关节脱位",
+    "site": "膝关节脱位",
+    "pattern": "后外旋转脱位",
+    "reference": "第七章 · 第四节 · 二｜图 7-25 · PDF 543–545 页",
+    "affected": [
+      "Right tibia",
+      "Right fibula"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "沿胫骨轴俯视时，以内髁附近为枢，观察外侧间隙向后方打开及胫腓骨带足组转动。"
   },
   {
     "variantId": "v01",
@@ -6419,6 +8395,101 @@
       "Right tibia"
     ],
     "observation": "以股骨滑车沟为参照，从前方及轴向观察髌骨越过外髁。"
+  },
+  {
+    "variantId": "v02",
+    "description": {
+      "site": "髌骨脱位",
+      "form": "",
+      "motion": "侧面检查髌骨下极与胫骨结节间距，抬高的髌骨与牵拉方向一致。"
+    },
+    "cardReference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "cardScope": "教材部位要点",
+    "route": "#patella-dislocation/v02/1",
+    "legacyRoute": "#patella-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "髌骨脱位",
+    "pattern": "上方脱位",
+    "reference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [
+      "Right femur",
+      "Right tibia"
+    ],
+    "observation": "侧面检查髌骨下极与胫骨结节间距，抬高的髌骨与牵拉方向一致。"
+  },
+  {
+    "variantId": "v03",
+    "description": {
+      "site": "髌骨脱位",
+      "form": "",
+      "motion": "在侧位沿伸膝装置检查髌骨上极，比较下移与髌韧带损伤时的上移。"
+    },
+    "cardReference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "cardScope": "教材部位要点",
+    "route": "#patella-dislocation/v03/1",
+    "legacyRoute": "#patella-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "髌骨脱位",
+    "pattern": "下方脱位",
+    "reference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [
+      "Right femur",
+      "Right tibia"
+    ],
+    "observation": "在侧位沿伸膝装置检查髌骨上极，比较下移与髌韧带损伤时的上移。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "髌骨脱位",
+      "form": "",
+      "motion": "从轴向查髌骨位于内髁前方，并核对外侧支持结构。"
+    },
+    "cardReference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "cardScope": "教材部位要点",
+    "route": "#patella-dislocation/v04/1",
+    "legacyRoute": "#patella-dislocation/3/1",
+    "scope": "成人关节脱位",
+    "site": "髌骨脱位",
+    "pattern": "内侧脱位",
+    "reference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [
+      "Right femur",
+      "Right tibia"
+    ],
+    "observation": "从轴向查髌骨位于内髁前方，并核对外侧支持结构。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "髌骨脱位",
+      "form": "",
+      "motion": "播放完整屈伸周期，比较屈曲中期的外移和终末回纳。"
+    },
+    "cardReference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "cardScope": "教材部位要点",
+    "route": "#patella-dislocation/v05/1",
+    "legacyRoute": "#patella-dislocation/4/1",
+    "scope": "成人关节脱位",
+    "site": "髌骨脱位",
+    "pattern": "习惯性脱位",
+    "reference": "第七章 · 第四节 · 三｜PDF 547–548 页",
+    "affected": [
+      "Right patella"
+    ],
+    "fixed": [
+      "Right femur"
+    ],
+    "observation": "播放完整屈伸周期，比较屈曲中期的外移和终末回纳。"
   },
   {
     "variantId": "v01",
@@ -6450,6 +8521,177 @@
       "Right lateral cuneiform bone"
     ],
     "observation": "五个跖骨基底向背外侧移动。对照第二跖骨与中间楔骨的内侧缘，再转侧面看背侧阶差。"
+  },
+  {
+    "variantId": "v02",
+    "description": {
+      "site": "跗跖关节脱位",
+      "form": "",
+      "motion": "侧位可辨连续的背侧阶差，正面足列之间保留原有相对排列。"
+    },
+    "cardReference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "cardScope": "教材部位要点",
+    "route": "#lisfranc-dislocation/v02/1",
+    "legacyRoute": "#lisfranc-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "跗跖关节脱位",
+    "pattern": "同向背侧脱位",
+    "reference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "affected": [
+      "Right first metatarsal bone",
+      "Right second metatarsal bone",
+      "Right third metatarsal bone",
+      "Right fourth metatarsal bone",
+      "Right fifth metatarsal bone"
+    ],
+    "fixed": [
+      "Navicular bone of right foot",
+      "Right cuboid bone",
+      "Right medial cuneiform bone",
+      "Right intermediate cuneiform bone",
+      "Right lateral cuneiform bone"
+    ],
+    "observation": "侧位可辨连续的背侧阶差，正面足列之间保留原有相对排列。"
+  },
+  {
+    "variantId": "v03",
+    "description": {
+      "site": "跗跖关节脱位",
+      "form": "",
+      "motion": "沿中间楔骨与第二跖骨作侧位比较，辨别跖侧阶差和足弓变化。"
+    },
+    "cardReference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "cardScope": "教材部位要点",
+    "route": "#lisfranc-dislocation/v03/1",
+    "legacyRoute": "#lisfranc-dislocation/2/1",
+    "scope": "成人关节脱位",
+    "site": "跗跖关节脱位",
+    "pattern": "同向跖侧脱位",
+    "reference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "affected": [
+      "Right first metatarsal bone",
+      "Right second metatarsal bone",
+      "Right third metatarsal bone",
+      "Right fourth metatarsal bone",
+      "Right fifth metatarsal bone"
+    ],
+    "fixed": [
+      "Navicular bone of right foot",
+      "Right cuboid bone",
+      "Right medial cuneiform bone",
+      "Right intermediate cuneiform bone",
+      "Right lateral cuneiform bone"
+    ],
+    "observation": "沿中间楔骨与第二跖骨作侧位比较，辨别跖侧阶差和足弓变化。"
+  },
+  {
+    "variantId": "v04",
+    "description": {
+      "site": "跗跖关节脱位",
+      "form": "",
+      "motion": "足背观察第一、第二跖骨基底间隙和第二跖骨内缘相对中间楔骨的阶差。"
+    },
+    "cardReference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "cardScope": "教材部位要点",
+    "route": "#lisfranc-dislocation/v04/1",
+    "legacyRoute": "#lisfranc-dislocation/3/1",
+    "scope": "成人关节脱位",
+    "site": "跗跖关节脱位",
+    "pattern": "第2～5跖骨外脱位",
+    "reference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "affected": [
+      "Right second metatarsal bone",
+      "Right third metatarsal bone",
+      "Right fourth metatarsal bone",
+      "Right fifth metatarsal bone"
+    ],
+    "fixed": [
+      "Navicular bone of right foot",
+      "Right cuboid bone",
+      "Right medial cuneiform bone",
+      "Right intermediate cuneiform bone",
+      "Right lateral cuneiform bone",
+      "Right first metatarsal bone",
+      "Proximal phalanx of right big toe",
+      "Distal phalanx of right big toe",
+      "Sesamoid bone of right foot",
+      "Sesamoid bone of right foot FJ3376"
+    ],
+    "observation": "足背观察第一、第二跖骨基底间隙和第二跖骨内缘相对中间楔骨的阶差。"
+  },
+  {
+    "variantId": "v05",
+    "description": {
+      "site": "跗跖关节脱位",
+      "form": "",
+      "motion": "先看第一跖跗关节面断线，再确认其余四列保持对位。"
+    },
+    "cardReference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "cardScope": "教材部位要点",
+    "route": "#lisfranc-dislocation/v05/1",
+    "legacyRoute": "#lisfranc-dislocation/4/1",
+    "scope": "成人关节脱位",
+    "site": "跗跖关节脱位",
+    "pattern": "第1跖骨内脱位伴基底骨折",
+    "reference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "affected": [
+      "Right first metatarsal bone"
+    ],
+    "fixed": [
+      "Navicular bone of right foot",
+      "Right cuboid bone",
+      "Right medial cuneiform bone",
+      "Right intermediate cuneiform bone",
+      "Right lateral cuneiform bone",
+      "Right second metatarsal bone",
+      "Right third metatarsal bone",
+      "Right fourth metatarsal bone",
+      "Right fifth metatarsal bone",
+      "Proximal phalanx of right second toe",
+      "Middle phalanx of right second toe",
+      "Distal phalanx of right second toe",
+      "Proximal phalanx of right third toe",
+      "Middle phalanx of right third toe",
+      "Distal phalanx of right third toe",
+      "Proximal phalanx of right fourth toe",
+      "Middle phalanx of right fourth toe",
+      "Distal phalanx of right fourth toe",
+      "Proximal phalanx of right little toe",
+      "Middle phalanx of right little toe",
+      "Distal phalanx of right little toe"
+    ],
+    "observation": "先看第一跖跗关节面断线，再确认其余四列保持对位。"
+  },
+  {
+    "variantId": "v06",
+    "description": {
+      "site": "跗跖关节脱位",
+      "form": "",
+      "motion": "分离型例同时显示第1跖骨基底断线，检查两方向位移和留在近侧的骨片。"
+    },
+    "cardReference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "cardScope": "教材部位要点",
+    "route": "#lisfranc-dislocation/v06/1",
+    "legacyRoute": "#lisfranc-dislocation/5/1",
+    "scope": "成人关节脱位",
+    "site": "跗跖关节脱位",
+    "pattern": "分离型脱位",
+    "reference": "第七章 · 第四节 · 四｜图 7-26 · PDF 549–550 页",
+    "affected": [
+      "Right first metatarsal bone",
+      "Right second metatarsal bone",
+      "Right third metatarsal bone",
+      "Right fourth metatarsal bone",
+      "Right fifth metatarsal bone"
+    ],
+    "fixed": [
+      "Navicular bone of right foot",
+      "Right cuboid bone",
+      "Right medial cuneiform bone",
+      "Right intermediate cuneiform bone",
+      "Right lateral cuneiform bone"
+    ],
+    "observation": "分离型例同时显示第1跖骨基底断线，检查两方向位移和留在近侧的骨片。"
   },
   {
     "variantId": "v01",
@@ -6496,5 +8738,52 @@
       "Proximal phalanx of right big toe"
     ],
     "observation": "固定近节趾骨，从侧面看末节基底与滑车失去对合。"
+  },
+  {
+    "variantId": "v02",
+    "description": {
+      "site": "趾间关节脱位",
+      "form": "",
+      "motion": "足背位比较末节与近节的横向阶差，和侧位最清楚的背侧型互相鉴别。"
+    },
+    "cardReference": "第七章 · 第四节 · 五｜PDF 551–553 页",
+    "cardScope": "教材部位要点",
+    "route": "#toe-ip-dislocation/v02/1",
+    "legacyRoute": "#toe-ip-dislocation/1/1",
+    "scope": "成人关节脱位",
+    "site": "趾间关节脱位",
+    "pattern": "拇趾趾间侧方脱位",
+    "reference": "第七章 · 第四节 · 五｜PDF 551–553 页",
+    "affected": [
+      "Distal phalanx of right big toe"
+    ],
+    "fixed": [
+      "Proximal phalanx of right big toe"
+    ],
+    "observation": "足背位比较末节与近节的横向阶差，和侧位最清楚的背侧型互相鉴别。"
+  },
+  {
+    "variantId": "v01",
+    "description": {
+      "site": "小儿桡骨头半脱位",
+      "form": "",
+      "motion": "患儿拒用患肢，前臂旋前、肘半屈。此处以成人骨性底图及虚拟环状韧带示意儿童损伤。"
+    },
+    "cardReference": "第七章 · 第三节 · 三｜PDF 524 页 · 成人骨性底图儿童解剖示意",
+    "cardScope": "教材部位要点",
+    "route": "#pulled-elbow/v01/1",
+    "legacyRoute": "#pulled-elbow/0/1",
+    "scope": "教材儿童解剖示意",
+    "site": "小儿桡骨头半脱位",
+    "pattern": "小儿桡骨头半脱位",
+    "reference": "第七章 · 第三节 · 三｜PDF 524 页 · 成人骨性底图儿童解剖示意",
+    "affected": [
+      "Right radius",
+      "Right ulna"
+    ],
+    "fixed": [
+      "Right humerus"
+    ],
+    "observation": "患儿拒用患肢，前臂旋前、肘半屈。此处以成人骨性底图及虚拟环状韧带示意儿童损伤。"
   }
 ]

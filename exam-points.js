@@ -11,7 +11,7 @@ const namedSites=new Set([
  'scaphoid','metacarpal','finger','neck','trochanter','femur','distalfemur',
  'intercondylar','plateau','patella','tibia','ankle','talus','calcaneus',
  'spine','pelvis','shoulder-dislocation','hip-dislocation','elbow-dislocation',
- 'lunate-dislocation','knee-dislocation','patella-dislocation','lisfranc-dislocation'
+ 'lunate-dislocation','knee-dislocation','patella-dislocation','lisfranc-dislocation','physis-injury','pulled-elbow'
 ]);
 
 const wrist={
@@ -176,7 +176,7 @@ const differentiate={
  neck:{
   v01:[
    '头下部断线紧贴股骨头下缘（囊内骨折），最易撕断旋股内侧动脉发出的骺外动脉，骨折不愈合与股骨头缺血性坏死率最高。',
-   '内收型（Linton 角常>45°～70°）剪力大、血运破坏重；外展型（<30°）嵌插较稳定。',
+   '内收型 Linton 角在 45° 左右，超过 70° 时剪力和不稳定性更显著。外展型 Linton 角往往小于 30°，嵌插较稳定。',
    '远段受髂腰肌、外旋肌群及重力作用呈短缩、外旋（囊内常 45°～60°）及大转子上移；老年卧床须防股静脉深静脉血栓。'
   ],
   v02:[
@@ -529,17 +529,17 @@ export function examPoints(course,index,level=1){
  const note=lessonNote(course,index);if(!note)return null;
  const family=course.family||course.id;
  const identity=course.variants[index].id||canonicalCourse(course).variants.find(v=>v.name===course.variants[index].name).id;
- const specific=family==='radius'?wrist[identity]:differentiate[family]?.[identity];
+ const specific=course.variants[index].textbook?.points||(family==='radius'?wrist[identity]:differentiate[family]?.[identity]);
  const points=[...(specific||note.points)];
  if(!specific&&note.supplement&&points[1].startsWith('本例'))points.reverse();
- if(course.id==='tibia')points.push(tibialLevels[identity][level]);
+ if(course.id==='tibia'&&tibialLevels[identity])points.push(tibialLevels[identity][level]);
  const wedge=course.variants[index].cuts[0].wedge;
  if(wedge&&points.length<3){
   points.push(wedge==='anterior'?'典型前缘楔形压缩应核对后壁连续性；后壁受累是与爆裂骨折鉴别的重要线索。':
    '偏侧压缩时先比较同一椎体两侧终板间距，再检查后壁和椎体后方结构。');
  }
  const regionalMatch=/^region-(?:rib-|body-[ctl]\d)/.test(course.id);
- return {points:points.slice(0,3),extension:note.supplement||!(namedSites.has(family)||regionalMatch)};
+ return {points:points.slice(0,3),extension:note.supplement||!(specific&&course.variants[index].textbook||namedSites.has(family)||regionalMatch)};
 }
 
 let displayed;

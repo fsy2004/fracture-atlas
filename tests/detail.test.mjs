@@ -47,7 +47,7 @@ for(const side of ['Right','Left'])test(side+' native wrist preserves its intend
    name:spec.bone,shell:new T.Mesh(geo),edge:new T.LineSegments(outline),pivot:new T.Group(),anchor:a,moving:i===0
   }));
   const obs=makeObservation({course,variant:k,source:spec,geometry:g,anchor:a,parts,group:new T.Group(),context:[],joint:false});
-  assert.equal(obs.crosses,k>=2,v.name);
+  assert.equal(obs.crosses,k===2||k===3,v.name);
   if(k===0){
    const rim=wristLandmarks(g);
    for(const point of [rim.dorsal,rim.volar])assert.ok(point.clone().sub(a).dot(new T.Vector3(...spec.normal))<0);
@@ -91,7 +91,7 @@ for(const side of ['Right','Left'])test(side+' calcaneal fracture labels agree w
   return side==='Left'?inReflectedFrame(g):g;
  };
  const c=courses.find(c=>c.id==='calcaneus'),g=lookup('Right calcaneus');
- for(const [i,v] of c.variants.entries()){
+ for(const [i,v] of c.variants.filter(v=>!v.textbook).entries()){
   const s=v.cuts[0],a=s.nativePoint?nativeAnchor(g,s.nativePoint):new T.Vector3(...atLevel(g,s.axis,s.level));
   const parts=section(g,s.normal,a.toArray()).map(({geo,outline},j)=>({
    name:s.bone,shell:new T.Mesh(geo),edge:new T.LineSegments(outline),pivot:new T.Group(),anchor:a,moving:j===0

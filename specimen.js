@@ -101,10 +101,21 @@ export function specimenLibrary(read){
   has:name=>!!resolve(name),isAddition:name=>resolve(name)?.base==='models/extended/',context:localContext,
   region:name=>{const r=regions[(name||'').toLowerCase().replace(/^(left|right) /,'')];return r&&entries.has(r[0])?r:null;},
   fromKey:key=>native.get(key),
+  registrationKeys:(names,group)=>names.flatMap(name=>{
+   const entry=named.get(name)?.find(item=>item.group===group&&item.role!=='context');
+   return entry?[[name,entry.key]]:[];
+  }),
   required(selected,c,v){
    if(!selected)return [];
    if(!v){const e=resolve(selected);return e?.role==='estimate'?[e.key,'halle-male-palate|Posterior hard palate region']:e?[e.key]:[];}
    const side=n=>/left/i.test(selected)?opposite(n):n;
+   if(v.textbook){
+    if(v.thoracicShoulder)return [];
+    const names=new Set([...v.cuts.map(s=>s.bone),...(v.fixed||[]),...localContext(c,v),...(v.jointFollowers||[]),
+     ...(v.jointGroups||[]).flatMap(g=>[...(g.bones||[]),...(g.followers||[])])]);
+    if(c.id==='ankle')for(const name of ['Right tibia','Right fibula'])names.add(name);
+    return together([...names].map(side));
+   }
    if((c.id==='hip-dislocation'||c.id==='trochanter')&&v===c.variants[1])return together(['Right femur','Right hip bone'].map(side));
    if(c.id==='trochanter')return together(['Right femur'].map(side));
    if(c.id==='elbow')return together(['Right humerus'].map(side));
@@ -133,8 +144,9 @@ export function specimenLibrary(read){
    return e?[e.base+e.file,...(e.face_confidence?[e.base+e.face_confidence]:[])]:[];
   }),
   load:keys=>Promise.all(keys.map(load)),ready:keys=>keys.every(k=>native.has(k)),
-  trim(keys,course){
-   elbowView=course?.id==='elbow-dislocation';shoulderView=course?.id==='shoulder-dislocation';
+  trim(keys,course,variant){
+   elbowView=course?.id==='elbow-dislocation'||Boolean(variant?.elbowFrame);
+   shoulderView=course?.id==='shoulder-dislocation'&&!variant?.thoracicShoulder;
    active.clear();
    for(const k of keys)if(native.has(k)){
     active.set(entries.get(k).name,k);const g=native.get(k);native.delete(k);native.set(k,g);

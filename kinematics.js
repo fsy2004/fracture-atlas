@@ -7,12 +7,37 @@ const limit=(n,min,max)=>Math.max(min,Math.min(max,n));
 const eased=(t,a,b)=>{const x=limit((t-a)/(b-a),0,1);return x*x*(3-2*x);};
 const names={shorten:'轴向缩短',separate:'轴向分离',side:'侧方移位',angle:'成角',rotate:'轴向旋转'};
 
+function enforceSeparation(item,translation,p){
+ if(!item.separation||p===0||translation.lengthSq()<1e-14&&Math.abs(item.pivot.quaternion.w)>.99999999)return;
+ for(const bound of item.separation){
+  const {out,origin,inv,direction,arrays}=bound;
+  const q=item.pivot.quaternion,a=item.anchor;
+  direction.copy(out).applyQuaternion(inv.copy(q).invert());
+  let minimum=Infinity;
+  for(const values of arrays)for(let i=0;i<values.length;i+=3)
+   minimum=Math.min(minimum,direction.x*values[i]+direction.y*values[i+1]+direction.z*values[i+2]);
+  bound.offset=minimum-direction.dot(a)+out.dot(a)-out.dot(origin);
+ }
+ for(let i=0;i<(item.separation.length>1?3:1);i++)for(const {out,offset} of item.separation){
+  const gap=offset+out.dot(translation);
+  if(gap<-.000015)translation.addScaledVector(out,.00008-gap);
+ }
+}
+
 function rotation(turn){
  const q=new T.Quaternion().setFromEuler(new T.Euler(turn.x,turn.y,turn.z));
  if(q.w<0)q.set(-q.x,-q.y,-q.z,-q.w);
  const angle=2*Math.acos(limit(q.w,-1,1));
  const axis=new T.Vector3(q.x,q.y,q.z);
  return {angle:angle/rad,axis:axis.lengthSq()>1e-14?axis.normalize():new T.Vector3(0,1,0)};
+}
+
+export function directedRotation(axis,degrees,progress,target=new T.Quaternion()){
+ return target.setFromAxisAngle(axis,degrees*rad*progress);
+}
+
+export function breathingDisplacement(progress){
+ return Math.sin(2*Math.PI*eased(progress,.30,1))*(progress<.65?1:.5);
 }
 
 // Derive the local longitudinal axis from two cross-sectional centres supplied by the mesh.
@@ -32,7 +57,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
  const primary=items[0],jointOrientation=new T.Quaternion(),endDir=new T.Vector3();
  let maxTravel=0,maxSpin=0;
  for(const i of items){
-  i.baseRotation=rotation(i.turn);if(i.spinAxis)i.baseRotation.axis.copy(i.spinAxis);
+  i.baseRotation=i.directed?{axis:new T.Vector3(...i.directed.axis).normalize(),angle:i.directed.degrees}:rotation(i.turn);if(i.spinAxis)i.baseRotation.axis.copy(i.spinAxis);
   if(i.waypoints){
    const stops=[new T.Vector3(),...i.waypoints.map(a=>new T.Vector3(...a).multiplyScalar(mm)),i.shift];
    i.stops=stops;i.path=new T.CurvePath();
@@ -68,9 +93,9 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   row.append(title,read,input);host.append(row);controls.push(c);
  }
  const ball=joint&&items.some(i=>i.jointAxis);
- const internal=clinical.id==='hip-dislocation'?clinical.variant===0:clinical.variant===1;
+ const internal=primary?.axialSign===1||primary?.axialSign==null&&(clinical.id==='hip-dislocation'?clinical.variant===0:clinical.variant===1);
  if(ball)field('jointTwist',internal?'伴随内旋':'伴随外旋','°',primary.axial||0,35,1);
- if(joint){
+ if(joint&&!clinical.lockTrajectory){
   field('bearing','移出方向 · 水平偏角','°',0,20,1,-20);
   field('elevation','移出方向 · 仰俯偏角','°',0,15,1,-15);
  }
@@ -92,8 +117,8 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    field(key,tagged[0].tuned==='wrist'&&!guidedWrist?'附加缩短':names[key],angular?'°':'mm',Math.round(defaults[key]*10)/10,angular?angleLimit:Math.min(60,Math.max(8,width*1.6)),angular?1:.5);
   }
  }else{
-  if(maxTravel>.02)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',targets.travel,Math.max(maxTravel*1.9,targets.travel*1.65),.5);
-  if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',targets.spin,Math.min(180,Math.max(maxSpin*1.85,targets.spin*1.5)),1);
+  if(maxTravel>.02&&!clinical.lockTrajectory)field('travel',joint?'关节平移距离':'最大骨块平移距离','mm',targets.travel,Math.max(maxTravel*1.9,targets.travel*1.65),.5);
+  if(!wrist&&maxSpin>.02)field('spin','最大骨块转角','°',targets.spin,Math.min(items.some(i=>i.directed)?270:180,Math.max(maxSpin*1.85,targets.spin*1.5)),1);
  }
  let maxDepth=0;
  function blendedDepth(blend){
@@ -149,6 +174,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
   const telescope=contactStage&&val('shorten')>0?eased(p,.73,1):lengthT;
   for(const i of items){
    const {pivot,anchor,shift,baseRotation:r}=i;
+   let posturePhase=null;
    if(i.tuned==='shaft'&&frame){
     // First clear the cortex laterally, then bring the distal end proximally.
     const clearance=val('shorten')>0?width*clearWidths:0;
@@ -178,16 +204,26 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     pivot.quaternion.copy(qa).multiply(qb);
    }else{
     const scale=maxTravel>0?val('travel',maxTravel)/maxTravel:1;
-    translation.copy(shift).multiplyScalar(scale*(i.timing?eased(p,...i.timing):shiftT));
+    const cycle=i.cycle?eased(p,.12,.61)*(1-eased(p,.61,1)):null;
+    const movement=cycle??(i.timing?eased(p,...i.timing):shiftT);
+    translation.copy(shift).multiplyScalar(scale*movement);
     if(i.tractionTiming==='distal'){
      translation.x=shift.x*scale*eased(p,.16,.56);
      translation.z=shift.z*scale*eased(p,.16,.56);
      translation.y=shift.y*scale*eased(p,.65,1)-.0035*scale*(eased(p,.10,.28)-eased(p,.65,1));
     }
-    if(i.sharedClock&&i.stops){
+    if(i.knots&&i.stops){
+     let k=i.knots.findIndex(time=>p<=time)-1;
+     if(k<0)k=p<=i.knots[0]?0:i.stops.length-2;
+     const u=eased(p,i.knots[k],i.knots[k+1]);
+     translation.lerpVectors(i.stops[k],i.stops[k+1],u).multiplyScalar(scale);
+     if(i.postureAfter!=null)posturePhase=Math.max(0,(k-i.postureAfter+u)/(i.stops.length-1-i.postureAfter));
+    }else if(i.sharedClock&&i.stops){
      const u=p*(i.stops.length-1),k=Math.min(Math.floor(u),i.stops.length-2);
      translation.lerpVectors(i.stops[k],i.stops[k+1],u-k).multiplyScalar(scale);
-    }else if(i.path)translation.copy(i.path.getPoint(shiftT)).multiplyScalar(scale);
+    }else if(i.path)translation.copy(i.path.getPoint(movement)).multiplyScalar(scale);
+    if(i.breathing)translation.copy(shift).multiplyScalar(breathingDisplacement(p));
+    if(i.translateFrom)translation.copy(i.translateFrom());
     if(joint&&!i.adjunct&&shift.lengthSq()>0&&(val('bearing')||val('elevation'))){
      const yaw=Math.atan2(shift.x,shift.z)+(clinical.mirror?-1:1)*val('bearing')*rad;
      const pitch=Math.asin(limit(shift.y/shift.length(),-1,1))+val('elevation')*rad;
@@ -205,11 +241,12 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     }
     const degrees=wrist&&r.angle>0?(val('tilt')+clinical.palmar)*r.angle/15:
      r.angle*(maxSpin>0?val('spin',maxSpin)/maxSpin:1);
-    pivot.quaternion.setFromAxisAngle(r.axis,degrees*rad*(i.tractionTiming==='proximal'?eased(p,.22,.66):angleT));
+    const turnPhase=cycle??(i.rotationTiming?eased(p,...i.rotationTiming):i.tractionTiming==='proximal'?eased(p,.22,.66):angleT);
+    directedRotation(r.axis,degrees,turnPhase,pivot.quaternion);
    }
    if(i.jointAxis){
-    const phase=eased(p,.10,.78);
-    pivot.quaternion.setFromAxisAngle(i.jointAxis,(internal?1:-1)*val('jointTwist')*rad*jointT);
+    const phase=posturePhase??eased(p,.10,.78);i.posturePhase=phase;
+    pivot.quaternion.setFromAxisAngle(i.jointAxis,(internal?1:-1)*val('jointTwist')*rad*(posturePhase??jointT));
     if(i.posture){
      const [flex,,abd]=i.posture;
      qa.setFromEuler(new T.Euler(flex*rad*phase,0,abd*rad*phase,'ZXY'));
@@ -224,6 +261,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     const scale=maxTravel?val('travel',maxTravel)/maxTravel:0;
     translation.addScaledVector(i.clearancePulse,scale*(eased(p,.1,.3)-eased(p,.62,.96)));
    }
+   enforceSeparation(i,translation,p);
    pivot.position.copy(anchor).add(translation);
    if(i.ghost)i.ghost.visible=document.getElementById('ghost').checked&&p>.29&&
     (translation.lengthSq()>1e-9||pivot.quaternion.angleTo(identity)>.01);
@@ -243,6 +281,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
     const axial=tagged[0].pivot.position.clone().sub(tagged[0].anchor).dot(frame.axis)/mm;
     return {label:axial>=0?'轴向缩短':'轴向分离',num:format(Math.abs(axial)),unit:'mm'};
    }
+  if(c.key==='spin'&&items.some(i=>i.directed))return {label:'累计转角',num:format(c.value*stagedTurn),unit:'°'};
   if(c.key==='travel'&&joint)return {label:'平移',num:format(primary.pivot.position.distanceTo(primary.anchor)/mm),unit:'mm'};
   if(c.key==='tilt'){
     const dorsal=(c.value+clinical.palmar)*angleT-clinical.palmar;
@@ -253,7 +292,7 @@ export function buildKinematics(items,wedges,flags,frame,width,joint,values,onEd
    return {label:tagged[0]?.tuned==='wrist'&&c.key==='shorten'?'附加缩短':({travel:'平移',bearing:'水平偏角',elevation:'仰俯偏角',spin:'转角',jointTwist:internal?'内旋':'外旋',crush:'局部压低',breadth:'分布拓宽',footRoll:clinical.ankleSign>0?'内翻':'外翻'}[c.key]||names[c.key]),num:format(c.value*t),unit:c.unit};
   });
   if(primary?.posture){
-   const u=eased(p,.10,.78),[flex,,side]=primary.posture;
+   const u=primary.posturePhase??eased(p,.10,.78),[flex,,side]=primary.posture;
    if(flex)readouts.push({label:flex<0?'屈曲':'后伸',num:format(Math.abs(flex)*u),unit:'°'});
    if(side)readouts.push({label:side<0?'外展':'内收',num:format(Math.abs(side)*u),unit:'°'});
   }

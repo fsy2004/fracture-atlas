@@ -90,7 +90,23 @@ export function sampleTissuePoints(mesh, maxCount = 54) {
 }
 
 // Pure biomechanical severity scoring function (exported for unit testing!)
-export function scoreTissueInjury({ layer, sublayer, restClearanceMm, liveClearanceMm, approachMm, strainPct, isSharpRim }) {
+const REFERENCE_KINDS = {
+ 'central-reference': '中枢神经参照',
+ 'meningeal-reference': '硬膜参照',
+ 'ganglion-group': '神经节组',
+ 'nerve-group': '神经集合网格',
+ 'cranial-nerve': '脑神经',
+ 'venous-sinus': '硬膜静脉回流通道'
+};
+
+export function scoreTissueInjury({ layer, sublayer, structureKind, registrationErrorMm = 0, restClearanceMm, liveClearanceMm, approachMm, strainPct, isSharpRim }) {
+ const reference = REFERENCE_KINDS[structureKind];
+ if (reference || registrationErrorMm > 0 && approachMm <= registrationErrorMm) {
+  const measurable = Number.isFinite(liveClearanceMm) && approachMm > registrationErrorMm;
+  return {grade: 0, severity: 0, kind: 'reference', dominatedByImpinge: false,
+   summary: !measurable && registrationErrorMm > 0 ? '距离变化处于配准误差范围' :
+    (reference || '软组织') + ' · 对照几何邻近与病例风险说明'};
+ }
  const absStrain = Math.max(0, strainPct); // positive = passive elongation/tension; negative = shortening/contraction
  const shortenPct = Math.max(0, -strainPct);
 
@@ -265,6 +281,8 @@ export function createDamageSolver(actors, boneGroup, entry) {
    const scored = scoreTissueInjury({
     layer: item.layer,
     sublayer: item.sublayer,
+    structureKind: item.info?.kind,
+    registrationErrorMm: entry.registrationErrorMm,
     restClearanceMm: target.restMinMm,
     liveClearanceMm: bestClearanceMm,
     approachMm: bestApproachMm,
