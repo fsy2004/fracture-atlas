@@ -423,7 +423,8 @@ export function linkSoftTissues(entry, registration, boneGroup, actors, wedges, 
     };
     muscleTrackers.push(tracker);
 
-    if (item.role?.role === 'deforming' && !arrows.some(a => a.label === item.role.label)) {
+    if (item.observedAttachments && item.restOrigin && item.restInsertion && item.role?.role === 'deforming' &&
+        !arrows.some(a => a.label === item.role.label)) {
      const pullFrom = iDriver >= 0 ? insertionWorld : originWorld;
      const pullTo = iDriver >= 0 ? originWorld : insertionWorld;
      const dir = pullTo.clone().sub(pullFrom).normalize();
@@ -482,6 +483,7 @@ export function linkSoftTissues(entry, registration, boneGroup, actors, wedges, 
 
  return {
   telemetry,
+  hasArrows: arrows.length > 0,
   setArrowsVisible(flag) {
    arrowGroup.visible = Boolean(flag);
   },

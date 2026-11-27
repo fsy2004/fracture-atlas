@@ -232,7 +232,7 @@ export function sesamoidComponent(source, side, component) {
 }
 
 let catalogue, manager;
-function readCatalogue() {
+export function readCatalogue() {
  return catalogue ??= fetch(base + 'manifest.json?v=whole-body1').then(r => {
   if (!r.ok) throw Error('软组织目录不可用');
   return r.json();
@@ -491,6 +491,8 @@ export function prepareSoftTissues() {
       new T.Plane(new T.Vector3(0, -1, 0), local.max.y)
      ] : [],
      enabled: true,
+     observedAttachments: ['origin', 'insertion'].every(end => record.attachmentEvidence?.[end]?.some(evidence =>
+      evidence.status === 'manually-reviewed' || evidence.status === 'observed' && !evidence.sideConflict)),
      restOrigin: mesh.userData.origin ? mesh.userData.origin.clone() : null,
      restInsertion: mesh.userData.insertion ? mesh.userData.insertion.clone() : null,
      zone: record.region
