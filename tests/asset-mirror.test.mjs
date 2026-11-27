@@ -100,12 +100,12 @@ test('a same-length corrupt cache entry is rejected and replaced by verified con
  assert.equal(good.length,bad.length);
  const beforeLocation=Object.getOwnPropertyDescriptor(globalThis,'location');
  const beforeCaches=Object.getOwnPropertyDescriptor(globalThis,'caches');
- let stored=bad,requests=0,deleted=false;
+ let stored=bad,requests=0,deleted=false,putDone=Promise.resolve();
  Object.defineProperty(globalThis,'location',{configurable:true,value:{protocol:'https:'}});
  Object.defineProperty(globalThis,'caches',{configurable:true,value:{open:async()=>({
   match:async()=>stored?new Response(stored):null,
   delete:async()=>{stored=null;deleted=true;return true;},
-  put:async(_key,response)=>{stored=await response.text();}
+  put:(_key,response)=>(putDone=response.text().then(text=>{stored=text;}))
  })}});
  try{
   const module=await import('../asset-mirror.js?cache-integrity-test');
@@ -116,6 +116,7 @@ test('a same-length corrupt cache entry is rejected and replaced by verified con
   });
   assert.equal(new TextDecoder().decode(await load()),good);
   assert.equal(deleted,true);
+  await putDone;
   assert.equal(new TextDecoder().decode(await load()),good);
   assert.equal(requests,1);
  }finally{
